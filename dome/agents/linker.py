@@ -198,13 +198,20 @@ _EMBEDDER: Any = None
 
 def embed(texts: list[str]):
     """Sentence embeddings (all-MiniLM-L6-v2), unit length. Returns (matrix, backend name).
-    Falls back to character n-gram vectors if sentence-transformers is not installed."""
+    Falls back to character n-gram vectors if sentence-transformers is not installed
+    or the model can't be downloaded (offline, blocked network)."""
     import numpy as np
     global _EMBEDDER
     try:
+        if _EMBEDDER == "unavailable":
+            raise ImportError("embedding model unavailable")
         if _EMBEDDER is None:
             from sentence_transformers import SentenceTransformer
-            _EMBEDDER = SentenceTransformer(config.EMBED_MODEL)
+            try:
+                _EMBEDDER = SentenceTransformer(config.EMBED_MODEL)
+            except Exception as e:   # no network / no cached model: degrade, don't crash
+                _EMBEDDER = "unavailable"
+                raise ImportError(str(e)) from e
         return np.asarray(_EMBEDDER.encode(texts, normalize_embeddings=True,
                                            show_progress_bar=False)), config.EMBED_MODEL
     except ImportError:
