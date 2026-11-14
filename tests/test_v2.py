@@ -144,3 +144,22 @@ def test_lister_hint_boost_ranks_true_building(tmp_path):
     assert "CS-88412" in ids
     true = next(c for c in zone.candidates if c.property_id == "CS-88412")
     assert any("hint" in r for r in true.fit_reasons)
+
+
+# ---------------------------------------------------------------- topological scorer (optional)
+def test_topological_scorer_is_optional_and_scores_ring_a(monkeypatch):
+    from dome.agents import topo
+    ds = linker.load_dataset("synth")
+    monkeypatch.setattr(config, "TOPO_SCORE", False)
+    off = linker.link_accounts(ds).rings_file
+    assert all(r["topo_score"] is None for r in off["rings"])
+    if not (topo.available() and topo.MODEL_PATH.exists()):
+        pytest.skip("topological model not installed")
+    monkeypatch.setattr(config, "TOPO_SCORE", True)
+    on = linker.link_accounts(ds).rings_file
+    # the rules are untouched: same rings, same confidence
+    assert [(r["members"], r["confidence"]) for r in on["rings"]] == \
+           [(r["members"], r["confidence"]) for r in off["rings"]]
+    key = json.loads((SYNTH_KEY / "answer_key.json").read_text(encoding="utf-8"))
+    ring_a = max(on["rings"], key=lambda r: len(set(key["A"]["members"]) & set(r["members"])))
+    assert ring_a["topo_score"] >= 0.9

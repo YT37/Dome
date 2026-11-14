@@ -96,6 +96,35 @@ stay unlinked.
 Network-only with public data alone drops to recall 0.38: the messages and payments are what
 make the connectivity layer strong, and the content layer is what keeps it honest.
 
+### Topological ring scorer (Arlequin)
+
+`dome/agents/topo.py` turns the Linker's evidence into a combinatorial complex: accounts are
+points, every sticky note shared by 2+ accounts is one cell holding all of them (a phone, a
+wallet, a DM thread, a heartbeat pair), and every echo event is a higher-order cell joining the
+accounts of an ad, a message, a payment and a ride. A UniGCN hypergraph network (TopoModelX)
+passes messages account → cell → account and outputs P(in a ring) per account. Each ring gets
+`topo_score` (mean over members) as a second opinion next to the rule-based `confidence`; the
+rules still make every link and write every reason.
+
+```bash
+pip install -r requirements-topo.txt            # optional; without it topo_score is null
+python -m dome.agents.topo --train              # ~10 s on CPU, saves dome/models/topo_unigcn.pt
+python -m dome.eval --data synth --three-way    # adds the four-way table
+```
+
+Trained only on `mini` Rings A and B (plus 70% of its other accounts). Honest results:
+
+| Test (never seen in training) | Precision | Recall | AUC |
+|---|---|---|---|
+| mini Ring C + 30% held-out accounts | 1.00 | 0.33 (2 of 6 above 0.5) | 1.00 |
+| synth, whole dataset (account level) | 1.00 | 1.00 | 0.90 |
+
+On synth the rule layers find 0.80 (content), 0.80 (network) and 0.93 (both) of ring accounts
+at the account level; the topological model also catches the third recruiter. On mini Ring C,
+whose evidence looks different from A and B (no shared phone or script), every Ring C account
+still ranks above every non-ring account (AUC 1.00), but only 2 of 6 clear 0.5: with this little
+training data the model learns the shape of the rings it saw. `DOME_TOPO=0` turns it off.
+
 ## Connect to LangChain
 
 **LangSmith tracing.** Set these in `.env` and every supervisor step and tool call is traced

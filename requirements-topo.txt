@@ -1,0 +1,3 @@
+# Optional: topological ring scorer (dome/agents/topo.py)
+toponetx==0.4.0
+topomodelx==0.0.1
