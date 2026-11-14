@@ -205,7 +205,9 @@ class Factors(_Model):
 class Lead(_Model):
     rank: int = Field(ge=1)
     property_id: str
-    address: str
+    # What the UI and summary show, e.g. "Building A (synthetic case)". Never a street address.
+    display_name: str = Field(min_length=1)
+    address: str                        # internal only (from CoStar); never rendered
     zone_id: str
     tier: Tier
     score: int = Field(ge=0, le=100)

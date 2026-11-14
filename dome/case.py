@@ -74,6 +74,14 @@ class Case:
         self.path(name).write_text(obj.model_dump_json(indent=2), encoding="utf-8")
         return obj
 
+    def dataset_dir(self) -> Optional[Path]:
+        """Folder of input.dataset ("synth", "mini" or a path), or None for stub runs.
+        Agents read accounts/posts/interactions from here; never data/answer_key/."""
+        if not self.input.dataset:
+            return None
+        from .agents.linker import resolve_dataset   # local import: linker imports Case
+        return resolve_dataset(self.input.dataset)
+
     def selected_ring(self) -> Optional[Ring]:
         """The ring this case investigates: input.ring_id, else the highest confidence."""
         rings = self.load("rings.json")

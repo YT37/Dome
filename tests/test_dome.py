@@ -235,6 +235,33 @@ def _registered_tools(graph) -> set:
     return names
 
 
+@pytest.mark.parametrize("R,P,W,tier,capped", [
+    (0.91, 0.78, 0.67, "High", False),
+    (0.91, 0.78, None, "Medium", True),     # no window check
+    (0.91, 0.78, 0.45, "Medium", True),     # window check ran but is weak (team rule)
+    (0.50, 0.78, 0.67, "Medium", True),     # ring confidence between 0.4 and 0.6 (team rule)
+    (0.91, 0.50, 0.70, "Medium", False),    # middling room match, strong window
+    (0.91, 0.50, 0.40, "Low", False),
+    (0.91, 0.30, 0.90, "Low", False),       # no photo match never beats Low
+])
+def test_tier_rules(R, P, W, tier, capped):
+    from dome.agents.briefer import caps_for, tier_for
+    assert tier_for(R, P, W) == tier
+    assert bool(caps_for(R, P, W)) == capped
+
+
+def test_summary_shows_display_name_never_address(tmp_path):
+    case = scripted(tmp_path, "ring_a")
+    lead = case.load("brief.json").leads[0]
+    page = case.path("summary.html").read_text(encoding="utf-8")
+    assert lead.display_name in page and lead.address not in page
+    assert "4 accounts, R 0.91" in page                       # ring card from the case
+    sup = Supervisor(case, actor="llm", llm_text=True)
+    r = sup.write_brief_text(f"Top lead is {lead.address}.", [
+        {"property_id": lead.property_id, "reasons": ["P 0.78"], "verify_next": ["check it"]}])
+    assert r["refused"] and "address" in r["reason"]
+
+
 def test_graph_is_a_langgraph_graph(tmp_path):
     case = Case.open("graph", scenario="ring_a", root=tmp_path, reset=True)
     model, _ = _planner_model(case)

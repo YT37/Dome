@@ -360,10 +360,14 @@ class Supervisor:
                     problems.append(f"{l.property_id}: numbers not in this lead's factors: {bad}")
                 if _PHONE.search(line):
                     problems.append(f"{l.property_id}: no phone numbers in the brief")
+                if l.address and l.address.lower() in line.lower():
+                    problems.append(f"{l.property_id}: no street address; use its display_name")
         if bad := bad_numbers(summary, all_factors):
             problems.append(f"summary: numbers not in the brief: {bad}")
         if _PHONE.search(summary):
             problems.append("summary: no phone numbers in the brief")
+        if any(l.address and l.address.lower() in summary.lower() for l in brief.leads):
+            problems.append("summary: no street address; refer to buildings by display_name")
         if problems:
             return self._refuse("brief_text", "; ".join(problems))
 
@@ -377,7 +381,7 @@ class Supervisor:
         c.log(actor=self.actor, event="tool_call", step="brief_text", input_hash=h,
               message="supervisor writes the brief's words")
         obj = c.save("brief.json", data)
-        c.path("summary.html").write_text(briefer.render_html(obj.model_dump()), encoding="utf-8")
+        c.path("summary.html").write_text(briefer.render_html(obj.model_dump(), c), encoding="utf-8")
         c.log(actor="agent", event="tool_result", step="brief_text", input_hash=h,
               output_file="brief.json", message="brief reasons and summary written; numbers unchanged")
         return self._result(True, "brief_text", leads=len(texts))
@@ -489,8 +493,9 @@ def build_tools(sup: Supervisor) -> list:
         `leads`: one entry per lead in brief.json: property_id, `reasons` (one short line per
         factor, citing its value, e.g. "P 0.78: 2 room photos match the unit scan") and
         `verify_next` (what a human should check to confirm or rule it out).
-        Use only numbers already in brief.json; any other number is refused. Never change a
-        tier or score, never name a person, never include a phone number."""
+        Use only numbers already in brief.json; any other number is refused. Refer to
+        buildings by display_name, never a street address. Never change a tier or score,
+        never name a person, never include a phone number."""
         return js(sup.write_brief_text(summary, leads))
 
     @tool
@@ -574,8 +579,10 @@ def run_llm(case: Case, model: Any = None) -> Supervisor:
                            f"Investigate case '{case.case_id}'. Run the pipeline to the brief."}]},
             {"recursion_limit": 150})
     except Exception as exc:   # model/API failure: the case still finishes, and it is logged
+        err = f"{type(exc).__name__}: {exc}"
+        quota = re.search(r"quotaId'?:\s*'([^']+)'", err)   # e.g. per-minute vs per-day limit
         case.log(actor="guard", event="decision", decision="llm_error_finish_with_scripted_planner",
-                 evidence={"error": f"{type(exc).__name__}: {exc}"[:400]},
+                 evidence={"error": err[:300], "quota": quota.group(1) if quota else None},
                  message="The model call failed; the rule-based planner finishes the run.")
     sup = Supervisor(case, actor="scripted")
     if sup.next_action() is not None:
