@@ -15,8 +15,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from typing import Any, Callable, Optional
+
+from pydantic import BaseModel
 
 from . import config
 from .agents import briefer, linker, lister, locator, zoner
@@ -25,12 +28,25 @@ from .case import Case
 MAX_STEPS = 40
 
 
+_DECIMAL = re.compile(r"(?<![\d.])(?:\d+\.\d+|\.\d+)(?!\d)(?!\.\d)")
+_PHONE = re.compile(r"(?:\d[\s\-.()]{0,3}){6,10}\d")
+
+
+class LeadText(BaseModel):
+    """The words the supervisor writes for one lead. No numbers of its own."""
+    property_id: str
+    reasons: list[str]
+    verify_next: list[str]
+
+
 class Supervisor:
     """Deterministic core: status facts, the next required step, guarded run_* steps."""
 
-    def __init__(self, case: Case, actor: str = "supervisor"):
+    def __init__(self, case: Case, actor: str = "supervisor", llm_text: bool = False):
         self.case = case
         self.actor = actor   # who is driving: "llm" or "scripted"
+        # True when an LLM drives: after the Briefer's numbers, it writes the brief's words
+        self.llm_text = llm_text
 
     # ------------------------------------------------------------------ facts
     def status(self) -> dict:
@@ -81,6 +97,10 @@ class Supervisor:
             return {"tool": tool, "args": args, "why": why}
 
         if c.check("brief.json") == "valid":
+            if (self.llm_text and c.load("brief.json").text_source == "template"
+                    and "brief_text" not in failed):
+                return act("write_brief_text", "the brief has its numbers; write its reasons, "
+                           "next checks and summary in plain language")
             return None
         if "briefer" in failed:
             return None
@@ -276,8 +296,8 @@ class Supervisor:
 
     def run_briefer(self, stop_reason: Optional[str] = None) -> dict:
         c, nxt = self.case, self.next_action()
-        if nxt is None:
-            return self._refuse("briefer", "brief.json is already written; the case is done")
+        if c.check("brief.json") == "valid":
+            return self._refuse("briefer", "brief.json is already written")
         if nxt["tool"] != "run_briefer":
             return self._refuse("briefer", "not ready for the brief yet: " + nxt["why"])
         stop_reason = nxt["args"].get("stop_reason")   # the data decides, not the caller
@@ -288,6 +308,79 @@ class Supervisor:
         return self._result(ok, "briefer", status=b and b.status,
                             leads=[{"rank": l.rank, "property_id": l.property_id, "tier": l.tier,
                                     "score": l.score} for l in b.leads] if b else [])
+
+    def write_brief_text(self, summary: str, leads: list) -> dict:
+        """The LLM's words go into brief.json; every number stays the Briefer's.
+
+        Guards: the brief must exist; every lead gets reasons and next checks; no unknown
+        property ids; any decimal in the text must be one of that lead's factors (or a
+        threshold); no phone numbers (data minimisation). Tier, score, caps and footer are
+        never touched.
+        """
+        c = self.case
+        brief = c.load("brief.json")
+        if brief is None:
+            return self._refuse("brief_text", "no brief yet; run the Briefer first")
+        texts = [LeadText.model_validate(x.model_dump() if isinstance(x, BaseModel) else x)
+                 for x in leads]
+        by_id = {t.property_id: t for t in texts}
+        known = {l.property_id for l in brief.leads}
+        problems = []
+        if set(by_id) - known:
+            problems.append(f"unknown property ids: {sorted(set(by_id) - known)}")
+        if known - set(by_id):
+            problems.append(f"every lead needs text; missing: {sorted(known - set(by_id))}")
+        if not summary.strip():
+            problems.append("summary is empty")
+
+        thresholds = {config.MATCH_THRESHOLD, config.TIER_STRONG, config.RING_MIN_CONFIDENCE}
+        all_factors = set(thresholds)
+        for l in brief.leads:
+            all_factors |= {v for v in l.factors.model_dump().values() if v is not None}
+        ring = c.selected_ring()
+        if ring:
+            all_factors.add(ring.confidence)
+        zones = c.load("zones.json")
+        if zones:
+            all_factors |= {z.confidence for z in zones.zones} | {z.area_km2 for z in zones.zones}
+
+        def bad_numbers(text: str, allowed: set) -> list[str]:
+            ok = {round(v, 2) for v in allowed}
+            return [m for m in _DECIMAL.findall(text) if round(float(m), 2) not in ok]
+
+        for l in brief.leads:
+            t = by_id.get(l.property_id)
+            if t is None:
+                continue
+            if not t.reasons or not t.verify_next:
+                problems.append(f"{l.property_id}: needs at least one reason and one next check")
+            allowed = {v for v in l.factors.model_dump().values() if v is not None} | thresholds
+            for line in t.reasons + t.verify_next:
+                if bad := bad_numbers(line, allowed):
+                    problems.append(f"{l.property_id}: numbers not in this lead's factors: {bad}")
+                if _PHONE.search(line):
+                    problems.append(f"{l.property_id}: no phone numbers in the brief")
+        if bad := bad_numbers(summary, all_factors):
+            problems.append(f"summary: numbers not in the brief: {bad}")
+        if _PHONE.search(summary):
+            problems.append("summary: no phone numbers in the brief")
+        if problems:
+            return self._refuse("brief_text", "; ".join(problems))
+
+        data = brief.model_dump()
+        for l in data["leads"]:
+            t = by_id[l["property_id"]]
+            l["reasons"] = [r.strip() for r in t.reasons]
+            l["verify_next"] = [v.strip() for v in t.verify_next]
+        data.update(summary=summary.strip(), text_source="llm", footer=config.FOOTER)
+        h = c.hash_inputs(["brief.json"], {"summary": summary})
+        c.log(actor=self.actor, event="tool_call", step="brief_text", input_hash=h,
+              message="supervisor writes the brief's words")
+        obj = c.save("brief.json", data)
+        c.path("summary.html").write_text(briefer.render_html(obj.model_dump()), encoding="utf-8")
+        c.log(actor="agent", event="tool_result", step="brief_text", input_hash=h,
+              output_file="brief.json", message="brief reasons and summary written; numbers unchanged")
+        return self._result(True, "brief_text", leads=len(texts))
 
     def dispatch(self, action: dict) -> dict:
         return getattr(self, action["tool"])(**action["args"])
@@ -321,7 +414,11 @@ How to work
    decision, the evidence (numbers from case_status or the last tool result) and a one
    sentence plain-language reason.
 3. Run the step. Read its JSON result. Repeat until `done` is true.
-4. Finish with a short summary: status, each lead's tier and score, and the decisions taken.
+4. You are also the Briefer's voice. run_briefer computes every tier, score and cap. Then
+   read brief.json and call write_brief_text with the plain-language reasons, next checks
+   and a case summary. Cite only numbers that are in brief.json; if the tool refuses your
+   text, fix exactly what it names and call it again.
+5. Finish with a short chat summary: status, each lead's tier and score, and the decisions.
 
 Rules the data decides (the tools enforce them; a refused call tells you what is required)
 - Ring confidence R < 0.4: stop after the Zoner; the brief reports "weak ring, zone only".
@@ -385,12 +482,25 @@ def build_tools(sup: Supervisor) -> list:
         return js(sup.run_briefer(stop_reason))
 
     @tool
+    def write_brief_text(summary: str, leads: list[LeadText]) -> str:
+        """Last step, after run_briefer: write the brief's words. You are the Briefer's voice.
+        `summary`: 2-4 plain sentences for a trust-and-safety reviewer: ring strength, where
+        the leads are, how strong each is, what was capped or skipped and why.
+        `leads`: one entry per lead in brief.json: property_id, `reasons` (one short line per
+        factor, citing its value, e.g. "P 0.78: 2 room photos match the unit scan") and
+        `verify_next` (what a human should check to confirm or rule it out).
+        Use only numbers already in brief.json; any other number is refused. Never change a
+        tier or score, never name a person, never include a phone number."""
+        return js(sup.write_brief_text(summary, leads))
+
+    @tool
     def log_decision(decision: str, evidence: dict, reason: str) -> str:
         """Record why you chose a path: a short decision name, the evidence (facts and numbers
         from the data) and a one-sentence reason. Appends to log.jsonl."""
         return js(sup.log_decision(decision, evidence, reason))
 
-    return [case_status, run_linker, run_zoner, run_lister, run_locator, run_briefer, log_decision]
+    return [case_status, run_linker, run_zoner, run_lister, run_locator, run_briefer,
+            write_brief_text, log_decision]
 
 
 # Built-in deepagents tools the supervisor must never be offered.
@@ -419,7 +529,7 @@ def build_agent(case: Case, model: Any = None):
     _lock_down(model)
     return create_deep_agent(
         model=model,
-        tools=build_tools(Supervisor(case, actor="llm")),
+        tools=build_tools(Supervisor(case, actor="llm", llm_text=True)),
         system_prompt=SYSTEM_PROMPT,
         # built-in file tools see only the case folder, and every write is denied
         backend=FilesystemBackend(root_dir=str(case.dir), virtual_mode=True),
@@ -448,6 +558,11 @@ def run_llm(case: Case, model: Any = None) -> Supervisor:
             if action is None:
                 break
             sup.dispatch(action)
+    brief = case.load("brief.json")
+    if brief is not None and brief.text_source == "template":
+        case.log(actor="guard", event="decision", decision="brief_text_left_as_template",
+                 evidence={"text_source": "template"},
+                 message="The LLM did not write the brief's words; the Briefer's fixed wording stays.")
     case.log(actor="llm", event="run_end", evidence={"done": sup.next_action() is None})
     sup.final_message = result["messages"][-1].text if result.get("messages") else ""
     return sup

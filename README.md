@@ -117,7 +117,13 @@ for chunk in agent.stream({"messages": [{"role": "user", "content": "Run the pip
 case folder. `execute`, file writes and the general-purpose subagent are removed.
 
 The LLM picks the next step and writes reasons. **Numbers come from deterministic code**:
-same case folder in, same scores out. Every `run_*` tool hashes its inputs, validates the
+same case folder in, same scores out.
+
+**The supervisor is the Briefer's voice.** `run_briefer` computes every tier, score and cap.
+The supervisor then calls `write_brief_text` with each lead's plain-language reasons, what a
+human should check next, and a case summary. That tool refuses any number not already in
+the brief, any missing or unknown lead, and any phone number, and it never touches a tier
+or score. `brief.json` records `text_source: "llm"` (or `"template"` in `--scripted` mode). Every `run_*` tool hashes its inputs, validates the
 output against `dome/schemas.py`, retries once, then marks the step failed.
 
 ### Decisions that depend on the data

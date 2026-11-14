@@ -223,6 +223,10 @@ class Brief(_Model):
     zones: list[str] = []               # zone ids covered (the only output for a weak ring)
     failed_steps: list[str] = []
     decisions: list[str] = []
+    summary: str = ""                   # plain-language case summary (written by the supervisor LLM)
+    # "template": reasons are the Briefer's fixed wording. "llm": the supervisor rewrote the
+    # reasons, next checks and summary. Tiers, scores and caps are always computed by code.
+    text_source: Literal["template", "llm"] = "template"
     footer: str
 
 

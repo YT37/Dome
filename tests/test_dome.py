@@ -155,7 +155,16 @@ def _planner_model(case):
         def _generate(self, messages, stop=None, run_manager=None, **kwargs):
             if tools := kwargs.get("tools"):
                 offered[:] = [t.get("name") or t["function"]["name"] for t in tools]
-            action = Supervisor(case).next_action()
+            action = Supervisor(case, llm_text=True).next_action()
+            if action and action["tool"] == "write_brief_text":
+                brief = case.load("brief.json")
+                action["args"] = {
+                    "summary": f"Ring confidence {brief.leads[0].factors.R if brief.leads else 'n/a'}; "
+                               f"{len(brief.leads)} lead(s) for human verification.",
+                    "leads": [{"property_id": l.property_id,
+                               "reasons": [f"P {l.factors.P}: room photos match the unit scan"],
+                               "verify_next": ["compare the match images side by side"]}
+                              for l in brief.leads]}
             if action is None:
                 msg = AIMessage(content="Done. Leads are for human verification.")
             else:
@@ -176,12 +185,47 @@ def test_deep_agent_runs_and_is_locked_down(tmp_path):
     assert "expand_weak_photos_and_retry" in decisions(case)
     assert any(e.actor == "llm" and e.event == "tool_call" for e in case.read_log())
 
+    brief = case.load("brief.json")
+    assert brief.text_source == "llm" and brief.summary
+    assert brief.leads[0].reasons == ["P 0.62: room photos match the unit scan"]
+    assert (brief.leads[0].tier, brief.leads[0].score) == ("Medium", 40)   # numbers untouched
+
     names = set(offered)
     assert {"case_status", "run_linker", "run_zoner", "run_lister", "run_locator",
-            "run_briefer", "log_decision"} <= names
+            "run_briefer", "write_brief_text", "log_decision"} <= names
     assert {"ls", "read_file", "glob", "grep"} <= names       # read-only file tools
     assert not names & EXCLUDED_BUILTINS, names               # no shell, no writes, no subagent
     assert not any(k in n for n in names for k in ("http", "email", "send", "post", "shell"))
+
+
+def test_brief_text_guard(tmp_path):
+    """The LLM writes the words; it cannot invent a number, drop a lead or add a phone."""
+    case = scripted(tmp_path, "ring_a")
+    sup = Supervisor(case, actor="llm", llm_text=True)
+    assert sup.next_action()["tool"] == "write_brief_text"
+    before = case.load("brief.json").leads[0]
+
+    def lead(reasons, verify=("check the listing",), pid="CS-88412"):
+        return [{"property_id": pid, "reasons": list(reasons), "verify_next": list(verify)}]
+
+    r = sup.write_brief_text("Strong ring.", lead(["P 0.93: nearly every photo matches"]))
+    assert r["refused"] and "0.93" in r["reason"]                      # invented number
+    assert sup.write_brief_text("Strong ring.", [])["refused"]         # lead left out
+    assert sup.write_brief_text("x", lead(["P 0.78"], pid="CS-00000"))["refused"]
+    assert sup.write_brief_text("Call 555-0142.", lead(["P 0.78"]))["refused"]   # phone
+    assert sup.write_brief_text("Ring R 0.99.", lead(["P 0.78"]))["refused"]
+
+    ok = sup.write_brief_text("Strong ring (R 0.91); one High lead in zone Z-A1.",
+                              lead(["P 0.78: room photos match the unit scan",
+                                    "W 0.67: road and parking agree with the window view"]))
+    assert ok["ok"] and sup.next_action() is None
+    after = case.load("brief.json").leads[0]
+    assert (after.tier, after.score, after.factors, after.caps) == (
+        before.tier, before.score, before.factors, before.caps)
+    assert after.reasons[0].startswith("P 0.78") and case.load("brief.json").text_source == "llm"
+    assert "Strong ring" in case.path("summary.html").read_text(encoding="utf-8")
+    # scripted mode never asks for LLM text
+    assert Supervisor(scripted(tmp_path, "ring_a", "s2")).next_action() is None
 
 
 def test_graph_is_a_langgraph_graph(tmp_path):

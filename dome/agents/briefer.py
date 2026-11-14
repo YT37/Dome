@@ -98,7 +98,8 @@ def render_html(b: dict) -> str:
     rows = "".join(
         f"<tr><td>{l['rank']}</td><td>{e(l['property_id'])}<br><small>{e(l['address'])}</small></td>"
         f"<td>{e(l['zone_id'])}</td><td><b>{l['tier']}</b></td><td>{l['score']}</td>"
-        f"<td><ul>{''.join(f'<li>{e(r)}</li>' for r in l['reasons'] + l['caps'])}</ul></td></tr>"
+        f"<td><ul>{''.join(f'<li>{e(r)}</li>' for r in l['reasons'] + l['caps'])}</ul>"
+        f"<small>Verify next: {e('; '.join(l['verify_next']))}</small></td></tr>"
         for l in b["leads"]) or "<tr><td colspan=6>No building leads.</td></tr>"
     dec = "".join(f"<li>{e(d)}</li>" for d in b["decisions"]) or "<li>none</li>"
     return (f"<!doctype html><meta charset=utf-8><title>Dome {e(b['case_id'])}</title>"
@@ -106,6 +107,9 @@ def render_html(b: dict) -> str:
             f"<h1>Dome case {e(b['case_id'])}</h1>"
             f"<p>Ring: {e(str(b['ring_id']))} &middot; status: <b>{e(b['status'])}</b> &middot; "
             f"zones: {e(', '.join(b['zones']) or 'none')}</p>"
+            + (f"<p>{e(b['summary'])}</p>" if b.get("summary") else "")
+            + f"<p><small>Tiers and scores computed by code; wording by "
+            f"{'the supervisor LLM' if b.get('text_source') == 'llm' else 'fixed templates'}.</small></p>"
             "<table border=1 cellpadding=6 style='border-collapse:collapse'>"
             "<tr><th>#</th><th>Building</th><th>Zone</th><th>Tier</th><th>Score</th><th>Why</th></tr>"
             f"{rows}</table><h2>Supervisor decisions</h2><ul>{dec}</ul>"
