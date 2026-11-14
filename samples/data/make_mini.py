@@ -55,12 +55,12 @@ def interact(a, b, kind, when, post_id=None):
 # ------------------------------------------------------------------ Ring A
 # 4 posters (one phone, one script with rewordings, shared photos), 3 recruiters, 5 amplifiers.
 A_SCRIPT = [
-    "New in town and available all this week. Sweet and discreet, private apartment near midtown. "
+    "New in town and available all this week. Sweet and discreet, private apartment near downtown. "
     "Text {p} to book your visit, ask for {n}.",
-    "new in town & available all this week!! sweet and discreet, private apartment near midtown. "
+    "new in town & available all this week!! sweet and discreet, private apartment near downtown. "
     "text {p} to book your visit, ask for {n}",
     "Just arrived in the city and free every day this week. Discreet and friendly, my own flat "
-    "close to midtown. Message {p} to arrange a time, {n} will answer.",
+    "close to downtown. Message {p} to arrange a time, {n} will answer.",
 ]
 A_PHONES = ["555-0142", "five5five 0142", "(713) 555 0142", "5 5 5 - 0 1 4 2"]
 A_POSTERS = ["acct_017", "acct_102", "acct_118", "acct_131"]
@@ -82,8 +82,8 @@ for i in range(28):
     tmpl = A_SCRIPT[2] if h == "acct_131" else A_SCRIPT[i % 2]
     when = T0 + timedelta(days=i // 4, hours=(i % 4) * 2, minutes=rng.randint(0, 20))
     pid = post(h, tmpl.format(p=A_PHONES[i % 4], n=rng.choice(["Mia", "Lena", "Kay"])), when,
-               photos=[a_photos[i % 9], a_photos[(i + 4) % 9]], area="Midtown", area_code="713",
-               landmarks=["Midtown Park"] if i % 3 == 0 else [])
+               photos=[a_photos[i % 9], a_photos[(i + 4) % 9]], area="Downtown", area_code="713",
+               landmarks=["Main Street Square"] if i % 3 == 0 else [])
     a_posts.append((pid, h, when))
 for i, (pid, owner, when) in enumerate(a_posts[:20]):
     for j, amp in enumerate(A_AMPS):          # amplifiers repost the same ad within the hour
@@ -99,10 +99,10 @@ answer["rings"]["A"] = {"members": A_POSTERS + A_RECRUITERS + A_AMPS,
                         "recruiters": A_RECRUITERS, "building": "CS-88412", "scan": "mp_4471",
                         "unit": "4C", "scenario": "ring_a"}
 
-# an ordinary Midtown resident: same area as Ring A, nothing else (must stay unlinked)
-account("acct_404", "midtown foodie", "2025-01-14")
-post("acct_404", "Best tacos near Midtown Park, go before noon.", T0 + timedelta(days=2),
-     photos=[photo("img_390"), photo("img_391")], area="Midtown", area_code="713")
+# an ordinary Downtown resident: same area as Ring A, nothing else (must stay unlinked)
+account("acct_404", "downtown foodie", "2025-01-14")
+post("acct_404", "Best tacos near Main Street Square, go before noon.", T0 + timedelta(days=2),
+     photos=[photo("img_390"), photo("img_391")], area="Downtown", area_code="713")
 
 # ------------------------------------------------------------------ Ring B
 # 8 accounts, one phone + one payment tag, one script, two areas, photos from two buildings.
