@@ -36,9 +36,13 @@ from .. import config
 from ..case import Case
 from ..data_tools import _stub
 
-CONTENT = ("contact", "photo", "text", "device")     # identity-bearing content keys
-CONNECT = ("interaction", "time")                    # connectivity layer
-KIND_ORDER = ("contact", "photo", "device", "text", "interaction", "place", "time")
+# identity-bearing content keys (v2 adds shared wallet, same room, writing style)
+CONTENT = ("contact", "photo", "text", "device", "money", "room", "style")
+# connectivity layer (v2 adds direct messages, heartbeat, echo, same route)
+CONNECT = ("interaction", "time", "dm", "heartbeat", "echo", "route")
+KIND_ORDER = ("money", "contact", "dm", "room", "photo", "device", "text", "style", "route",
+              "echo", "interaction", "heartbeat", "merchant", "place", "time")
+PRIVATE_KINDS = ("money", "dm", "merchant")   # only exist because of messages + payments
 
 
 # ============================================================ dataset
@@ -78,8 +82,11 @@ def load_dataset(name_or_path: str) -> dict:
         posts.append(p)
     interactions = [dict(it, post=it.get("post") or it.get("post_id"))
                     for it in raw.get("interactions") or []]
+    from .patterns import load_private
+    messages, transactions = load_private(d)   # v2, synthetic; empty lists when absent
     return {"accounts": {a.get("account_id") or a["handle"]: a for a in raw["accounts"]},
-            "posts": posts, "interactions": interactions}
+            "posts": posts, "interactions": interactions,
+            "messages": messages, "transactions": transactions}
 
 
 def _photo(x: Any, renders: Optional[dict] = None) -> dict:
@@ -296,8 +303,13 @@ def _strength(kinds: dict) -> float:
     return 1.0 - math.prod(1.0 - v["w"] for v in kinds.values())
 
 
-def link_accounts(ds: dict) -> Linked:
+def link_accounts(ds: dict, layers: str = "both", private: bool = True,
+                  room_groups: Optional[list] = None) -> Linked:
+    """layers: content | network | both. private=False is --no-private (Track 2, public only):
+    money, dm, merchant and echo events are dropped. room_groups: the Locator's groups (note 4)."""
+    from . import patterns
     W = config.KEY_WEIGHTS
+    private = private and bool(ds.get("messages") or ds.get("transactions"))
     accounts, posts = ds["accounts"], ds["posts"]
     by_acct = defaultdict(list)
     for p in posts:
@@ -307,6 +319,7 @@ def link_accounts(ds: dict) -> Linked:
     # ---- step 1: keys shared through an index (key -> accounts)
     index: dict[tuple[str, str], set] = defaultdict(set)     # (kind, key) -> accounts
     detail: dict[tuple[str, str], str] = {}
+    key_times: dict[str, dict] = defaultdict(lambda: defaultdict(list))   # key -> acct -> times (relay)
 
     # text key = AD template: only posts that carry a contact or a booking call-to-action.
     # Everyday chatter is often templated too, and must never become a "shared script".
@@ -330,6 +343,8 @@ def link_accounts(ds: dict) -> Linked:
             for k in extract_contacts(p.get("text", ""), p.get("phones") or []):
                 if k != f"contact:@{a.lower()}":
                     index[("contact", k)].add(a)
+                    if p.get("time"):
+                        key_times[k][a].append(p["time"])
             t = tmpl_of[p["post_id"]]
             if t in final_c:
                 index[("text", "text:" + cluster_ids[final_c[t]])].add(a)
@@ -348,6 +363,7 @@ def link_accounts(ds: dict) -> Linked:
             index[("time", "time:created_" + str(acct["created"])[:10])].add(a)
 
     pair: dict[tuple[str, str], dict] = defaultdict(dict)
+    priv: dict = {"handles": set(), "owners": {}}
 
     def add(a: str, b: str, kind: str, w: float, key: str, why: str) -> None:
         if a == b or a not in accounts or b not in accounts:
@@ -356,6 +372,17 @@ def link_accounts(ds: dict) -> Linked:
         if w > pair[k].get(kind, {"w": -1})["w"]:
             pair[k][kind] = {"w": round(w, 4), "key": key, "why": why}
 
+    # ---- v2 private notes: contacts/wallets in messages, direct payments, DMs, merchants
+    if private:
+        priv = patterns.private_notes(ds, index, key_times, add, extract_contacts, rarity)
+        if priv["handles"]:   # a $handle that receives money is a wallet (money), not a contact
+            for (kind, key) in [k for k in index if k[0] == "contact"]:
+                h = key.split(":", 1)[1]
+                if h in priv["handles"]:
+                    index[("money", "money:" + h)] |= index.pop((kind, key))
+                    for acct, ts in key_times.pop(key, {}).items():
+                        key_times["money:" + h][acct].extend(ts)
+
     # ---- step 2: inverse-frequency down-weighting of shared keys
     for (kind, key), accts in sorted(index.items()):
         n = len(accts)
@@ -363,6 +390,8 @@ def link_accounts(ds: dict) -> Linked:
             continue
         w = W[kind] * rarity(n)
         why = {"contact": f"same contact {key.split(':', 1)[1]}",
+               "money": f"same wallet {key.split(':', 1)[1]} receives their money",
+               "merchant": f"pay the same business ({key.split(':', 1)[1]})",
                "photo": "same photo reposted", "text": "same ad script",
                "place": f"same stated area ({key.split(':', 1)[1]})",
                "time": f"accounts created the same day ({key[-10:]})"}[kind]
@@ -426,6 +455,27 @@ def link_accounts(ds: dict) -> Linked:
             add(a, b, "time", W["time"], f"time:lockstep_x{n}",
                 f"posted within {config.LOCKSTEP_SECONDS // 60} minutes of each other {n} times")
 
+    # ---- v2 patterns that make link kinds: heartbeat, echo; and note 4 from the Locator
+    hb = patterns.heartbeat_links(ds, private, add) if layers != "content" else []
+    events = []
+    if private:
+        events = patterns.echo_events(ds, is_ad, priv["handles"])
+        for i, e in enumerate(events, 1):
+            e["event_id"] = f"E-{i}"
+        patterns.echo_links(events, add)
+    for g in room_groups or []:
+        accts = sorted({a for a in g.get("accounts", []) if a in accounts})
+        for a, b in combinations(accts, 2):
+            add(a, b, "room", W["room"], f"room:{g['group_id']}",
+                "different photos of the same room (" + "; ".join(g.get("details", [])[:2]) + ")")
+
+    # ---- layer switch: content only / network only / both (three-way comparison)
+    if layers != "both":
+        keep = CONTENT if layers == "content" else CONNECT
+        for k in list(pair):
+            pair[k] = {kd: v for kd, v in pair[k].items()
+                       if kd in keep or kd in config.NON_COUNTING_KINDS}
+
     # ---- step 3: two different kinds of key make a link; one kind is only a hint
     links, hints, strength = {}, {}, {}
     for k, kinds in pair.items():
@@ -433,7 +483,7 @@ def link_accounts(ds: dict) -> Linked:
         if not kinds:
             continue
         s = strength[k] = round(_strength(kinds), 3)
-        counting = [kd for kd in kinds if kd != "place"]
+        counting = [kd for kd in kinds if kd not in config.NON_COUNTING_KINDS]
         if len(counting) >= 2:
             links[k] = kinds
         elif s >= config.HINT_MIN_STRENGTH:
@@ -459,7 +509,7 @@ def link_accounts(ds: dict) -> Linked:
                   if len(ws) >= min(config.RING_KIND_MIN_LINKS, len(inner))}
         has_content = any(k in shared for k in CONTENT)
         has_connect = any(k in shared for k in CONNECT)
-        if len(members) < 2 or not inner or (
+        if len(members) < 2 or not inner or (layers == "both" and
                 config.REQUIRE_LAYER_AGREEMENT and not (has_content and has_connect)):
             missing = "connectivity" if has_content else "content"
             for k, v in inner.items():
@@ -503,13 +553,27 @@ def link_accounts(ds: dict) -> Linked:
                 recruiters.append({"account": a, "reason": f"bio says '{m.group().lower()}'; "
                                    f"{into} of {len(outs)} reposts/replies go to ring accounts"})
         places = Counter(v["place"]["key"] for v in r["_inner"].values() if "place" in v)
+        # ---- v2: relay race, money shape, echo events, location hints, per-kind counts
+        ring_events = [{k: v for k, v in e.items() if k != "_place"} for e in events
+                       if set(e["members"]) & members]
+        kind_counts = Counter(kd for v in r["_inner"].values() for kd in v)
+        v2 = {"roles": patterns.roles(members, ds if private else {**ds, "messages": [], "transactions": []},
+                                      recruiters),
+              "relay": patterns.relay(members, key_times),
+              "events": ring_events,
+              "location_hints": patterns.location_hints(members, ds, events) if private else [],
+              "kind_counts": {kd: kind_counts[kd] for kd in KIND_ORDER if kind_counts[kd]}}
+        # recruiters found by money shape (outside accounts only; members keep their role)
+        role_rec = [x for x in v2["roles"] if x["role"] == "recruiter" and x["account"] not in members
+                    and x["account"] not in {y["account"] for y in recruiters}]
+        recruiters = recruiters + [{"account": x["account"], "reason": x["reason"]} for x in role_rec]
         out_rings.append({
             "ring_id": f"R-{i + 1}", "members": r["members"], "confidence": r["confidence"],
             "key_kinds": r["key_kinds"],
             "links": [link_json(k, v) for k, v in sorted(r["_inner"].items(),
                                                          key=lambda kv: (-_strength(kv[1]), kv[0]))],
             "recruiters": recruiters, "place_keys": [k for k, _ in places.most_common(5)],
-            "photos": sorted(photos, key=lambda p: p["photo_id"])})
+            "photos": sorted(photos, key=lambda p: p["photo_id"]), **v2})
 
     # weak hints: one kind only, or a group the layers did not agree on. Kept for the analyst,
     # ring-adjacent ones first, then the strongest of the rest.
@@ -517,10 +581,13 @@ def link_accounts(ds: dict) -> Linked:
     weak += [link_json(k, v, extra) for k, (v, extra) in demoted.items()]
     weak.sort(key=lambda h: (not (h["a"] in in_ring or h["b"] in in_ring), -h["strength"], h["a"], h["b"]))
     return Linked(
-        rings_file={"rings": out_rings, "weak_hints": weak[:config.MAX_WEAK_HINTS]},
+        rings_file={"rings": out_rings, "weak_hints": weak[:config.MAX_WEAK_HINTS],
+                    "layers": layers, "private_layers": private,
+                    "room_links_used": bool(room_groups)},
         pair=dict(pair), strength=strength, embedding_catches=catches, embed_backend=backend,
         stats={"accounts": len(accounts), "posts": len(posts), "pairs_with_any_key": len(strength),
-               "links": len(links), "hints": len(hints), "rings": len(out_rings)})
+               "links": len(links), "hints": len(hints), "rings": len(out_rings),
+               "heartbeat_pairs": hb, "events": len(events)})
 
 
 def _leiden(group: set, links: dict, strength: dict) -> list[set]:
@@ -542,11 +609,41 @@ def _leiden(group: set, links: dict, strength: dict) -> list[set]:
 
 
 # ============================================================ agent entry point
-def run(case: Case) -> dict:
+def room_groups_of(case: Case) -> list:
+    """The Locator's room groups across zones (note 4, `room`)."""
+    m = case.load("matches.json")
+    return [g.model_dump() for z in (m.zones if m else []) for g in z.room_groups]
+
+
+def run(case: Case, room_groups: bool = False) -> dict:
     inp = case.input
     if not inp.dataset:
-        return {"case_id": case.case_id, **copy.deepcopy(_stub.scenario()["rings"])}
-    return {"case_id": case.case_id, **link_accounts(load_dataset(inp.dataset)).rings_file}
+        out = copy.deepcopy(_stub.scenario()["rings"])
+        if room_groups:   # stub: fold room-group accounts into the selected ring as `room` links
+            out = _stub_room_rerun(out, room_groups_of(case))
+        return {"case_id": case.case_id, **out}
+    groups = room_groups_of(case) if room_groups else None
+    return {"case_id": case.case_id,
+            **link_accounts(load_dataset(inp.dataset), layers=inp.layers,
+                            private=inp.private_layers, room_groups=groups).rings_file}
+
+
+def _stub_room_rerun(rings: dict, groups: list) -> dict:
+    for g in groups:
+        for r in rings.get("rings", []):
+            inside = [a for a in g.get("accounts", []) if a in r["members"]]
+            new = [a for a in g.get("accounts", []) if a not in r["members"]]
+            if inside and new:
+                for a in new:
+                    r["members"] = sorted(r["members"] + [a])
+                    r.setdefault("links", []).append({
+                        "a": inside[0], "b": a, "keys": [f"room:{g['group_id']}"], "kinds": ["room"],
+                        "strength": config.KEY_WEIGHTS["room"],
+                        "reason": "different photo of the same room (stub room group)"})
+                if "room" not in r.get("key_kinds", []):
+                    r["key_kinds"] = r.get("key_kinds", []) + ["room"]
+    rings["room_links_used"] = True
+    return rings
 
 
 if __name__ == "__main__":
