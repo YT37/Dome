@@ -1,12 +1,13 @@
 """Dome supervisor: a LangChain deepagents agent whose tools are the five agents.
 
-    python -m dome.supervisor --case demo-a --scenario ring_a            # LLM supervisor
-    python -m dome.supervisor --case demo-c --scenario ring_c --scripted # no LLM (offline/tests)
+    python -m dome.supervisor --case demo-a                # LLM supervisor (Ring A)
+    python -m dome.supervisor --case demo-a --scripted     # no LLM (offline/tests)
 
 Design
-- The LLM picks the next step and writes reasons. Every number comes from deterministic code.
-- The five data-driven decisions are enforced as GUARDS inside the tools, so they hold even
-  if the LLM forgets. Each fires a `decision` line in log.jsonl with the evidence behind it.
+- The LLM picks the next step and writes the brief's words. Every number comes from code.
+- Three safety rules are enforced as GUARDS inside the tools, so they hold even if the LLM
+  forgets: a weak ring stops after the Zoner, a wide zone keeps only scanned buildings, and
+  no window photo caps a lead at Medium. Each fires a `decision` line in log.jsonl.
 - GUARDRAIL: the supervisor has no tool that contacts, dispatches or publishes anything.
   No shell, no HTTP, no email, no file writes. The pipeline stops at the brief.
   Do not add such tools here.
@@ -65,7 +66,7 @@ class Supervisor:
                 f["scanned_candidates"] = sum(x.has_scan for x in cz[z.zone_id].candidates)
             if z.zone_id in mz:
                 m = mz[z.zone_id]
-                f.update(attempt=m.attempt, best_P=m.best_P, above_threshold=m.above_threshold)
+                f.update(best_P=m.best_P, above_threshold=m.above_threshold)
             zone_facts.append(f)
         nxt = self.next_action()
         return {
@@ -75,8 +76,7 @@ class Supervisor:
             "ring": None if ring is None else {
                 "ring_id": ring.ring_id, "R": ring.confidence, "members": len(ring.members),
                 "photos": len(ring.photos),
-                "window_photos": sum(p.has_window for p in ring.photos),
-                "photo_expansion_used": ring.photo_expansion_used},
+                "window_photos": sum(p.has_window for p in ring.photos)},
             "zones": zone_facts,
             "thresholds": {"ring_min_R": config.RING_MIN_CONFIDENCE,
                            "match_P": config.MATCH_THRESHOLD},
@@ -107,7 +107,7 @@ class Supervisor:
         if c.load("rings.json") is None:
             if "linker" in failed:
                 return act("run_briefer", "Linker failed; report it", stop_reason="no_ring")
-            return act("run_linker", "no rings.json yet", expand_weak_photos=False)
+            return act("run_linker", "no rings.json yet")
         ring = c.selected_ring()
         if ring is None:
             return act("run_briefer", "Linker found no ring", stop_reason="no_ring")
@@ -121,27 +121,15 @@ class Supervisor:
                        "weak ring, stop after the Zoner", stop_reason="weak_ring")
         cands, matches = c.load("candidates.json"), c.load("matches.json")
         listed = {z.zone_id for z in cands.zones} if cands else set()
-        located = {z.zone_id: z for z in matches.zones} if matches else {}
-        need_expand = False
-        for z in zones.zones:   # two or more zones: Lister and Locator once per zone
+        located = {z.zone_id for z in matches.zones} if matches else set()
+        for z in zones.zones:   # Lister then Locator for each zone
             if z.zone_id not in listed:
                 if f"lister:{z.zone_id}" in failed:
                     continue
                 return act("run_lister", f"zone {z.zone_id} has no candidates yet",
                            zone_id=z.zone_id, scanned_only=z.wide)
-            m = located.get(z.zone_id)
-            if f"locator:{z.zone_id}" in failed:
-                continue
-            if m is None:
+            if z.zone_id not in located and f"locator:{z.zone_id}" not in failed:
                 return act("run_locator", f"zone {z.zone_id} not searched yet", zone_id=z.zone_id)
-            if not m.above_threshold and m.attempt == 1:
-                if ring.photo_expansion_used:
-                    return act("run_locator", f"retry zone {z.zone_id} once with expanded photos",
-                               zone_id=z.zone_id)
-                need_expand = True
-        if need_expand and "linker:expand" not in failed:
-            return act("run_linker", "no scan matched above threshold; pull weak-link photos",
-                       expand_weak_photos=True)
         return act("run_briefer", "all zones processed")
 
     # ------------------------------------------------------------------ logging helpers
@@ -190,28 +178,18 @@ class Supervisor:
                 "required_next": self.next_action()}
 
     # ------------------------------------------------------------------ steps
-    def run_linker(self, expand_weak_photos: bool = False) -> dict:
-        c, nxt = self.case, self.next_action()
-        if expand_weak_photos:
-            # Guard: expansion only when the data shows a no-match Locator result, and only once.
-            if not (nxt and nxt["tool"] == "run_linker" and nxt["args"].get("expand_weak_photos")):
-                return self._refuse("linker:expand", "photo expansion is only allowed once, after a "
-                                    "Locator run found no scan above threshold")
-            ok = self._run_step("linker:expand", "rings.json",
-                                lambda: linker.run(c, expand_weak_photos=True), ["rings.json"],
-                                {"expand_weak_photos": True})
-        else:
-            if c.load("rings.json") is not None:
-                return self._refuse("linker", "rings.json already exists and is valid")
-            ok = self._run_step("linker", "rings.json", lambda: linker.run(c),
-                                ["flagged_accounts.json"], {"expand_weak_photos": False})
+    def run_linker(self) -> dict:
+        c = self.case
+        if c.load("rings.json") is not None:
+            return self._refuse("linker", "rings.json already exists and is valid")
+        ok = self._run_step("linker", "rings.json", lambda: linker.run(c),
+                            ["flagged_accounts.json"], {})
         ring = c.selected_ring()
         if ok and ring is None:
             self._decide("linker", "no_ring_found", {"rings": 0},
                          "No group of accounts shares two kinds of key; weak hints only.")
         return self._result(ok, "linker", ring_id=ring and ring.ring_id, R=ring and ring.confidence,
-                            photos=len(ring.photos) if ring else 0,
-                            photo_expansion_used=bool(ring and ring.photo_expansion_used))
+                            photos=len(ring.photos) if ring else 0)
 
     def run_zoner(self) -> dict:
         c = self.case
@@ -229,10 +207,6 @@ class Supervisor:
                           "min_R": config.RING_MIN_CONFIDENCE},
                          "Ring confidence is below the minimum; stopping after the Zoner. "
                          "The brief reports the zone only, no buildings.")
-        elif ok and len(zs) >= 2:
-            self._decide("zoner", "run_lister_and_locator_per_zone",
-                         {"zones": [z.zone_id for z in zs]},
-                         f"{len(zs)} zones found; running Lister and Locator once per zone.")
         return self._result(ok, "zoner", zones=[{"zone_id": z.zone_id, "wide": z.wide,
                                                  "area_km2": z.area_km2} for z in zs])
 
@@ -266,12 +240,8 @@ class Supervisor:
         ring, cands, matches = c.selected_ring(), c.load("candidates.json"), c.load("matches.json")
         if ring is None or cands is None or not any(z.zone_id == zone_id for z in cands.zones):
             return self._refuse(f"locator:{zone_id}", f"zone {zone_id} has no candidates; run the Lister first")
-        prev = next((z for z in matches.zones if z.zone_id == zone_id), None) if matches else None
-        if prev is not None:
-            # Guard: one retry only, and only after photo expansion changed the inputs.
-            if prev.attempt == 2 or prev.above_threshold or not ring.photo_expansion_used:
-                return self._refuse(f"locator:{zone_id}", "this zone was already searched; a second "
-                                    "search is allowed once, only after photo expansion")
+        if matches is not None and any(z.zone_id == zone_id for z in matches.zones):
+            return self._refuse(f"locator:{zone_id}", "this zone was already searched")
         ok = self._run_step(f"locator:{zone_id}", "matches.json", lambda: locator.run(c, zone_id),
                             ["rings.json", "candidates.json"], {"zone_id": zone_id})
         matches = c.load("matches.json")
@@ -282,16 +252,11 @@ class Supervisor:
                              {"zone_id": zone_id, "window_photos": 0},
                              "No window in any photo; window check skipped (W = null), "
                              "leads in this zone are capped at Medium.")
-            ev = {"zone_id": zone_id, "best_P": m.best_P, "threshold": m.threshold, "attempt": m.attempt}
-            if not m.above_threshold and m.attempt == 1 and not ring.photo_expansion_used:
-                self._decide(f"locator:{zone_id}", "expand_weak_photos_and_retry", ev,
-                             "No scan matched above threshold; asking Linker for weak-link photos "
-                             "and searching once more.")
-            elif not m.above_threshold:
-                self._decide(f"locator:{zone_id}", "no_match_after_retry", ev,
-                             "Still no scan above threshold after the one retry; no lead for this zone.")
-        return self._result(ok, "locator", zone_id=zone_id, attempt=m and m.attempt,
-                            best_P=m and m.best_P, above_threshold=m and m.above_threshold,
+            if not m.above_threshold:
+                self._decide(f"locator:{zone_id}", "no_scan_above_threshold",
+                             {"zone_id": zone_id, "best_P": m.best_P, "threshold": m.threshold},
+                             "No scan matched above threshold; no building lead for this zone.")
+        return self._result(ok, "locator", zone_id=zone_id, best_P=m and m.best_P, above_threshold=m and m.above_threshold,
                             window_photos=m and m.window_photos)
 
     def run_briefer(self, stop_reason: Optional[str] = None) -> dict:
@@ -427,9 +392,7 @@ How to work
 Rules the data decides (the tools enforce them; a refused call tells you what is required)
 - Ring confidence R < 0.4: stop after the Zoner; the brief reports "weak ring, zone only".
 - A zone with wide = true: the Lister keeps only buildings that have a scan.
-- Two or more zones: run Lister and Locator once per zone.
-- Locator finds no scan with P >= 0.4: run_linker(expand_weak_photos=True), then run the
-  Locator for that zone once more. Never a third time.
+- No scan with P >= 0.4: no building lead for that zone; say so plainly in the brief.
 - No window in any photo: the window check is skipped (W = null), lead capped at Medium.
 
 Hard limits
@@ -454,11 +417,10 @@ def build_tools(sup: Supervisor) -> list:
         return js(sup.status())
 
     @tool
-    def run_linker(expand_weak_photos: bool = False) -> str:
-        """Run the Linker: group flagged accounts into rings (writes rings.json).
-        Set expand_weak_photos=True only after a Locator run found no scan above threshold;
-        it adds photos from weakly linked accounts and is allowed once."""
-        return js(sup.run_linker(expand_weak_photos))
+    def run_linker() -> str:
+        """Run the Linker: group flagged accounts into rings, with a reason for every link
+        (writes rings.json)."""
+        return js(sup.run_linker())
 
     @tool
     def run_zoner() -> str:
@@ -608,7 +570,7 @@ def run_llm(case: Case, model: Any = None) -> Supervisor:
 def make_graph(config_: Optional[dict] = None):
     """Graph factory for LangGraph Studio / `langgraph dev` (see langgraph.json).
 
-    Pick the case with configurable: {"case_id": "demo-c", "scenario": "ring_c"}.
+    Pick the case with configurable: {"case_id": "demo-a", "scenario": "ring_a"}.
     """
     cfg = (config_ or {}).get("configurable", {}) or {}
     case = Case.open(cfg.get("case_id", "demo-a"), scenario=cfg.get("scenario", "ring_a"),
@@ -647,10 +609,11 @@ def main(argv: Optional[list[str]] = None) -> int:
     if not a.scripted:
         _check_key(a.model or config.MODEL)
     seed = a.seed
-    if a.data and not seed and not a.ring:   # default: the ring this scenario's fixtures describe
+    if a.data and not seed and not a.ring:   # default: Ring A's seed account in that dataset
         fixture = config.SCENARIOS / a.scenario / "scenario.json"
         if fixture.exists():
-            seed = json.loads(fixture.read_text(encoding="utf-8")).get("seed_account")
+            seeds = json.loads(fixture.read_text(encoding="utf-8")).get("seed_account") or {}
+            seed = seeds.get(a.data) if isinstance(seeds, dict) else seeds
     case = Case.open(a.case, scenario=a.scenario, ring_id=a.ring, reset=not a.resume,
                      dataset=a.data, seed_account=seed)
     sup = run_scripted(case) if a.scripted else run_llm(case, a.model)

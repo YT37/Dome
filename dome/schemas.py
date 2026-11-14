@@ -61,7 +61,6 @@ class RingPhoto(_Model):
     photo_id: str
     path: str
     account: str
-    link_strength: Literal["core", "weak"] = "core"
     has_window: bool = False
 
 
@@ -74,7 +73,6 @@ class Ring(_Model):
     recruiters: list[Recruiter] = []
     place_keys: list[str] = []
     photos: list[RingPhoto] = []
-    photo_expansion_used: bool = False
 
 
 class RingsFile(_Model):
@@ -178,7 +176,6 @@ class Match(_Model):
 
 class MatchZone(_Model):
     zone_id: str
-    attempt: Literal[1, 2] = 1          # 2 = after photo expansion
     threshold: float = Unit
     best_P: float = Unit
     above_threshold: bool

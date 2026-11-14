@@ -485,7 +485,7 @@ def link_accounts(ds: dict) -> Linked:
                     if ph["photo_id"] not in seen:
                         seen.add(ph["photo_id"])
                         photos.append({"photo_id": ph["photo_id"], "path": ph["path"], "account": m,
-                                       "link_strength": "core", "has_window": bool(ph["has_window"])})
+                                       "has_window": bool(ph["has_window"])})
         # ---- step 5: recruiter flags
         recruiters = []
         for a in sorted(accounts):
@@ -502,10 +502,10 @@ def link_accounts(ds: dict) -> Linked:
             "links": [link_json(k, v) for k, v in sorted(r["_inner"].items(),
                                                          key=lambda kv: (-_strength(kv[1]), kv[0]))],
             "recruiters": recruiters, "place_keys": [k for k, _ in places.most_common(5)],
-            "photos": sorted(photos, key=lambda p: p["photo_id"]), "photo_expansion_used": False})
+            "photos": sorted(photos, key=lambda p: p["photo_id"])})
 
-    # weak hints: one kind only, or a group the layers did not agree on. Keep the ones that
-    # touch a ring (photo expansion uses them), then the strongest of the rest.
+    # weak hints: one kind only, or a group the layers did not agree on. Kept for the analyst,
+    # ring-adjacent ones first, then the strongest of the rest.
     weak = [link_json(k, v, "; one key kind is a hint, not a link") for k, v in hints.items()]
     weak += [link_json(k, v, extra) for k, (v, extra) in demoted.items()]
     weak.sort(key=lambda h: (not (h["a"] in in_ring or h["b"] in in_ring), -h["strength"], h["a"], h["b"]))
@@ -534,55 +534,12 @@ def _leiden(group: set, links: dict, strength: dict) -> list[set]:
     return [{nodes[i] for i in comm} for comm in part if len(comm) >= 2]
 
 
-def expand_photos(ds: dict, rings_file: dict, ring: dict) -> None:
-    """Add photos from accounts that have only a weak hint to a ring member (link_strength weak)."""
-    members = set(ring["members"])
-    weak_accts = sorted({h["b"] if h["a"] in members else h["a"] for h in rings_file["weak_hints"]
-                         if (h["a"] in members) != (h["b"] in members)
-                         and h["strength"] >= config.EXPAND_MIN_HINT})
-    seen = {p["photo_id"] for p in ring["photos"]}
-    for a in weak_accts:
-        for p in ds["posts"]:
-            if p["account"] != a:
-                continue
-            for ph in p["photos"]:
-                if ph["photo_id"] not in seen:
-                    seen.add(ph["photo_id"])
-                    ring["photos"].append({"photo_id": ph["photo_id"], "path": ph["path"], "account": a,
-                                           "link_strength": "weak", "has_window": bool(ph["has_window"])})
-    ring["photo_expansion_used"] = True
-
-
 # ============================================================ agent entry point
-def run(case: Case, expand_weak_photos: bool = False) -> dict:
+def run(case: Case) -> dict:
     inp = case.input
     if not inp.dataset:
-        return _run_stub(case, expand_weak_photos)
-    ds = load_dataset(inp.dataset)
-    data = {"case_id": case.case_id, **link_accounts(ds).rings_file}
-    if expand_weak_photos and data["rings"]:
-        expand_photos(ds, data, pick_ring(data["rings"], inp.ring_id, inp.seed_account))
-    return data
-
-
-def pick_ring(rings: list[dict], ring_id: Optional[str], seed: Optional[str]) -> dict:
-    for r in rings:
-        if r["ring_id"] == ring_id:
-            return r
-    for r in rings:
-        if seed and seed in r["members"]:
-            return r
-    return max(rings, key=lambda r: (r["confidence"], r["ring_id"]))
-
-
-def _run_stub(case: Case, expand_weak_photos: bool) -> dict:
-    sc = _stub.scenario()
-    data = {"case_id": case.case_id, **copy.deepcopy(sc["rings"])}
-    if expand_weak_photos and data["rings"]:
-        ring = pick_ring(data["rings"], case.input.ring_id, case.input.seed_account)
-        ring["photos"] += copy.deepcopy(sc.get("weak_photos", []))
-        ring["photo_expansion_used"] = True
-    return data
+        return {"case_id": case.case_id, **copy.deepcopy(_stub.scenario()["rings"])}
+    return {"case_id": case.case_id, **link_accounts(load_dataset(inp.dataset)).rings_file}
 
 
 if __name__ == "__main__":
@@ -592,10 +549,9 @@ if __name__ == "__main__":
     ap.add_argument("--data", default=None, help="dataset folder or a name under samples/data/")
     ap.add_argument("--scenario", default=None)
     ap.add_argument("--seed", default=None, help="investigate the ring containing this account")
-    ap.add_argument("--expand-weak-photos", action="store_true")
     a = ap.parse_args()
     c = Case.open(a.case, scenario=a.scenario, dataset=a.data, seed_account=a.seed)
-    obj = c.save("rings.json", run(c, a.expand_weak_photos))
+    obj = c.save("rings.json", run(c))
     c.log(actor="agent", event="tool_result", step="linker", output_file="rings.json",
           message="linker run alone from the CLI")
     for r in obj.rings:

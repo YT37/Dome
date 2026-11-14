@@ -76,7 +76,7 @@ def run(case: Case, stop_reason: Optional[str] = None) -> dict:
                 inl = sum(e.inliers for e in m.evidence)
                 reasons = [f"R {f['R']:.2f}: " + (ring.links[0].reason if ring.links else "ring links"),
                            f"P {m.P:.2f}: {len(m.evidence)} photo(s) matched scan {m.scan_id}, "
-                           f"{inl} matched points (attempt {mz.attempt})"]
+                           f"{inl} matched points"]
                 if m.W is not None:
                     ok = [k for k, v in m.window_checks.items() if v]
                     no = [k for k, v in m.window_checks.items() if not v]

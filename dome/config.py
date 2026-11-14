@@ -73,7 +73,6 @@ MIN_REPEAT_INTERACTIONS = 2   # "repeated" reposts/replies between two accounts
 LOCKSTEP_SECONDS = 300
 LOCKSTEP_MIN_TIMES = 3
 HINT_MIN_STRENGTH = 0.15      # weaker single-kind overlaps are not even kept as hints
-EXPAND_MIN_HINT = 0.3         # photo expansion uses hints at least this strong
 MAX_WEAK_HINTS = 200
 LEIDEN_MIN_SIZE = 20          # Leiden only splits linked groups at least this big
 RING_KIND_MIN_LINKS = 2       # a kind counts for the ring if it is on at least this many links

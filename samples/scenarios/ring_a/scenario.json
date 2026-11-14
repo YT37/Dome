@@ -1,6 +1,9 @@
 {
   "scenario": "ring_a",
-  "seed_account": "acct_017",
+  "seed_account": {
+    "mini": "acct_017",
+    "synth": "acct_103"
+  },
   "rings": {
     "rings": [
       {
@@ -61,67 +64,57 @@
             "photo_id": "img_311",
             "path": "data/photos/img_311.jpg",
             "account": "acct_017",
-            "link_strength": "core",
             "has_window": true
           },
           {
             "photo_id": "img_312",
             "path": "data/photos/img_312.jpg",
             "account": "acct_102",
-            "link_strength": "core",
             "has_window": true
           },
           {
             "photo_id": "img_313",
             "path": "data/photos/img_313.jpg",
             "account": "acct_118",
-            "link_strength": "core",
             "has_window": true
           },
           {
             "photo_id": "img_314",
             "path": "data/photos/img_314.jpg",
             "account": "acct_017",
-            "link_strength": "core",
             "has_window": false
           },
           {
             "photo_id": "img_315",
             "path": "data/photos/img_315.jpg",
             "account": "acct_102",
-            "link_strength": "core",
             "has_window": false
           },
           {
             "photo_id": "img_316",
             "path": "data/photos/img_316.jpg",
             "account": "acct_118",
-            "link_strength": "core",
             "has_window": false
           },
           {
             "photo_id": "img_317",
             "path": "data/photos/img_317.jpg",
             "account": "acct_017",
-            "link_strength": "core",
             "has_window": false
           },
           {
             "photo_id": "img_318",
             "path": "data/photos/img_318.jpg",
             "account": "acct_102",
-            "link_strength": "core",
             "has_window": false
           },
           {
             "photo_id": "img_319",
             "path": "data/photos/img_319.jpg",
             "account": "acct_118",
-            "link_strength": "core",
             "has_window": false
           }
-        ],
-        "photo_expansion_used": false
+        ]
       }
     ],
     "weak_hints": [
@@ -139,22 +132,6 @@
       }
     ]
   },
-  "weak_photos": [
-    {
-      "photo_id": "img_390",
-      "path": "data/photos/img_390.jpg",
-      "account": "acct_404",
-      "link_strength": "weak",
-      "has_window": false
-    },
-    {
-      "photo_id": "img_391",
-      "path": "data/photos/img_391.jpg",
-      "account": "acct_404",
-      "link_strength": "weak",
-      "has_window": false
-    }
-  ],
   "zones": [
     {
       "zone_id": "Z-A1",
@@ -298,42 +275,36 @@
   },
   "room_match": {
     "mp_4471": {
-      "core": {
-        "P": 0.78,
-        "evidence": [
-          {
-            "photo": "img_311",
-            "view_id": "mp_4471/sweep_12/az_135",
-            "inliers": 212,
-            "match_img": "data/matches/img_311_mp_4471.jpg"
-          },
-          {
-            "photo": "img_314",
-            "view_id": "mp_4471/sweep_7/az_270",
-            "inliers": 164,
-            "match_img": "data/matches/img_314_mp_4471.jpg"
-          }
-        ]
-      }
+      "P": 0.78,
+      "evidence": [
+        {
+          "photo": "img_311",
+          "view_id": "mp_4471/sweep_12/az_135",
+          "inliers": 212,
+          "match_img": "data/matches/img_311_mp_4471.jpg"
+        },
+        {
+          "photo": "img_314",
+          "view_id": "mp_4471/sweep_7/az_270",
+          "inliers": 164,
+          "match_img": "data/matches/img_314_mp_4471.jpg"
+        }
+      ]
     },
     "mp_2210": {
-      "core": {
-        "P": 0.22,
-        "evidence": [
-          {
-            "photo": "img_312",
-            "view_id": "mp_2210/sweep_3/az_90",
-            "inliers": 41,
-            "match_img": "data/matches/img_312_mp_2210.jpg"
-          }
-        ]
-      }
+      "P": 0.22,
+      "evidence": [
+        {
+          "photo": "img_312",
+          "view_id": "mp_2210/sweep_3/az_90",
+          "inliers": 41,
+          "match_img": "data/matches/img_312_mp_2210.jpg"
+        }
+      ]
     },
     "mp_3302": {
-      "core": {
-        "P": 0.11,
-        "evidence": []
-      }
+      "P": 0.11,
+      "evidence": []
     }
   },
   "geo": {

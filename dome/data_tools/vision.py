@@ -12,12 +12,9 @@ def photo_cues(photo_paths: list[str]) -> dict:
 def room_match(photo_paths: list[str], scan_ids: list[str]) -> list[dict]:
     """keys: scan_id, P (0-1), evidence: [{photo, view_id, inliers, match_img}]"""
     sc = _stub.scenario()
-    weak = {p["path"] for p in sc.get("weak_photos", [])}
-    variant = "expanded" if weak & set(photo_paths) else "core"
     out = []
     for sid in scan_ids:
-        table = sc.get("room_match", {}).get(sid, {})
-        hit = table.get(variant) or table.get("core") or {"P": 0.05, "evidence": []}
+        hit = sc.get("room_match", {}).get(sid) or {"P": 0.05, "evidence": []}
         out.append({"scan_id": sid, "P": hit["P"], "evidence": list(hit.get("evidence", []))})
     return out
 
