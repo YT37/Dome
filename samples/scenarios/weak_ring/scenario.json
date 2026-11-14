@@ -1,0 +1,117 @@
+{
+  "scenario": "weak_ring",
+  "rings": {
+    "rings": [
+      {
+        "ring_id": "R-W",
+        "members": [
+          "acct_901",
+          "acct_902"
+        ],
+        "confidence": 0.35,
+        "key_kinds": [
+          "place",
+          "time"
+        ],
+        "links": [
+          {
+            "a": "acct_901",
+            "b": "acct_902",
+            "keys": [
+              "place:cell_29.72_-95.42",
+              "time:lockstep_evenings"
+            ],
+            "kinds": [
+              "place",
+              "time"
+            ],
+            "strength": 0.35,
+            "reason": "same 1 km cell and similar posting hours; both keys are common"
+          }
+        ],
+        "recruiters": [],
+        "place_keys": [
+          "cell_29.72_-95.42"
+        ],
+        "photos": [
+          {
+            "photo_id": "img_951",
+            "path": "data/photos/img_951.jpg",
+            "account": "acct_901",
+            "link_strength": "core",
+            "has_window": false
+          },
+          {
+            "photo_id": "img_952",
+            "path": "data/photos/img_952.jpg",
+            "account": "acct_901",
+            "link_strength": "core",
+            "has_window": false
+          }
+        ],
+        "photo_expansion_used": false
+      }
+    ],
+    "weak_hints": []
+  },
+  "weak_photos": [],
+  "zones": [
+    {
+      "zone_id": "Z-W1",
+      "polygon": [
+        [
+          29.715,
+          -95.43
+        ],
+        [
+          29.728,
+          -95.43
+        ],
+        [
+          29.728,
+          -95.415
+        ],
+        [
+          29.715,
+          -95.415
+        ]
+      ],
+      "area_km2": 2.1,
+      "weight_share": 1.0,
+      "confidence": 0.41,
+      "wide": false,
+      "reasons": [
+        "6 ads name the same neighbourhood"
+      ]
+    }
+  ],
+  "buildings": [
+    {
+      "property_id": "CS-70010",
+      "address": "(synthetic) CS-70010",
+      "lat": 29.72,
+      "lon": -95.422,
+      "type": "multifamily",
+      "floors": 4,
+      "units": 40,
+      "year_built": 2003,
+      "has_scan": true,
+      "scan_id": "mp_7001"
+    }
+  ],
+  "photo_cues": {
+    "setting": "apartment",
+    "window_floor_est": null,
+    "features": []
+  },
+  "room_match": {
+    "mp_7001": {
+      "core": {
+        "P": 0.5,
+        "evidence": []
+      }
+    }
+  },
+  "geo": {},
+  "window": {}
+}

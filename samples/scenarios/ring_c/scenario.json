@@ -1,0 +1,316 @@
+{
+  "scenario": "ring_c",
+  "seed_account": "acct_701",
+  "rings": {
+    "rings": [
+      {
+        "ring_id": "R-C",
+        "members": [
+          "acct_701",
+          "acct_702",
+          "acct_713"
+        ],
+        "confidence": 0.72,
+        "key_kinds": [
+          "text",
+          "interaction",
+          "time"
+        ],
+        "links": [
+          {
+            "a": "acct_701",
+            "b": "acct_702",
+            "keys": [
+              "text:tmpl_21",
+              "interaction:repost_x7"
+            ],
+            "kinds": [
+              "text",
+              "interaction"
+            ],
+            "strength": 0.8,
+            "reason": "reworded copy of the same script; 7 mutual reposts"
+          },
+          {
+            "a": "acct_702",
+            "b": "acct_713",
+            "keys": [
+              "text:tmpl_21",
+              "time:batch_2026-09-03"
+            ],
+            "kinds": [
+              "text",
+              "time"
+            ],
+            "strength": 0.68,
+            "reason": "same script; accounts created in the same batch"
+          }
+        ],
+        "recruiters": [],
+        "place_keys": [
+          "cell_29.76_-95.37"
+        ],
+        "photos": [
+          {
+            "photo_id": "img_801",
+            "path": "data/photos/img_801.jpg",
+            "account": "acct_701",
+            "link_strength": "core",
+            "has_window": false
+          },
+          {
+            "photo_id": "img_802",
+            "path": "data/photos/img_802.jpg",
+            "account": "acct_702",
+            "link_strength": "core",
+            "has_window": false
+          },
+          {
+            "photo_id": "img_803",
+            "path": "data/photos/img_803.jpg",
+            "account": "acct_701",
+            "link_strength": "core",
+            "has_window": false
+          },
+          {
+            "photo_id": "img_804",
+            "path": "data/photos/img_804.jpg",
+            "account": "acct_702",
+            "link_strength": "core",
+            "has_window": false
+          },
+          {
+            "photo_id": "img_805",
+            "path": "data/photos/img_805.jpg",
+            "account": "acct_701",
+            "link_strength": "core",
+            "has_window": false
+          }
+        ],
+        "photo_expansion_used": false
+      }
+    ],
+    "weak_hints": [
+      {
+        "a": "acct_702",
+        "b": "acct_744",
+        "keys": [
+          "photo:phash_77ab"
+        ],
+        "kinds": [
+          "photo"
+        ],
+        "strength": 0.4,
+        "reason": "one shared room photo only; a hint, not a link"
+      }
+    ]
+  },
+  "weak_photos": [
+    {
+      "photo_id": "img_850",
+      "path": "data/photos/img_850.jpg",
+      "account": "acct_744",
+      "link_strength": "weak",
+      "has_window": false
+    },
+    {
+      "photo_id": "img_851",
+      "path": "data/photos/img_851.jpg",
+      "account": "acct_744",
+      "link_strength": "weak",
+      "has_window": false
+    },
+    {
+      "photo_id": "img_852",
+      "path": "data/photos/img_852.jpg",
+      "account": "acct_744",
+      "link_strength": "weak",
+      "has_window": false
+    }
+  ],
+  "zones": [
+    {
+      "zone_id": "Z-C1",
+      "polygon": [
+        [
+          29.6,
+          -95.6
+        ],
+        [
+          29.9,
+          -95.6
+        ],
+        [
+          29.9,
+          -95.2
+        ],
+        [
+          29.6,
+          -95.2
+        ]
+      ],
+      "area_km2": 1290.0,
+      "weight_share": 1.0,
+      "confidence": 0.3,
+      "wide": true,
+      "reasons": [
+        "ads only say 'Houston'",
+        "most logins behind VPN",
+        "no landmark named"
+      ]
+    }
+  ],
+  "buildings": [
+    {
+      "property_id": "CS-60030",
+      "address": "(synthetic) CS-60030",
+      "lat": 29.73,
+      "lon": -95.41,
+      "type": "multifamily",
+      "floors": 4,
+      "units": 48,
+      "year_built": 2009,
+      "has_scan": true,
+      "scan_id": "mp_6003"
+    },
+    {
+      "property_id": "CS-60041",
+      "address": "(synthetic) CS-60041",
+      "lat": 29.82,
+      "lon": -95.3,
+      "type": "multifamily",
+      "floors": 10,
+      "units": 220,
+      "year_built": 2018,
+      "has_scan": true,
+      "scan_id": "mp_6004"
+    },
+    {
+      "property_id": "CS-60052",
+      "address": "(synthetic) CS-60052",
+      "lat": 29.68,
+      "lon": -95.5,
+      "type": "hospitality",
+      "floors": 6,
+      "units": 110,
+      "year_built": 2001,
+      "has_scan": true,
+      "scan_id": "mp_6005"
+    },
+    {
+      "property_id": "CS-60110",
+      "address": "(synthetic) CS-60110",
+      "lat": 29.77,
+      "lon": -95.36,
+      "type": "multifamily",
+      "floors": 3,
+      "units": 24,
+      "year_built": 1984,
+      "has_scan": false,
+      "scan_id": null
+    },
+    {
+      "property_id": "CS-60120",
+      "address": "(synthetic) CS-60120",
+      "lat": 29.7,
+      "lon": -95.28,
+      "type": "multifamily",
+      "floors": 5,
+      "units": 60,
+      "year_built": 1996,
+      "has_scan": false,
+      "scan_id": null
+    },
+    {
+      "property_id": "CS-60130",
+      "address": "(synthetic) CS-60130",
+      "lat": 29.85,
+      "lon": -95.45,
+      "type": "office",
+      "floors": 15,
+      "units": null,
+      "year_built": 1979,
+      "has_scan": false,
+      "scan_id": null
+    },
+    {
+      "property_id": "CS-60140",
+      "address": "(synthetic) CS-60140",
+      "lat": 29.65,
+      "lon": -95.33,
+      "type": "single_family",
+      "floors": 2,
+      "units": 1,
+      "year_built": 1970,
+      "has_scan": false,
+      "scan_id": null
+    }
+  ],
+  "photo_cues": {
+    "setting": "apartment",
+    "window_floor_est": null,
+    "features": []
+  },
+  "room_match": {
+    "mp_6003": {
+      "core": {
+        "P": 0.31,
+        "evidence": [
+          {
+            "photo": "img_801",
+            "view_id": "mp_6003/sweep_2/az_0",
+            "inliers": 58,
+            "match_img": "data/matches/img_801_mp_6003.jpg"
+          }
+        ]
+      },
+      "expanded": {
+        "P": 0.62,
+        "evidence": [
+          {
+            "photo": "img_801",
+            "view_id": "mp_6003/sweep_2/az_0",
+            "inliers": 58,
+            "match_img": "data/matches/img_801_mp_6003.jpg"
+          },
+          {
+            "photo": "img_850",
+            "view_id": "mp_6003/sweep_5/az_90",
+            "inliers": 143,
+            "match_img": "data/matches/img_850_mp_6003.jpg"
+          },
+          {
+            "photo": "img_851",
+            "view_id": "mp_6003/sweep_5/az_225",
+            "inliers": 127,
+            "match_img": "data/matches/img_851_mp_6003.jpg"
+          }
+        ]
+      }
+    },
+    "mp_6004": {
+      "core": {
+        "P": 0.12,
+        "evidence": []
+      }
+    },
+    "mp_6005": {
+      "core": {
+        "P": 0.08,
+        "evidence": []
+      }
+    }
+  },
+  "geo": {
+    "mp_6003": {
+      "lat": 29.7304,
+      "lon": -95.4096,
+      "heading_deg": 95,
+      "building_id": "CS-60030",
+      "floor_range": null,
+      "error_estimate_m": 20,
+      "evidence": []
+    }
+  },
+  "window": {}
+}

@@ -1,0 +1,41 @@
+{
+  "case_id": "demo-a",
+  "ring_id": "R-A",
+  "status": "complete",
+  "leads": [
+    {
+      "rank": 1,
+      "property_id": "CS-88412",
+      "display_name": "Building 1 in Z-A1 (synthetic case)",
+      "address": "(synthetic) CS-88412",
+      "zone_id": "Z-A1",
+      "tier": "High",
+      "score": 68,
+      "factors": {
+        "R": 0.91,
+        "Z": 0.74,
+        "F": 0.8,
+        "P": 0.78,
+        "W": 0.67
+      },
+      "reasons": [
+        "R 0.91: same phone in 14 ads; reworded copy of the same script",
+        "P 0.78: 2 photo(s) matched scan mp_4471, 376 matched points (attempt 1)",
+        "W 0.67: agree: road_front, parking_front; not seen: building_across"
+      ],
+      "caps": [],
+      "verify_next": [
+        "confirm unit layout with the building's current listing",
+        "a human reviewer compares the match images side by side"
+      ]
+    }
+  ],
+  "zones": [
+    "Z-A1"
+  ],
+  "failed_steps": [],
+  "decisions": [],
+  "summary": "",
+  "text_source": "template",
+  "footer": "Leads for human verification. Place clues give areas, not addresses. Not evidence of anyone's presence. Generated from synthetic data."
+}

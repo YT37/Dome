@@ -1,0 +1,33 @@
+[project]
+name = "dome"
+version = "0.1.0"
+description = "Dome: flagged synthetic accounts -> ranked, explained building leads for human verification"
+requires-python = ">=3.11"
+dependencies = [
+    "deepagents==0.7.38",
+    "langchain-anthropic",
+    "langchain-google-genai",
+    "pydantic>=2",
+    "numpy",
+    "datasketch",
+    "networkx",
+    "igraph",
+    "leidenalg",
+    "imagehash",
+    "sentence-transformers",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+studio = ["langgraph-cli[inmem]"]
+openai = ["langchain-openai"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["dome*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,355 @@
+{
+  "scenario": "ring_b",
+  "seed_account": "acct_501",
+  "rings": {
+    "rings": [
+      {
+        "ring_id": "R-B",
+        "members": [
+          "acct_501",
+          "acct_502",
+          "acct_517",
+          "acct_530"
+        ],
+        "confidence": 0.82,
+        "key_kinds": [
+          "contact",
+          "interaction",
+          "text"
+        ],
+        "links": [
+          {
+            "a": "acct_501",
+            "b": "acct_502",
+            "keys": [
+              "contact:555-0177",
+              "interaction:repost_x9"
+            ],
+            "kinds": [
+              "contact",
+              "interaction"
+            ],
+            "strength": 0.93,
+            "reason": "same payment handle; reposted each other 9 times"
+          },
+          {
+            "a": "acct_502",
+            "b": "acct_517",
+            "keys": [
+              "text:tmpl_12",
+              "interaction:reply_x6"
+            ],
+            "kinds": [
+              "text",
+              "interaction"
+            ],
+            "strength": 0.78,
+            "reason": "same ad script; both amplify the same posts within an hour"
+          }
+        ],
+        "recruiters": [],
+        "place_keys": [
+          "cell_29.74_-95.39",
+          "cell_29.81_-95.34"
+        ],
+        "photos": [
+          {
+            "photo_id": "img_601",
+            "path": "data/photos/img_601.jpg",
+            "account": "acct_501",
+            "link_strength": "core",
+            "has_window": true
+          },
+          {
+            "photo_id": "img_602",
+            "path": "data/photos/img_602.jpg",
+            "account": "acct_502",
+            "link_strength": "core",
+            "has_window": true
+          },
+          {
+            "photo_id": "img_603",
+            "path": "data/photos/img_603.jpg",
+            "account": "acct_517",
+            "link_strength": "core",
+            "has_window": true
+          },
+          {
+            "photo_id": "img_604",
+            "path": "data/photos/img_604.jpg",
+            "account": "acct_501",
+            "link_strength": "core",
+            "has_window": true
+          },
+          {
+            "photo_id": "img_605",
+            "path": "data/photos/img_605.jpg",
+            "account": "acct_502",
+            "link_strength": "core",
+            "has_window": false
+          },
+          {
+            "photo_id": "img_606",
+            "path": "data/photos/img_606.jpg",
+            "account": "acct_517",
+            "link_strength": "core",
+            "has_window": false
+          },
+          {
+            "photo_id": "img_607",
+            "path": "data/photos/img_607.jpg",
+            "account": "acct_501",
+            "link_strength": "core",
+            "has_window": false
+          },
+          {
+            "photo_id": "img_608",
+            "path": "data/photos/img_608.jpg",
+            "account": "acct_502",
+            "link_strength": "core",
+            "has_window": false
+          }
+        ],
+        "photo_expansion_used": false
+      }
+    ],
+    "weak_hints": []
+  },
+  "weak_photos": [],
+  "zones": [
+    {
+      "zone_id": "Z-B1",
+      "polygon": [
+        [
+          29.735,
+          -95.4
+        ],
+        [
+          29.748,
+          -95.4
+        ],
+        [
+          29.748,
+          -95.385
+        ],
+        [
+          29.735,
+          -95.385
+        ]
+      ],
+      "area_km2": 2.1,
+      "weight_share": 0.55,
+      "confidence": 0.7,
+      "wide": false,
+      "reasons": [
+        "19 ads name Montrose",
+        "landmark: the Westheimer mural"
+      ]
+    },
+    {
+      "zone_id": "Z-B2",
+      "polygon": [
+        [
+          29.805,
+          -95.35
+        ],
+        [
+          29.818,
+          -95.35
+        ],
+        [
+          29.818,
+          -95.335
+        ],
+        [
+          29.805,
+          -95.335
+        ]
+      ],
+      "area_km2": 2.1,
+      "weight_share": 0.45,
+      "confidence": 0.66,
+      "wide": false,
+      "reasons": [
+        "15 ads name Northside",
+        "area code 832 fits"
+      ]
+    }
+  ],
+  "buildings": [
+    {
+      "property_id": "CS-51010",
+      "address": "(synthetic) CS-51010",
+      "lat": 29.7412,
+      "lon": -95.3921,
+      "type": "multifamily",
+      "floors": 5,
+      "units": 80,
+      "year_built": 2011,
+      "has_scan": true,
+      "scan_id": "mp_5101"
+    },
+    {
+      "property_id": "CS-51022",
+      "address": "(synthetic) CS-51022",
+      "lat": 29.744,
+      "lon": -95.389,
+      "type": "multifamily",
+      "floors": 3,
+      "units": 36,
+      "year_built": 1999,
+      "has_scan": true,
+      "scan_id": "mp_5102"
+    },
+    {
+      "property_id": "CS-51090",
+      "address": "(synthetic) CS-51090",
+      "lat": 29.739,
+      "lon": -95.396,
+      "type": "retail",
+      "floors": 1,
+      "units": null,
+      "year_built": 1988,
+      "has_scan": false,
+      "scan_id": null
+    },
+    {
+      "property_id": "CS-52070",
+      "address": "(synthetic) CS-52070",
+      "lat": 29.811,
+      "lon": -95.3421,
+      "type": "multifamily",
+      "floors": 7,
+      "units": 140,
+      "year_built": 2016,
+      "has_scan": true,
+      "scan_id": "mp_5207"
+    },
+    {
+      "property_id": "CS-52081",
+      "address": "(synthetic) CS-52081",
+      "lat": 29.815,
+      "lon": -95.346,
+      "type": "hospitality",
+      "floors": 9,
+      "units": 180,
+      "year_built": 2004,
+      "has_scan": true,
+      "scan_id": "mp_5208"
+    },
+    {
+      "property_id": "CS-52099",
+      "address": "(synthetic) CS-52099",
+      "lat": 29.808,
+      "lon": -95.339,
+      "type": "office",
+      "floors": 4,
+      "units": null,
+      "year_built": 1992,
+      "has_scan": false,
+      "scan_id": null
+    }
+  ],
+  "photo_cues": {
+    "setting": "apartment",
+    "window_floor_est": [
+      2,
+      4
+    ],
+    "features": [
+      "corner unit"
+    ]
+  },
+  "room_match": {
+    "mp_5101": {
+      "core": {
+        "P": 0.71,
+        "evidence": [
+          {
+            "photo": "img_601",
+            "view_id": "mp_5101/sweep_4/az_45",
+            "inliers": 188,
+            "match_img": "data/matches/img_601_mp_5101.jpg"
+          }
+        ]
+      }
+    },
+    "mp_5102": {
+      "core": {
+        "P": 0.18,
+        "evidence": []
+      }
+    },
+    "mp_5207": {
+      "core": {
+        "P": 0.66,
+        "evidence": [
+          {
+            "photo": "img_605",
+            "view_id": "mp_5207/sweep_9/az_180",
+            "inliers": 151,
+            "match_img": "data/matches/img_605_mp_5207.jpg"
+          }
+        ]
+      }
+    },
+    "mp_5208": {
+      "core": {
+        "P": 0.09,
+        "evidence": []
+      }
+    }
+  },
+  "geo": {
+    "mp_5101": {
+      "lat": 29.7415,
+      "lon": -95.3917,
+      "heading_deg": 48,
+      "building_id": "CS-51010",
+      "floor_range": [
+        2,
+        4
+      ],
+      "error_estimate_m": 15,
+      "evidence": []
+    },
+    "mp_5207": {
+      "lat": 29.8113,
+      "lon": -95.3418,
+      "heading_deg": 301,
+      "building_id": "CS-52070",
+      "floor_range": [
+        2,
+        4
+      ],
+      "error_estimate_m": 18,
+      "evidence": []
+    }
+  },
+  "window": {
+    "mp_5101": {
+      "W": 0.64,
+      "floor_range": [
+        2,
+        4
+      ],
+      "checks": {
+        "road_front": true,
+        "tree_line": true,
+        "building_across": false
+      }
+    },
+    "mp_5207": {
+      "W": 0.61,
+      "floor_range": [
+        2,
+        4
+      ],
+      "checks": {
+        "road_front": true,
+        "parking_front": false,
+        "building_across": true
+      }
+    }
+  }
+}

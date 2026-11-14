@@ -1,9 +1,11 @@
-"""Zoner: turns each ring's place clues into one or more search areas ("domes").
+"""Zoner (Ishaan): where is the ring active, as an area?  -> zones.json
 
-    python -m dome.agents.zoner case/<id> [--logins on] [--data data/synth]
+    python -m dome.agents.zoner --case <case_id> [--logins on]
 
-Reads  case/<id>/rings.json, data/synth/posts.json (+ accounts.json when --logins on)
-Writes case/<id>/zones.json, appends to case/<id>/log.jsonl
+Reads the selected ring from rings.json and the ring members' posts from the case's dataset
+(case.dataset_dir(); + accounts.json when the login layer is on). Returns a ZonesFile; the
+supervisor (or the shared CLI) validates it, saves it and writes log.jsonl.
+With no dataset on the case (stub scenarios), it returns the scenario's fixture zones.
 
 Method (deterministic, no network):
   1. Collect place clues from the ring members' posts. Each clue is a point, a precision and a weight.
@@ -14,22 +16,22 @@ Method (deterministic, no network):
   5. weight_share = zone weight / ring weight;  confidence = weight_share / (1 + area_km2 / 10).
   6. wide = area > 25 km2, or most of the weight came from city-wide clues.
 
-The Zoner gives areas only. It never outputs a point or an address.
+The Zoner gives areas only. It never outputs a point or an address. It never reads the answer key.
 """
+from __future__ import annotations
 
-import argparse
-import json
+import copy
 import math
 from collections import Counter
-from datetime import datetime, timezone
-from pathlib import Path
 
 import numpy as np
 from shapely.geometry import Point, Polygon, box
 from shapely.ops import unary_union
 
-from dome.agents._ishaan_models import RingZones
-from dome.synth.common import load_gazetteer, load_json, save_json
+from .. import config
+from ..case import Case
+from ..data_tools import _stub
+from ..synth.common import load_gazetteer, load_json
 
 # ---- tunable settings, all in one place -------------------------------------------------------
 
@@ -44,7 +46,7 @@ CLUE_WEIGHTS = {
 CITY_WIDE_KINDS = {"city", "area_code"}
 KEEP_SHARE = 0.80          # keep the smallest set of cells holding this share of the weight
 MIN_ZONE_SHARE = 0.05      # drop specks holding less than this share
-WIDE_AREA_KM2 = 25.0
+WIDE_AREA_KM2 = config.WIDE_AREA_KM2
 
 CELL_KM = 1.0
 GRID_CENTER = (29.7604, -95.3698)   # fixed grid origin (city centre)
@@ -71,6 +73,11 @@ CELL_X, CELL_Y = np.meshgrid(_centres, _centres)          # [row=y, col=x]
 
 # ---- step 1: clues ----------------------------------------------------------------------------
 
+def author(post):
+    """Datasets name the poster differently (synth: account_id, mini: account)."""
+    return post.get("account_id") or post.get("account") or post.get("handle")
+
+
 def collect_clues(members, posts, gazetteer, accounts=None):
     """Return a list of clues: {kind, name, lat, lon, precision_km, weight}."""
     members = set(members)
@@ -81,7 +88,7 @@ def collect_clues(members, posts, gazetteer, accounts=None):
                       "precision_km": precision, "weight": CLUE_WEIGHTS[kind]})
 
     for p in posts:
-        if p["account_id"] not in members:
+        if author(p) not in members:
             continue
         names = ([p["stated_area"]] if p.get("stated_area") else []) + list(p.get("landmarks", []))
         for name in names:
@@ -95,7 +102,7 @@ def collect_clues(members, posts, gazetteer, accounts=None):
 
     if accounts is not None:
         for a in accounts:
-            if a["account_id"] in members:
+            if (a.get("account_id") or a.get("handle")) in members:
                 for login in a.get("logins", []):
                     kind = "vpn_login" if login["vpn"] else "login"
                     add(kind, "login", login["lat"], login["lon"], login["precision_km"])
@@ -207,7 +214,7 @@ def names_per_ad(members, posts):
     members = set(members)
     out = []
     for p in posts:
-        if p["account_id"] in members:
+        if author(p) in members:
             names = set(([p["stated_area"]] if p.get("stated_area") else []) + list(p.get("landmarks", [])))
             if names:
                 out.append(names)
@@ -250,79 +257,51 @@ def zones_for_ring(ring, posts, gazetteer, accounts=None):
     out = []
     for i, z in enumerate(zones, start=1):
         z.pop("_weight")
-        out.append({"zone_id": f"Z-{suffix}{i}", **z})
+        sep = "-" if suffix[-1:].isdigit() else ""      # R-A -> Z-A1, R-1 -> Z-1-1
+        out.append({"zone_id": f"Z-{suffix}{sep}{i}", **z})
     return {"ring_id": ring["ring_id"], "zones": out}
 
 
 # ---- I/O --------------------------------------------------------------------------------------
 
-def read_rings(case_dir):
-    data = load_json(Path(case_dir) / "rings.json")
-    if isinstance(data, dict):
-        data = data.get("rings", [data])
-    return data
 
 
-def run(case_dir, data_dir="data/synth", logins=False):
-    case_dir = Path(case_dir)
-    rings = read_rings(case_dir)
-    posts = load_json(Path(data_dir) / "posts.json")
-    accounts = load_json(Path(data_dir) / "accounts.json") if logins else None
-    gazetteer = load_gazetteer()
+# ---- pipeline entry point ---------------------------------------------------------------------
 
-    result = [RingZones(**zones_for_ring(r, posts, gazetteer, accounts)).model_dump() for r in rings]
-    save_json(case_dir / "zones.json", result)
-    log(case_dir, {"agent": "zoner", "event": "wrote zones.json", "logins": "on" if logins else "off",
-                   "rings": len(result), "zones": sum(len(r["zones"]) for r in result)})
-    return result
-
-
-def log(case_dir, entry):
-    entry = {"time": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), **entry}
-    with open(Path(case_dir) / "log.jsonl", "a") as f:
-        f.write(json.dumps(entry) + "\n")
+def run(case: Case, logins: str = "off") -> dict:
+    ring = case.selected_ring()
+    if ring is None:
+        raise ValueError("no ring in rings.json; the Zoner needs a ring")
+    data = case.dataset_dir()
+    if data is None:   # stub scenario run: no posts to read, use the fixture zones
+        return {"case_id": case.case_id, "ring_id": ring.ring_id,
+                "zones": copy.deepcopy(_stub.scenario()["zones"])}
+    posts = load_json(data / "posts.json")
+    accounts = load_json(data / "accounts.json") if logins == "on" else None
+    result = zones_for_ring(ring.model_dump(), posts, load_gazetteer(), accounts)
+    return {"case_id": case.case_id, **result}
 
 
-def score_against_answer_key(result, rings, answer_key_path):
-    """SCORING ONLY, never part of the pipeline: is each ring's true building inside a zone?
+def score_against_answer_key(zones_files, answer_key_path):
+    """SCORING ONLY, never called by the pipeline: is each ring's true building inside a zone?
 
-    Rings are matched to answer-key rings by member overlap. Returns (hits, n_rings, median_area).
+    zones_files: list of (ring members, zones list). Rings are matched to answer-key rings by
+    member overlap. Returns (hits, n_rings, median zone area).
     """
-    from dome.synth.common import load_buildings
+    from ..synth.common import load_buildings
     key = load_json(answer_key_path)
     coords = {b["label"]: (b["lat"], b["lon"]) for b in load_buildings()}
-    members_of = {r["ring_id"]: set(r["members"]) for r in rings}
+    labels = [k for k in key if k not in ("hard_negatives", "decoy_buildings")]
     hits, areas = 0, []
-    for ring in result:
-        areas += [z["area_km2"] for z in ring["zones"]]
-        labels = [k for k in key if k not in ("hard_negatives", "decoy_buildings")]
-        best = max(labels, key=lambda k: len(members_of[ring["ring_id"]] & set(key[k]["members"])))
+    for members, zones in zones_files:
+        areas += [z["area_km2"] for z in zones]
+        best = max(labels, key=lambda k: len(set(members) & set(key[k]["members"])))
         true = [coords[b["label"]] for b in key[best]["buildings"]]
-        if all(any(point_in_zone(z, *ll) for z in ring["zones"]) for ll in true):
+        if all(any(point_in_zone(z, *ll) for z in zones) for ll in true):
             hits += 1
-    return hits, len(result), float(np.median(areas)) if areas else 0.0
-
-
-def main():
-    ap = argparse.ArgumentParser(description="Zoner: place clues -> search zones.")
-    ap.add_argument("case_dir")
-    ap.add_argument("--data", default="data/synth")
-    ap.add_argument("--logins", choices=["on", "off"], default="off")
-    ap.add_argument("--answer-key", help="scoring only: print how many true buildings fall inside")
-    args = ap.parse_args()
-    result = run(args.case_dir, args.data, args.logins == "on")
-    for ring in result:
-        print(ring["ring_id"])
-        for z in ring["zones"]:
-            print(f"  {z['zone_id']}: {z['area_km2']} km2, share {z['weight_share']}, "
-                  f"confidence {z['confidence']}, wide {z['wide']}")
-            for reason in z["reasons"]:
-                print(f"    - {reason}")
-    print(f"wrote {Path(args.case_dir) / 'zones.json'}")
-    if args.answer_key:
-        hits, n, median = score_against_answer_key(result, read_rings(args.case_dir), args.answer_key)
-        print(f"true building inside the dome: {hits} of {n} rings; median zone area {median:.1f} km2")
+    return hits, len(zones_files), float(np.median(areas)) if areas else 0.0
 
 
 if __name__ == "__main__":
-    main()
+    from . import cli
+    cli("zoner", "zones.json", run, [("--logins", {"choices": ["on", "off"], "default": "off"})])
