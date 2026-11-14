@@ -156,6 +156,9 @@ class Ring(_Model):
     events: list[Event] = []
     location_hints: list[LocationHint] = []
     kind_counts: dict[str, int] = {}
+    # topological model (UniGCN on the combinatorial complex): mean P(in a ring) over members.
+    # A second opinion next to `confidence`; null when the optional model is not installed.
+    topo_score: Optional[float] = Field(default=None, ge=0.0, le=1.0)
 
 
 class RingsFile(_Model):

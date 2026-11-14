@@ -297,6 +297,10 @@ class Linked:
     embedding_catches: list = field(default_factory=list)
     embed_backend: str = "none"
     stats: dict = field(default_factory=dict)
+    # the combinatorial complex for the topological model (dome/agents/topo.py):
+    # cells = [(rank, kind, key, accounts)]; rank 1 = a sticky note shared by 2+ accounts,
+    # rank 2 = an echo event (ad + message + payment + ride) joining several notes
+    cells: list = field(default_factory=list)
 
 
 def _strength(kinds: dict) -> float:
@@ -520,6 +524,14 @@ def link_accounts(ds: dict, layers: str = "both", private: bool = True,
                       "key_kinds": [k for k in KIND_ORDER if k in shared], "_inner": inner})
 
     rings.sort(key=lambda r: (-r["confidence"], r["members"][0]))
+    cells = [(1, kind, key, sorted(accts)) for (kind, key), accts in sorted(index.items())
+             if 2 <= len(accts) <= config.MAX_KEY_FANOUT]
+    seen_keys = {c[2] for c in cells}
+    for (a, b), kinds in sorted(pair.items()):
+        for kd, v in sorted(kinds.items()):
+            if v["key"] not in seen_keys and v["w"] >= config.MIN_KEY_WEIGHT:
+                cells.append((1, kd, v["key"] + f"#{a}~{b}", [a, b]))
+    cells += [(2, "echo_event", e["event_id"], e["members"]) for e in events if len(e["members"]) >= 2]
     in_ring = {m: i for i, r in enumerate(rings) for m in r["members"]}
     out_degree = defaultdict(list)
     for it in ds["interactions"]:
@@ -580,11 +592,22 @@ def link_accounts(ds: dict, layers: str = "both", private: bool = True,
     weak = [link_json(k, v, "; one key kind is a hint, not a link") for k, v in hints.items()]
     weak += [link_json(k, v, extra) for k, (v, extra) in demoted.items()]
     weak.sort(key=lambda h: (not (h["a"] in in_ring or h["b"] in in_ring), -h["strength"], h["a"], h["b"]))
+    # topological second opinion (optional): mean P(in a ring) over the members
+    prob = None
+    if config.TOPO_SCORE:
+        from . import topo
+        try:
+            prob = topo.predict(ds, cells)
+        except Exception:   # never let the optional model break the rules pipeline
+            prob = None
+    for r in out_rings:
+        r["topo_score"] = round(statistics.mean(prob.get(m, 0.0) for m in r["members"]), 2) if prob else None
     return Linked(
         rings_file={"rings": out_rings, "weak_hints": weak[:config.MAX_WEAK_HINTS],
                     "layers": layers, "private_layers": private,
                     "room_links_used": bool(room_groups)},
         pair=dict(pair), strength=strength, embedding_catches=catches, embed_backend=backend,
+        cells=cells,
         stats={"accounts": len(accounts), "posts": len(posts), "pairs_with_any_key": len(strength),
                "links": len(links), "hints": len(hints), "rings": len(out_rings),
                "heartbeat_pairs": hb, "events": len(events)})

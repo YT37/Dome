@@ -78,6 +78,8 @@ ECHO_WINDOW_MIN = 90
 RELAY_MAX_DAYS = 7
 HINT_BOOST_MAX = 0.15         # Lister: max fit boost near a merchant/echo hint
 HINT_BOOST_RADIUS_M = 500
+# topological ring scorer (dome/agents/topo.py); off with DOME_TOPO=0, skipped if not installed
+TOPO_SCORE = os.environ.get("DOME_TOPO", "1") != "0"
 RING_CONFIDENCE_CAP = 0.95
 
 # Linker tuning
