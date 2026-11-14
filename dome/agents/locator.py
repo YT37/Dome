@@ -1,7 +1,8 @@
 """Locator (Avishek): which building's room and window view match the photos?  -> matches.json
 
-P comes from vision.room_match, W from vision.window_check (Yug's tools). This file only
-orchestrates and applies the threshold. A match is a lead to verify, not proof of presence.
+P comes from vision.room_match (Yug), W from vision.window_check (Gemini, Avishek). This file
+only orchestrates and applies the threshold. A match is a lead to verify, not proof of
+presence. If the window check cannot run honestly, W stays null and the reason is recorded.
 """
 from __future__ import annotations
 
@@ -28,8 +29,9 @@ def run(case: Case, zone_id: str) -> dict:
     thr = config.MATCH_THRESHOLD
     scanned = {c.scan_id: c for c in block.candidates if c.has_scan}
     paths = [p.path for p in ring.photos]
-    windows = [p for p in ring.photos if p.has_window]
+    windows = sorted((p for p in ring.photos if p.has_window), key=lambda p: p.photo_id)
     results = vision.room_match(paths, sorted(scanned)) if scanned else []
+    cue_floors = block.photo_cues.window_floor_est
 
     matches = []
     for r in sorted(results, key=lambda r: (-r["P"], r["scan_id"])):
@@ -43,11 +45,20 @@ def run(case: Case, zone_id: str) -> dict:
             m["geo"] = {"lat": fix["lat"], "lon": fix["lon"], "heading_deg": fix["heading_deg"],
                         "pin_moved_m": round(_dist_m(c.lat, c.lon, fix["lat"], fix["lon"])),
                         "error_estimate_m": fix["error_estimate_m"]}
-            m["floor_range"] = fix.get("floor_range")
-            if windows:   # no window photo -> W stays null and the lead is capped at Medium
-                w = vision.window_check(windows[0].path, fix["lat"], fix["lon"], fix["heading_deg"])
-                m.update(W=round(w["W"], 2), window_checked=True, window_checks=w["checks"],
-                         floor_range=w.get("floor_range") or m["floor_range"])
+            w_floors = None
+            # no window photo -> W stays null and the lead is capped at Medium. Otherwise use
+            # the first window photo (fixed order) the check can run on; never the best of many.
+            for photo in windows[:config.MAX_WINDOW_PHOTOS_TRIED]:
+                w = vision.window_check(photo.path, fix["lat"], fix["lon"], fix["heading_deg"])
+                if w.get("W") is not None:
+                    m.update(W=round(w["W"], 2), window_checked=True, window_checks=w["checks"],
+                             window_photo=photo.photo_id, window_skipped=None)
+                    w_floors = w.get("floor_range")
+                    break
+                m["window_skipped"] = w.get("skipped") or "window check could not run"
+            # tightest trustworthy floor range: geo fix, then window check, then photo cues
+            fr = fix.get("floor_range") or w_floors or cue_floors
+            m["floor_range"] = list(fr) if fr else None
         matches.append(m)
 
     best = max((m["P"] for m in matches), default=0.0)

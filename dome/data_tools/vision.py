@@ -1,12 +1,17 @@
-"""Vision tools (STUB): photo cues, photo-to-scan room match, window check."""
+"""Vision tools: photo cues and window check (Avishek, Gemini), room match (Yug).
+
+photo_cues and window_check delegate to gemini_vision.py. With no image files on disk they
+answer from the stub fixture, so the stub demo and the tests keep working.
+"""
 from __future__ import annotations
 
 from . import _stub
 
 
 def photo_cues(photo_paths: list[str]) -> dict:
-    """Read the ring photos once. keys: setting, window_floor_est, features"""
-    return dict(_stub.scenario()["photo_cues"])
+    """Read the ring photos once. keys: setting, window_floor_est, features, source"""
+    from . import gemini_vision
+    return gemini_vision.photo_cues(photo_paths, stub=lambda: dict(_stub.scenario()["photo_cues"]))
 
 
 def room_match(photo_paths: list[str], scan_ids: list[str]) -> list[dict]:
@@ -19,13 +24,23 @@ def room_match(photo_paths: list[str], scan_ids: list[str]) -> list[dict]:
     return out
 
 
-def window_check(window_crop: str, lat: float, lon: float, heading_deg: float) -> dict:
-    """keys: W (0-1), checks: {name: bool}, floor_range: [lo, hi]"""
+def _stub_window_check(lat: float, lon: float) -> dict:
+    # the stub finds its scan by the stub geo's exact lat/lon (replace both together)
     sc = _stub.scenario()
     for sid, fix in sc.get("geo", {}).items():
         if abs(fix["lat"] - lat) < 1e-6 and abs(fix["lon"] - lon) < 1e-6 and sid in sc.get("window", {}):
             return dict(sc["window"][sid])
-    return {"W": 0.0, "checks": {}, "floor_range": None}
+    return {"W": None, "checks": {}, "floor_range": None, "skipped": "no stub window data"}
+
+
+def window_check(window_crop: str, lat: float, lon: float, heading_deg: float) -> dict:
+    """keys: W (0-1, or None when the check could not run), checks: {name: bool},
+    floor_range: [lo, hi] or None. `window_crop` may be the whole window photo; the window
+    is found and cropped inside."""
+    from . import gemini_vision, vexcel
+    return gemini_vision.window_check(window_crop, lat, lon, heading_deg,
+                                      stub=lambda: _stub_window_check(lat, lon),
+                                      oblique_view=vexcel.oblique_view)
 
 
 def detect_exits(scan_id: str) -> list[dict]:

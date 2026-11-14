@@ -49,6 +49,8 @@ def run(case: Case, zone_id: str, scanned_only: bool = False) -> dict:
     for p in props:
         if scanned_only and not p.get("has_scan"):
             continue                                            # wide zone: scanned buildings only
+        raw = str(p.get("type") or "").lower()
+        p = {**p, "type": config.COSTAR_TYPE_MAP.get(raw, raw)}  # CoStar words -> Dome's three
         fit, reasons = score_fit(p, cues)
         cands.append({"property_id": p["property_id"], "address": p["address"], "lat": p["lat"],
                       "lon": p["lon"], "type": p["type"], "floors": p.get("floors"), "fit": fit,
