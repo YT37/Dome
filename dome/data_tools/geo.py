@@ -317,11 +317,22 @@ def _cluster_rows(items: list[dict], gap: float = 1.3) -> list[list[dict]]:
     return [r for r in rows if len(r) >= 1]
 
 
-def _match_pattern(inside: list[tuple[float, float]], row: list[tuple[float, float]], span: float) -> tuple[float, float]:
-    """Best 1D overlap of the inside pattern slid along a row. Returns (score 0-1, offset)."""
+def _merge_intervals(iv: list[tuple[float, float]]) -> list[tuple[float, float]]:
+    """Overlapping inside windows (the same window seen twice) count once."""
+    out: list[list[float]] = []
+    for a, b in sorted(iv):
+        if out and a <= out[-1][1]:
+            out[-1][1] = max(out[-1][1], b)
+        else:
+            out.append([a, b])
+    return [(a, b) for a, b in out]
+
+
+def _match_curve(inside: list[tuple[float, float]], row: list[tuple[float, float]], span: float) -> list[tuple[float, float]]:
+    """(offset, score) for every offset of the inside pattern slid along a row."""
+    out = []
     if not inside or not row:
-        return 0.0, 0.0
-    best = (0.0, 0.0)
+        return out
     for off in np.arange(-span, span + 1e-9, 0.25):
         tot = 0.0
         used = 0
@@ -338,10 +349,8 @@ def _match_pattern(inside: list[tuple[float, float]], row: list[tuple[float, flo
         lo = min(a for a, _ in inside) + off - 0.5
         hi = max(b for _, b in inside) + off + 0.5
         extra = sum(1 for c, d in row if c >= lo and d <= hi) - used
-        score = tot / (len(inside) + max(0, extra))
-        if score > best[0]:
-            best = (score, off)
-    return best
+        out.append((float(off), tot / (len(inside) + max(0, extra))))
+    return out
 
 
 def _floors_for(building: dict, local: Local) -> int | None:
@@ -360,8 +369,10 @@ def _floors_for(building: dict, local: Local) -> int | None:
     return max(floors) if floors else None
 
 
-def window_fingerprint(scan: dict, h: Hypothesis, local: Local) -> None:
-    """Fill h.window_score / floor / unit_offset_m / window_info (in place)."""
+def window_fingerprint(scan: dict, h: Hypothesis, local: Local, costar_floors: list[int] | None = None) -> None:
+    """Fill h.window_score / floor / unit_offset_m / window_info (in place).
+    costar_floors: floors CoStar's unit numbers allow for this scan (a window floor outside
+    them is rejected)."""
     from shapely.geometry import Point
 
     from . import vexcel as vx
@@ -428,12 +439,21 @@ def window_fingerprint(scan: dict, h: Hypothesis, local: Local) -> None:
             s = float((p - a) @ dloc)
             half = (w.get("width_m") or 1.0) / 2
             inside.append((s - half, s + half))
+        inside = _merge_intervals(inside)
         span = 6.0
-        scored = []
+        cands = []  # (score, row index, offset)
         for ri, row in enumerate(rows):
-            sc, off = _match_pattern(inside, [(o["s0"], o["s1"]) for o in row], span)
-            scored.append((sc, ri, off))
-        sc, ri, off = max(scored)
+            for off, sc_ in _match_curve(inside, [(o["s0"], o["s1"]) for o in row], span):
+                cands.append((sc_, ri, off))
+        if not cands:
+            walls.append({"normal": _heading(nn), "status": "no overlap with any window row"})
+            continue
+        cands.sort(reverse=True)
+        best_raw, ri, off = cands[0]
+        # distinctiveness: a regular facade matches the pattern at many offsets and floors;
+        # only the margin over the best clearly different placement counts as evidence
+        runner = next((c[0] for c in cands[1:] if c[1] != ri or abs(c[2] - off) >= 1.0), 0.0)
+        sc = max(0.0, best_raw - runner)
         # floor: count rows from the top when the story count is known (ground floors are
         # often shops with no window row), else from the bottom
         row_h = [float(np.mean([o["h"] for o in r])) for r in rows]
@@ -441,7 +461,12 @@ def window_fingerprint(scan: dict, h: Hypothesis, local: Local) -> None:
             floor = n_floors - (len(rows) - 1 - ri)
         else:
             floor = ri + 1
+        if costar_floors and floor not in costar_floors:
+            walls.append({"normal": round(_heading(nn), 1), "status": f"window floor {floor} not in CoStar unit floors {costar_floors}",
+                          "raw_score": round(best_raw, 3)})
+            continue
         walls.append({"normal": round(_heading(nn), 1), "direction": direction, "score": round(sc, 3),
+                      "raw_score": round(best_raw, 3), "runner_up": round(runner, 3),
                       "row": ri + 1, "rows": len(rows), "row_heights_m": [round(x, 1) for x in row_h],
                       "floor": floor, "offset_m": round(off, 2),
                       "unit_offset_m": round(min(a_ for a_, _ in inside) + off, 2),
@@ -575,9 +600,11 @@ def fix_scan_location(scan_id: str, rough_lat: float, rough_lon: float,
     hyps = outline_fit(scan, near, local, top=2)[:4]
     if not hyps:
         raise RuntimeError(f"{scan_id}: no footprint within {radius_m} m fits the unit")
+    from . import costar as _costar
+    cs_floors = _costar.unit_floors_for_scan(scan_id)["floors"]
     for h in hyps:
         try:
-            window_fingerprint(scan, h, local)
+            window_fingerprint(scan, h, local, cs_floors)
         except Exception as e:  # keep the outline result; record why the window step failed
             h.window_info = {"error": f"{type(e).__name__}: {e}"}
     hyps.sort(key=lambda h: -h.final)
