@@ -1,0 +1,16 @@
+{
+  "case_id": "demo-a",
+  "synthetic": true,
+  "accounts": [
+    {"handle": "acct_017", "display_name": "Synthetic Account 017", "bio": "dm for bookings",
+     "created": "2026-08-02", "last_active": "2026-11-10", "flags": ["ad_pattern"]},
+    {"handle": "acct_102", "display_name": "Synthetic Account 102", "bio": "new in town",
+     "created": "2026-08-02", "last_active": "2026-11-11", "flags": ["ad_pattern", "shared_phone"]},
+    {"handle": "acct_118", "display_name": "Synthetic Account 118", "bio": "",
+     "created": "2026-08-03", "last_active": "2026-11-09", "flags": ["reused_photo"]},
+    {"handle": "acct_233", "display_name": "Synthetic Account 233", "bio": "modelling agency, job offers",
+     "created": "2026-07-19", "last_active": "2026-11-12", "flags": ["recruiter_pattern"]},
+    {"handle": "acct_404", "display_name": "Synthetic Account 404", "bio": "midtown foodie",
+     "created": "2025-01-14", "last_active": "2026-11-12", "flags": ["same_area"]}
+  ]
+}

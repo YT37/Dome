@@ -1,0 +1,139 @@
+{
+  "case_id": "demo-a",
+  "rings": [
+    {
+      "ring_id": "R-A",
+      "members": [
+        "acct_017",
+        "acct_102",
+        "acct_118",
+        "acct_233"
+      ],
+      "confidence": 0.91,
+      "key_kinds": [
+        "contact",
+        "text",
+        "photo"
+      ],
+      "links": [
+        {
+          "a": "acct_017",
+          "b": "acct_102",
+          "keys": [
+            "contact:555-0142",
+            "text:tmpl_7"
+          ],
+          "kinds": [
+            "contact",
+            "text"
+          ],
+          "strength": 0.96,
+          "reason": "same phone in 14 ads; reworded copy of the same script"
+        },
+        {
+          "a": "acct_102",
+          "b": "acct_118",
+          "keys": [
+            "photo:phash_9c1e",
+            "text:tmpl_7"
+          ],
+          "kinds": [
+            "photo",
+            "text"
+          ],
+          "strength": 0.92,
+          "reason": "same room photo reposted; same ad template"
+        }
+      ],
+      "recruiters": [
+        {
+          "account": "acct_233",
+          "reason": "bio says modelling agency; 31 of 33 reposts go to ring accounts"
+        }
+      ],
+      "place_keys": [
+        "cell_29.76_-95.37"
+      ],
+      "photos": [
+        {
+          "photo_id": "img_311",
+          "path": "data/photos/img_311.jpg",
+          "account": "acct_017",
+          "link_strength": "core",
+          "has_window": true
+        },
+        {
+          "photo_id": "img_312",
+          "path": "data/photos/img_312.jpg",
+          "account": "acct_102",
+          "link_strength": "core",
+          "has_window": true
+        },
+        {
+          "photo_id": "img_313",
+          "path": "data/photos/img_313.jpg",
+          "account": "acct_118",
+          "link_strength": "core",
+          "has_window": true
+        },
+        {
+          "photo_id": "img_314",
+          "path": "data/photos/img_314.jpg",
+          "account": "acct_017",
+          "link_strength": "core",
+          "has_window": false
+        },
+        {
+          "photo_id": "img_315",
+          "path": "data/photos/img_315.jpg",
+          "account": "acct_102",
+          "link_strength": "core",
+          "has_window": false
+        },
+        {
+          "photo_id": "img_316",
+          "path": "data/photos/img_316.jpg",
+          "account": "acct_118",
+          "link_strength": "core",
+          "has_window": false
+        },
+        {
+          "photo_id": "img_317",
+          "path": "data/photos/img_317.jpg",
+          "account": "acct_017",
+          "link_strength": "core",
+          "has_window": false
+        },
+        {
+          "photo_id": "img_318",
+          "path": "data/photos/img_318.jpg",
+          "account": "acct_102",
+          "link_strength": "core",
+          "has_window": false
+        },
+        {
+          "photo_id": "img_319",
+          "path": "data/photos/img_319.jpg",
+          "account": "acct_118",
+          "link_strength": "core",
+          "has_window": false
+        }
+      ],
+      "photo_expansion_used": false
+    }
+  ],
+  "weak_hints": [
+    {
+      "a": "acct_017",
+      "b": "acct_404",
+      "keys": [
+        "place:cell_29.76_-95.37"
+      ],
+      "kinds": [
+        "place"
+      ],
+      "strength": 0.3,
+      "reason": "same 1 km cell only; one key kind is a hint, not a link"
+    }
+  ]
+}

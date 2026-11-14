@@ -1,0 +1,36 @@
+{
+  "case_id": "demo-a",
+  "ring_id": "R-A",
+  "zones": [
+    {
+      "zone_id": "Z-A1",
+      "polygon": [
+        [
+          29.755,
+          -95.375
+        ],
+        [
+          29.768,
+          -95.375
+        ],
+        [
+          29.768,
+          -95.358
+        ],
+        [
+          29.755,
+          -95.358
+        ]
+      ],
+      "area_km2": 2.4,
+      "weight_share": 0.81,
+      "confidence": 0.74,
+      "wide": false,
+      "reasons": [
+        "34 ads name Midtown or a Midtown landmark",
+        "area code 713 fits",
+        "login layer off"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "case_id": "demo-a",
+  "ring_id": "R-A",
+  "zones": [
+    {
+      "zone_id": "Z-A1",
+      "scanned_only": false,
+      "total_in_zone": 7,
+      "photo_cues": {
+        "setting": "apartment",
+        "window_floor_est": [
+          3,
+          5
+        ],
+        "features": [
+          "balcony",
+          "street trees"
+        ]
+      },
+      "candidates": [
+        {
+          "property_id": "CS-88107",
+          "address": "(synthetic) CS-88107",
+          "lat": 29.7641,
+          "lon": -95.3702,
+          "type": "multifamily",
+          "floors": 4,
+          "fit": 0.8,
+          "has_scan": true,
+          "scan_id": "mp_2210",
+          "fit_reasons": [
+            "multifamily matches apartment photos",
+            "4 floors fits a floor 3 to 5 view"
+          ]
+        },
+        {
+          "property_id": "CS-88412",
+          "address": "(synthetic) CS-88412",
+          "lat": 29.7603,
+          "lon": -95.3681,
+          "type": "multifamily",
+          "floors": 6,
+          "fit": 0.8,
+          "has_scan": true,
+          "scan_id": "mp_4471",
+          "fit_reasons": [
+            "multifamily matches apartment photos",
+            "6 floors fits a floor 3 to 5 view"
+          ]
+        },
+        {
+          "property_id": "CS-87990",
+          "address": "(synthetic) CS-87990",
+          "lat": 29.759,
+          "lon": -95.3625,
+          "type": "hospitality",
+          "floors": 12,
+          "fit": 0.3,
+          "has_scan": true,
+          "scan_id": "mp_3302",
+          "fit_reasons": [
+            "12 floors fits a floor 3 to 5 view"
+          ]
+        },
+        {
+          "property_id": "CS-88533",
+          "address": "(synthetic) CS-88533",
+          "lat": 29.7662,
+          "lon": -95.3655,
+          "type": "multifamily",
+          "floors": 2,
+          "fit": 0.5,
+          "has_scan": false,
+          "scan_id": null,
+          "fit_reasons": [
+            "multifamily matches apartment photos"
+          ]
+        },
+        {
+          "property_id": "CS-88021",
+          "address": "(synthetic) CS-88021",
+          "lat": 29.7572,
+          "lon": -95.3711,
+          "type": "office",
+          "floors": 20,
+          "fit": 0.3,
+          "has_scan": false,
+          "scan_id": null,
+          "fit_reasons": [
+            "20 floors fits a floor 3 to 5 view"
+          ]
+        },
+        {
+          "property_id": "CS-88390",
+          "address": "(synthetic) CS-88390",
+          "lat": 29.7655,
+          "lon": -95.3604,
+          "type": "single_family",
+          "floors": 1,
+          "fit": 0.0,
+          "has_scan": false,
+          "scan_id": null,
+          "fit_reasons": []
+        },
+        {
+          "property_id": "CS-88615",
+          "address": "(synthetic) CS-88615",
+          "lat": 29.7618,
+          "lon": -95.3733,
+          "type": "retail",
+          "floors": 1,
+          "fit": 0.0,
+          "has_scan": false,
+          "scan_id": null,
+          "fit_reasons": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,368 @@
+{
+  "scenario": "ring_a",
+  "rings": {
+    "rings": [
+      {
+        "ring_id": "R-A",
+        "members": [
+          "acct_017",
+          "acct_102",
+          "acct_118",
+          "acct_233"
+        ],
+        "confidence": 0.91,
+        "key_kinds": [
+          "contact",
+          "text",
+          "photo"
+        ],
+        "links": [
+          {
+            "a": "acct_017",
+            "b": "acct_102",
+            "keys": [
+              "contact:555-0142",
+              "text:tmpl_7"
+            ],
+            "kinds": [
+              "contact",
+              "text"
+            ],
+            "strength": 0.96,
+            "reason": "same phone in 14 ads; reworded copy of the same script"
+          },
+          {
+            "a": "acct_102",
+            "b": "acct_118",
+            "keys": [
+              "photo:phash_9c1e",
+              "text:tmpl_7"
+            ],
+            "kinds": [
+              "photo",
+              "text"
+            ],
+            "strength": 0.92,
+            "reason": "same room photo reposted; same ad template"
+          }
+        ],
+        "recruiters": [
+          {
+            "account": "acct_233",
+            "reason": "bio says modelling agency; 31 of 33 reposts go to ring accounts"
+          }
+        ],
+        "place_keys": [
+          "cell_29.76_-95.37"
+        ],
+        "photos": [
+          {
+            "photo_id": "img_311",
+            "path": "data/photos/img_311.jpg",
+            "account": "acct_017",
+            "link_strength": "core",
+            "has_window": true
+          },
+          {
+            "photo_id": "img_312",
+            "path": "data/photos/img_312.jpg",
+            "account": "acct_102",
+            "link_strength": "core",
+            "has_window": true
+          },
+          {
+            "photo_id": "img_313",
+            "path": "data/photos/img_313.jpg",
+            "account": "acct_118",
+            "link_strength": "core",
+            "has_window": true
+          },
+          {
+            "photo_id": "img_314",
+            "path": "data/photos/img_314.jpg",
+            "account": "acct_017",
+            "link_strength": "core",
+            "has_window": false
+          },
+          {
+            "photo_id": "img_315",
+            "path": "data/photos/img_315.jpg",
+            "account": "acct_102",
+            "link_strength": "core",
+            "has_window": false
+          },
+          {
+            "photo_id": "img_316",
+            "path": "data/photos/img_316.jpg",
+            "account": "acct_118",
+            "link_strength": "core",
+            "has_window": false
+          },
+          {
+            "photo_id": "img_317",
+            "path": "data/photos/img_317.jpg",
+            "account": "acct_017",
+            "link_strength": "core",
+            "has_window": false
+          },
+          {
+            "photo_id": "img_318",
+            "path": "data/photos/img_318.jpg",
+            "account": "acct_102",
+            "link_strength": "core",
+            "has_window": false
+          },
+          {
+            "photo_id": "img_319",
+            "path": "data/photos/img_319.jpg",
+            "account": "acct_118",
+            "link_strength": "core",
+            "has_window": false
+          }
+        ],
+        "photo_expansion_used": false
+      }
+    ],
+    "weak_hints": [
+      {
+        "a": "acct_017",
+        "b": "acct_404",
+        "keys": [
+          "place:cell_29.76_-95.37"
+        ],
+        "kinds": [
+          "place"
+        ],
+        "strength": 0.3,
+        "reason": "same 1 km cell only; one key kind is a hint, not a link"
+      }
+    ]
+  },
+  "weak_photos": [
+    {
+      "photo_id": "img_390",
+      "path": "data/photos/img_390.jpg",
+      "account": "acct_404",
+      "link_strength": "weak",
+      "has_window": false
+    },
+    {
+      "photo_id": "img_391",
+      "path": "data/photos/img_391.jpg",
+      "account": "acct_404",
+      "link_strength": "weak",
+      "has_window": false
+    }
+  ],
+  "zones": [
+    {
+      "zone_id": "Z-A1",
+      "polygon": [
+        [
+          29.755,
+          -95.375
+        ],
+        [
+          29.768,
+          -95.375
+        ],
+        [
+          29.768,
+          -95.358
+        ],
+        [
+          29.755,
+          -95.358
+        ]
+      ],
+      "area_km2": 2.4,
+      "weight_share": 0.81,
+      "confidence": 0.74,
+      "wide": false,
+      "reasons": [
+        "34 ads name Midtown or a Midtown landmark",
+        "area code 713 fits",
+        "login layer off"
+      ]
+    }
+  ],
+  "buildings": [
+    {
+      "property_id": "CS-88412",
+      "address": "(synthetic) CS-88412",
+      "lat": 29.7603,
+      "lon": -95.3681,
+      "type": "multifamily",
+      "floors": 6,
+      "units": 120,
+      "year_built": 2014,
+      "has_scan": true,
+      "scan_id": "mp_4471"
+    },
+    {
+      "property_id": "CS-88107",
+      "address": "(synthetic) CS-88107",
+      "lat": 29.7641,
+      "lon": -95.3702,
+      "type": "multifamily",
+      "floors": 4,
+      "units": 64,
+      "year_built": 1998,
+      "has_scan": true,
+      "scan_id": "mp_2210"
+    },
+    {
+      "property_id": "CS-87990",
+      "address": "(synthetic) CS-87990",
+      "lat": 29.759,
+      "lon": -95.3625,
+      "type": "hospitality",
+      "floors": 12,
+      "units": 210,
+      "year_built": 2008,
+      "has_scan": true,
+      "scan_id": "mp_3302"
+    },
+    {
+      "property_id": "CS-88533",
+      "address": "(synthetic) CS-88533",
+      "lat": 29.7662,
+      "lon": -95.3655,
+      "type": "multifamily",
+      "floors": 2,
+      "units": 16,
+      "year_built": 1975,
+      "has_scan": false,
+      "scan_id": null
+    },
+    {
+      "property_id": "CS-88021",
+      "address": "(synthetic) CS-88021",
+      "lat": 29.7572,
+      "lon": -95.3711,
+      "type": "office",
+      "floors": 20,
+      "units": null,
+      "year_built": 1985,
+      "has_scan": false,
+      "scan_id": null
+    },
+    {
+      "property_id": "CS-88390",
+      "address": "(synthetic) CS-88390",
+      "lat": 29.7655,
+      "lon": -95.3604,
+      "type": "single_family",
+      "floors": 1,
+      "units": 1,
+      "year_built": 1962,
+      "has_scan": false,
+      "scan_id": null
+    },
+    {
+      "property_id": "CS-88615",
+      "address": "(synthetic) CS-88615",
+      "lat": 29.7618,
+      "lon": -95.3733,
+      "type": "retail",
+      "floors": 1,
+      "units": null,
+      "year_built": 1990,
+      "has_scan": false,
+      "scan_id": null
+    },
+    {
+      "property_id": "CS-90001",
+      "address": "(synthetic) CS-90001",
+      "lat": 29.8,
+      "lon": -95.4,
+      "type": "multifamily",
+      "floors": 8,
+      "units": 150,
+      "year_built": 2019,
+      "has_scan": true,
+      "scan_id": "mp_9001"
+    }
+  ],
+  "photo_cues": {
+    "setting": "apartment",
+    "window_floor_est": [
+      3,
+      5
+    ],
+    "features": [
+      "balcony",
+      "street trees"
+    ]
+  },
+  "room_match": {
+    "mp_4471": {
+      "core": {
+        "P": 0.78,
+        "evidence": [
+          {
+            "photo": "img_311",
+            "view_id": "mp_4471/sweep_12/az_135",
+            "inliers": 212,
+            "match_img": "data/matches/img_311_mp_4471.jpg"
+          },
+          {
+            "photo": "img_314",
+            "view_id": "mp_4471/sweep_7/az_270",
+            "inliers": 164,
+            "match_img": "data/matches/img_314_mp_4471.jpg"
+          }
+        ]
+      }
+    },
+    "mp_2210": {
+      "core": {
+        "P": 0.22,
+        "evidence": [
+          {
+            "photo": "img_312",
+            "view_id": "mp_2210/sweep_3/az_90",
+            "inliers": 41,
+            "match_img": "data/matches/img_312_mp_2210.jpg"
+          }
+        ]
+      }
+    },
+    "mp_3302": {
+      "core": {
+        "P": 0.11,
+        "evidence": []
+      }
+    }
+  },
+  "geo": {
+    "mp_4471": {
+      "lat": 29.7612,
+      "lon": -95.3671,
+      "heading_deg": 212,
+      "building_id": "CS-88412",
+      "floor_range": [
+        3,
+        5
+      ],
+      "error_estimate_m": 12,
+      "evidence": [
+        "scan floor plan matches building outline"
+      ]
+    }
+  },
+  "window": {
+    "mp_4471": {
+      "W": 0.67,
+      "floor_range": [
+        3,
+        5
+      ],
+      "checks": {
+        "road_front": true,
+        "parking_front": true,
+        "building_across": false
+      }
+    }
+  }
+}
