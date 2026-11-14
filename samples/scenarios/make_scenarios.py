@@ -36,7 +36,7 @@ SCENARIOS = {}
 
 # ---- Ring A: one zone, one building, room + window match -> High ----
 SCENARIOS["ring_a"] = {
-    "scenario": "ring_a",
+    "scenario": "ring_a", "seed_account": "acct_017",
     "rings": {
         "rings": [{
             "ring_id": "R-A", "members": ["acct_017", "acct_102", "acct_118", "acct_233"],
@@ -87,7 +87,7 @@ SCENARIOS["ring_a"] = {
 
 # ---- Ring B: clues split over 2 areas, photos from 2 buildings -> two zones, two leads ----
 SCENARIOS["ring_b"] = {
-    "scenario": "ring_b",
+    "scenario": "ring_b", "seed_account": "acct_501",
     "rings": {
         "rings": [{
             "ring_id": "R-B", "members": ["acct_501", "acct_502", "acct_517", "acct_530"],
@@ -138,7 +138,7 @@ SCENARIOS["ring_b"] = {
 
 # ---- Ring C: vague city-wide clues, no window photos, no match until photo expansion ----
 SCENARIOS["ring_c"] = {
-    "scenario": "ring_c",
+    "scenario": "ring_c", "seed_account": "acct_701",
     "rings": {
         "rings": [{
             "ring_id": "R-C", "members": ["acct_701", "acct_702", "acct_713"],

@@ -27,15 +27,17 @@ class Case:
 
     @classmethod
     def open(cls, case_id: str, scenario: Optional[str] = None, ring_id: Optional[str] = None,
-             root: Optional[Path] = None, reset: bool = False) -> "Case":
+             root: Optional[Path] = None, reset: bool = False, dataset: Optional[str] = None,
+             seed_account: Optional[str] = None) -> "Case":
         """Create (or reuse) the case folder. reset=True clears earlier outputs."""
         case = cls(case_id, root)
         case.dir.mkdir(parents=True, exist_ok=True)
         if reset:
             for name in OUTPUTS:
                 case.path(name).unlink(missing_ok=True)
-        if scenario or not case.path("input.json").exists():
-            inp = CaseInput(case_id=case_id, scenario=scenario, ring_id=ring_id)
+        if scenario or dataset or not case.path("input.json").exists():
+            inp = CaseInput(case_id=case_id, scenario=scenario, ring_id=ring_id, dataset=dataset,
+                            seed_account=seed_account)
             case.path("input.json").write_text(inp.model_dump_json(indent=2), encoding="utf-8")
         return cls(case_id, root)
 
@@ -77,9 +79,12 @@ class Case:
         rings = self.load("rings.json")
         if not rings or not rings.rings:
             return None
-        want = self.input.ring_id
+        inp = self.input
         for r in rings.rings:
-            if r.ring_id == want:
+            if r.ring_id == inp.ring_id:
+                return r
+        for r in rings.rings:
+            if inp.seed_account and inp.seed_account in r.members:
                 return r
         return max(rings.rings, key=lambda r: (r.confidence, r.ring_id))
 

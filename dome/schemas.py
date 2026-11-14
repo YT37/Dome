@@ -23,6 +23,8 @@ class CaseInput(_Model):
     case_id: str
     scenario: Optional[str] = None      # stub scenario under samples/scenarios/
     ring_id: Optional[str] = None       # ring to investigate; default: highest confidence
+    dataset: Optional[str] = None       # accounts/posts/interactions folder; None = stub Linker
+    seed_account: Optional[str] = None  # investigate the ring that contains this account
 
 
 class FlaggedAccount(_Model):

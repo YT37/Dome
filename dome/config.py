@@ -25,6 +25,28 @@ KEY_WEIGHTS = {"contact": 0.9, "photo": 0.8, "device": 0.7, "text": 0.6,
                "interaction": 0.5, "place": 0.3, "time": 0.2}
 RING_CONFIDENCE_CAP = 0.95
 
+# Linker tuning
+EMBED_MODEL = "all-MiniLM-L6-v2"
+TEXT_MIN_WORDS = 10           # shorter texts are chatter, not a script
+MINHASH_THRESHOLD = 0.5       # Jaccard on word 3-shingles: near-identical copies
+EMBED_THRESHOLD = 0.75        # cosine: the same script reworded
+PHASH_MAX_DISTANCE = 6        # Hamming distance between 64-bit pHashes
+RARE_KEY_SIZE = 20            # a key shared by many more accounts than this counts for little
+MAX_KEY_FANOUT = 150          # keys shared by more accounts than this are ignored
+MIN_KEY_WEIGHT = 0.05         # after down-weighting, weaker keys do not count as a kind
+MIN_REPEAT_INTERACTIONS = 2   # "repeated" reposts/replies between two accounts
+LOCKSTEP_SECONDS = 300
+LOCKSTEP_MIN_TIMES = 3
+HINT_MIN_STRENGTH = 0.15      # weaker single-kind overlaps are not even kept as hints
+EXPAND_MIN_HINT = 0.3         # photo expansion uses hints at least this strong
+MAX_WEAK_HINTS = 200
+LEIDEN_MIN_SIZE = 20          # Leiden only splits linked groups at least this big
+RING_KIND_MIN_LINKS = 2       # a kind counts for the ring if it is on at least this many links
+REQUIRE_LAYER_AGREEMENT = True  # ring needs a content kind AND a connectivity kind
+RECRUITER_BIO = r"modell?ing agency|job offers?|casting call|talent scout|hiring models"
+RECRUITER_MIN_SHARE = 0.6     # share of an account's reposts/replies that go into the ring
+DEVICE_LAYER = False          # lawful-only layer; off in the demo
+
 # Lister fit = type + floors + other cues
 FIT_WEIGHTS = {"type": 0.5, "floors": 0.3, "cues": 0.2}
 

@@ -7,6 +7,13 @@ dependencies = [
     "deepagents==0.7.38",
     "langchain-anthropic",
     "pydantic>=2",
+    "numpy",
+    "datasketch",
+    "networkx",
+    "igraph",
+    "leidenalg",
+    "imagehash",
+    "sentence-transformers",
 ]
 
 [project.optional-dependencies]

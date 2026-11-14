@@ -1,0 +1,98 @@
+{
+ "rings": {
+  "A": {
+   "members": [
+    "acct_017",
+    "acct_102",
+    "acct_118",
+    "acct_131",
+    "acct_233",
+    "acct_234",
+    "acct_235",
+    "acct_241",
+    "acct_242",
+    "acct_243",
+    "acct_244",
+    "acct_245"
+   ],
+   "recruiters": [
+    "acct_233",
+    "acct_234",
+    "acct_235"
+   ],
+   "building": "CS-88412",
+   "scan": "mp_4471",
+   "unit": "4C",
+   "scenario": "ring_a"
+  },
+  "B": {
+   "members": [
+    "acct_501",
+    "acct_502",
+    "acct_503",
+    "acct_504",
+    "acct_517",
+    "acct_518",
+    "acct_530",
+    "acct_531"
+   ],
+   "recruiters": [],
+   "building": [
+    "CS-51010",
+    "CS-52070"
+   ],
+   "scan": [
+    "mp_5101",
+    "mp_5207"
+   ],
+   "scenario": "ring_b"
+  },
+  "C": {
+   "members": [
+    "acct_701",
+    "acct_702",
+    "acct_703",
+    "acct_704",
+    "acct_705",
+    "acct_706"
+   ],
+   "recruiters": [],
+   "building": "CS-60030",
+   "scan": "mp_6003",
+   "scenario": "ring_c"
+  }
+ },
+ "hard_negatives": {
+  "rental_hosts": [
+   "host_01",
+   "host_02",
+   "host_03",
+   "host_04",
+   "host_05",
+   "host_06"
+  ],
+  "spa_chain": [
+   "spa_01",
+   "spa_02",
+   "spa_03",
+   "spa_04",
+   "spa_05",
+   "spa_06"
+  ],
+  "delivery_driver": [
+   "driver_01"
+  ],
+  "friend_groups": [
+   "friend_00",
+   "friend_01",
+   "friend_02",
+   "friend_03",
+   "friend_04",
+   "friend_10",
+   "friend_11",
+   "friend_12",
+   "friend_13",
+   "friend_14"
+  ]
+ }
+}

@@ -6,4 +6,6 @@ __pycache__/
 .env
 case/
 .langgraph_api/
-data/
+data/photos/
+data/matches/
+data/vexcel/

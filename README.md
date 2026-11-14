@@ -27,6 +27,26 @@ python -m dome.supervisor --case demo-c --scenario ring_c --scripted
 python -m dome.supervisor --case demo-w --scenario weak_ring --scripted
 ```
 
+With the **real Linker** on a synthetic dataset (accounts, posts, interactions) instead of the
+stub rings. `--seed` picks the ring that contains that account:
+
+```bash
+python samples/data/make_mini.py
+python -m dome.supervisor --case real-a --scenario ring_a --data mini --scripted
+python -m dome.supervisor --case real-c --scenario ring_c --data mini --scripted
+```
+
+Linker alone, scored against the hidden answer key (the Arlequin solo demo):
+
+```bash
+python -m dome.eval --data mini
+python -m dome.agents.linker --case solo --data mini --seed acct_017
+```
+
+On the mini dataset: ring precision 1.00, recall 1.00, recall@10 0.96 / 1.00 / 1.00, all
+four hard-negative groups unlinked, 3 of 3 recruiters flagged, and one reworded script that
+MinHash missed (Jaccard 0.00) but embeddings caught (cosine 0.88).
+
 With the LLM supervisor (copy `.env.example` to `.env`, set `ANTHROPIC_API_KEY`):
 
 ```bash
@@ -117,8 +137,29 @@ line to `log.jsonl` with its evidence.
 - Every query, weight and decision is logged with a timestamp.
 - Login and device layers are optional and off in the demo.
 
+## The Linker
+
+1. **Keys per account:** contact (phones, including disguised ones like "five5five 0142",
+   @handles, $payment tags), photo (pHash), text (MinHash for copies plus
+   `all-MiniLM-L6-v2` embeddings for rewordings), interaction (repeated reposts/replies, or
+   amplifying the same post within an hour), place (area, landmark, area code), time
+   (same creation day, lockstep posting). The device layer is off.
+2. **Inverse-frequency down-weighting:** a key shared by many accounts counts for almost nothing.
+3. **Two kinds make a link:** two accounts link only if they share two different kinds of key
+   (place never counts toward the two). One kind alone is a weak hint, used later for photo
+   expansion.
+4. **Layers must agree:** a cluster is a ring only if it has a content key and a connectivity
+   key. Leiden splits linked groups of 20+.
+5. **Recruiters:** a bio offering modelling or jobs, with most reposts/replies going into the ring.
+
+Ring confidence R = 1 − Π(1 − w_k) over the kinds the ring shares, capped at 0.95.
+Tuning lives in `dome/config.py`.
+
 ## Status
 
-Stubs today: `dome/agents/linker.py`, `zoner.py`, `briefer.py` and everything in
-`dome/data_tools/` return fixtures from `samples/scenarios/`. `samples/*.json` is the
-contract; `dome/schemas.py` wins if they differ.
+- **Real:** supervisor, schemas, Linker, Lister, Locator logic, scoring (`dome/eval.py`).
+- **Stubs:** `zoner.py` and `briefer.py` (Ishaan; the Briefer stub already applies the real
+  tier rules), and everything in `dome/data_tools/` (Yug), which return fixtures from
+  `samples/scenarios/`.
+- `samples/data/mini/` is a small stand-in dataset until Ishaan's full generator lands.
+  `samples/*.json` is the contract; `dome/schemas.py` wins if they differ.

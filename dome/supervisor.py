@@ -459,7 +459,8 @@ def make_graph(config_: Optional[dict] = None):
     Pick the case with configurable: {"case_id": "demo-c", "scenario": "ring_c"}.
     """
     cfg = (config_ or {}).get("configurable", {}) or {}
-    case = Case.open(cfg.get("case_id", "demo-a"), scenario=cfg.get("scenario", "ring_a"))
+    case = Case.open(cfg.get("case_id", "demo-a"), scenario=cfg.get("scenario", "ring_a"),
+                     dataset=cfg.get("dataset"), seed_account=cfg.get("seed_account"))
     return build_agent(case, cfg.get("model"))
 
 
@@ -480,13 +481,22 @@ def main(argv: Optional[list[str]] = None) -> int:
     p.add_argument("--case", required=True, help="case id (folder under case/)")
     p.add_argument("--scenario", default="ring_a", help="stub scenario in samples/scenarios/")
     p.add_argument("--ring", default=None, help="ring id to investigate (default: highest R)")
+    p.add_argument("--data", default=None, help="dataset folder (or name under samples/data/): "
+                   "runs the real Linker on it instead of the stub")
+    p.add_argument("--seed", default=None, help="investigate the ring containing this account")
     p.add_argument("--scripted", action="store_true", help="rule-based planner, no LLM")
     p.add_argument("--model", default=None, help="e.g. openai:gpt-5.5 (default: DOME_MODEL)")
     p.add_argument("--resume", action="store_true", help="keep earlier outputs in the case folder")
     a = p.parse_args(argv)
 
     _load_dotenv()
-    case = Case.open(a.case, scenario=a.scenario, ring_id=a.ring, reset=not a.resume)
+    seed = a.seed
+    if a.data and not seed and not a.ring:   # default: the ring this scenario's fixtures describe
+        fixture = config.SCENARIOS / a.scenario / "scenario.json"
+        if fixture.exists():
+            seed = json.loads(fixture.read_text(encoding="utf-8")).get("seed_account")
+    case = Case.open(a.case, scenario=a.scenario, ring_id=a.ring, reset=not a.resume,
+                     dataset=a.data, seed_account=seed)
     sup = run_scripted(case) if a.scripted else run_llm(case, a.model)
 
     brief = case.load("brief.json")

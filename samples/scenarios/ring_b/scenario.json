@@ -1,5 +1,6 @@
 {
   "scenario": "ring_b",
+  "seed_account": "acct_501",
   "rings": {
     "rings": [
       {
