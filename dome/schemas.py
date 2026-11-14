@@ -8,7 +8,12 @@ from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-KeyKind = Literal["contact", "photo", "device", "text", "interaction", "place", "time"]
+# v1 kinds plus the v2 sticky notes and pattern kinds. `text` is the "same script" note and
+# `time` the posting-time / creation-burst tie-breaker (names kept so v1 files still validate).
+KeyKind = Literal["contact", "photo", "device", "text", "interaction", "place", "time",
+                  "money", "dm", "room", "style", "route", "merchant", "heartbeat", "echo"]
+RoleName = Literal["collector", "handler", "worker", "recruiter", "hub"]
+Layers = Literal["content", "network", "both"]
 Tier = Literal["High", "Medium", "Low"]
 Unit = Field(ge=0.0, le=1.0)
 LatLon = tuple[float, float]
@@ -25,6 +30,37 @@ class CaseInput(_Model):
     ring_id: Optional[str] = None       # ring to investigate; default: highest confidence
     dataset: Optional[str] = None       # accounts/posts/interactions folder; None = stub Linker
     seed_account: Optional[str] = None  # investigate the ring that contains this account
+    layers: Layers = "both"             # v2: content only, network only, or both
+    private_layers: bool = True         # v2: messages + payments (Arlequin Track 1); False = --no-private
+
+
+# ---------- v2 private inputs (synthetic) ----------
+class Message(BaseModel):
+    model_config = ConfigDict(extra="allow", populate_by_name=True)
+    msg_id: str
+    from_: str = Field(alias="from")
+    to: str
+    time: str
+    text: str = ""
+
+
+class Merchant(BaseModel):
+    model_config = ConfigDict(extra="allow")
+    name: str
+    category: str = "other"            # lodging | rideshare | telecom | other
+    area: str = ""
+    lat: Optional[float] = None
+    lon: Optional[float] = None
+
+
+class Transaction(BaseModel):
+    model_config = ConfigDict(extra="allow", populate_by_name=True)
+    tx_id: str
+    from_: str = Field(alias="from")
+    to: str
+    amount: float = 0.0
+    time: str
+    merchant: Optional[Merchant] = None
 
 
 class FlaggedAccount(_Model):
@@ -64,6 +100,47 @@ class RingPhoto(_Model):
     has_window: bool = False
 
 
+class Role(_Model):
+    account: str
+    role: RoleName
+    reason: str
+
+
+class Handoff(BaseModel):
+    model_config = ConfigDict(extra="forbid", populate_by_name=True)
+    key: str
+    from_: str = Field(alias="from")
+    to: str
+    from_last_seen: str
+    to_first_seen: str
+    reason: str
+
+
+class EventItem(_Model):
+    type: Literal["ad", "message", "payment", "ride"]
+    ref: str
+    time: str
+
+
+class Event(_Model):
+    event_id: str
+    start: str
+    end: str
+    members: list[str] = []
+    items: list[EventItem] = []
+    place_hint: Optional[str] = None
+    reason: str = ""
+
+
+class LocationHint(_Model):
+    kind: Literal["merchant", "echo", "route", "chat_place", "login"]
+    text: str                           # an area or a named business, never a person's address
+    lat: Optional[float] = None
+    lon: Optional[float] = None
+    weight: float = Unit
+    source: list[str] = []
+
+
 class Ring(_Model):
     ring_id: str
     members: list[str] = Field(min_length=2)
@@ -73,12 +150,21 @@ class Ring(_Model):
     recruiters: list[Recruiter] = []
     place_keys: list[str] = []
     photos: list[RingPhoto] = []
+    # v2 (all default to empty so v1 files still validate)
+    roles: list[Role] = []
+    relay: list[Handoff] = []
+    events: list[Event] = []
+    location_hints: list[LocationHint] = []
+    kind_counts: dict[str, int] = {}
 
 
 class RingsFile(_Model):
     case_id: str
     rings: list[Ring] = []
     weak_hints: list[Link] = []
+    layers: Layers = "both"
+    private_layers: bool = False
+    room_links_used: bool = False       # v2: Linker re-ran with the Locator's room groups
 
 
 # ---------- zones.json (Zoner) ----------
@@ -103,6 +189,9 @@ class PhotoCues(_Model):
     setting: str = "unknown"
     window_floor_est: Optional[tuple[int, int]] = None
     features: list[str] = []
+    # who read the photos: "gemini", "stub" (fixture, no image files) or "none" (neutral
+    # cues because Gemini could not run on real photos)
+    source: Literal["gemini", "stub", "none"] = "stub"
 
 
 class Candidate(_Model):
@@ -164,6 +253,8 @@ class Match(_Model):
     geo: Optional[GeoFix] = None
     evidence: list[MatchEvidence] = []
     window_checks: dict[str, bool] = {}
+    window_photo: Optional[str] = None      # photo id the window check used
+    window_skipped: Optional[str] = None    # why the window check could not run (W stays null)
 
     @model_validator(mode="after")
     def _window(self):
@@ -174,14 +265,25 @@ class Match(_Model):
         return self
 
 
+class RoomGroup(_Model):
+    group_id: str
+    photos: list[str]
+    accounts: list[str] = []
+    scan_id: Optional[str] = None       # null when the group matches no scan
+    details: list[str] = []
+    outside_ring: list[str] = []        # accounts in the group that are not ring members
+
+
 class MatchZone(_Model):
     zone_id: str
+    attempt: int = 1
     threshold: float = Unit
     best_P: float = Unit
     above_threshold: bool
     photos_used: int = Field(ge=0)
     window_photos: int = Field(ge=0)
     matches: list[Match] = []
+    room_groups: list[RoomGroup] = []
 
 
 class MatchesFile(_Model):

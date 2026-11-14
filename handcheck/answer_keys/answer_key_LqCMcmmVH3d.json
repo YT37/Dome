@@ -1,0 +1,193 @@
+{
+  "version": 2,
+  "scan_id": "LqCMcmmVH3d",
+  "checked_by": "Yug",
+  "building": {
+    "vexcel_structure_id": "vx_8244d35c95",
+    "costar_property_id": "RL-213304177",
+    "address": ""
+  },
+  "facades": [
+    "east",
+    "west"
+  ],
+  "unit_floor_from_ground": null,
+  "floor_sure": false,
+  "inside_windows": [
+    {
+      "id": "IW2",
+      "views": 5,
+      "normal_deg": 36.1,
+      "width_m": 0.35,
+      "x": 0.547,
+      "y": 4.344,
+      "floor_id": "tsmq1wak12rhgn0mawksxcwcd"
+    },
+    {
+      "id": "IW3",
+      "views": 6,
+      "normal_deg": 80.8,
+      "width_m": 1.19,
+      "x": -0.214,
+      "y": 5.195,
+      "floor_id": "tsmq1wak12rhgn0mawksxcwcd"
+    },
+    {
+      "id": "IW4",
+      "views": 17,
+      "normal_deg": 89.5,
+      "width_m": 2.71,
+      "x": 1.669,
+      "y": 1.501,
+      "floor_id": "tsmq1wak12rhgn0mawksxcwcd"
+    },
+    {
+      "id": "IW5",
+      "views": 2,
+      "normal_deg": 92.3,
+      "width_m": 0.6,
+      "x": 1.671,
+      "y": 2.91,
+      "floor_id": "tsmq1wak12rhgn0mawksxcwcd"
+    },
+    {
+      "id": "IW6",
+      "views": 1,
+      "normal_deg": 108.2,
+      "width_m": 0.17,
+      "x": 1.817,
+      "y": 0.086,
+      "floor_id": "tsmq1wak12rhgn0mawksxcwcd"
+    },
+    {
+      "id": "IW7",
+      "views": 1,
+      "normal_deg": 186.6,
+      "width_m": 1.26,
+      "x": -12.986,
+      "y": -1.22,
+      "floor_id": "tsmq1wak12rhgn0mawksxcwcd"
+    },
+    {
+      "id": "IW8",
+      "views": 2,
+      "normal_deg": 272.5,
+      "width_m": 1.35,
+      "x": -13.403,
+      "y": 0.426,
+      "floor_id": "tsmq1wak12rhgn0mawksxcwcd"
+    },
+    {
+      "id": "IW9",
+      "views": 2,
+      "normal_deg": 264.5,
+      "width_m": 1.9,
+      "x": -13.402,
+      "y": -0.484,
+      "floor_id": "tsmq1wak12rhgn0mawksxcwcd"
+    },
+    {
+      "id": "IW10",
+      "views": 1,
+      "normal_deg": 272.4,
+      "width_m": 1.45,
+      "x": -13.325,
+      "y": 1.611,
+      "floor_id": "tsmq1wak12rhgn0mawksxcwcd"
+    },
+    {
+      "id": "IW11",
+      "views": 4,
+      "normal_deg": 270.1,
+      "width_m": 2.51,
+      "x": -13.293,
+      "y": 2.641,
+      "floor_id": "tsmq1wak12rhgn0mawksxcwcd"
+    },
+    {
+      "id": "IW12",
+      "views": 1,
+      "normal_deg": null,
+      "width_m": null,
+      "x": null,
+      "y": null,
+      "floor_id": null
+    },
+    {
+      "id": "IW13",
+      "views": 1,
+      "normal_deg": null,
+      "width_m": null,
+      "x": null,
+      "y": null,
+      "floor_id": null
+    },
+    {
+      "id": "IW25",
+      "views": 1,
+      "normal_deg": null,
+      "width_m": null,
+      "x": null,
+      "y": null,
+      "floor_id": null
+    },
+    {
+      "id": "IW26",
+      "views": 1,
+      "normal_deg": null,
+      "width_m": null,
+      "x": null,
+      "y": null,
+      "floor_id": null
+    }
+  ],
+  "inside_rejected": [
+    "IW1",
+    "IW14",
+    "IW15",
+    "IW16",
+    "IW17",
+    "IW18",
+    "IW19",
+    "IW20",
+    "IW21",
+    "IW22",
+    "IW23",
+    "IW24"
+  ],
+  "outside_windows": [
+    {
+      "image": "N1",
+      "direction": "oblique-north",
+      "box": 27,
+      "x": 946,
+      "y": 231,
+      "w": 16,
+      "h": 26,
+      "missed": false
+    },
+    {
+      "image": "N1",
+      "direction": "oblique-north",
+      "box": 44,
+      "x": 980,
+      "y": 190,
+      "w": 23,
+      "h": 38,
+      "missed": false
+    },
+    {
+      "image": "S1",
+      "direction": "oblique-south",
+      "box": 6,
+      "x": 814,
+      "y": 256,
+      "w": 29,
+      "h": 39,
+      "missed": false
+    }
+  ],
+  "outside_skipped": false,
+  "confidence": "fairly sure",
+  "notes": "i'm unsure about windows from outside and the directions, but windows i'm sure, u recognised balconys as window and a glass dooe as window and a door as window"
+}

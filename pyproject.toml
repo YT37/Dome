@@ -15,6 +15,12 @@ dependencies = [
     "leidenalg",
     "imagehash",
     "sentence-transformers",
+    "requests",
+    "python-dotenv",
+    "pyproj",
+    "opencv-python-headless",
+    "pillow",
+    "transformers",
 ]
 
 [project.optional-dependencies]

@@ -189,6 +189,9 @@ def build_leads(case: Case, ring, zones, cands, matches, low_only: str = "") -> 
         for c in cz.candidates:
             cand_zone.setdefault(c.property_id, (c, cz.zone_id))
     dates = ad_dates(case, ring.members)
+    medium_only = ("no location hints in the ring's messages or payments; the zone came from "
+                   "login data" if any(d.decision == "no_location_hints_use_logins_cap_medium"
+                                       for d in case.decisions()) else "")
 
     found = {}   # property_id -> lead; the best match per building across zones
     for mz in (matches.zones if matches else []):
@@ -196,7 +199,8 @@ def build_leads(case: Case, ring, zones, cands, matches, low_only: str = "") -> 
             if m.P < mz.threshold:
                 continue   # no photo match: not a lead (counted on the page instead)
             c, _ = cand_zone.get(m.property_id, (None, mz.zone_id))
-            lead = make_lead(ring, zone_by_id.get(mz.zone_id), mz.zone_id, c, m, mz, dates, low_only)
+            lead = make_lead(ring, zone_by_id.get(mz.zone_id), mz.zone_id, c, m, mz, dates, low_only,
+                             medium_only)
             if m.property_id not in found or lead["score"] > found[m.property_id]["score"]:
                 found[m.property_id] = lead
 
@@ -208,12 +212,20 @@ def build_leads(case: Case, ring, zones, cands, matches, low_only: str = "") -> 
     return leads
 
 
-def make_lead(ring, zone, zone_id, cand, m, mz, dates, low_only):
+def make_lead(ring, zone, zone_id, cand, m, mz, dates, low_only, medium_only=""):
     P = m.P if m else 0.0
     W = m.W if m and P >= config.MATCH_THRESHOLD else None
     f = {"R": ring.confidence, "Z": zone.confidence if zone else 0.0,
          "F": cand.fit if cand else 0.0, "P": P, "W": W}
     tier, caps = tier_for(f["R"], P, W), caps_for(f["R"], P, W)
+    skipped = getattr(m, "window_skipped", None) if m else None
+    if W is None and skipped and P >= config.TIER_STRONG:
+        caps = [c if "window" not in c else
+                f"capped at Medium: window check could not run ({skipped[:80]})" for c in caps]
+    # v2 (Avishek): the supervisor logged "no location hints" -> cap every lead at Medium
+    if medium_only and tier == "High":
+        tier = "Medium"
+        caps.append(f"capped at Medium: {medium_only}")
     if low_only and tier != "Low":
         tier = "Low"
         caps.append(f"capped at Low: {low_only}")

@@ -109,7 +109,93 @@
           "account": "acct_118",
           "has_window": false
         }
-      ]
+      ],
+      "roles": [
+        {
+          "account": "acct_017",
+          "role": "collector",
+          "reason": "receives payments from 5 of 12 members; pays none out"
+        },
+        {
+          "account": "acct_102",
+          "role": "handler",
+          "reason": "pays lodging, rideshare, telecom (motel, rides, phone top-ups)"
+        }
+      ],
+      "relay": [
+        {
+          "key": "contact:555-0142",
+          "from": "acct_040",
+          "to": "acct_102",
+          "from_last_seen": "2026-10-02T21:10:00Z",
+          "to_first_seen": "2026-10-04T09:30:00Z",
+          "reason": "555-0142 left acct_040 and appeared on acct_102 1 day(s) 12 h later"
+        }
+      ],
+      "events": [
+        {
+          "event_id": "E-A1",
+          "start": "2026-10-11T20:05:00Z",
+          "end": "2026-10-11T21:20:00Z",
+          "members": [
+            "acct_017",
+            "acct_102"
+          ],
+          "items": [
+            {
+              "type": "ad",
+              "ref": "post_881",
+              "time": "2026-10-11T20:05:00Z"
+            },
+            {
+              "type": "message",
+              "ref": "msg_3302",
+              "time": "2026-10-11T20:12:00Z"
+            },
+            {
+              "type": "payment",
+              "ref": "tx_5110",
+              "time": "2026-10-11T20:31:00Z"
+            },
+            {
+              "type": "ride",
+              "ref": "tx_5114",
+              "time": "2026-10-11T21:20:00Z"
+            }
+          ],
+          "place_hint": "Downtown, Houston",
+          "reason": "ad, message, payment, ride within 75 minutes, sharing 2 flagged account(s)"
+        }
+      ],
+      "location_hints": [
+        {
+          "kind": "merchant",
+          "text": "Lone Star Motel (synthetic), Downtown, Houston",
+          "lat": 29.759,
+          "lon": -95.366,
+          "weight": 0.6,
+          "source": [
+            "tx_5110"
+          ]
+        },
+        {
+          "kind": "echo",
+          "text": "Downtown, Houston",
+          "lat": 29.759,
+          "lon": -95.366,
+          "weight": 0.5,
+          "source": [
+            "E-A1"
+          ]
+        }
+      ],
+      "kind_counts": {
+        "money": 6,
+        "contact": 14,
+        "dm": 21,
+        "photo": 9,
+        "text": 30
+      }
     }
   ],
   "weak_hints": [
@@ -125,5 +211,8 @@
       "strength": 0.3,
       "reason": "same 1 km cell only; one key kind is a hint, not a link"
     }
-  ]
+  ],
+  "layers": "both",
+  "private_layers": true,
+  "room_links_used": false
 }

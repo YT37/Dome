@@ -51,10 +51,33 @@ MATCH_THRESHOLD = 0.4       # Locator: a scan needs P >= this to count as a matc
 TIER_STRONG = 0.6           # High needs P, W and R all >= this
 WIDE_AREA_KM2 = 25.0        # zone is "wide" above this area
 MAX_CANDIDATES = 50
+MAX_WINDOW_PHOTOS_TRIED = 3   # Locator: window photos tried, in photo-id order, for W
+
+# CoStar property types -> the three Dome compares against photo cues (others pass through)
+COSTAR_TYPE_MAP = {
+    "multifamily": "multifamily", "apartment": "multifamily", "apartments": "multifamily",
+    "residential_condo": "multifamily", "condo": "multifamily",
+    "hospitality": "hospitality", "hotel": "hospitality", "motel": "hospitality",
+    "single_family": "single_family", "homes": "single_family", "house": "single_family",
+    "residential_detached": "single_family", "residential_townhouse": "single_family",
+}
 
 # Linker key weights (R = 1 - prod(1 - w_k), capped)
-KEY_WEIGHTS = {"contact": 0.9, "photo": 0.8, "device": 0.7, "text": 0.6,
-               "interaction": 0.5, "place": 0.3, "time": 0.2}
+# v2: the 10 sticky notes (text = "same script"; time = posting-time/creation-burst tie-breaker)
+KEY_WEIGHTS = {"money": 0.9, "contact": 0.9, "dm": 0.85, "room": 0.8, "photo": 0.8, "device": 0.7,
+               "text": 0.6, "style": 0.5, "route": 0.5, "merchant": 0.4,
+               "interaction": 0.5, "heartbeat": 0.4, "echo": 0.7, "place": 0.3, "time": 0.2}
+# kinds that give an area, not identity: never count toward the two-kinds rule
+NON_COUNTING_KINDS = ("place", "merchant")
+
+# v2 patterns
+HEARTBEAT_MIN_EVENTS = 20     # posts + messages + payments an account needs for a rhythm
+HEARTBEAT_COSINE = 0.9        # same 24-hour rhythm
+HEARTBEAT_MAX_OVERLAP = 0.05  # share of 10-minute slots both are active in (taking turns)
+ECHO_WINDOW_MIN = 90
+RELAY_MAX_DAYS = 7
+HINT_BOOST_MAX = 0.15         # Lister: max fit boost near a merchant/echo hint
+HINT_BOOST_RADIUS_M = 500
 RING_CONFIDENCE_CAP = 0.95
 
 # Linker tuning

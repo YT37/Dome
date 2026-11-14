@@ -9,3 +9,21 @@ case/
 data/photos/
 data/matches/
 data/vexcel/
+
+# data_tools: API caches, CoStar kit (licensed, password protected), local images
+cache/
+cache
+costar_kit/
+costar_kit
+costar-hackathon-kit.zip
+handcheck/**/*.jpg
+handcheck/**/*.png
+probe_output/
+renders/
+*.sqlite
+handcheck/*/index.html
+handcheck/*/kit.json
+handcheck/*/verify.md
+handcheck/shortlist.json
+handcheck/shortlist_small.json
+handcheck/shortlist_near.json
