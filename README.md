@@ -80,12 +80,19 @@ LANGSMITH_API_KEY=...
 LANGSMITH_PROJECT=dome
 ```
 
-**LangGraph Studio / server.** `langgraph.json` exposes the supervisor as graph `dome`:
+**LangGraph Studio / server.** `langgraph.json` exposes the supervisor as graph `dome`
+(module `dome.supervisor:make_graph`, so the package must be installed):
 
 ```bash
 pip install -e ".[studio]"
 langgraph dev
 ```
+
+Then open **https://smith.langchain.com/studio/?baseUrl=http://127.0.0.1:2024** (free
+LangSmith login), pick the `dome` graph, and send a message such as "Run the pipeline to the
+brief." Choose the case in the assistant's configurable settings, e.g.
+`{"case_id": "studio-a"}` or `{"case_id": "synth-a", "dataset": "synth", "seed_account": "acct_103"}`.
+Outputs land in `case/<case_id>/` as usual.
 
 **In your own code.** The supervisor is a compiled LangGraph graph:
 

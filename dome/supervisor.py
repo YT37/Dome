@@ -567,15 +567,25 @@ def run_llm(case: Case, model: Any = None) -> Supervisor:
     return sup
 
 
-def make_graph(config_: Optional[dict] = None):
-    """Graph factory for LangGraph Studio / `langgraph dev` (see langgraph.json).
+def build_graph_from_config(config_: Optional[dict] = None):
+    """Build the supervisor for the case named in a run's config (blocking: touches files).
 
-    Pick the case with configurable: {"case_id": "demo-a", "scenario": "ring_a"}.
+    configurable: {"case_id": "demo-a", "scenario": "ring_a", "dataset": "synth",
+                   "seed_account": "acct_103", "model": "google_genai:gemini-3.5-flash"}
     """
     cfg = (config_ or {}).get("configurable", {}) or {}
     case = Case.open(cfg.get("case_id", "demo-a"), scenario=cfg.get("scenario", "ring_a"),
                      dataset=cfg.get("dataset"), seed_account=cfg.get("seed_account"))
     return build_agent(case, cfg.get("model"))
+
+
+async def make_graph(config):
+    """Graph factory for LangGraph Studio / `langgraph dev` (see langgraph.json).
+
+    The server calls this on its event loop, so the file work runs in a worker thread.
+    """
+    import asyncio
+    return await asyncio.to_thread(build_graph_from_config, config)
 
 
 # ---------------------------------------------------------------------- CLI
