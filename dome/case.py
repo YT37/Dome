@@ -28,7 +28,8 @@ class Case:
     @classmethod
     def open(cls, case_id: str, scenario: Optional[str] = None, ring_id: Optional[str] = None,
              root: Optional[Path] = None, reset: bool = False, dataset: Optional[str] = None,
-             seed_account: Optional[str] = None) -> "Case":
+             seed_account: Optional[str] = None, layers: str = "both",
+             private_layers: bool = True) -> "Case":
         """Create (or reuse) the case folder. reset=True clears earlier outputs."""
         case = cls(case_id, root)
         case.dir.mkdir(parents=True, exist_ok=True)
@@ -37,7 +38,8 @@ class Case:
                 case.path(name).unlink(missing_ok=True)
         if scenario or dataset or not case.path("input.json").exists():
             inp = CaseInput(case_id=case_id, scenario=scenario, ring_id=ring_id, dataset=dataset,
-                            seed_account=seed_account)
+                            seed_account=seed_account, layers=layers,
+                            private_layers=private_layers)
             case.path("input.json").write_text(inp.model_dump_json(indent=2), encoding="utf-8")
         return cls(case_id, root)
 
@@ -69,9 +71,9 @@ class Case:
         """Validate against the schema, then write. Raises on invalid data; nothing is written."""
         model = FILE_MODELS[name]
         obj = data if isinstance(data, model) else model.model_validate(
-            data.model_dump() if isinstance(data, BaseModel) else data)
+            data.model_dump(by_alias=True) if isinstance(data, BaseModel) else data)
         self.dir.mkdir(parents=True, exist_ok=True)
-        self.path(name).write_text(obj.model_dump_json(indent=2), encoding="utf-8")
+        self.path(name).write_text(obj.model_dump_json(indent=2, by_alias=True), encoding="utf-8")
         return obj
 
     def dataset_dir(self) -> Optional[Path]:

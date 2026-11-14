@@ -37,6 +37,29 @@ def score_fit(prop: dict, cues: dict) -> tuple[float, list[str]]:
     return round(min(fit, 1.0), 2), reasons
 
 
+def _dist_m(lat1, lon1, lat2, lon2) -> float:
+    import math
+    p1, p2 = math.radians(lat1), math.radians(lat2)
+    a = math.sin((p2 - p1) / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(
+        math.radians(lon2 - lon1) / 2) ** 2
+    return 2 * 6371000 * math.asin(math.sqrt(a))
+
+
+def hint_boost(prop: dict, hints) -> tuple[float, str]:
+    """v2: up to +0.15 fit for a building within 500 m of a merchant or echo hint (a motel,
+    short-term rental or rideshare drop-off the ring paid), scaled by the hint's weight.
+    A boost can reorder the list but never lifts a lead past Low: only a photo match does."""
+    best, why = 0.0, ""
+    for h in hints:
+        if h.kind not in ("merchant", "echo") or h.lat is None or h.lon is None:
+            continue
+        d = _dist_m(prop["lat"], prop["lon"], h.lat, h.lon)
+        if d <= config.HINT_BOOST_RADIUS_M and config.HINT_BOOST_MAX * h.weight > best:
+            best = round(config.HINT_BOOST_MAX * h.weight, 3)
+            why = f"{int(d)} m from {h.text} ({h.kind} hint, +{best:.2f})"
+    return best, why
+
+
 def run(case: Case, zone_id: str, scanned_only: bool = False) -> dict:
     zones, ring = case.load("zones.json"), case.selected_ring()
     zone = next((z for z in zones.zones if z.zone_id == zone_id), None) if zones else None
@@ -49,7 +72,13 @@ def run(case: Case, zone_id: str, scanned_only: bool = False) -> dict:
     for p in props:
         if scanned_only and not p.get("has_scan"):
             continue                                            # wide zone: scanned buildings only
+        raw = str(p.get("type") or "").lower()
+        p = {**p, "type": config.COSTAR_TYPE_MAP.get(raw, raw)}  # CoStar words -> Dome's three
         fit, reasons = score_fit(p, cues)
+        boost, why = hint_boost(p, ring.location_hints)
+        if boost:
+            fit = round(min(1.0, fit + boost), 2)
+            reasons.append(why)
         cands.append({"property_id": p["property_id"], "address": p["address"], "lat": p["lat"],
                       "lon": p["lon"], "type": p["type"], "floors": p.get("floors"), "fit": fit,
                       "has_scan": bool(p.get("has_scan")), "scan_id": p.get("scan_id"),

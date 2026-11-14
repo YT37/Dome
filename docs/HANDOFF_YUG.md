@@ -8,6 +8,21 @@ and changed so far, and exactly what your `data_tools` must do. All times are Ea
 
 ---
 
+## Decisions for Yug (Saturday 6:30 AM, from Avishek)
+
+- **(a) Extra `geo.fix_scan_location` keys:** return any you like (`floor`, `unit_offset_m`,
+  `window_match`, `method_scores`, `geocoordinates_patch`). The Locator reads only `lat`,
+  `lon`, `heading_deg`, `error_estimate_m`, `floor_range`; extras are ignored. **No schema
+  change.** Keeping them in `cache/geo/<scan>_notes.json` as well is fine.
+- **(b) CoStar type mapping:** confirmed and implemented in `dome/config.py`
+  (`COSTAR_TYPE_MAP`): `hotel` -> hospitality; `homes`, `residential_detached`,
+  `residential_townhouse` -> single_family; `residential_condo` -> multifamily. **Send
+  CoStar's raw type words**; the Lister normalises them.
+- **Ownership change (v4):** Avishek now owns `vision.photo_cues` and `vision.window_check`
+  (Gemini, in `dome/data_tools/gemini_vision.py`). Yug keeps renders, `room_match`, `geo` and
+  CoStar. `window_check` calls `vexcel.oblique_view(lat, lon, heading_deg)` and needs it to
+  return a **real image path**; without one, W stays null and the lead caps at Medium.
+
 ## 0. Status report (Saturday morning)
 
 ### Work done (Avishek)

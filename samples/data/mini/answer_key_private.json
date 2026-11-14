@@ -1,0 +1,151 @@
+{
+ "synthetic": true,
+ "rings": {
+  "A": {
+   "members": [
+    "acct_017",
+    "acct_102",
+    "acct_118",
+    "acct_131",
+    "acct_241",
+    "acct_242",
+    "acct_243",
+    "acct_244",
+    "acct_245"
+   ],
+   "roles": {
+    "acct_017": "collector",
+    "acct_102": "handler",
+    "acct_118": "hub",
+    "acct_233": "recruiter"
+   },
+   "wallets": [
+    "$sunny_rose5",
+    "$velvet_k9"
+   ],
+   "handoffs": [
+    {
+     "key": "contact:555-0199",
+     "from": "acct_243",
+     "to": "acct_244"
+    },
+    {
+     "key": "money:$velvet_k9",
+     "from": "acct_244",
+     "to": "acct_245"
+    }
+   ],
+   "heartbeat_groups": [
+    [
+     "acct_131",
+     "acct_241",
+     "acct_242"
+    ]
+   ],
+   "events": [
+    {
+     "post": "post_0007",
+     "messages": [
+      "msg_3514",
+      "msg_3515",
+      "msg_3516"
+     ],
+     "payments": [
+      "tx_5042",
+      "tx_5043"
+     ],
+     "rides": [
+      "tx_5044"
+     ]
+    },
+    {
+     "post": "post_0011",
+     "messages": [
+      "msg_3517",
+      "msg_3518",
+      "msg_3519"
+     ],
+     "payments": [
+      "tx_5045",
+      "tx_5046"
+     ],
+     "rides": [
+      "tx_5047"
+     ]
+    },
+    {
+     "post": "post_0015",
+     "messages": [
+      "msg_3520",
+      "msg_3521",
+      "msg_3522"
+     ],
+     "payments": [
+      "tx_5048",
+      "tx_5049"
+     ],
+     "rides": [
+      "tx_5050"
+     ]
+    },
+    {
+     "post": "post_0019",
+     "messages": [
+      "msg_3523",
+      "msg_3524",
+      "msg_3525"
+     ],
+     "payments": [
+      "tx_5051",
+      "tx_5052"
+     ],
+     "rides": [
+      "tx_5053"
+     ]
+    }
+   ],
+   "merchants": [
+    "Lone Star Motel (synthetic)"
+   ],
+   "hidden_room_account": null
+  },
+  "B": {
+   "members": [
+    "acct_501",
+    "acct_502",
+    "acct_503",
+    "acct_504",
+    "acct_517",
+    "acct_518",
+    "acct_530",
+    "acct_531"
+   ],
+   "roles": {
+    "acct_501": "collector",
+    "acct_502": "handler"
+   },
+   "wallets": [
+    "$bluebell_22"
+   ],
+   "merchants": [
+    "Gulf Inn (synthetic)",
+    "Westside Suites (synthetic)"
+   ]
+  },
+  "C": {
+   "members": [
+    "acct_701",
+    "acct_702",
+    "acct_703",
+    "acct_704",
+    "acct_705",
+    "acct_706"
+   ],
+   "roles": {
+    "acct_701": "collector"
+   },
+   "wallets": [],
+   "no_place": true
+  }
+ }
+}

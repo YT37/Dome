@@ -69,6 +69,33 @@ MinHash missed (Jaccard 0.00) and sentence embeddings caught (cosine 0.77 on `sy
 
 The answer key (`data/answer_key/`) is read only by `dome/eval.py`. No agent opens it.
 
+### v2: messages and payments (Arlequin Track 1)
+
+Two more synthetic files, `messages.json` and `transactions.json`, sit next to the accounts
+(`python -m dome.synth.private_layers --data data/synth --key data/answer_key/answer_key.json`
+plants the patterns; `answer_key_private.json` scores them).
+
+```bash
+python -m dome.eval --data synth --three-way              # Track 1: private layers on
+python -m dome.eval --data synth --no-private --three-way # Track 2: public data only
+```
+
+On `synth`, every planted pattern is found: shared wallet and DM links in Ring A, the relay
+race (a burned phone moves from one account to the next, then that account's wallet moves on),
+the three heartbeat accounts that take turns, 4 of 4 money-shape roles (collector, handler,
+hub, recruiter) and echo events that join an ad, the buyer's message, the payment and the ride
+inside 90 minutes. Hard negatives (friend group, rental hosts, busy motel, delivery driver)
+stay unlinked.
+
+| Layers | Precision | Recall | Hard negatives linked |
+|---|---|---|---|
+| content only | 1.00 | 1.00 | 0 |
+| network only | 0.93 | 1.00 | 7 |
+| both (Dome) | 1.00 | 1.00 | 0 |
+
+Network-only with public data alone drops to recall 0.38: the messages and payments are what
+make the connectivity layer strong, and the content layer is what keeps it honest.
+
 ## Connect to LangChain
 
 **LangSmith tracing.** Set these in `.env` and every supervisor step and tool call is traced
@@ -173,7 +200,19 @@ anywhere else is **Medium**, with a cap line saying why. Everything else is **Lo
    key. Leiden splits linked groups of 20+.
 5. **Recruiters:** a bio offering modelling or jobs, with most reposts/replies going into the ring.
 
+6. **v2 sticky notes and patterns** (`dome/agents/patterns.py`): shared wallet (0.9), direct
+   messages (0.85), same room from the Locator's room groups (0.8), same merchant (0.4, an
+   area only, never counts toward the two), heartbeat (0.4: same daily rhythm, never active in
+   the same 10 minutes), echo (0.7: two accounts in 2+ events). Relay race and money-shape
+   roles are reported, not counted. `--layers content|network|both` and `--no-private`.
+
 Ring confidence R = 1 − Π(1 − w_k) over the kinds the ring shares, capped at 0.95.
+
+**v2 supervisor decisions:** a ring with roles but no place in its messages or payments makes
+the Zoner fall back to login data and caps every lead at Medium; room groups holding photos
+from accounts outside the ring re-run the Linker once with same-room links (logged with which
+members and roles changed). The Lister adds up to +0.15 fit for buildings within 500 m of a
+motel or echo place the ring paid; that reorders the list but never lifts a lead past Low.
 Tuning lives in `dome/config.py`.
 
 ## Status

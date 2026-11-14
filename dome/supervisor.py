@@ -27,6 +27,8 @@ from .agents import briefer, linker, lister, locator, zoner
 from .case import Case
 
 MAX_STEPS = 40
+NO_HINTS = "no_location_hints_use_logins_cap_medium"
+ROOM_RERUN = "room_groups_outside_ring_rerun_linker"
 
 
 _DECIMAL = re.compile(r"(?<![\d.])(?:\d+\.\d+|\.\d+)(?!\d)(?!\.\d)")
@@ -76,7 +78,10 @@ class Supervisor:
             "ring": None if ring is None else {
                 "ring_id": ring.ring_id, "R": ring.confidence, "members": len(ring.members),
                 "photos": len(ring.photos),
-                "window_photos": sum(p.has_window for p in ring.photos)},
+                "window_photos": sum(p.has_window for p in ring.photos),
+                "roles": len(ring.roles), "location_hints": len(ring.location_hints),
+                "events": len(ring.events), "relay_handoffs": len(ring.relay)},
+            "room_groups_with_outside_accounts": self._outside_groups(),
             "zones": zone_facts,
             "thresholds": {"ring_min_R": config.RING_MIN_CONFIDENCE,
                            "match_P": config.MATCH_THRESHOLD},
@@ -115,6 +120,9 @@ class Supervisor:
         if zones is None:
             if "zoner" in failed:
                 return act("run_briefer", "Zoner failed; report it")
+            if self._needs_login_fallback(ring):
+                return act("run_zoner", "ring has roles from messages/payments but no location "
+                           "hints: fall back to login data, cap leads at Medium", fallback="logins")
             return act("run_zoner", "no zones.json yet")
         if ring.confidence < config.RING_MIN_CONFIDENCE:
             return act("run_briefer", f"R {ring.confidence} < {config.RING_MIN_CONFIDENCE}: "
@@ -130,7 +138,25 @@ class Supervisor:
                            zone_id=z.zone_id, scanned_only=z.wide)
             if z.zone_id not in located and f"locator:{z.zone_id}" not in failed:
                 return act("run_locator", f"zone {z.zone_id} not searched yet", zone_id=z.zone_id)
+        if self._room_rerun_due():
+            return act("run_linker", "the Locator's room groups contain photos from accounts outside "
+                       "the ring: re-run the Linker once with same-room links", room_groups=True)
         return act("run_briefer", "all zones processed")
+
+    # ------------------------------------------------------------------ v2 decision facts
+    def _needs_login_fallback(self, ring) -> bool:
+        return bool(ring.roles) and not ring.location_hints
+
+    def _outside_groups(self) -> list[dict]:
+        m = self.case.load("matches.json")
+        return [{"zone_id": z.zone_id, "group_id": g.group_id, "outside_ring": g.outside_ring}
+                for z in (m.zones if m else []) for g in z.room_groups if g.outside_ring]
+
+    def _room_rerun_due(self) -> bool:
+        c = self.case
+        rings = c.load("rings.json")
+        return bool(self._outside_groups()) and rings is not None and not rings.room_links_used \
+            and "linker:room" not in c.failed_steps()
 
     # ------------------------------------------------------------------ logging helpers
     def _decide(self, step: str, decision: str, evidence: dict, message: str) -> None:
@@ -178,8 +204,10 @@ class Supervisor:
                 "required_next": self.next_action()}
 
     # ------------------------------------------------------------------ steps
-    def run_linker(self) -> dict:
+    def run_linker(self, room_groups: bool = False) -> dict:
         c = self.case
+        if room_groups:
+            return self._run_linker_room()
         if c.load("rings.json") is not None:
             return self._refuse("linker", "rings.json already exists and is valid")
         ok = self._run_step("linker", "rings.json", lambda: linker.run(c),
@@ -191,14 +219,52 @@ class Supervisor:
         return self._result(ok, "linker", ring_id=ring and ring.ring_id, R=ring and ring.confidence,
                             photos=len(ring.photos) if ring else 0)
 
-    def run_zoner(self) -> dict:
+    def _run_linker_room(self) -> dict:
+        """v2 decision: room groups hold photos from accounts outside the ring -> re-run the
+        Linker ONCE with same-room (note 4) links. Zoner/Lister/Locator do not re-run."""
+        c = self.case
+        if not self._room_rerun_due():
+            return self._refuse("linker:room", "no room group with outside accounts, or the "
+                                "Linker already re-ran with room links")
+        before = c.selected_ring()
+        groups = self._outside_groups()
+        self._decide("linker:room", ROOM_RERUN, {"groups": groups, "ring_id": before.ring_id},
+                     "Photos of the same room came from accounts outside the ring; re-running the "
+                     "Linker once with same-room links.")
+        ok = self._run_step("linker:room", "rings.json", lambda: linker.run(c, room_groups=True),
+                            ["rings.json", "matches.json"], {"room_groups": True})
+        after = c.selected_ring()
+        if ok and after is not None:
+            added = sorted(set(after.members) - set(before.members))
+            removed = sorted(set(before.members) - set(after.members))
+            old_roles = {r.account: r.role for r in before.roles}
+            changed = sorted(f"{r.account}: {old_roles.get(r.account, 'none')} -> {r.role}"
+                             for r in after.roles if old_roles.get(r.account) != r.role)
+            c.log(actor="guard", event="decision", step="linker:room", decision="ring_updated_by_room_links",
+                  evidence={"added": added, "removed": removed, "roles_changed": changed,
+                            "R_before": before.confidence, "R_after": after.confidence},
+                  message=f"Same-room links added {len(added)} account(s) to the ring.")
+        return self._result(ok, "linker:room", ring_id=after and after.ring_id,
+                            members_added=sorted(set(after.members) - set(before.members)) if after else [])
+
+    def run_zoner(self, fallback: Optional[str] = None) -> dict:
         c = self.case
         ring = c.selected_ring()
         if ring is None:
             return self._refuse("zoner", "no ring yet; run the Linker first")
         if c.load("zones.json") is not None:
             return self._refuse("zoner", "zones.json already exists and is valid")
-        ok = self._run_step("zoner", "zones.json", lambda: zoner.run(c), ["rings.json"], {})
+        # Guard: the data decides the fallback, not the caller
+        fallback = "logins" if self._needs_login_fallback(ring) else None
+        if fallback:
+            self._decide("zoner", NO_HINTS, {"ring_id": ring.ring_id, "roles": len(ring.roles),
+                                             "location_hints": 0},
+                         "The ring has roles from messages and payments but no place in them; the "
+                         "Zoner falls back to login data and every lead is capped at Medium.")
+        logins = "on" if fallback == "logins" else "off"
+        ok = self._run_step("zoner", "zones.json",
+                            lambda: zoner.run(c, logins=logins) if logins == "on" else zoner.run(c),
+                            ["rings.json"], {"fallback": fallback})
         zones = c.load("zones.json")
         zs = zones.zones if zones else []
         if ok and ring.confidence < config.RING_MIN_CONFIDENCE:
@@ -252,6 +318,14 @@ class Supervisor:
                              {"zone_id": zone_id, "window_photos": 0},
                              "No window in any photo; window check skipped (W = null), "
                              "leads in this zone are capped at Medium.")
+            unchecked = [x for x in m.matches
+                         if x.P >= m.threshold and not x.window_checked and x.window_skipped]
+            if m.window_photos > 0 and unchecked:
+                self._decide(f"locator:{zone_id}", "window_check_not_run_cap_medium",
+                             {"zone_id": zone_id, "property_id": unchecked[0].property_id,
+                              "reason": unchecked[0].window_skipped[:160]},
+                             "Window photos exist but the window check could not run; W stays "
+                             "null and the lead is capped at Medium.")
             if not m.above_threshold:
                 self._decide(f"locator:{zone_id}", "no_scan_above_threshold",
                              {"zone_id": zone_id, "best_P": m.best_P, "threshold": m.threshold},
@@ -394,6 +468,10 @@ Rules the data decides (the tools enforce them; a refused call tells you what is
 - A zone with wide = true: the Lister keeps only buildings that have a scan.
 - No scan with P >= 0.4: no building lead for that zone; say so plainly in the brief.
 - No window in any photo: the window check is skipped (W = null), lead capped at Medium.
+- Ring has roles (from messages/payments) but no location hints: run_zoner(fallback="logins")
+  and every lead is capped at Medium.
+- The Locator's room groups contain photos from accounts outside the ring: run_linker(
+  room_groups=True) once; the Zoner, Lister and Locator do not re-run.
 
 Hard limits
 - Never invent or adjust a number. Scores, tiers, P, W and R come only from the tools.
@@ -417,16 +495,18 @@ def build_tools(sup: Supervisor) -> list:
         return js(sup.status())
 
     @tool
-    def run_linker() -> str:
+    def run_linker(room_groups: bool = False) -> str:
         """Run the Linker: group flagged accounts into rings, with a reason for every link
-        (writes rings.json)."""
-        return js(sup.run_linker())
+        (writes rings.json). room_groups=True re-runs it ONCE after the Locator, adding
+        same-room links from room groups that hold photos of accounts outside the ring."""
+        return js(sup.run_linker(room_groups))
 
     @tool
-    def run_zoner() -> str:
+    def run_zoner(fallback: Optional[str] = None) -> str:
         """Run the Zoner: turn the ring's place clues into zones (writes zones.json).
-        Zones are areas, never addresses."""
-        return js(sup.run_zoner())
+        Zones are areas, never addresses. fallback='logins' uses login data when the ring
+        has no location hints (leads are then capped at Medium)."""
+        return js(sup.run_zoner(fallback))
 
     @tool
     def run_lister(zone_id: str, scanned_only: bool = False) -> str:
@@ -614,6 +694,10 @@ def main(argv: Optional[list[str]] = None) -> int:
     p.add_argument("--scripted", action="store_true", help="rule-based planner, no LLM")
     p.add_argument("--model", default=None, help="e.g. openai:gpt-5.5 (default: DOME_MODEL)")
     p.add_argument("--resume", action="store_true", help="keep earlier outputs in the case folder")
+    p.add_argument("--layers", default="both", choices=["content", "network", "both"],
+                   help="Linker layers (three-way comparison)")
+    p.add_argument("--no-private", action="store_true",
+                   help="drop messages and payments (Arlequin Track 2: public data only)")
     a = p.parse_args(argv)
 
     if not a.scripted:
@@ -625,7 +709,8 @@ def main(argv: Optional[list[str]] = None) -> int:
             seeds = json.loads(fixture.read_text(encoding="utf-8")).get("seed_account") or {}
             seed = seeds.get(a.data) if isinstance(seeds, dict) else seeds
     case = Case.open(a.case, scenario=a.scenario, ring_id=a.ring, reset=not a.resume,
-                     dataset=a.data, seed_account=seed)
+                     dataset=a.data, seed_account=seed, layers=a.layers,
+                     private_layers=not a.no_private)
     sup = run_scripted(case) if a.scripted else run_llm(case, a.model)
 
     brief = case.load("brief.json")
