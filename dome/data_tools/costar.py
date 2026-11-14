@@ -278,6 +278,14 @@ def unit_floors_for_scan(scan_id: str) -> dict:
     """
     p = property_for_scan(scan_id)
     out = {"floors": [], "units": [], "level": None, "building_floors": (p or {}).get("floors")}
+    if p and p["property_id"].startswith("RL-"):
+        # a residential listing is one home: its address carries the unit ("..., Unit 307")
+        import re
+        m = re.search(r"\b(?:unit|apt|#)\s*([A-Za-z]?\d+[A-Za-z]?)\b", p.get("address") or "", re.I)
+        if m:
+            f = _floor_from_unit(m.group(1), None, p.get("floors"))
+            out.update(level="listing", units=[[m.group(1), None]], floors=[f] if f else [])
+        return out
     if not p or not p["property_id"].startswith("CS-"):
         return out
     pid = int(p["property_id"][3:])
