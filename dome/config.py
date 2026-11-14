@@ -51,6 +51,16 @@ MATCH_THRESHOLD = 0.4       # Locator: a scan needs P >= this to count as a matc
 TIER_STRONG = 0.6           # High needs P, W and R all >= this
 WIDE_AREA_KM2 = 25.0        # zone is "wide" above this area
 MAX_CANDIDATES = 50
+MAX_WINDOW_PHOTOS_TRIED = 3   # Locator: window photos tried, in photo-id order, for W
+
+# CoStar property types -> the three Dome compares against photo cues (others pass through)
+COSTAR_TYPE_MAP = {
+    "multifamily": "multifamily", "apartment": "multifamily", "apartments": "multifamily",
+    "residential_condo": "multifamily", "condo": "multifamily",
+    "hospitality": "hospitality", "hotel": "hospitality", "motel": "hospitality",
+    "single_family": "single_family", "homes": "single_family", "house": "single_family",
+    "residential_detached": "single_family", "residential_townhouse": "single_family",
+}
 
 # Linker key weights (R = 1 - prod(1 - w_k), capped)
 KEY_WEIGHTS = {"contact": 0.9, "photo": 0.8, "device": 0.7, "text": 0.6,

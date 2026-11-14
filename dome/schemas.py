@@ -103,6 +103,9 @@ class PhotoCues(_Model):
     setting: str = "unknown"
     window_floor_est: Optional[tuple[int, int]] = None
     features: list[str] = []
+    # who read the photos: "gemini", "stub" (fixture, no image files) or "none" (neutral
+    # cues because Gemini could not run on real photos)
+    source: Literal["gemini", "stub", "none"] = "stub"
 
 
 class Candidate(_Model):
@@ -164,6 +167,8 @@ class Match(_Model):
     geo: Optional[GeoFix] = None
     evidence: list[MatchEvidence] = []
     window_checks: dict[str, bool] = {}
+    window_photo: Optional[str] = None      # photo id the window check used
+    window_skipped: Optional[str] = None    # why the window check could not run (W stays null)
 
     @model_validator(mode="after")
     def _window(self):

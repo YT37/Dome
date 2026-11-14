@@ -214,6 +214,10 @@ def make_lead(ring, zone, zone_id, cand, m, mz, dates, low_only):
     f = {"R": ring.confidence, "Z": zone.confidence if zone else 0.0,
          "F": cand.fit if cand else 0.0, "P": P, "W": W}
     tier, caps = tier_for(f["R"], P, W), caps_for(f["R"], P, W)
+    skipped = getattr(m, "window_skipped", None) if m else None
+    if W is None and skipped and P >= config.TIER_STRONG:
+        caps = [c if "window" not in c else
+                f"capped at Medium: window check could not run ({skipped[:80]})" for c in caps]
     if low_only and tier != "Low":
         tier = "Low"
         caps.append(f"capped at Low: {low_only}")

@@ -252,6 +252,14 @@ class Supervisor:
                              {"zone_id": zone_id, "window_photos": 0},
                              "No window in any photo; window check skipped (W = null), "
                              "leads in this zone are capped at Medium.")
+            unchecked = [x for x in m.matches
+                         if x.P >= m.threshold and not x.window_checked and x.window_skipped]
+            if m.window_photos > 0 and unchecked:
+                self._decide(f"locator:{zone_id}", "window_check_not_run_cap_medium",
+                             {"zone_id": zone_id, "property_id": unchecked[0].property_id,
+                              "reason": unchecked[0].window_skipped[:160]},
+                             "Window photos exist but the window check could not run; W stays "
+                             "null and the lead is capped at Medium.")
             if not m.above_threshold:
                 self._decide(f"locator:{zone_id}", "no_scan_above_threshold",
                              {"zone_id": zone_id, "best_P": m.best_P, "threshold": m.threshold},
