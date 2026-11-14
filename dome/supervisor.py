@@ -516,9 +516,27 @@ def _lock_down(model: Any) -> None:
     key = model.split(":", 1)[0] if isinstance(model, str) else get_model_provider(model)
     if not key:
         raise RuntimeError("cannot resolve the model provider; refusing to build an unlocked agent")
-    register_harness_profile(key, HarnessProfile(
-        excluded_tools=EXCLUDED_BUILTINS,
-        general_purpose_subagent=GeneralPurposeSubagentProfile(enabled=False)))
+    profile = HarnessProfile(excluded_tools=EXCLUDED_BUILTINS,
+                             general_purpose_subagent=GeneralPurposeSubagentProfile(enabled=False))
+    register_harness_profile(key, profile)
+    if key == "google_genai":   # deepagents may key Gemini models under either name
+        register_harness_profile("google", profile)
+
+
+def _make_model(model: Any) -> Any:
+    """A model string becomes a chat model paced to the provider's rate limit, with retries."""
+    if not isinstance(model, str):
+        return model
+    from langchain.chat_models import init_chat_model
+    from langchain_core.rate_limiters import InMemoryRateLimiter
+
+    provider = model.split(":", 1)[0]
+    kwargs: dict[str, Any] = {"max_retries": 6}
+    rpm = config.max_rpm(provider)
+    if rpm:
+        kwargs["rate_limiter"] = InMemoryRateLimiter(
+            requests_per_second=rpm / 60.0, check_every_n_seconds=0.5, max_bucket_size=1)
+    return init_chat_model(model, **kwargs)
 
 
 def build_agent(case: Case, model: Any = None):
@@ -526,7 +544,7 @@ def build_agent(case: Case, model: Any = None):
     from deepagents import FilesystemMiddleware, FilesystemPermission, create_deep_agent
     from deepagents.backends import FilesystemBackend
 
-    model = model or config.MODEL
+    model = _make_model(model or config.MODEL)
     _lock_down(model)
     backend = FilesystemBackend(root_dir=str(case.dir), virtual_mode=True)
     return create_deep_agent(
@@ -549,10 +567,16 @@ def run_llm(case: Case, model: Any = None) -> Supervisor:
     agent = build_agent(case, model)
     case.log(actor="llm", event="run_start", evidence={"model": str(model or config.MODEL)},
              message="deepagents supervisor run")
-    result = agent.invoke(
-        {"messages": [{"role": "user", "content":
-                       f"Investigate case '{case.case_id}'. Run the pipeline to the brief."}]},
-        {"recursion_limit": 150})
+    result: dict = {}
+    try:
+        result = agent.invoke(
+            {"messages": [{"role": "user", "content":
+                           f"Investigate case '{case.case_id}'. Run the pipeline to the brief."}]},
+            {"recursion_limit": 150})
+    except Exception as exc:   # model/API failure: the case still finishes, and it is logged
+        case.log(actor="guard", event="decision", decision="llm_error_finish_with_scripted_planner",
+                 evidence={"error": f"{type(exc).__name__}: {exc}"[:400]},
+                 message="The model call failed; the rule-based planner finishes the run.")
     sup = Supervisor(case, actor="scripted")
     if sup.next_action() is not None:
         case.log(actor="guard", event="decision", decision="finish_with_scripted_planner",
@@ -569,7 +593,8 @@ def run_llm(case: Case, model: Any = None) -> Supervisor:
                  evidence={"text_source": "template"},
                  message="The LLM did not write the brief's words; the Briefer's fixed wording stays.")
     case.log(actor="llm", event="run_end", evidence={"done": sup.next_action() is None})
-    sup.final_message = result["messages"][-1].text if result.get("messages") else ""
+    msgs = result.get("messages") or []
+    sup.final_message = msgs[-1].text if msgs else ""
     return sup
 
 

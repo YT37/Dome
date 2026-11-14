@@ -23,6 +23,21 @@ def _load_dotenv() -> None:
 
 _load_dotenv()
 
+# LangSmith tracing needs a key; without one, every trace upload fails with 401 noise.
+if os.environ.get("LANGSMITH_TRACING", "").lower() == "true" and not os.environ.get("LANGSMITH_API_KEY"):
+    os.environ["LANGSMITH_TRACING"] = "false"
+
+# Pace model calls. Free tiers have small per-minute limits (Gemini free: 5 requests/minute),
+# so the supervisor waits between calls instead of failing. DOME_MAX_RPM overrides.
+DEFAULT_RPM = {"google_genai": 4}
+
+
+def max_rpm(provider: str) -> float | None:
+    v = os.environ.get("DOME_MAX_RPM")
+    if v:
+        return float(v) if float(v) > 0 else None
+    return DEFAULT_RPM.get(provider)
+
 # One-line model switch, e.g. DOME_MODEL=google_genai:gemini-3.5-flash (free tier)
 MODEL = os.environ.get("DOME_MODEL", "anthropic:claude-sonnet-5-5")
 
