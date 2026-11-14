@@ -1,5 +1,6 @@
 deepagents==0.7.38
 langchain-anthropic
+langchain-google-genai
 numpy
 shapely
 pydantic>=2

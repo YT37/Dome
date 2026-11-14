@@ -6,6 +6,7 @@ requires-python = ">=3.11"
 dependencies = [
     "deepagents==0.7.38",
     "langchain-anthropic",
+    "langchain-google-genai",
     "pydantic>=2",
     "numpy",
     "datasketch",

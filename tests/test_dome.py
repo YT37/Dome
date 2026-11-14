@@ -228,8 +228,29 @@ def test_brief_text_guard(tmp_path):
     assert Supervisor(scripted(tmp_path, "ring_a", "s2")).next_action() is None
 
 
+def _registered_tools(graph) -> set:
+    names = set()
+    for node in graph.nodes.values():
+        names |= set(getattr(getattr(node, "bound", None), "tools_by_name", None) or {})
+    return names
+
+
 def test_graph_is_a_langgraph_graph(tmp_path):
     case = Case.open("graph", scenario="ring_a", root=tmp_path, reset=True)
     model, _ = _planner_model(case)
     graph = build_agent(case, model)
     assert hasattr(graph, "invoke") and hasattr(graph, "stream") and graph.get_graph().nodes
+
+
+@pytest.mark.parametrize("model", ["google_genai:gemini-3.5-flash", "anthropic:claude-sonnet-5-5"])
+def test_forbidden_tools_not_even_registered(tmp_path, monkeypatch, model):
+    """Not hidden, absent: the executor has no shell, write, edit or delete tool to dispatch to."""
+    monkeypatch.setenv("GOOGLE_API_KEY", "dummy")
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "dummy")
+    case = Case.open("locked", scenario="ring_a", root=tmp_path, reset=True)
+    names = _registered_tools(build_agent(case, model))
+    assert "run_linker" in names and "write_brief_text" in names
+    assert not names & EXCLUDED_BUILTINS, names
+    assert names - {"case_status", "run_linker", "run_zoner", "run_lister", "run_locator",
+                    "run_briefer", "write_brief_text", "log_decision"} == {"ls", "read_file",
+                                                                         "glob", "grep"}

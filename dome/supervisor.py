@@ -505,6 +505,7 @@ def build_tools(sup: Supervisor) -> list:
 
 # Built-in deepagents tools the supervisor must never be offered.
 EXCLUDED_BUILTINS = frozenset({"execute", "write_file", "edit_file", "delete", "task"})
+READ_ONLY_FILE_TOOLS = ("ls", "read_file", "glob", "grep")
 
 
 def _lock_down(model: Any) -> None:
@@ -522,17 +523,21 @@ def _lock_down(model: Any) -> None:
 
 def build_agent(case: Case, model: Any = None):
     """The deepagents supervisor (a compiled LangGraph graph) bound to one case folder."""
-    from deepagents import FilesystemPermission, create_deep_agent
+    from deepagents import FilesystemMiddleware, FilesystemPermission, create_deep_agent
     from deepagents.backends import FilesystemBackend
 
     model = model or config.MODEL
     _lock_down(model)
+    backend = FilesystemBackend(root_dir=str(case.dir), virtual_mode=True)
     return create_deep_agent(
         model=model,
         tools=build_tools(Supervisor(case, actor="llm", llm_text=True)),
         system_prompt=SYSTEM_PROMPT,
-        # built-in file tools see only the case folder, and every write is denied
-        backend=FilesystemBackend(root_dir=str(case.dir), virtual_mode=True),
+        backend=backend,
+        # Three layers: (1) the file tools are replaced by a READ-ONLY set, so execute,
+        # write_file, edit_file and delete are never registered; (2) every write is denied
+        # by permission anyway; (3) the harness profile hides them and drops the subagent.
+        middleware=[FilesystemMiddleware(backend=backend, tools=list(READ_ONLY_FILE_TOOLS))],
         permissions=[FilesystemPermission(operations=["write"], paths=["/**"], mode="deny")],
         name="dome-supervisor",
     )
@@ -580,15 +585,18 @@ def make_graph(config_: Optional[dict] = None):
 
 
 # ---------------------------------------------------------------------- CLI
-def _load_dotenv() -> None:
-    env = config.ROOT / ".env"
-    if not env.exists():
-        return
+KEY_FOR_PROVIDER = {"anthropic": "ANTHROPIC_API_KEY", "openai": "OPENAI_API_KEY",
+                    "google_genai": "GOOGLE_API_KEY", "groq": "GROQ_API_KEY"}
+
+
+def _check_key(model: str) -> None:
+    """Fail early with a clear message instead of a stack trace from the provider SDK."""
     import os
-    for line in env.read_text(encoding="utf-8").splitlines():
-        if "=" in line and not line.lstrip().startswith("#"):
-            k, v = line.split("=", 1)
-            os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+    provider = model.split(":", 1)[0]
+    key = KEY_FOR_PROVIDER.get(provider)
+    if key and not os.environ.get(key):
+        sys.exit(f"{key} is not set. Add it to {config.ROOT / '.env'} for model '{model}', "
+                 "or run with --scripted (no LLM).")
 
 
 def main(argv: Optional[list[str]] = None) -> int:
@@ -604,7 +612,8 @@ def main(argv: Optional[list[str]] = None) -> int:
     p.add_argument("--resume", action="store_true", help="keep earlier outputs in the case folder")
     a = p.parse_args(argv)
 
-    _load_dotenv()
+    if not a.scripted:
+        _check_key(a.model or config.MODEL)
     seed = a.seed
     if a.data and not seed and not a.ring:   # default: the ring this scenario's fixtures describe
         fixture = config.SCENARIOS / a.scenario / "scenario.json"

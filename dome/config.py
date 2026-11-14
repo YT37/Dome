@@ -6,7 +6,24 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# One-line model switch, e.g. DOME_MODEL=openai:gpt-5.5
+
+def _load_dotenv() -> None:
+    """Read ROOT/.env (API keys, DOME_MODEL, LangSmith) before anything else reads the env.
+    Values already set in the real environment win."""
+    env = ROOT / ".env"
+    if not env.exists():
+        return
+    for line in env.read_text(encoding="utf-8").splitlines():
+        if "=" in line and not line.lstrip().startswith("#"):
+            k, v = line.split("=", 1)
+            v = v.strip().strip('"').strip("'")
+            if k.strip() and v:
+                os.environ.setdefault(k.strip(), v)
+
+
+_load_dotenv()
+
+# One-line model switch, e.g. DOME_MODEL=google_genai:gemini-3.5-flash (free tier)
 MODEL = os.environ.get("DOME_MODEL", "anthropic:claude-sonnet-5-5")
 
 CASE_ROOT = Path(os.environ.get("DOME_CASE_ROOT", ROOT / "case"))

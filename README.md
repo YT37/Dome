@@ -59,7 +59,8 @@ embeddings caught (cosine 0.77 on `synth`, 0.88 on `mini`).
 
 The answer key (`data/answer_key/`) is read only by `dome/eval.py`. No agent opens it.
 
-With the LLM supervisor (copy `.env.example` to `.env`, set `ANTHROPIC_API_KEY`):
+With the LLM supervisor: copy `.env.example` to `.env` and add a key. The default `.env`
+uses **Google Gemini's free tier** (`GOOGLE_API_KEY` from aistudio.google.com/apikey):
 
 ```bash
 python -m dome.supervisor --case demo-c --scenario ring_c
@@ -68,7 +69,8 @@ python -m dome.supervisor --case demo-c --scenario ring_c
 Outputs land in `case/<case_id>/`: `rings.json`, `zones.json`, `candidates.json`,
 `matches.json`, `brief.json`, `summary.html` and the audit trail `log.jsonl`.
 
-Switch model in one line: `DOME_MODEL=openai:gpt-5.5` (or `--model`, or `dome/config.py`).
+Switch model in one line in `.env`: `DOME_MODEL=google_genai:gemini-3.5-flash` (free),
+`anthropic:claude-sonnet-5-5` or `openai:gpt-5.5` (or pass `--model`).
 
 ## Connect to LangChain
 
@@ -113,8 +115,10 @@ for chunk in agent.stream({"messages": [{"role": "user", "content": "Run the pip
 
 `dome/supervisor.py` is a `create_deep_agent` supervisor (`deepagents==0.7.38`). Its tools:
 `case_status`, `run_linker`, `run_zoner`, `run_lister`, `run_locator`, `run_briefer`,
-`log_decision`, plus read-only file tools (`ls`, `read_file`, `glob`, `grep`) scoped to the
-case folder. `execute`, file writes and the general-purpose subagent are removed.
+`write_brief_text`, `log_decision`, plus read-only file tools (`ls`, `read_file`, `glob`,
+`grep`) scoped to the case folder. `execute`, `write_file`, `edit_file`, `delete` and the
+general-purpose subagent are not registered at all (the file tools are replaced by a
+read-only set), writes are also denied by permission, and a harness profile hides them.
 
 The LLM picks the next step and writes reasons. **Numbers come from deterministic code**:
 same case folder in, same scores out.
