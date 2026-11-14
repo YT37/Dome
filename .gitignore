@@ -21,3 +21,7 @@ handcheck/**/*.png
 probe_output/
 renders/
 *.sqlite
+handcheck/*/index.html
+handcheck/*/kit.json
+handcheck/*/verify.md
+handcheck/shortlist.json
