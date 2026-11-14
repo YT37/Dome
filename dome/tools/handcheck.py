@@ -1012,9 +1012,81 @@ def _implied_rotation(key: dict) -> float | None:
     return float(best[1])
 
 
+def _pick_walls(key: dict, kdir: Path) -> list[float]:
+    """True outward normals (degrees) of the walls the key's outside picks sit on: each pick is
+    back-projected through the oblique camera onto the target footprint's walls."""
+    import numpy as np
+    from shapely import wkt as swkt
+    from dome.data_tools.oblique_camera import ObliqueCamera
+    kit_p = kdir / "kit.json"
+    if not kit_p.exists() or not key.get("outside_windows"):
+        return []
+    kit = json.loads(kit_p.read_text())
+    if not kit.get("target_building"):
+        return []
+    g = swkt.loads(kit["target_building"]["outline"])
+    poly = g if not hasattr(g, "geoms") else max(g.geoms, key=lambda p: p.area)
+    obl = {o["name"]: o for o in kit.get("obliques", [])}
+    roof = (kit.get("roof") or {}).get("roof-characteristics.height")
+    max_h = (roof + 2.0) if isinstance(roof, (int, float)) and roof > 2 else 60.0
+    normals = []
+    for pick in key["outside_windows"]:
+        o = obl.get(pick["image"])
+        if not o:
+            continue
+        det = vx.detect_oblique_windows(o["area_wkt"], o["direction"], 0.4)
+        if not det["image"]:
+            continue
+        with Image.open(det["image"]) as im:
+            cam = ObliqueCamera(det["metadata"], im.size)
+        u, v = pick["x"] + (pick.get("w") or 0) / 2, pick["y"] + (pick.get("h") or 0) / 2
+        cs = list(poly.exterior.coords)
+        hits = []
+        for i in range(len(cs) - 1):
+            A = np.array(cam.to_utm.transform(*cs[i]))
+            B = np.array(cam.to_utm.transform(*cs[i + 1]))
+            L = float(np.linalg.norm(B - A))
+            r = cam.on_vertical_plane(u, v, A, B) if L >= 3 else None
+            if not r or not (-0.5 <= r[0] <= L + 0.5 and 0.3 <= r[1] <= max_h):
+                continue
+            d = (B - A) / L
+            n = np.array([d[1], -d[0]])
+            if n @ (cam.C[:2] - (A + B) / 2) < 0:
+                n = -n
+            hits.append(math.degrees(math.atan2(n[0], n[1])) % 360)
+        if len(hits) == 1:
+            normals.append(hits[0])
+    return normals
+
+
+def _heading_check(key: dict, res: dict, kdir: Path):
+    """Does the result's heading put the key's inside windows on the ticked sides?
+    With outside picks: some window wall must land within 25 deg of the picked wall's true
+    normal (ground truth). Else: windows must fall within +-45 deg of a ticked compass side."""
+    th = res.get("heading_deg")
+    if th is None:
+        return ("heading", None, "geo gave no heading")
+    normals = [w["normal_deg"] for w in key.get("inside_windows", []) if w.get("normal_deg") is not None]
+    if not normals:
+        return ("heading", None, "key has no inside windows with a wall direction")
+    world = [(n + th) % 360 for n in normals]
+    picks = _pick_walls(key, kdir)
+    if picks:
+        ok = all(min(abs((w - p + 180) % 360 - 180) for w in world) <= 25 for p in picks)
+        return ("heading", ok, f"heading {th:.0f}: window walls at {sorted({round(w) for w in world})}, "
+                               f"your picked windows sit on walls facing {sorted({round(p) for p in picks})}")
+    targets = [FACING[f] for f in key.get("facades", []) if f in FACING]
+    if not targets:
+        return ("heading", None, "no compass sides ticked")
+    inside = sum(min(abs((w - t + 180) % 360 - 180) for t in targets) <= 45 for w in world)
+    return ("heading", inside / len(world) >= 0.7,
+            f"heading {th:.0f}: {inside}/{len(world)} windows fall on ticked sides {key.get('facades')}")
+
+
 def verify(scan_id: str) -> Path:
     key = _load_key(scan_id)
     kdir = OUT / scan_id
+    kdir.mkdir(parents=True, exist_ok=True)
     loc = rough_location(scan_id)
     lines = [f"# Verify {scan_id}", "", f"Answer key confidence: {key.get('confidence')}", ""]
     try:
@@ -1037,12 +1109,7 @@ def verify(scan_id: str) -> Path:
     else:
         checks.append(("floor", res.get("floor") == want_f, f"got {res.get('floor')}, key {want_f}"
                        + ("" if key.get("floor_sure", True) else " (key not sure)")))
-    want_h = _implied_rotation(key)
-    if want_h is not None and res.get("heading_deg") is not None:
-        dh = abs((res["heading_deg"] - want_h + 180) % 360 - 180)
-        checks.append(("heading", dh <= 20, f"got {res['heading_deg']:.0f}, key implies {want_h:.0f} (diff {dh:.0f} deg)"))
-    else:
-        checks.append(("heading", None, "not comparable"))
+    checks.append(_heading_check(key, res, kdir))
     mine = {(w["image"], w["box"]) for w in key.get("outside_windows", []) if w.get("box")}
     got = {(m["image"], m["box"]) for m in ((res.get("window_match") or {}).get("matched_boxes") or [])}
     if key.get("outside_skipped") or not mine:
