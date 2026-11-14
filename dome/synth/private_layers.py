@@ -32,9 +32,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 MOTEL = {"name": "Lone Star Motel (synthetic)", "category": "lodging", "area": "Downtown, Houston",
-         "lat": 29.7628, "lon": -95.3668}
+         "lat": 29.7590, "lon": -95.3660}
 RIDE = {"name": "Rideshare", "category": "rideshare", "area": "Downtown, Houston",
-        "lat": 29.7619, "lon": -95.3655}
+        "lat": 29.7596, "lon": -95.3652}
 TOPUP = {"name": "QuickTop Mobile (synthetic)", "category": "telecom", "area": "", "lat": None,
          "lon": None}
 CLEAN = {"name": "SparkleClean Services (synthetic)", "category": "other", "area": "Houston",

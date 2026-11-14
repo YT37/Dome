@@ -24,6 +24,33 @@ def room_match(photo_paths: list[str], scan_ids: list[str]) -> list[dict]:
     return out
 
 
+def photo_groups(photo_paths: list[str], renders: dict | None = None) -> list[dict]:
+    """v2: group photos by room, photo to photo (same matcher as room_match; Yug's real
+    version replaces this). keys: group_id, photos (photo ids), details, scan_id (or None).
+
+    Stub: the scenario's `photo_groups` fixture, else the synthetic renders.json (which scan
+    each rendered photo came from). Only groups of 2+ photos are returned."""
+    from collections import defaultdict
+    from pathlib import Path
+    ids = {Path(p).stem for p in photo_paths}
+    sc = _stub.scenario()
+    if "photo_groups" in sc:
+        out = []
+        for g in sc["photo_groups"]:
+            ph = [x for x in g["photos"] if x in ids]
+            if len(ph) >= 2:
+                out.append({**g, "photos": ph})
+        return out
+    by_scan = defaultdict(list)
+    for pid in sorted(ids):
+        scan = ((renders or {}).get(pid) or {}).get("scan_id")
+        if scan:
+            by_scan[scan].append(pid)
+    return [{"group_id": f"RG-{i}", "photos": ph, "scan_id": scan,
+             "details": [f"same room as scan {scan} (stub: synthetic render source)"]}
+            for i, (scan, ph) in enumerate(sorted(by_scan.items()), 1) if len(ph) >= 2]
+
+
 def _stub_window_check(lat: float, lon: float) -> dict:
     # the stub finds its scan by the stub geo's exact lat/lon (replace both together)
     sc = _stub.scenario()
