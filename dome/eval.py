@@ -21,15 +21,27 @@ def _pairs(groups) -> set:
 
 def score(data: str) -> dict:
     ds = load_dataset(data)
-    key = json.loads((resolve_dataset(data) / "answer_key.json").read_text(encoding="utf-8"))
+    d = resolve_dataset(data)
+    key_file = next(p for p in (d / "answer_key.json", d.parent / "answer_key" / "answer_key.json")
+                    if p.exists())
+    key = json.loads(key_file.read_text(encoding="utf-8"))
     linked = link_accounts(ds)
     rings = linked.rings_file["rings"]
-    truth = {name: set(r["members"]) for name, r in key["rings"].items()}
+    # Both answer-key shapes: {"rings": {A: ...}} (mini) and {A: ..., B: ...} (Ishaan's synth).
+    ring_key = key.get("rings") or {k: v for k, v in key.items()
+                                    if isinstance(v, dict) and "members" in v}
+    # truth = the posting accounts; recruiters and amplifiers belong to the ring too, so a
+    # predicted ring that includes them is not penalised (precision), but recall is measured
+    # on the core members.
+    truth = {name: set(r["members"]) for name, r in ring_key.items()}
+    allowed = {name: truth[name] | set(r.get("recruiters", [])) | set(r.get("amplifiers", []))
+               for name, r in ring_key.items()}
     pred = [set(r["members"]) for r in rings]
 
-    tp = len(_pairs(pred) & _pairs(truth.values()))
-    precision = tp / max(1, len(_pairs(pred)))
-    recall = tp / max(1, len(_pairs(truth.values())))
+    pred_pairs = _pairs(pred)
+    ok_pairs = _pairs(allowed.values())
+    precision = len(pred_pairs & ok_pairs) / max(1, len(pred_pairs))
+    recall = len(pred_pairs & _pairs(truth.values())) / max(1, len(_pairs(truth.values())))
 
     per_ring = {}
     for name, members in truth.items():
@@ -37,7 +49,8 @@ def score(data: str) -> dict:
         got = set(best["members"]) if best else set()
         per_ring[name] = {"ring_id": best and best["ring_id"], "R": best and best["confidence"],
                           "true": len(members), "found": len(members & got),
-                          "extra": sorted(got - members), "missed": sorted(members - got),
+                          "associates": len(got & (allowed[name] - members)),
+                          "extra": sorted(got - allowed[name]), "missed": sorted(members - got),
                           "kinds": best and best["key_kinds"]}
 
     # recall@10: seed one account, rank every other account by link strength,
@@ -55,9 +68,11 @@ def score(data: str) -> dict:
 
     in_ring = set().union(*pred) if pred else set()
     negatives = {kind: {"accounts": len(accts), "pulled_into_a_ring": sorted(set(accts) & in_ring)}
-                 for kind, accts in key.get("hard_negatives", {}).items()}
+                 for kind, accts in key.get("hard_negatives", {}).items()
+                 if isinstance(accts, list)}
 
-    true_recruiters = {a for r in key["rings"].values() for a in r.get("recruiters", [])}
+    negatives = {kind: v for kind, v in negatives.items() if v["accounts"]}
+    true_recruiters = {a for r in ring_key.values() for a in r.get("recruiters", [])}
     flagged = {x["account"]: x["reason"] for r in rings for x in r["recruiters"]}
 
     reworded = None
@@ -94,8 +109,9 @@ def main() -> None:
           f"  ->  rings: {st['rings']}")
     print(f"\nRing membership   precision {r['precision']:.2f}   recall {r['recall']:.2f}")
     for name, x in r["per_ring"].items():
-        print(f"  Ring {name}: found {x['found']}/{x['true']} as {x['ring_id']}  R {x['R']}  "
-              f"kinds {x['kinds']}  extra {x['extra']}  missed {x['missed']}")
+        print(f"  Ring {name}: found {x['found']}/{x['true']} as {x['ring_id']} "
+              f"(+{x['associates']} recruiters/amplifiers)  R {x['R']}  kinds {x['kinds']}  "
+              f"extra {x['extra']}  missed {x['missed']}")
     print("\nrecall@10 (seed one account, rank the rest by link strength)")
     for name, v in r["recall_at_10"].items():
         print(f"  Ring {name}: {v:.2f}")

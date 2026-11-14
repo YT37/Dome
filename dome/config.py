@@ -27,7 +27,10 @@ RING_CONFIDENCE_CAP = 0.95
 
 # Linker tuning
 EMBED_MODEL = "all-MiniLM-L6-v2"
-TEXT_MIN_WORDS = 10           # shorter texts are chatter, not a script
+TEXT_MIN_WORDS = 5            # shorter texts are too short to call a script
+# a post is an ad (and can share a text key) if it has a contact or a booking call-to-action
+AD_CALL_TO_ACTION = (r"\b(dm|direct message|message to|text me|call me|to book|bookings?|"
+                     r"appointments?|serious (people|inquiries))\b")
 MINHASH_THRESHOLD = 0.5       # Jaccard on word 3-shingles: near-identical copies
 EMBED_THRESHOLD = 0.75        # cosine: the same script reworded
 PHASH_MAX_DISTANCE = 6        # Hamming distance between 64-bit pHashes

@@ -11,9 +11,10 @@ from dome.eval import score
 from dome.supervisor import run_scripted
 
 
-@pytest.fixture(scope="module")
-def result():
-    return score("mini")
+@pytest.fixture(scope="module", params=["mini", "synth"])
+def result(request):
+    """Scored on the mini stand-in and on Ishaan's full synthetic dataset."""
+    return score(request.param)
 
 
 def test_disguised_phone_numbers():
@@ -42,8 +43,7 @@ def test_recall_at_10(result):
 
 
 def test_hard_negatives_stay_unlinked(result):
-    assert set(result["hard_negatives"]) == {"rental_hosts", "spa_chain", "delivery_driver",
-                                             "friend_groups"}
+    assert len(result["hard_negatives"]) >= 4
     for kind, x in result["hard_negatives"].items():
         assert x["pulled_into_a_ring"] == [], kind
 
@@ -57,11 +57,13 @@ def test_recruiters_flagged_with_a_reason(result):
 def test_embeddings_catch_a_rewording_minhash_missed(result):
     c = result["embedding_catch"]
     assert c and c["jaccard"] < 0.5 <= c["cosine"]
+    assert result["reworded_link"], "the reworded catch must actually link two ring accounts"
     assert "reworded" in result["reworded_link"]["reason"]
 
 
-def test_every_link_has_two_kinds_and_a_reason():
-    rings = linker.link_accounts(linker.load_dataset("mini")).rings_file
+@pytest.mark.parametrize("data", ["mini", "synth"])
+def test_every_link_has_two_kinds_and_a_reason(data):
+    rings = linker.link_accounts(linker.load_dataset(data)).rings_file
     for r in rings["rings"]:
         for l in r["links"]:
             assert len([k for k in l["kinds"] if k != "place"]) >= 2 and l["reason"]

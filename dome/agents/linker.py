@@ -42,8 +42,11 @@ KIND_ORDER = ("contact", "photo", "device", "text", "interaction", "place", "tim
 
 
 # ============================================================ dataset
+DATASET_ALIASES = {"synth": "data/synth"}   # Ishaan's generator output
+
+
 def resolve_dataset(name_or_path: str) -> Path:
-    p = Path(name_or_path)
+    p = Path(DATASET_ALIASES.get(name_or_path, name_or_path))
     for cand in (p, config.ROOT / p, config.SAMPLES / "data" / name_or_path):
         if (cand / "accounts.json").exists() or (cand / "dataset.json").exists():
             return cand
@@ -59,27 +62,49 @@ def load_dataset(name_or_path: str) -> dict:
     else:
         raw = {n: json.loads((d / f"{n}.json").read_text(encoding="utf-8"))
                for n in ("accounts", "posts", "interactions")}
+    # Ishaan's renders.json: photo_id -> {scan_id, view, path}. Only `view` and `path` are read;
+    # scan_id is ground truth for the Locator's stubs and is never used to link accounts.
+    renders = {}
+    if (d / "renders.json").exists():
+        renders = json.loads((d / "renders.json").read_text(encoding="utf-8"))
     posts = []
     for i, p in enumerate(raw["posts"]):
         p = dict(p)
         p.setdefault("post_id", f"post_{i:05d}")
-        p["account"] = p.get("account") or p.get("handle")
-        p["photos"] = [_photo(x) for x in p.get("photos") or []]
+        p["account"] = p.get("account") or p.get("account_id") or p.get("handle")
+        items = p.get("photos") or p.get("photo_ids") or []
+        p["photos"] = [_photo(x, renders) for x in items]
+        p["stated_area"] = p.get("stated_area") or ""
         posts.append(p)
-    return {"accounts": {a["handle"]: a for a in raw["accounts"]}, "posts": posts,
-            "interactions": raw.get("interactions") or []}
+    interactions = [dict(it, post=it.get("post") or it.get("post_id"))
+                    for it in raw.get("interactions") or []]
+    return {"accounts": {a.get("account_id") or a["handle"]: a for a in raw["accounts"]},
+            "posts": posts, "interactions": interactions}
 
 
-def _photo(x: Any) -> dict:
-    """A photo is a dict {photo_id, path, phash, has_window} or just a path string."""
+def _photo(x: Any, renders: Optional[dict] = None) -> dict:
+    """A photo is a dict {photo_id, path, phash, has_window}, a file path, or a bare photo id
+    (Ishaan's data). With no image file to hash, the photo id stands in for the pHash."""
+    renders = renders or {}
     if isinstance(x, str):
-        x = {"path": x}
+        if "/" in x or "\\" in x or x.endswith((".jpg", ".png")):
+            x = {"path": x}
+        else:
+            r = renders.get(x) or {}
+            x = {"photo_id": x, "path": r.get("path") or f"data/photos/{x}.jpg",
+                 "has_window": r.get("view") == "window"}
     x = dict(x)
     x.setdefault("photo_id", Path(x["path"]).stem)
     if not x.get("phash"):
-        x["phash"] = _file_phash(x["path"])
+        x["phash"] = _file_phash(x["path"]) or hash_id(x["photo_id"])
     x.setdefault("has_window", False)
     return x
+
+
+def hash_id(photo_id: str) -> str:
+    """Stand-in 64-bit hash for a photo with no image file: equal ids give equal hashes."""
+    import hashlib
+    return hashlib.sha256(photo_id.encode()).hexdigest()[:16]
 
 
 def _file_phash(path: str) -> Optional[str]:
@@ -128,6 +153,14 @@ def extract_contacts(text: str, phones: Iterable[str] = ()) -> set[str]:
     keys |= {f"contact:@{h}" for h in re.findall(r"(?<!\w)@([a-z0-9_.]{3,})", low)}
     keys |= {f"contact:${h}" for h in re.findall(r"\$([a-z][a-z0-9_]{2,})", low)}
     return keys
+
+
+_AD_CTA = re.compile(config.AD_CALL_TO_ACTION, re.I)
+
+
+def is_ad(post: dict) -> bool:
+    text = post.get("text", "")
+    return bool(post.get("phones") or extract_contacts(text) or _AD_CTA.search(text))
 
 
 def template(text: str) -> str:
@@ -268,7 +301,9 @@ def link_accounts(ds: dict) -> Linked:
     index: dict[tuple[str, str], set] = defaultdict(set)     # (kind, key) -> accounts
     detail: dict[tuple[str, str], str] = {}
 
-    tmpl_of = {p["post_id"]: template(p.get("text", "")) for p in posts}
+    # text key = AD template: only posts that carry a contact or a booking call-to-action.
+    # Everyday chatter is often templated too, and must never become a "shared script".
+    tmpl_of = {p["post_id"]: template(p.get("text", "")) if is_ad(p) else "" for p in posts}
     copy_c, final_c, catches, backend = cluster_templates(list(tmpl_of.values()))
     cluster_ids = {c: f"tmpl_{i + 1}" for i, c in enumerate(sorted(set(final_c.values())))}
     acct_copy_clusters = defaultdict(set)
@@ -360,6 +395,8 @@ def link_accounts(ds: dict) -> Linked:
                 if a != b:
                     coamp[(min(a, b), max(a, b))].append(scale)
     for (a, b), scales in sorted(coamp.items()):
+        if len(scales) < config.MIN_REPEAT_INTERACTIONS:   # once is chance; repeated is a pattern
+            continue
         add(a, b, "interaction", W["interaction"] * max(scales), f"interaction:coamp_x{len(scales)}",
             f"both amplified the same post within an hour ({len(scales)} times)")
 

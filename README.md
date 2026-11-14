@@ -36,16 +36,28 @@ python -m dome.supervisor --case real-a --scenario ring_a --data mini --scripted
 python -m dome.supervisor --case real-c --scenario ring_c --data mini --scripted
 ```
 
+On Ishaan's full synthetic dataset (`data/synth/`, 784 accounts, 2005 posts):
+
+```bash
+python -m dome.supervisor --case synth-a --scenario ring_a --data synth --seed acct_103 --scripted
+```
+
 Linker alone, scored against the hidden answer key (the Arlequin solo demo):
 
 ```bash
-python -m dome.eval --data mini
-python -m dome.agents.linker --case solo --data mini --seed acct_017
+python -m dome.eval --data synth
+python -m dome.agents.linker --case solo --data synth --seed acct_103
 ```
 
-On the mini dataset: ring precision 1.00, recall 1.00, recall@10 0.96 / 1.00 / 1.00, all
-four hard-negative groups unlinked, 3 of 3 recruiters flagged, and one reworded script that
-MinHash missed (Jaccard 0.00) but embeddings caught (cosine 0.88).
+| Dataset | Precision | Recall | recall@10 (A / B / C) | Hard negatives | Recruiters |
+|---|---|---|---|---|---|
+| `synth` (784 accounts) | 1.00 | 1.00 | 1.00 / 1.00 / 1.00 | 150 accounts, all unlinked | 3 of 3 |
+| `mini` (132 accounts) | 1.00 | 1.00 | 0.96 / 1.00 / 1.00 | 23 accounts, all unlinked | 3 of 3 |
+
+Each run also shows a reworded ad that MinHash missed (Jaccard 0.00) and sentence
+embeddings caught (cosine 0.77 on `synth`, 0.88 on `mini`).
+
+The answer key (`data/answer_key/`) is read only by `dome/eval.py`. No agent opens it.
 
 With the LLM supervisor (copy `.env.example` to `.env`, set `ANTHROPIC_API_KEY`):
 
@@ -140,8 +152,9 @@ line to `log.jsonl` with its evidence.
 ## The Linker
 
 1. **Keys per account:** contact (phones, including disguised ones like "five5five 0142",
-   @handles, $payment tags), photo (pHash), text (MinHash for copies plus
-   `all-MiniLM-L6-v2` embeddings for rewordings), interaction (repeated reposts/replies, or
+   @handles, $payment tags), photo (pHash; the photo id until real images exist), text (ad
+   templates only, meaning posts with a contact or booking call-to-action: MinHash for copies
+   plus `all-MiniLM-L6-v2` embeddings for rewordings), interaction (repeated reposts/replies, or
    amplifying the same post within an hour), place (area, landmark, area code), time
    (same creation day, lockstep posting). The device layer is off.
 2. **Inverse-frequency down-weighting:** a key shared by many accounts counts for almost nothing.
@@ -161,5 +174,6 @@ Tuning lives in `dome/config.py`.
 - **Stubs:** `zoner.py` and `briefer.py` (Ishaan; the Briefer stub already applies the real
   tier rules), and everything in `dome/data_tools/` (Yug), which return fixtures from
   `samples/scenarios/`.
-- `samples/data/mini/` is a small stand-in dataset until Ishaan's full generator lands.
+- `data/synth/` is Ishaan's generator output (`python -m dome.synth.generate`);
+  `samples/data/mini/` is a smaller hand-built set used by the tests.
   `samples/*.json` is the contract; `dome/schemas.py` wins if they differ.

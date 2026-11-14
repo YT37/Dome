@@ -1,5 +1,13 @@
+deepagents==0.7.38
+langchain-anthropic
 numpy
 shapely
 pydantic>=2
 jinja2
 pytest
+datasketch
+networkx
+igraph
+leidenalg
+imagehash
+sentence-transformers
