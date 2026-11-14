@@ -70,18 +70,12 @@ def test_every_link_has_two_kinds_and_a_reason(data):
     assert all(h["reason"] for h in rings["weak_hints"])
 
 
-@pytest.mark.parametrize("scenario,seed,tier", [("ring_a", "acct_017", "High"),
-                                                ("ring_b", "acct_501", "High"),
-                                                ("ring_c", "acct_701", "Medium")])
-def test_pipeline_on_the_real_linker(tmp_path, scenario, seed, tier):
-    case = Case.open("real", scenario=scenario, dataset="mini", seed_account=seed,
+@pytest.mark.parametrize("data,seed", [("mini", "acct_017"), ("synth", "acct_103")])
+def test_ring_a_pipeline_on_the_real_linker(tmp_path, data, seed):
+    """The real Linker finds Ring A in the dataset; the rest of the pipeline gives a High lead."""
+    case = Case.open("real", scenario="ring_a", dataset=data, seed_account=seed,
                      root=tmp_path, reset=True)
     run_scripted(case)
-    ring = case.selected_ring()
-    assert seed in ring.members
+    assert seed in case.selected_ring().members
     brief = case.load("brief.json")
-    assert brief.status == "complete" and brief.leads[0].tier == tier
-    if scenario == "ring_c":   # weak-hint photos pulled in, Locator retried once
-        assert ring.photo_expansion_used
-        assert {p.photo_id for p in ring.photos if p.link_strength == "weak"} >= {"img_850", "img_851"}
-        assert case.load("matches.json").zones[0].attempt == 2
+    assert brief.status == "complete" and brief.leads[0].tier == "High"

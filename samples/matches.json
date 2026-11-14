@@ -4,7 +4,6 @@
   "zones": [
     {
       "zone_id": "Z-A1",
-      "attempt": 1,
       "threshold": 0.4,
       "best_P": 0.78,
       "above_threshold": true,

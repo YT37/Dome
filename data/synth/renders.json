@@ -1,7 +1,7 @@
 {
   "img_0004": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_0024": {
@@ -10,8 +10,8 @@
     "path": null
   },
   "img_0037": {
-    "scan_id": "mp_placeholder_d",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_0058": {
@@ -30,8 +30,8 @@
     "path": null
   },
   "img_0077": {
-    "scan_id": "mp_placeholder_e",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_0089": {
@@ -50,8 +50,8 @@
     "path": null
   },
   "img_0124": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_0127": {
@@ -95,12 +95,12 @@
     "path": null
   },
   "img_0265": {
-    "scan_id": "mp_placeholder_d",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_0282": {
-    "scan_id": "mp_placeholder_b1",
+    "scan_id": "mp_4471",
     "view": "interior",
     "path": null
   },
@@ -125,8 +125,8 @@
     "path": null
   },
   "img_0354": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_0377": {
@@ -145,8 +145,8 @@
     "path": null
   },
   "img_0420": {
-    "scan_id": "mp_placeholder_a",
-    "view": "window",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_0428": {
@@ -160,8 +160,8 @@
     "path": null
   },
   "img_0450": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "window",
+    "scan_id": "mp_2210",
+    "view": "interior",
     "path": null
   },
   "img_0471": {
@@ -205,8 +205,8 @@
     "path": null
   },
   "img_0615": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_0616": {
@@ -215,18 +215,8 @@
     "path": null
   },
   "img_0623": {
-    "scan_id": "mp_placeholder_b1",
+    "scan_id": "mp_2210",
     "view": "interior",
-    "path": null
-  },
-  "img_0628": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_0677": {
-    "scan_id": null,
-    "view": "other",
     "path": null
   },
   "img_0702": {
@@ -245,13 +235,13 @@
     "path": null
   },
   "img_0734": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "window",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_0741": {
-    "scan_id": "mp_placeholder_f",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_0753": {
@@ -265,11 +255,6 @@
     "path": null
   },
   "img_0788": {
-    "scan_id": "mp_placeholder_e",
-    "view": "interior",
-    "path": null
-  },
-  "img_0789": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -290,8 +275,8 @@
     "path": null
   },
   "img_0870": {
-    "scan_id": "mp_placeholder_b1",
-    "view": "interior",
+    "scan_id": "mp_4471",
+    "view": "window",
     "path": null
   },
   "img_0878": {
@@ -300,8 +285,8 @@
     "path": null
   },
   "img_0884": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_0897": {
@@ -310,11 +295,6 @@
     "path": null
   },
   "img_0988": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_1007": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -340,11 +320,6 @@
     "path": null
   },
   "img_1077": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "window",
-    "path": null
-  },
-  "img_1080": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -360,7 +335,7 @@
     "path": null
   },
   "img_1094": {
-    "scan_id": "mp_placeholder_b1",
+    "scan_id": "mp_4471",
     "view": "interior",
     "path": null
   },
@@ -370,26 +345,16 @@
     "path": null
   },
   "img_1110": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_1115": {
-    "scan_id": "mp_placeholder_b1",
-    "view": "window",
+    "scan_id": "mp_2210",
+    "view": "interior",
     "path": null
   },
   "img_1121": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_1122": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_1149": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -425,13 +390,13 @@
     "path": null
   },
   "img_1305": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_1306": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_1310": {
@@ -439,14 +404,9 @@
     "view": "other",
     "path": null
   },
-  "img_1374": {
+  "img_1377": {
     "scan_id": null,
     "view": "other",
-    "path": null
-  },
-  "img_1377": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
     "path": null
   },
   "img_1381": {
@@ -480,13 +440,8 @@
     "path": null
   },
   "img_1517": {
-    "scan_id": "mp_placeholder_b1",
+    "scan_id": "mp_4471",
     "view": "interior",
-    "path": null
-  },
-  "img_1518": {
-    "scan_id": null,
-    "view": "other",
     "path": null
   },
   "img_1532": {
@@ -545,8 +500,8 @@
     "path": null
   },
   "img_1684": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_1695": {
@@ -575,8 +530,8 @@
     "path": null
   },
   "img_1822": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_1845": {
@@ -589,14 +544,9 @@
     "view": "other",
     "path": null
   },
-  "img_1886": {
+  "img_1910": {
     "scan_id": null,
     "view": "other",
-    "path": null
-  },
-  "img_1910": {
-    "scan_id": "mp_placeholder_a",
-    "view": "window",
     "path": null
   },
   "img_1916": {
@@ -620,26 +570,11 @@
     "path": null
   },
   "img_1942": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "interior",
-    "path": null
-  },
-  "img_1954": {
     "scan_id": null,
     "view": "other",
     "path": null
   },
   "img_2008": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_2035": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_2051": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -670,13 +605,8 @@
     "path": null
   },
   "img_2106": {
-    "scan_id": "mp_placeholder_b1",
-    "view": "window",
-    "path": null
-  },
-  "img_2109": {
-    "scan_id": null,
-    "view": "other",
+    "scan_id": "mp_4471",
+    "view": "interior",
     "path": null
   },
   "img_2118": {
@@ -690,8 +620,8 @@
     "path": null
   },
   "img_2148": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_2159": {
@@ -700,8 +630,8 @@
     "path": null
   },
   "img_2161": {
-    "scan_id": "mp_placeholder_a",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_2171": {
@@ -725,31 +655,21 @@
     "path": null
   },
   "img_2231": {
-    "scan_id": "mp_placeholder_f",
-    "view": "interior",
-    "path": null
-  },
-  "img_2232": {
     "scan_id": null,
     "view": "other",
     "path": null
   },
   "img_2244": {
-    "scan_id": "mp_placeholder_e",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_2248": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "window",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_2262": {
-    "scan_id": "mp_placeholder_d",
-    "view": "interior",
-    "path": null
-  },
-  "img_2280": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -759,13 +679,8 @@
     "view": "other",
     "path": null
   },
-  "img_2290": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
   "img_2293": {
-    "scan_id": "mp_placeholder_b1",
+    "scan_id": "mp_2210",
     "view": "interior",
     "path": null
   },
@@ -775,16 +690,6 @@
     "path": null
   },
   "img_2328": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_2337": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_2342": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -800,13 +705,13 @@
     "path": null
   },
   "img_2395": {
-    "scan_id": "mp_placeholder_d",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_2418": {
-    "scan_id": "mp_placeholder_f",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_2431": {
@@ -820,8 +725,8 @@
     "path": null
   },
   "img_2493": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_2495": {
@@ -835,11 +740,6 @@
     "path": null
   },
   "img_2512": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_2517": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -880,7 +780,7 @@
     "path": null
   },
   "img_2583": {
-    "scan_id": "mp_placeholder_b1",
+    "scan_id": "mp_4471",
     "view": "interior",
     "path": null
   },
@@ -920,7 +820,7 @@
     "path": null
   },
   "img_2654": {
-    "scan_id": "mp_placeholder_b1",
+    "scan_id": "mp_4471",
     "view": "interior",
     "path": null
   },
@@ -969,14 +869,9 @@
     "view": "other",
     "path": null
   },
-  "img_2802": {
+  "img_2807": {
     "scan_id": null,
     "view": "other",
-    "path": null
-  },
-  "img_2807": {
-    "scan_id": "mp_placeholder_d",
-    "view": "interior",
     "path": null
   },
   "img_2857": {
@@ -995,13 +890,13 @@
     "path": null
   },
   "img_2954": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_2955": {
-    "scan_id": "mp_placeholder_d",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_2959": {
@@ -1020,8 +915,8 @@
     "path": null
   },
   "img_2976": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "window",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_3000": {
@@ -1060,16 +955,11 @@
     "path": null
   },
   "img_3078": {
-    "scan_id": "mp_placeholder_e",
-    "view": "interior",
-    "path": null
-  },
-  "img_3139": {
     "scan_id": null,
     "view": "other",
     "path": null
   },
-  "img_3151": {
+  "img_3139": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -1085,16 +975,11 @@
     "path": null
   },
   "img_3169": {
-    "scan_id": "mp_placeholder_b1",
+    "scan_id": "mp_2210",
     "view": "interior",
     "path": null
   },
   "img_3178": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_3180": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -1104,19 +989,9 @@
     "view": "other",
     "path": null
   },
-  "img_3205": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_3214": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
   "img_3218": {
-    "scan_id": "mp_placeholder_a",
-    "view": "interior",
+    "scan_id": "mp_4471",
+    "view": "window",
     "path": null
   },
   "img_3220": {
@@ -1135,8 +1010,8 @@
     "path": null
   },
   "img_3278": {
-    "scan_id": "mp_placeholder_a",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_3288": {
@@ -1155,11 +1030,6 @@
     "path": null
   },
   "img_3318": {
-    "scan_id": "mp_placeholder_a",
-    "view": "interior",
-    "path": null
-  },
-  "img_3321": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -1195,8 +1065,8 @@
     "path": null
   },
   "img_3431": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_3444": {
@@ -1205,8 +1075,8 @@
     "path": null
   },
   "img_3457": {
-    "scan_id": "mp_placeholder_d",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_3464": {
@@ -1235,13 +1105,13 @@
     "path": null
   },
   "img_3523": {
-    "scan_id": "mp_placeholder_b1",
+    "scan_id": "mp_2210",
     "view": "interior",
     "path": null
   },
   "img_3525": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_3556": {
@@ -1269,14 +1139,9 @@
     "view": "other",
     "path": null
   },
-  "img_3656": {
+  "img_3664": {
     "scan_id": null,
     "view": "other",
-    "path": null
-  },
-  "img_3664": {
-    "scan_id": "mp_placeholder_d",
-    "view": "interior",
     "path": null
   },
   "img_3678": {
@@ -1354,11 +1219,6 @@
     "view": "other",
     "path": null
   },
-  "img_3968": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
   "img_3997": {
     "scan_id": null,
     "view": "other",
@@ -1375,8 +1235,8 @@
     "path": null
   },
   "img_4059": {
-    "scan_id": "mp_placeholder_b1",
-    "view": "window",
+    "scan_id": "mp_2210",
+    "view": "interior",
     "path": null
   },
   "img_4104": {
@@ -1390,8 +1250,8 @@
     "path": null
   },
   "img_4140": {
-    "scan_id": "mp_placeholder_a",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_4146": {
@@ -1400,13 +1260,13 @@
     "path": null
   },
   "img_4173": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_4180": {
-    "scan_id": "mp_placeholder_e",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_4182": {
@@ -1415,8 +1275,8 @@
     "path": null
   },
   "img_4211": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_4228": {
@@ -1435,11 +1295,6 @@
     "path": null
   },
   "img_4267": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_4275": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -1464,17 +1319,7 @@
     "view": "other",
     "path": null
   },
-  "img_4343": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
   "img_4354": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_4369": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -1505,8 +1350,8 @@
     "path": null
   },
   "img_4451": {
-    "scan_id": "mp_placeholder_b1",
-    "view": "window",
+    "scan_id": "mp_4471",
+    "view": "interior",
     "path": null
   },
   "img_4454": {
@@ -1520,8 +1365,8 @@
     "path": null
   },
   "img_4460": {
-    "scan_id": "mp_placeholder_a",
-    "view": "window",
+    "scan_id": "mp_4471",
+    "view": "interior",
     "path": null
   },
   "img_4490": {
@@ -1555,16 +1400,11 @@
     "path": null
   },
   "img_4556": {
-    "scan_id": "mp_placeholder_a",
-    "view": "interior",
+    "scan_id": "mp_4471",
+    "view": "window",
     "path": null
   },
   "img_4557": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_4583": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -1575,8 +1415,8 @@
     "path": null
   },
   "img_4605": {
-    "scan_id": "mp_placeholder_e",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_4625": {
@@ -1585,8 +1425,8 @@
     "path": null
   },
   "img_4636": {
-    "scan_id": "mp_placeholder_d",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_4645": {
@@ -1605,7 +1445,7 @@
     "path": null
   },
   "img_4677": {
-    "scan_id": "mp_placeholder_b2",
+    "scan_id": "mp_2210",
     "view": "interior",
     "path": null
   },
@@ -1620,8 +1460,8 @@
     "path": null
   },
   "img_4746": {
-    "scan_id": "mp_placeholder_e",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_4790": {
@@ -1645,7 +1485,7 @@
     "path": null
   },
   "img_4812": {
-    "scan_id": "mp_placeholder_b1",
+    "scan_id": "mp_2210",
     "view": "interior",
     "path": null
   },
@@ -1689,11 +1529,6 @@
     "view": "other",
     "path": null
   },
-  "img_4936": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
   "img_4945": {
     "scan_id": null,
     "view": "other",
@@ -1705,8 +1540,8 @@
     "path": null
   },
   "img_5008": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_5011": {
@@ -1715,11 +1550,6 @@
     "path": null
   },
   "img_5023": {
-    "scan_id": "mp_placeholder_a",
-    "view": "interior",
-    "path": null
-  },
-  "img_5040": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -1755,13 +1585,13 @@
     "path": null
   },
   "img_5204": {
-    "scan_id": "mp_placeholder_a",
+    "scan_id": "mp_4471",
     "view": "interior",
     "path": null
   },
   "img_5217": {
-    "scan_id": "mp_placeholder_e",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_5224": {
@@ -1770,8 +1600,8 @@
     "path": null
   },
   "img_5246": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_5271": {
@@ -1795,8 +1625,8 @@
     "path": null
   },
   "img_5323": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_5351": {
@@ -1815,11 +1645,6 @@
     "path": null
   },
   "img_5412": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_5428": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -1900,8 +1725,8 @@
     "path": null
   },
   "img_5712": {
-    "scan_id": "mp_placeholder_e",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_5782": {
@@ -1935,13 +1760,13 @@
     "path": null
   },
   "img_5908": {
-    "scan_id": "mp_placeholder_e",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_5911": {
-    "scan_id": "mp_placeholder_a",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_5930": {
@@ -1975,8 +1800,8 @@
     "path": null
   },
   "img_5998": {
-    "scan_id": "mp_placeholder_a",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_6092": {
@@ -1985,8 +1810,8 @@
     "path": null
   },
   "img_6097": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_6113": {
@@ -2035,8 +1860,8 @@
     "path": null
   },
   "img_6242": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_6314": {
@@ -2045,8 +1870,8 @@
     "path": null
   },
   "img_6324": {
-    "scan_id": "mp_placeholder_b1",
-    "view": "window",
+    "scan_id": "mp_4471",
+    "view": "interior",
     "path": null
   },
   "img_6344": {
@@ -2065,8 +1890,8 @@
     "path": null
   },
   "img_6370": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_6372": {
@@ -2105,16 +1930,11 @@
     "path": null
   },
   "img_6539": {
-    "scan_id": "mp_placeholder_a",
+    "scan_id": "mp_4471",
     "view": "interior",
     "path": null
   },
   "img_6551": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_6583": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -2165,7 +1985,7 @@
     "path": null
   },
   "img_6758": {
-    "scan_id": "mp_placeholder_b2",
+    "scan_id": "mp_2210",
     "view": "interior",
     "path": null
   },
@@ -2175,8 +1995,8 @@
     "path": null
   },
   "img_6773": {
-    "scan_id": "mp_placeholder_e",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_6788": {
@@ -2195,8 +2015,8 @@
     "path": null
   },
   "img_6828": {
-    "scan_id": "mp_placeholder_f",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_6831": {
@@ -2225,8 +2045,8 @@
     "path": null
   },
   "img_6892": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_6902": {
@@ -2235,8 +2055,8 @@
     "path": null
   },
   "img_6918": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_6931": {
@@ -2275,8 +2095,8 @@
     "path": null
   },
   "img_7038": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_7086": {
@@ -2289,14 +2109,9 @@
     "view": "other",
     "path": null
   },
-  "img_7092": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
   "img_7115": {
-    "scan_id": "mp_placeholder_a",
-    "view": "interior",
+    "scan_id": "mp_4471",
+    "view": "window",
     "path": null
   },
   "img_7120": {
@@ -2310,8 +2125,8 @@
     "path": null
   },
   "img_7149": {
-    "scan_id": "mp_placeholder_f",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_7157": {
@@ -2339,11 +2154,6 @@
     "view": "other",
     "path": null
   },
-  "img_7260": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
   "img_7286": {
     "scan_id": null,
     "view": "other",
@@ -2365,11 +2175,6 @@
     "path": null
   },
   "img_7355": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_7363": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -2424,11 +2229,6 @@
     "view": "other",
     "path": null
   },
-  "img_7593": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
   "img_7603": {
     "scan_id": null,
     "view": "other",
@@ -2455,8 +2255,8 @@
     "path": null
   },
   "img_7725": {
-    "scan_id": "mp_placeholder_d",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_7779": {
@@ -2475,18 +2275,13 @@
     "path": null
   },
   "img_7799": {
-    "scan_id": "mp_placeholder_f",
-    "view": "interior",
-    "path": null
-  },
-  "img_7826": {
     "scan_id": null,
     "view": "other",
     "path": null
   },
   "img_7842": {
-    "scan_id": "mp_placeholder_d",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_7879": {
@@ -2495,16 +2290,11 @@
     "path": null
   },
   "img_7900": {
-    "scan_id": "mp_placeholder_d",
-    "view": "interior",
-    "path": null
-  },
-  "img_7908": {
     "scan_id": null,
     "view": "other",
     "path": null
   },
-  "img_8014": {
+  "img_7908": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -2550,13 +2340,8 @@
     "path": null
   },
   "img_8176": {
-    "scan_id": "mp_placeholder_a",
+    "scan_id": "mp_4471",
     "view": "interior",
-    "path": null
-  },
-  "img_8204": {
-    "scan_id": null,
-    "view": "other",
     "path": null
   },
   "img_8222": {
@@ -2629,22 +2414,12 @@
     "view": "other",
     "path": null
   },
-  "img_8577": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
   "img_8597": {
     "scan_id": null,
     "view": "other",
     "path": null
   },
   "img_8607": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_8660": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -2670,8 +2445,8 @@
     "path": null
   },
   "img_8774": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_8783": {
@@ -2685,8 +2460,8 @@
     "path": null
   },
   "img_8800": {
-    "scan_id": "mp_placeholder_b1",
-    "view": "interior",
+    "scan_id": "mp_4471",
+    "view": "window",
     "path": null
   },
   "img_8813": {
@@ -2720,8 +2495,8 @@
     "path": null
   },
   "img_8895": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_8910": {
@@ -2730,8 +2505,8 @@
     "path": null
   },
   "img_8915": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_8943": {
@@ -2770,11 +2545,6 @@
     "path": null
   },
   "img_9068": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
-  "img_9098": {
     "scan_id": null,
     "view": "other",
     "path": null
@@ -2830,23 +2600,13 @@
     "path": null
   },
   "img_9282": {
-    "scan_id": "mp_placeholder_a",
-    "view": "interior",
-    "path": null
-  },
-  "img_9296": {
     "scan_id": null,
     "view": "other",
     "path": null
   },
   "img_9315": {
-    "scan_id": "mp_placeholder_a",
+    "scan_id": "mp_4471",
     "view": "interior",
-    "path": null
-  },
-  "img_9319": {
-    "scan_id": null,
-    "view": "other",
     "path": null
   },
   "img_9365": {
@@ -2859,19 +2619,14 @@
     "view": "other",
     "path": null
   },
-  "img_9466": {
-    "scan_id": null,
-    "view": "other",
-    "path": null
-  },
   "img_9480": {
     "scan_id": null,
     "view": "other",
     "path": null
   },
   "img_9494": {
-    "scan_id": "mp_placeholder_a",
-    "view": "window",
+    "scan_id": "mp_4471",
+    "view": "interior",
     "path": null
   },
   "img_9497": {
@@ -2880,7 +2635,7 @@
     "path": null
   },
   "img_9498": {
-    "scan_id": "mp_placeholder_b1",
+    "scan_id": "mp_4471",
     "view": "interior",
     "path": null
   },
@@ -2945,8 +2700,8 @@
     "path": null
   },
   "img_9765": {
-    "scan_id": "mp_placeholder_a",
-    "view": "window",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_9788": {
@@ -2965,7 +2720,7 @@
     "path": null
   },
   "img_9839": {
-    "scan_id": "mp_placeholder_b1",
+    "scan_id": "mp_2210",
     "view": "interior",
     "path": null
   },
@@ -2975,13 +2730,13 @@
     "path": null
   },
   "img_9869": {
-    "scan_id": "mp_placeholder_b1",
+    "scan_id": "mp_2210",
     "view": "interior",
     "path": null
   },
   "img_9878": {
-    "scan_id": "mp_placeholder_b2",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_9883": {
@@ -3015,8 +2770,8 @@
     "path": null
   },
   "img_9942": {
-    "scan_id": "mp_placeholder_e",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_9953": {
@@ -3025,8 +2780,8 @@
     "path": null
   },
   "img_9961": {
-    "scan_id": "mp_placeholder_c",
-    "view": "interior",
+    "scan_id": null,
+    "view": "other",
     "path": null
   },
   "img_9996": {

@@ -1,6 +1,8 @@
-"""Samples validate, every supervisor decision fires, and the deepagents wiring is locked down."""
+"""Samples validate, Ring A runs end to end, the three safety rules fire, and the deepagents
+wiring is locked down. Rule tests use tweaked copies of Ring A (one ring is the whole demo)."""
 from __future__ import annotations
 
+import copy
 import json
 import uuid
 from typing import Any
@@ -10,11 +12,12 @@ import pytest
 from dome import config
 from dome.agents import lister
 from dome.case import Case
+from dome.data_tools import _stub
 from dome.schemas import FILE_MODELS, LogEntry
 from dome.supervisor import EXCLUDED_BUILTINS, Supervisor, build_agent, run_llm, run_scripted
 
 
-def scripted(tmp_path, scenario, case_id="t"):
+def scripted(tmp_path, scenario="ring_a", case_id="t"):
     case = Case.open(case_id, scenario=scenario, root=tmp_path, reset=True)
     run_scripted(case)
     return case
@@ -22,6 +25,18 @@ def scripted(tmp_path, scenario, case_id="t"):
 
 def decisions(case):
     return {d.decision: d for d in case.decisions()}
+
+
+@pytest.fixture
+def ring_a_variant(monkeypatch):
+    """Serve a tweaked copy of Ring A from the stub data tools: variant(fn) where fn edits it."""
+    base = _stub._load("ring_a")
+
+    def make(edit):
+        data = copy.deepcopy(base)
+        edit(data)
+        monkeypatch.setattr(_stub, "scenario", lambda: data)
+    return make
 
 
 # ---------------------------------------------------------------- Task 1: the contract
@@ -33,7 +48,7 @@ def test_every_sample_validates():
     assert lines and all(LogEntry.model_validate_json(l) for l in lines)
 
 
-# ---------------------------------------------------------------- Task 2: the five decisions
+# ---------------------------------------------------------------- Ring A + the three safety rules
 def test_ring_a_high_lead(tmp_path):
     case = scripted(tmp_path, "ring_a")
     brief = case.load("brief.json")
@@ -45,48 +60,30 @@ def test_ring_a_high_lead(tmp_path):
     assert not case.load("candidates.json").zones[0].scanned_only
 
 
-def test_weak_ring_stops_after_zoner(tmp_path):
-    case = scripted(tmp_path, "weak_ring")
+def test_weak_ring_stops_after_zoner(tmp_path, ring_a_variant):
+    ring_a_variant(lambda d: d["rings"]["rings"][0].update(confidence=0.35))
+    case = scripted(tmp_path)
     d = decisions(case)["stop_after_zoner_weak_ring"]
     assert d.actor == "guard" and d.evidence["R"] == 0.35 and d.evidence["min_R"] == 0.4
     assert case.load("brief.json").status == "weak_ring_zone_only"
     assert case.load("brief.json").leads == []
     assert case.check("candidates.json") == "missing" and case.check("matches.json") == "missing"
+    assert Supervisor(case).run_lister("Z-A1")["refused"]
 
 
-def test_wide_zone_keeps_scanned_only(tmp_path):
-    case = scripted(tmp_path, "ring_c")
-    d = decisions(case)["scanned_buildings_only_wide_zone"]
-    assert d.evidence["wide"] is True
+def test_wide_zone_keeps_scanned_only(tmp_path, ring_a_variant):
+    ring_a_variant(lambda d: d["zones"][0].update(wide=True, area_km2=40.0))
+    case = scripted(tmp_path)
+    assert decisions(case)["scanned_buildings_only_wide_zone"].evidence["wide"] is True
     block = case.load("candidates.json").zones[0]
     assert block.scanned_only and block.total_in_zone == 7
     assert len(block.candidates) == 3 and all(c.has_scan for c in block.candidates)
+    assert case.load("brief.json").leads[0].property_id == "CS-88412"
 
 
-def test_two_zones_run_per_zone(tmp_path):
-    case = scripted(tmp_path, "ring_b")
-    assert decisions(case)["run_lister_and_locator_per_zone"].evidence["zones"] == ["Z-B1", "Z-B2"]
-    assert [z.zone_id for z in case.load("candidates.json").zones] == ["Z-B1", "Z-B2"]
-    assert [z.zone_id for z in case.load("matches.json").zones] == ["Z-B1", "Z-B2"]
-    assert {l.zone_id for l in case.load("brief.json").leads} == {"Z-B1", "Z-B2"}
-
-
-def test_no_match_expands_photos_and_retries_once(tmp_path):
-    case = scripted(tmp_path, "ring_c")
-    d = decisions(case)["expand_weak_photos_and_retry"]
-    assert d.evidence == {"zone_id": "Z-C1", "best_P": 0.31, "threshold": 0.4, "attempt": 1}
-    ring = case.selected_ring()
-    assert ring.photo_expansion_used and any(p.link_strength == "weak" for p in ring.photos)
-    mz = case.load("matches.json").zones[0]
-    assert mz.attempt == 2 and mz.above_threshold and mz.best_P == 0.62
-    calls = [e.step for e in case.read_log() if e.event == "tool_call"]
-    assert calls.count("locator:Z-C1") == 2 and calls.count("linker:expand") == 1
-    # a third search is refused
-    assert Supervisor(case).run_locator("Z-C1")["refused"]
-
-
-def test_no_window_skips_check_and_caps_medium(tmp_path):
-    case = scripted(tmp_path, "ring_c")
+def test_no_window_skips_check_and_caps_medium(tmp_path, ring_a_variant):
+    ring_a_variant(lambda d: [p.update(has_window=False) for p in d["rings"]["rings"][0]["photos"]])
+    case = scripted(tmp_path)
     assert decisions(case)["skip_window_check_cap_medium"].evidence["window_photos"] == 0
     m = case.load("matches.json").zones[0].matches[0]
     assert m.W is None and not m.window_checked
@@ -94,22 +91,25 @@ def test_no_window_skips_check_and_caps_medium(tmp_path):
     assert lead.tier == "Medium" and lead.factors.W is None and lead.caps
 
 
+def test_no_scan_match_means_no_lead(tmp_path, ring_a_variant):
+    ring_a_variant(lambda d: d["room_match"]["mp_4471"].update(P=0.3))
+    case = scripted(tmp_path)
+    assert decisions(case)["no_scan_above_threshold"].evidence["best_P"] == 0.3
+    assert case.load("brief.json").leads == []
+    assert Supervisor(case).run_locator("Z-A1")["refused"]          # one search per zone
+
+
 # ---------------------------------------------------------------- guards, retry, determinism
 def test_guards_refuse_out_of_order_calls(tmp_path):
     case = Case.open("g", scenario="ring_a", root=tmp_path, reset=True)
     sup = Supervisor(case)
     assert sup.run_briefer()["refused"]                      # nothing to brief yet
-    assert sup.run_linker(expand_weak_photos=True)["refused"]  # no failed Locator run yet
     sup.run_linker()
+    assert sup.run_linker()["refused"]                       # rings.json already written
     sup.run_zoner()
     assert sup.run_briefer()["refused"]                      # zones not processed
     assert sup.run_locator("Z-A1")["refused"]                # Lister first
     assert any(e.event == "refused" for e in case.read_log())
-
-    weak = Case.open("w", scenario="weak_ring", root=tmp_path, reset=True)
-    ws = Supervisor(weak)
-    ws.run_linker(), ws.run_zoner()
-    assert ws.run_lister("Z-W1")["refused"]                  # weak ring stops after the Zoner
 
 
 def test_invalid_output_retries_once_then_fails(tmp_path, monkeypatch):
@@ -125,7 +125,7 @@ def test_invalid_output_retries_once_then_fails(tmp_path, monkeypatch):
 
 
 def test_same_case_in_same_scores_out(tmp_path):
-    a, b = scripted(tmp_path, "ring_c", "one"), scripted(tmp_path, "ring_c", "two")
+    a, b = scripted(tmp_path, "ring_a", "one"), scripted(tmp_path, "ring_a", "two")
     for name in ("candidates.json", "matches.json", "brief.json"):
         da, db = (json.loads(c.path(name).read_text(encoding="utf-8")) for c in (a, b))
         da.pop("case_id"), db.pop("case_id")
@@ -177,18 +177,15 @@ def _planner_model(case):
 
 
 def test_deep_agent_runs_and_is_locked_down(tmp_path):
-    case = Case.open("llm", scenario="ring_c", root=tmp_path, reset=True)
+    case = Case.open("llm", scenario="ring_a", root=tmp_path, reset=True)
     model, offered = _planner_model(case)
     run_llm(case, model)
 
-    assert case.load("brief.json").leads[0].tier == "Medium"
-    assert "expand_weak_photos_and_retry" in decisions(case)
     assert any(e.actor == "llm" and e.event == "tool_call" for e in case.read_log())
-
     brief = case.load("brief.json")
     assert brief.text_source == "llm" and brief.summary
-    assert brief.leads[0].reasons == ["P 0.62: room photos match the unit scan"]
-    assert (brief.leads[0].tier, brief.leads[0].score) == ("Medium", 40)   # numbers untouched
+    assert brief.leads[0].reasons == ["P 0.78: room photos match the unit scan"]
+    assert (brief.leads[0].tier, brief.leads[0].score) == ("High", 68)   # numbers untouched
 
     names = set(offered)
     assert {"case_status", "run_linker", "run_zoner", "run_lister", "run_locator",

@@ -112,9 +112,8 @@ def photo_reason(m, mz) -> str:
     if m.P < mz.threshold:
         return f"P {m.P:.2f}: room photos do not match this building's scan (below {mz.threshold})"
     inliers = sum(e.inliers for e in m.evidence)
-    retry = ", after the one photo-expansion retry" if mz.attempt == 2 else ""
     return (f"P {m.P:.2f}: {len(m.evidence)} of {mz.photos_used} room photos match the unit scan, "
-            f"{inliers} matched points{retry}")
+            f"{inliers} matched points")
 
 
 def window_reason(m) -> Optional[str]:
@@ -303,7 +302,7 @@ def render_html(b: dict, case: Optional[Case] = None) -> str:
             "key_kinds": ring.key_kinds,
             "links": [f"{k}: {n} link{'s' * (n != 1)}" for k, n in kinds.most_common()],
             "recruiters": [{"account": r.account, "reason": scrub(r.reason)} for r in ring.recruiters],
-            "photos": len(ring.photos), "expanded": ring.photo_expansion_used,
+            "photos": len(ring.photos),
         }
     zone_rows = [z.model_dump() for z in zones.zones] if zones else []
     return _env.get_template("summary.html.j2").render(

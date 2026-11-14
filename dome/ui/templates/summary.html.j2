@@ -49,7 +49,7 @@
       <h3>Ring</h3>
       {% if ring %}
       <div>{{ ring.line }}</div>
-      <div class="small muted">Key kinds: {{ ring.key_kinds | join(", ") }}{% if ring.photos %} · {{ ring.photos }} ring photos{% if ring.expanded %} (weak-link photos added once){% endif %}{% endif %}</div>
+      <div class="small muted">Key kinds: {{ ring.key_kinds | join(", ") }}{% if ring.photos %} · {{ ring.photos }} ring photos{% endif %}</div>
       {% if ring.links %}<ul class="small">{% for l in ring.links %}<li>{{ l }}</li>{% endfor %}</ul>{% endif %}
       <h3 style="margin-top:10px">Likely recruiters</h3>
       {% if ring.recruiters %}<ul class="small">{% for r in ring.recruiters %}<li>{{ r.account }}: {{ r.reason }}</li>{% endfor %}</ul>

@@ -51,7 +51,7 @@ def run(case: Case, zone_id: str) -> dict:
         matches.append(m)
 
     best = max((m["P"] for m in matches), default=0.0)
-    out = {"zone_id": zone_id, "attempt": 2 if ring.photo_expansion_used else 1, "threshold": thr,
+    out = {"zone_id": zone_id, "threshold": thr,
            "best_P": best, "above_threshold": best >= thr, "photos_used": len(paths),
            "window_photos": len(windows), "matches": matches}
 

@@ -30,11 +30,26 @@ def test_same_seed_same_bytes(synth, tmp_path):
 
 def test_group_sizes(synth):
     key = load(synth, "answer_key/answer_key.json")
+    assert [k for k in key if k not in ("hard_negatives", "decoy_buildings")] == ["A"]   # one ring
     assert len(key["A"]["members"]) == 12 and len(key["A"]["recruiters"]) == 3
     assert len(key["A"]["amplifiers"]) == 5
-    assert len(key["B"]["members"]) == 8 and len(key["C"]["members"]) == 6
     assert sum(len(v) for v in key["hard_negatives"].values()) == 150
+    assert [b["label"] for b in key["decoy_buildings"]] == ["D"]
     assert 750 <= len(load(synth, "synth/accounts.json")) <= 850
+
+
+def test_render_jobs_are_a_and_d_only(synth):
+    renders = load(synth, "synth/renders.json")
+    scans = {b["label"]: b["scan_id"] for b in load_buildings()}
+    jobs = [(v["scan_id"], v["view"]) for v in renders.values() if v["scan_id"]]
+    assert len(jobs) == 32
+    assert jobs.count((scans["A"], "interior")) == 15 and jobs.count((scans["A"], "window")) == 5
+    assert jobs.count((scans["D"], "interior")) == 12
+
+
+def test_decoy_d_is_near_building_a():
+    b = {x["label"]: x for x in load_buildings()}
+    assert km_between(b["A"]["lat"], b["A"]["lon"], b["D"]["lat"], b["D"]["lon"]) < 1.0
 
 
 def test_ring_a_clues_near_building_a(synth):
@@ -48,18 +63,6 @@ def test_ring_a_clues_near_building_a(synth):
         for name in ([p["stated_area"]] if p["stated_area"] else []) + p["landmarks"]:
             g = gaz[name]
             assert km_between(g["lat"], g["lon"], a["lat"], a["lon"]) < 1.2
-
-
-def test_ring_c_is_city_wide_only(synth):
-    key = load(synth, "answer_key/answer_key.json")
-    gaz = load_gazetteer()
-    members = set(key["C"]["members"])
-    renders = load(synth, "synth/renders.json")
-    for p in load(synth, "synth/posts.json"):
-        if p["account_id"] in members:
-            assert p["landmarks"] == []
-            assert gaz[p["stated_area"]]["kind"] == "city"
-            assert all(renders[ph]["view"] != "window" for ph in p["photo_ids"])
 
 
 def test_disguised_phones_normalize():

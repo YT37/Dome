@@ -37,23 +37,15 @@ def test_ring_a_building_inside_its_zone(synth):
     assert not zones[0]["wide"]
 
 
-def test_ring_b_gets_two_zones_one_per_building(synth):
-    _, zones = zones_for(synth, "R-B")
-    assert len(zones) == 2
-    assert {lab for lab in ("B1", "B2") for z in zones if inside(z, lab)} == {"B1", "B2"}
-    assert not any(inside(z, "B1") and inside(z, "B2") for z in zones)
-
-
-def test_ring_c_is_wide(synth):
-    _, zones = zones_for(synth, "R-C")
-    assert zones and all(z["wide"] for z in zones)
-    assert zones[0]["confidence"] < 0.05
+def test_decoy_d_is_inside_ring_a_zone(synth):
+    """D must be in the dome, so the Lister and room_match really compare against it."""
+    _, zones = zones_for(synth, "R-A")
+    assert inside(zones[0], "D")
 
 
 def test_confidence_formula(synth):
-    for ring_id in ("R-A", "R-B", "R-C"):
-        for z in zones_for(synth, ring_id)[1]:
-            assert z["confidence"] == pytest.approx(z["weight_share"] / (1 + z["area_km2"] / 10), abs=0.011)
+    for z in zones_for(synth, "R-A")[1]:
+        assert z["confidence"] == pytest.approx(z["weight_share"] / (1 + z["area_km2"] / 10), abs=0.011)
 
 
 def test_deterministic(synth):
@@ -66,17 +58,15 @@ def test_login_layer(synth):
 
 
 def test_stub_scenario_keeps_fixture_zones(tmp_path):
-    case = Case.open("stub", scenario="ring_b", root=tmp_path, reset=True)
+    case = Case.open("stub", scenario="ring_a", root=tmp_path, reset=True)
     case.save("rings.json", {"case_id": "stub", "rings": [
-        {"ring_id": "R-B", "members": ["a", "b"], "confidence": 0.8, "key_kinds": ["contact"]}]})
-    assert [z["zone_id"] for z in zoner.run(case)["zones"]] == ["Z-B1", "Z-B2"]
+        {"ring_id": "R-A", "members": ["a", "b"], "confidence": 0.8, "key_kinds": ["contact"]}]})
+    assert [z["zone_id"] for z in zoner.run(case)["zones"]] == ["Z-A1"]
 
 
 def test_true_building_inside_dome_score(synth):
-    results = []
-    for ring_id in ("R-A", "R-B", "R-C"):
-        case, zones = zones_for(synth, ring_id)
-        results.append((case.selected_ring().members, zones))
+    case, zones = zones_for(synth, "R-A")
+    results = [(case.selected_ring().members, zones)]
     hits, n, median = zoner.score_against_answer_key(results, synth / "answer_key" / "answer_key.json")
     print(f"true building inside the dome: {hits} of {n} rings; median zone area {median:.1f} km2")
-    assert hits == n == 3
+    assert hits == n == 1

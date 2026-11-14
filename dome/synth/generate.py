@@ -13,8 +13,7 @@ bland, neutral ad text. Same seed -> byte-identical output.
 
 Groups:
   Ring A   12 accounts / 90 posts + 3 recruiters + 5 amplifiers, clues around Building A
-  Ring B    8 accounts / 50 posts, clues split between Buildings B1 and B2
-  Ring C    6 accounts / 30 posts, city-wide clues only, no window photos, mostly VPN logins
+           (the demo is one ring; decoy D is a scanned building inside Ring A's zone)
   Hard negatives (~150), each sharing at most ONE kind of key with anything:
      rental hosts (photo key), spa chain (text key), delivery drivers (none, clues everywhere),
      friend groups (interaction key), independents (nothing)
@@ -41,30 +40,11 @@ RINGS = {
         "accounts": 12, "posts": 90, "phones": ["555-0142", "555-0187"], "area_code": "713",
         "created": datetime(2026, 9, 2, 20, 0, tzinfo=timezone.utc), "vpn_rate": 0.2,
         "window_photos": True,
-        "sites": [{"building": "A", "areas": ["Midtown"],
-                   "landmarks": ["Midtown Park", "McGowen station", "Ensemble station"]}],
+        "sites": [{"building": "A", "areas": ["Downtown"],
+                   "landmarks": ["Main Street Square", "Market Square Park", "Central station"]}],
         "script": "New in town, text {phone}. {place}Available this week.",
         "reworded": "Just arrived in the city, message {phone}. {place}Open most days.",
         "recruiters": 3, "amplifiers": 5,
-    },
-    "B": {
-        "accounts": 8, "posts": 50, "phones": ["555-0158", "555-0193"], "area_code": "832",
-        "created": datetime(2026, 9, 9, 18, 0, tzinfo=timezone.utc), "vpn_rate": 0.2,
-        "window_photos": True,
-        "sites": [{"building": "B1", "areas": ["EaDo"], "landmarks": ["EaDo/Stadium station"]},
-                  {"building": "B2", "areas": ["Montrose"], "landmarks": ["Westheimer strip"]}],
-        "script": "Visiting for a few weeks, call {phone}. {place}Weekday bookings.",
-        "reworded": "Here for a short stay, reach me at {phone}. {place}Weekdays only.",
-        "recruiters": 0, "amplifiers": 0,
-    },
-    "C": {
-        "accounts": 6, "posts": 30, "phones": ["555-0171"], "area_code": "281",
-        "created": datetime(2026, 9, 15, 22, 0, tzinfo=timezone.utc), "vpn_rate": 0.8,
-        "window_photos": False,
-        "sites": [{"building": "C", "areas": ["Houston"], "landmarks": []}],
-        "script": "Now in Houston, text {phone}. {place}Flexible hours.",
-        "reworded": "Currently based in Houston, message {phone}. {place}Hours vary.",
-        "recruiters": 0, "amplifiers": 0,
     },
 }
 
@@ -163,6 +143,7 @@ class World:
         self.rng.shuffle(self._phone_pool)
 
         self._used_handles = set()
+        self._used_sentences = set()   # casual sentences already used, so hard negatives never repeat one
         self.areas = [n for n, g in self.gaz.items() if g["kind"] == "area"]
         self.landmarks = [n for n, g in self.gaz.items() if g["kind"] == "landmark"]
 
@@ -187,9 +168,15 @@ class World:
                 self._used_handles.add(h)
                 return h
 
-    def casual_text(self, place=None):
+    def casual_text(self, place=None, fresh=False):
+        """An ordinary post. fresh=True redraws until the main sentence is new, so hard
+        negatives never share wording by chance (that would add a text key)."""
         r = self.rng
-        s = f"{r.choice(OPENERS)} {r.choice(SUBJECTS)} {r.choice(ENDINGS)}."
+        while True:
+            s = f"{r.choice(OPENERS)} {r.choice(SUBJECTS)} {r.choice(ENDINGS)}."
+            if not fresh or s not in self._used_sentences:
+                break
+        self._used_sentences.add(s)
         if place:
             s += f" Over in {place}."
         closer = r.choice(CLOSERS)
@@ -318,8 +305,6 @@ class World:
             area = r.choice(site["areas"]) if r.random() < 0.6 else None
             lm = r.choice(site["landmarks"]) if site["landmarks"] and r.random() < 0.5 else None
             place = self.place_sentence(area, lm)
-            if label == "C":          # city-wide only: the script itself names the city
-                area, place = "Houston", ""
             phone = r.choice(spec["phones"])
             shown = self.disguise(phone) if r.random() < 0.3 else phone
             template = spec["reworded"] if r.random() < 0.3 else spec["script"]
@@ -385,15 +370,20 @@ class World:
         old = datetime(2021, 1, 1, tzinfo=timezone.utc)
 
         # Rental hosts: groups of 4 reuse one set of listing photos (photo key only).
-        decoys = ["D", "E", "F", "D", "E"]
+        # Two groups list units in decoy D (a scanned building near Building A, inside Ring A's
+        # zone), so the Locator really compares against it. The other groups reuse listing
+        # photos from no scanned building (scan_id null, nothing to render).
+        decoys = ["D", "D", None, None, None]
         n_groups = HARD_NEGATIVES["rental_host"] // 4
         for g in range(n_groups):
-            b = self.buildings[decoys[g % len(decoys)]]
-            shared_photos = [self.new_photo(b["scan_id"], "interior") for _ in range(6)]
+            b = self.buildings[decoys[g]] if decoys[g] else None
+            home = (b["lat"], b["lon"]) if b else self.home_of(r.choice(self.areas))
+            shared_photos = [self.new_photo(b["scan_id"] if b else None, "interior" if b else "other")
+                             for _ in range(6)]
             for layout in RENTAL_LAYOUTS:      # each host in a group writes listings differently
                 area = r.choice(self.areas)
                 acct = self.add_account("rental_host", "Short and mid-term rentals.",
-                                        self.time_in(old, 900), ["image_reuse"], (b["lat"], b["lon"]))
+                                        self.time_in(old, 900), ["image_reuse"], home)
                 phone = self.unique_phone()
                 for _ in range(r.randint(2, 4)):
                     text = layout.format(
@@ -421,7 +411,7 @@ class World:
                                     spread_km=12.0)
             for area in r.sample(self.areas, 6):
                 lm = [r.choice(self.landmarks)] if r.random() < 0.3 else []
-                self.add_post(acct, self.casual_text(area), self.time_in(START, DAYS), stated_area=area,
+                self.add_post(acct, self.casual_text(area, fresh=True), self.time_in(START, DAYS), stated_area=area,
                               landmarks=lm, area_code=r.choice(["713", "832", "281"]))
 
         # Friend groups: repost each other a lot (interaction key only).
@@ -434,7 +424,7 @@ class World:
                 friends.append(acct)
                 for _ in range(r.randint(2, 4)):
                     stated = area if r.random() < 0.5 else None
-                    self.add_post(acct, self.casual_text(stated), self.time_in(START, DAYS), stated_area=stated)
+                    self.add_post(acct, self.casual_text(stated, fresh=True), self.time_in(START, DAYS), stated_area=stated)
             group_posts = [p for p in self.posts if p["account_id"] in set(friends)]
             for a in friends:
                 for b in friends:
@@ -453,7 +443,7 @@ class World:
             phone = self.unique_phone() if r.random() < 0.3 else None
             for _ in range(r.randint(1, 3)):
                 stated = area if r.random() < 0.5 else None
-                text = self.casual_text(stated) + (f" Call {phone}." if phone else "")
+                text = self.casual_text(stated, fresh=True) + (f" Call {phone}." if phone else "")
                 photos = [self.new_photo(None, "other")] if r.random() < 0.4 else []
                 self.add_post(acct, text, self.time_in(START, DAYS), photos=photos,
                               phones=[phone] if phone else [], stated_area=stated)

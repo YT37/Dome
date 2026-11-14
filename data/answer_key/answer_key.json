@@ -33,171 +33,116 @@
     "buildings": [
       {
         "label": "A",
-        "property_id": "CS-PLACEHOLDER-A",
-        "scan_id": "mp_placeholder_a",
+        "property_id": "CS-88412",
+        "scan_id": "mp_4471",
         "unit": "4B"
-      }
-    ]
-  },
-  "B": {
-    "members": [
-      "acct_026",
-      "acct_386",
-      "acct_406",
-      "acct_615",
-      "acct_796",
-      "acct_806",
-      "acct_823",
-      "acct_994"
-    ],
-    "recruiters": [],
-    "amplifiers": [],
-    "phones": [
-      "555-0158",
-      "555-0193"
-    ],
-    "buildings": [
-      {
-        "label": "B1",
-        "property_id": "CS-PLACEHOLDER-B1",
-        "scan_id": "mp_placeholder_b1",
-        "unit": "2C"
-      },
-      {
-        "label": "B2",
-        "property_id": "CS-PLACEHOLDER-B2",
-        "scan_id": "mp_placeholder_b2",
-        "unit": "5A"
-      }
-    ]
-  },
-  "C": {
-    "members": [
-      "acct_524",
-      "acct_761",
-      "acct_899",
-      "acct_900",
-      "acct_969",
-      "acct_972"
-    ],
-    "recruiters": [],
-    "amplifiers": [],
-    "phones": [
-      "555-0171"
-    ],
-    "buildings": [
-      {
-        "label": "C",
-        "property_id": "CS-PLACEHOLDER-C",
-        "scan_id": "mp_placeholder_c",
-        "unit": "3D"
       }
     ]
   },
   "hard_negatives": {
     "rental_host": [
-      "acct_004",
+      "acct_026",
       "acct_057",
+      "acct_386",
+      "acct_389",
+      "acct_406",
+      "acct_482",
+      "acct_524",
+      "acct_615",
+      "acct_695",
+      "acct_761",
+      "acct_786",
+      "acct_796",
+      "acct_806",
+      "acct_823",
+      "acct_899",
+      "acct_900",
+      "acct_926",
+      "acct_969",
+      "acct_972",
+      "acct_994"
+    ],
+    "spa_chain": [
+      "acct_004",
       "acct_172",
       "acct_189",
       "acct_313",
-      "acct_389",
       "acct_398",
-      "acct_420",
-      "acct_482",
-      "acct_568",
       "acct_659",
-      "acct_695",
-      "acct_715",
       "acct_738",
       "acct_781",
-      "acct_786",
       "acct_865",
-      "acct_873",
-      "acct_926",
       "acct_968"
     ],
-    "spa_chain": [
+    "delivery_driver": [
+      "acct_568",
+      "acct_715",
+      "acct_873"
+    ],
+    "friend_group": [
       "acct_021",
       "acct_043",
       "acct_152",
       "acct_183",
-      "acct_199",
-      "acct_258",
-      "acct_404",
-      "acct_489",
-      "acct_828",
-      "acct_943"
-    ],
-    "delivery_driver": [
-      "acct_257",
-      "acct_447",
-      "acct_824"
-    ],
-    "friend_group": [
-      "acct_011",
-      "acct_018",
-      "acct_040",
-      "acct_114",
-      "acct_180",
-      "acct_187",
       "acct_193",
+      "acct_199",
       "acct_207",
       "acct_218",
+      "acct_257",
+      "acct_258",
       "acct_269",
       "acct_276",
-      "acct_312",
       "acct_363",
+      "acct_404",
       "acct_415",
+      "acct_420",
       "acct_423",
-      "acct_474",
+      "acct_447",
       "acct_481",
+      "acct_489",
       "acct_517",
       "acct_535",
       "acct_558",
-      "acct_579",
-      "acct_581",
       "acct_588",
       "acct_653",
       "acct_669",
-      "acct_676",
-      "acct_826",
+      "acct_824",
+      "acct_828",
       "acct_836",
-      "acct_837",
-      "acct_987"
+      "acct_943"
     ],
     "independent": [
-      "acct_028",
+      "acct_011",
+      "acct_018",
       "acct_034",
+      "acct_040",
       "acct_049",
       "acct_061",
       "acct_096",
       "acct_110",
       "acct_113",
+      "acct_114",
       "acct_121",
       "acct_126",
-      "acct_128",
       "acct_142",
       "acct_154",
       "acct_167",
+      "acct_180",
+      "acct_187",
       "acct_211",
       "acct_229",
       "acct_232",
       "acct_261",
       "acct_298",
-      "acct_301",
-      "acct_315",
+      "acct_312",
       "acct_346",
       "acct_357",
-      "acct_372",
       "acct_391",
       "acct_392",
       "acct_393",
       "acct_414",
-      "acct_433",
-      "acct_452",
       "acct_459",
-      "acct_475",
+      "acct_474",
       "acct_494",
       "acct_496",
       "acct_546",
@@ -205,7 +150,9 @@
       "acct_556",
       "acct_561",
       "acct_570",
+      "acct_579",
       "acct_580",
+      "acct_581",
       "acct_604",
       "acct_614",
       "acct_624",
@@ -218,20 +165,17 @@
       "acct_654",
       "acct_661",
       "acct_671",
+      "acct_676",
       "acct_679",
-      "acct_687",
       "acct_688",
       "acct_692",
       "acct_701",
       "acct_703",
-      "acct_708",
       "acct_718",
       "acct_743",
       "acct_744",
       "acct_749",
       "acct_769",
-      "acct_776",
-      "acct_780",
       "acct_782",
       "acct_783",
       "acct_798",
@@ -239,38 +183,29 @@
       "acct_810",
       "acct_813",
       "acct_814",
+      "acct_826",
+      "acct_837",
       "acct_861",
       "acct_876",
       "acct_884",
       "acct_886",
       "acct_888",
       "acct_889",
-      "acct_896",
       "acct_923",
       "acct_928",
-      "acct_930",
       "acct_940",
       "acct_956",
       "acct_957",
       "acct_977",
+      "acct_987",
       "acct_999"
     ]
   },
   "decoy_buildings": [
     {
       "label": "D",
-      "property_id": "CS-PLACEHOLDER-D",
-      "scan_id": "mp_placeholder_d"
-    },
-    {
-      "label": "E",
-      "property_id": "CS-PLACEHOLDER-E",
-      "scan_id": "mp_placeholder_e"
-    },
-    {
-      "label": "F",
-      "property_id": "CS-PLACEHOLDER-F",
-      "scan_id": "mp_placeholder_f"
+      "property_id": "CS-88107",
+      "scan_id": "mp_2210"
     }
   ]
 }

@@ -59,67 +59,57 @@
           "photo_id": "img_311",
           "path": "data/photos/img_311.jpg",
           "account": "acct_017",
-          "link_strength": "core",
           "has_window": true
         },
         {
           "photo_id": "img_312",
           "path": "data/photos/img_312.jpg",
           "account": "acct_102",
-          "link_strength": "core",
           "has_window": true
         },
         {
           "photo_id": "img_313",
           "path": "data/photos/img_313.jpg",
           "account": "acct_118",
-          "link_strength": "core",
           "has_window": true
         },
         {
           "photo_id": "img_314",
           "path": "data/photos/img_314.jpg",
           "account": "acct_017",
-          "link_strength": "core",
           "has_window": false
         },
         {
           "photo_id": "img_315",
           "path": "data/photos/img_315.jpg",
           "account": "acct_102",
-          "link_strength": "core",
           "has_window": false
         },
         {
           "photo_id": "img_316",
           "path": "data/photos/img_316.jpg",
           "account": "acct_118",
-          "link_strength": "core",
           "has_window": false
         },
         {
           "photo_id": "img_317",
           "path": "data/photos/img_317.jpg",
           "account": "acct_017",
-          "link_strength": "core",
           "has_window": false
         },
         {
           "photo_id": "img_318",
           "path": "data/photos/img_318.jpg",
           "account": "acct_102",
-          "link_strength": "core",
           "has_window": false
         },
         {
           "photo_id": "img_319",
           "path": "data/photos/img_319.jpg",
           "account": "acct_118",
-          "link_strength": "core",
           "has_window": false
         }
-      ],
-      "photo_expansion_used": false
+      ]
     }
   ],
   "weak_hints": [

@@ -20,7 +20,7 @@
       },
       "reasons": [
         "R 0.91: same phone in 14 ads; reworded copy of the same script",
-        "P 0.78: 2 photo(s) matched scan mp_4471, 376 matched points (attempt 1)",
+        "P 0.78: 2 photo(s) matched scan mp_4471, 376 matched points",
         "W 0.67: agree: road_front, parking_front; not seen: building_across"
       ],
       "caps": [],
