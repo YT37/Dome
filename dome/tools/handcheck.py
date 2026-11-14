@@ -52,6 +52,14 @@ FACE_COLORS = {1: (255, 80, 80), 2: (80, 200, 80), 3: (80, 140, 255), 4: (255, 2
 DIR_LETTER = {"oblique-north": "N", "oblique-east": "E", "oblique-south": "S", "oblique-west": "W"}
 CAMERA_LOOKS = {"oblique-north": "north", "oblique-east": "east", "oblique-south": "south", "oblique-west": "west"}
 FACADE_SEEN = {"oblique-north": "south", "oblique-east": "west", "oblique-south": "north", "oblique-west": "east"}
+ADDR_RE = re.compile(r"\b\d{2,6}\s+[\w .'-]*\b(st|street|ave|avenue|rd|road|blvd|dr|drive|ln|lane|way|pkwy|ct|pl|place|hwy)\b\.?", re.I)
+
+
+def _safe_name(name: str) -> str:
+    """Model names sometimes carry the street address: never write that into shared files."""
+    return ADDR_RE.sub("(address hidden)", str(name or "")).replace("|", "/")
+
+
 UNIT_RE = re.compile(r"(\d\s*(br|bd|bed)|studio|\bunit\b|\bapt\b|apartment|\d+\s*s\.?f\b|\d\s*x\s*\d|penthouse|\bmodel\b|loft|townho)", re.I)
 AMENITY_RE = re.compile(r"(lobby|fitness|gym|pool|lounge|club|leasing|amenit|courtyard|roof|garage|mail|business|dog|pet|spa|game|theater|cinema|co-?work|parking|office|conference|kitchen\b.*demo)", re.I)
 
@@ -208,7 +216,7 @@ def shortlist(pool: int = 60, deep: int = 25, top: int = 10) -> Path:
         if r["error"]:
             lines.append(f"| {i} | `{r['scan_id']}` | {cell(r['name'])} | {r['property_id']} | {r['type']} | {r['floors']} | {r['units']} | error: {r['error']} |||||||")
             continue
-        lines.append(f"| {i} | `{r['scan_id']}` | {cell(r['name'])} | {r['property_id']} | "
+        lines.append(f"| {i} | `{r['scan_id']}` | {_safe_name(r['name'])} | {r['property_id']} | "
                      f"{r['type']} | {r['floors']} | {r['units']} | {yn(r['has_floorplan'])} | {yn(r['has_cube_faces'])} | "
                      f"{r['sweeps']} | {r['inside_windows']} | {''.join(r['oblique_dirs']) or 'none'} | "
                      f"{yn(r['footprint'])} | {yn(r['geocoordinates'])} |")
@@ -217,6 +225,215 @@ def shortlist(pool: int = 60, deep: int = 25, top: int = 10) -> Path:
     path.write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
     return path
+
+
+def _footprint_area(lat: float, lon: float) -> float | None:
+    from shapely import wkt as swkt
+    b = [x for x in vx.building_details(lat, lon, 40) if x["distance_m"] <= 15]
+    if not b:
+        return None
+    g = swkt.loads(b[0]["outline"])
+    m = 111_320.0 * math.cos(math.radians(lat))
+    return round(g.area * m * 111_320.0, 0)
+
+
+def shortlist_small(deep: int = 25, top: int = 10) -> Path:
+    """Small buildings for Ring A: 3-5 story apartments whose scan CoStar ties to one unit
+    (exact floor), fewest units first. Ranked: complete data, small footprint (proxy for no
+    courtyards), real inside windows."""
+    import sqlite3
+    us = costar.unit_scans()
+    con = sqlite3.connect(costar.build_index())
+    con.row_factory = sqlite3.Row
+    props = {r["property_id"]: dict(r) for r in con.execute("SELECT * FROM properties")}
+    con.close()
+    per_prop: dict[str, tuple] = {}
+    for sid, u in sorted(us.items()):
+        p = props.get(u["property_id"])
+        if not (p and p["type"] == "multifamily" and p["floors"] and 3 <= p["floors"] <= 5):
+            continue
+        fl = costar._floor_from_unit(u["unit"], u["floor_text"], p["floors"])
+        if fl and u["property_id"] not in per_prop:
+            per_prop[u["property_id"]] = (sid, u["unit"], fl)
+    cands = sorted(per_prop.items(), key=lambda kv: (props[kv[0]]["units"] or 999, kv[0]))[:deep]
+    print(f"{len(per_prop)} small buildings with unit-level scans; deep-checking {len(cands)} ...")
+    rows = []
+    for i, (pid, (sid, unit, fl)) in enumerate(cands, 1):
+        p = props[pid]
+        try:
+            name = mp.model_details(sid).get("name") or ""
+        except mp.MatterportError:
+            name = "?"
+        print(f"  [{i}/{len(cands)}] {sid} {pid} unit {unit} floor {fl}")
+        r = _deep_check(sid, name, {**p, "type": p["type"]})
+        r.update(unit=unit, unit_floor=fl)
+        if r["error"] is None:
+            loc = rough_location(sid)
+            try:
+                r["footprint_m2"] = _footprint_area(loc["lat"], loc["lon"])
+            except Exception:
+                r["footprint_m2"] = None
+        rows.append(r)
+
+    def rank(r):
+        complete = sum(bool(r.get(k)) for k in ("has_floorplan", "has_cube_faces", "oblique_dirs", "footprint"))
+        area = r.get("footprint_m2") or 99999
+        return (r["error"] is None, complete, area <= 3000, r.get("inside_windows") or 0, -area)
+    rows.sort(key=rank, reverse=True)
+    OUT.mkdir(exist_ok=True)
+    (OUT / "shortlist_small.json").write_text(json.dumps(rows, indent=1, default=str))
+    yn = lambda v: "yes" if v else "no"  # noqa: E731
+    lines = ["# Small-building shortlist (Ring A candidates)", "",
+             f"Best {top} of {len(rows)} deep-checked: 3-5 story apartments whose scan CoStar ties to one unit, "
+             "so the floor is known exactly. Ranked: complete data, footprint <= 3000 m2 (no courtyards), "
+             "most inside windows.", "",
+             "| # | scan_id | name | CoStar property | floors | units | unit | unit floor | footprint m2 | floor plan | cube faces | sweeps | inside windows | obliques | geocoords |",
+             "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    for i, r in enumerate(rows[:top], 1):
+        if r["error"]:
+            lines.append(f"| {i} | `{r['scan_id']}` | error: {r['error']} |||||||||||||")
+            continue
+        lines.append(f"| {i} | `{r['scan_id']}` | {_safe_name(r['name'])} | {r['property_id']} | {r['floors']} | "
+                     f"{r['units']} | {r['unit']} | {r['unit_floor']} | {r.get('footprint_m2')} | {yn(r['has_floorplan'])} | "
+                     f"{yn(r['has_cube_faces'])} | {r['sweeps']} | {r['inside_windows']} | {''.join(r['oblique_dirs']) or 'none'} | "
+                     f"{yn(r['geocoordinates'])} |")
+    path = OUT / "shortlist_small.md"
+    path.write_text("\n".join(lines) + "\n")
+    print("\n".join(lines))
+    return path
+
+
+MIDTOWN_HOUSTON = (29.7445, -95.3800)   # centre of Ishaan's gazetteer (Midtown, Montrose, EaDo)
+
+
+def shortlist_near(lat: float = MIDTOWN_HOUSTON[0], lon: float = MIDTOWN_HOUSTON[1], km: float = 4.0,
+                   deep: int = 24, top: int = 10) -> Path:
+    """Ring A candidates near a point (default: Ishaan's Houston gazetteer): small apartment
+    buildings (3-5 floors, <= 120 units) and condo listings, one unit-like scan each.
+    Floors from CoStar unit numbers when known."""
+    import sqlite3
+    con = sqlite3.connect(costar.build_index())
+    con.row_factory = sqlite3.Row
+    rows = [dict(r) for r in con.execute("SELECT * FROM properties")]
+    con.close()
+    m = 111.32 * math.cos(math.radians(lat))
+    dist = lambda r: math.hypot((r["lat"] - lat) * 111.32, (r["lon"] - lon) * m)  # noqa: E731
+    mf = [r for r in rows if r["type"] == "multifamily" and r["floors"] and 3 <= r["floors"] <= 5
+          and (r["units"] or 0) <= 120 and dist(r) <= km]
+    condo = [r for r in rows if r["type"] == "residential_condo" and dist(r) <= km]
+    pool = sorted(mf, key=dist)[: deep * 2 // 3] + sorted(condo, key=dist)[: deep // 3]
+    us = costar.unit_scans()
+    out = []
+    print(f"{len(mf)} small apartment buildings and {len(condo)} condo listings within {km} km; deep-checking {len(pool)} ...")
+    for i, p in enumerate(pool, 1):
+        scans = costar.scans_for_property(p["property_id"])
+        unit_level = [s for s in scans if s in us]
+        pick = None
+        if unit_level:
+            pick = {"scan_id": unit_level[0], "name": mp.model_details(unit_level[0]).get("name") or ""}
+        elif p["property_id"].startswith("RL-"):
+            pick = {"scan_id": scans[0], "name": mp.model_details(scans[0]).get("name") or ""}
+        else:
+            pick = _unit_scan(p) or {"scan_id": scans[0], "name": mp.model_details(scans[0]).get("name") or ""}
+        sid = pick["scan_id"]
+        print(f"  [{i}/{len(pool)}] {sid} {p['property_id']} {p.get('name') or ''}")
+        r = _deep_check(sid, pick["name"], p)
+        r["km"] = round(dist(p), 2)
+        r["building_name"] = p.get("name")
+        if p["property_id"].startswith("RL-"):
+            unit = (p["address"] or "").split("Unit")[-1].strip(" ,") if "Unit" in (p["address"] or "") else None
+            r["unit"], r["unit_floors"] = unit, [f for f in [costar._floor_from_unit(unit, None, p["floors"])] if f]
+        else:
+            uf = costar.unit_floors_for_scan(sid)
+            r["unit"] = ",".join(str(u[0]) for u in uf["units"][:3]) if uf["units"] else None
+            r["unit_floors"] = uf["floors"]
+        if r["error"] is None:
+            try:
+                loc = rough_location(sid)
+                r["footprint_m2"] = _footprint_area(loc["lat"], loc["lon"])
+            except Exception:
+                r["footprint_m2"] = None
+        out.append(r)
+
+    def rank(r):
+        complete = sum(bool(r.get(k)) for k in ("has_floorplan", "has_cube_faces", "oblique_dirs", "footprint"))
+        area = r.get("footprint_m2") or 99999
+        return (r["error"] is None, complete, bool(r.get("unit_floors")), area <= 3000,
+                min(r.get("sweeps") or 0, 20), r.get("inside_windows") or 0)
+    out.sort(key=rank, reverse=True)
+    OUT.mkdir(exist_ok=True)
+    (OUT / "shortlist_near.json").write_text(json.dumps(out, indent=1, default=str))
+    yn = lambda v: "yes" if v else "no"  # noqa: E731
+    lines = ["# Ring A shortlist near Ishaan's Houston gazetteer", "",
+             f"Best {top} of {len(out)}: apartment buildings with 3-5 floors and <= 120 units, plus condo listings, "
+             f"within {km} km of Midtown. Ranked: complete data, floor known from CoStar unit numbers, footprint "
+             "<= 3000 m2, sweeps (renders need spare sweeps), inside windows.", "",
+             "| # | scan_id | building | name | CoStar property | km | floors | units | unit floors | footprint m2 | floor plan | sweeps | inside windows | obliques | geocoords |",
+             "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    for i, r in enumerate(out[:top], 1):
+        if r["error"]:
+            lines.append(f"| {i} | `{r['scan_id']}` | error: {r['error']} |||||||||||||")
+            continue
+        lines.append(f"| {i} | `{r['scan_id']}` | {_safe_name(r.get('building_name'))} | {_safe_name(r['name'])} | {r['property_id']} | "
+                     f"{r['km']} | {r['floors']} | {r['units']} | {r.get('unit_floors') or '?'} | {r.get('footprint_m2')} | "
+                     f"{yn(r['has_floorplan'])} | {r['sweeps']} | {r['inside_windows']} | {''.join(r['oblique_dirs']) or 'none'} | "
+                     f"{yn(r['geocoordinates'])} |")
+    path = OUT / "shortlist_near.md"
+    path.write_text("\n".join(lines) + "\n")
+    print("\n".join(lines))
+    return path
+
+
+def find_decoy(scan_a: str, max_m: float = 1000, top: int = 5) -> list[dict]:
+    """Decoy D for Ring A: another scanned apartment building within max_m of A's CoStar
+    point. Prefers scans tied to one unit (floor known), then complete data, then 200 m+
+    away (so the zone holds both but they are clearly different buildings)."""
+    import sqlite3
+    pa = costar.property_for_scan(scan_a)
+    if not pa:
+        raise SystemExit(f"{scan_a} has no CoStar record")
+    us = costar.unit_scans()
+    con = sqlite3.connect(costar.build_index())
+    con.row_factory = sqlite3.Row
+    rows = [dict(r) for r in con.execute(
+        "SELECT p.*, MIN(s.scan_id) AS first_scan FROM properties p JOIN scans s USING (property_id) "
+        "WHERE p.type IN ('multifamily','residential_condo','residential_multifamily') "
+        "AND p.lat BETWEEN ? AND ? AND p.lon BETWEEN ? AND ? GROUP BY p.property_id",
+        (pa["lat"] - 0.01, pa["lat"] + 0.01, pa["lon"] - 0.011, pa["lon"] + 0.011))]
+    con.close()
+    m = 111_320.0 * math.cos(math.radians(pa["lat"]))
+    out = []
+    for r in rows:
+        if r["property_id"] == pa["property_id"]:
+            continue
+        d = math.hypot((r["lat"] - pa["lat"]) * 111_320.0, (r["lon"] - pa["lon"]) * m)
+        if d > max_m:
+            continue
+        unit_scan = next(((sid, u) for sid, u in sorted(us.items()) if u["property_id"] == r["property_id"]), None)
+        sid = unit_scan[0] if unit_scan else costar.scans_for_property(r["property_id"])[0]
+        out.append({"property_id": r["property_id"], "scan_id": sid, "distance_m": round(d),
+                    "floors": r["floors"], "units": r["units"], "lat": r["lat"], "lon": r["lon"],
+                    "unit": unit_scan[1]["unit"] if unit_scan else None,
+                    "unit_floor": costar._floor_from_unit(unit_scan[1]["unit"], unit_scan[1]["floor_text"], r["floors"]) if unit_scan else None})
+    out.sort(key=lambda r: (r["unit"] is None, not (200 <= r["distance_m"] <= max_m), r["distance_m"]))
+    checked = []
+    for r in out[:top * 3]:
+        try:
+            r["has_floorplan"] = bool(mp.floorplans(r["scan_id"]))
+            sw = _sweeps(r["scan_id"])
+            r["sweeps"] = len(sw)
+            r["has_cube_faces"] = any(x["has_faces"] for x in sw)
+            r["name"] = mp.model_details(r["scan_id"]).get("name")
+        except Exception as e:
+            r["error"] = str(e)[:80]
+            continue
+        if r["has_floorplan"] and r["has_cube_faces"]:
+            checked.append(r)
+        if len(checked) >= top:
+            break
+    for r in checked:
+        print(r)
+    return checked
 
 
 # --- 2. kit + form for one scan -----------------------------------------------------------
@@ -849,13 +1066,20 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("scan_id", nargs="?")
     ap.add_argument("--list", action="store_true", help="build handcheck/shortlist.md")
+    ap.add_argument("--small", action="store_true", help="with --list: small-building shortlist (Ring A)")
+    ap.add_argument("--near", action="store_true", help="with --list: Ring A candidates near Ishaan's Houston gazetteer")
     ap.add_argument("--form", metavar="SCAN_ID", help="build the kit if needed and open the form")
     ap.add_argument("--rebuild", action="store_true", help="with --form: rebuild the kit first")
     ap.add_argument("--verify", metavar="SCAN_ID")
+    ap.add_argument("--decoy", metavar="SCAN_ID", help="find decoy D within 1 km of scan A")
     ap.add_argument("--pool", type=int, default=60, help="CoStar properties to consider for --list")
     ap.add_argument("--deep", type=int, default=25, help="unit scans to deep-check for --list")
     a = ap.parse_args(argv)
-    if a.list:
+    if a.list and a.near:
+        shortlist_near()
+    elif a.list and a.small:
+        shortlist_small(a.deep)
+    elif a.list:
         shortlist(a.pool, a.deep)
     elif a.form:
         if a.rebuild:
@@ -863,6 +1087,8 @@ def main(argv=None):
         serve_form(a.form)
     elif a.verify:
         verify(a.verify)
+    elif a.decoy:
+        find_decoy(a.decoy)
     elif a.scan_id:
         build_kit(a.scan_id)
     else:

@@ -17,10 +17,10 @@ Type strings (lowercase): commercial "multifamily", "hotel", "office", "retail",
 "industrial", "flex", "land", "mixed_use", "specialty", "healthcare",
 "sports_entertainment", "residential", "homes", "unknown"; residential listings
 "residential_detached", "residential_condo", "residential_townhouse", ...
-Returned `type` uses the contract words where they exist (CONTRACT_TYPE: hotel ->
-hospitality, houses/townhouses -> single_family, condos -> multifamily). A filter value
-matches the raw type, its prefix before "_" ("residential" = all residential_*), or the
-contract word. `types=[]` means all types.
+`type` is CoStar's raw word (Avishek's decision, Nov 14): the Lister maps it with
+config.COSTAR_TYPE_MAP (hotel -> hospitality, houses/townhouses -> single_family, condos
+-> multifamily). A filter value matches the raw type or its prefix before "_"
+("residential" = all residential_*). `types=[]` means all types.
 """
 from __future__ import annotations
 
@@ -47,20 +47,6 @@ RESIDENTIAL_TYPES = {
 }
 CONSTRUCTION_COMPLETE = 2
 
-# Words the Lister's fit score expects (docs/HANDOFF_YUG.md section 4): multifamily,
-# hospitality, single_family. Other types pass through. Pending Avishek's OK.
-CONTRACT_TYPE = {
-    "hotel": "hospitality",
-    "homes": "single_family",
-    "residential_detached": "single_family",
-    "residential_townhouse": "single_family",
-    "residential_condo": "multifamily",
-    "residential_multifamily": "multifamily",
-}
-
-
-def contract_type(raw: str) -> str:
-    return CONTRACT_TYPE.get(raw, raw)
 
 
 def kit_dir() -> Path:
@@ -198,9 +184,7 @@ def _connect() -> sqlite3.Connection:
 
 
 def _type_matches(ptype: str, wanted: set[str]) -> bool:
-    """A filter word matches the raw kit type, its prefix, or the contract word."""
-    return (ptype in wanted or contract_type(ptype) in wanted
-            or any(ptype.startswith(w + "_") for w in wanted))
+    return ptype in wanted or any(ptype.startswith(w + "_") for w in wanted)
 
 
 def _first_scans(con, ids: list[str]) -> dict[str, str]:
@@ -246,7 +230,7 @@ def properties_in_polygon(polygon: list[tuple[float, float]], types: list[str]) 
 
     return [{
         "property_id": r["property_id"], "address": r["address"], "lat": r["lat"],
-        "lon": r["lon"], "type": contract_type(r["type"]), "floors": r["floors"], "units": r["units"],
+        "lon": r["lon"], "type": r["type"], "floors": r["floors"], "units": r["units"],
         "year_built": r["year_built"], "has_scan": r["property_id"] in first,
         "scan_id": first.get(r["property_id"]),
     } for r in rows]
@@ -340,3 +324,26 @@ def _stub_properties_in_polygon(polygon, types):
         if _inside(b["lat"], b["lon"], polygon) and (not types or b["type"] in types):
             out.append(dict(b))
     return sorted(out, key=lambda b: b["property_id"])
+
+
+def unit_scans() -> dict[str, dict]:
+    """Every scan CoStar ties to one apartment unit: scan_id -> {property_id, unit, floor_text}.
+    One pass over the kit, cached."""
+    from ._common import cached_json
+
+    def fetch():
+        out = {}
+        with open(kit_dir() / "data" / "commercial-property.jsonl", encoding="utf-8") as f:
+            for line in f:
+                if '"units"' not in line or "videoKey" not in line:
+                    continue
+                r = json.loads(line)
+                for m in (r.get("propertyApartment") or {}).get("models") or []:
+                    for u in m.get("units") or []:
+                        for a in u.get("attachments") or []:
+                            if a.get("videoKey"):
+                                out.setdefault(a["videoKey"], {"property_id": f"CS-{r['id']}",
+                                                               "unit": u.get("unitNumber"),
+                                                               "floor_text": u.get("floorNumber")})
+        return out
+    return cached_json("costar", ["unit_scans", INDEX_VERSION], fetch)

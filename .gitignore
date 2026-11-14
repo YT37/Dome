@@ -25,3 +25,5 @@ handcheck/*/index.html
 handcheck/*/kit.json
 handcheck/*/verify.md
 handcheck/shortlist.json
+handcheck/shortlist_small.json
+handcheck/shortlist_near.json

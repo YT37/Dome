@@ -61,21 +61,17 @@ def test_properties_in_polygon_real():
     assert rows == costar.properties_in_polygon(DOWNTOWN, ["multifamily"])  # deterministic
     everything = costar.properties_in_polygon(DOWNTOWN, [])
     assert len(everything) > len(rows)  # types=[] means all
-    words = {r["type"] for r in everything}
-    assert not words & {"hotel", "homes", "residential_detached", "residential_condo", "residential_townhouse"}
+    assert {r["type"] for r in everything} <= set(costar.COMMERCIAL_TYPES.values()) | {
+        "residential_" + v for v in costar.RESIDENTIAL_TYPES.values()}  # raw words
     tri = DOWNTOWN[:2] + DOWNTOWN[3:]
     assert len(costar.properties_in_polygon(tri, [])) < len(everything)
 
 
 @pytest.mark.real
 @needs_kit
-def test_type_mapping_and_filters():
-    assert costar.contract_type("hotel") == "hospitality"
-    assert costar.contract_type("residential_condo") == "multifamily"
-    assert costar.contract_type("residential_townhouse") == "single_family"
-    assert costar.contract_type("office") == "office"
+def test_type_filters():
     res = costar.properties_in_polygon(DOWNTOWN, ["residential"])
-    assert res and all(r["type"] in {"single_family", "multifamily"} or r["type"].startswith("residential_") for r in res)
+    assert res and all(r["type"].startswith("residential_") for r in res)
 
 
 @pytest.mark.real
