@@ -12,3 +12,10 @@ igraph
 leidenalg
 imagehash
 sentence-transformers
+# data_tools (Yug): real CoStar / Matterport / Vexcel, floor plans, window detection
+requests
+python-dotenv
+pyproj
+opencv-python-headless
+pillow
+transformers
