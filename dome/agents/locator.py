@@ -62,14 +62,67 @@ def run(case: Case, zone_id: str) -> dict:
         matches.append(m)
 
     best = max((m["P"] for m in matches), default=0.0)
-    out = {"zone_id": zone_id, "threshold": thr,
-           "best_P": best, "above_threshold": best >= thr, "photos_used": len(paths),
-           "window_photos": len(windows), "matches": matches}
-
     existing = case.load("matches.json")
+    prev = next((z for z in existing.zones if z.zone_id == zone_id), None) if existing else None
+    out = {"zone_id": zone_id, "attempt": (prev.attempt + 1) if prev else 1, "threshold": thr,
+           "best_P": best, "above_threshold": best >= thr, "photos_used": len(paths),
+           "window_photos": len(windows), "matches": matches,
+           "room_groups": room_groups(case, ring, {m["scan_id"] for m in matches if m["P"] >= thr})}
+
     blocks = [z.model_dump() for z in existing.zones if z.zone_id != zone_id] if existing else []
     return {"case_id": case.case_id, "ring_id": ring.ring_id,
             "zones": sorted(blocks + [out], key=lambda z: z["zone_id"])}
+
+
+def weak_photos(case: Case, ring) -> list[dict]:
+    """Photos from accounts with a weak (one-kind) tie to the ring: {photo_id, path, account}."""
+    rings = case.load("rings.json")
+    near = sorted({h.b if h.a in ring.members else h.a for h in (rings.weak_hints if rings else [])
+                   if (h.a in ring.members) != (h.b in ring.members)})
+    if not near:
+        return []
+    if case.input.dataset is None:   # stub scenario
+        from ..data_tools import _stub
+        return [p for p in _stub.scenario().get("weak_photos", []) if p["account"] in near]
+    from .linker import load_dataset
+    out, seen = [], set()
+    for p in load_dataset(case.input.dataset)["posts"]:
+        if p["account"] in near:
+            for ph in p["photos"]:
+                if ph["photo_id"] not in seen:
+                    seen.add(ph["photo_id"])
+                    out.append({"photo_id": ph["photo_id"], "path": ph["path"], "account": p["account"]})
+    return out
+
+
+def room_groups(case: Case, ring, matched_scans: set = frozenset()) -> list[dict]:
+    """v2 background fingerprint: group the ring's photos plus weak-hint accounts' photos by
+    room (sockets, lamps, carpet, light through blinds), not by the whole image, so cropped or
+    edited photos still group. Feeds the Linker's note 4 (`room`) via the supervisor."""
+    import json
+    owner = {p.photo_id: p.account for p in ring.photos}
+    extra = weak_photos(case, ring)
+    owner.update({p["photo_id"]: p["account"] for p in extra if p["photo_id"] not in owner})
+    paths = [p.path for p in ring.photos] + [p["path"] for p in extra]
+    renders = {}
+    d = case.dataset_dir()
+    if d is not None and (d / "renders.json").exists():
+        renders = json.loads((d / "renders.json").read_text(encoding="utf-8"))
+    try:
+        groups = vision.photo_groups(paths, renders=renders)
+    except TypeError:   # a real photo_groups(photo_paths) without the stub's renders argument
+        groups = vision.photo_groups(paths)
+    out = []
+    for g in groups:
+        accts = sorted({owner[x] for x in g["photos"] if x in owner})
+        scan = g.get("scan_id")
+        out.append({"group_id": g["group_id"], "photos": sorted(g["photos"]), "accounts": accts,
+                    "scan_id": scan,
+                    "details": list(g.get("details", [])),
+                    # only a group that also holds ring photos ties an outsider to the ring
+                    "outside_ring": [a for a in accts if a not in ring.members]
+                    if any(a in ring.members for a in accts) else []})
+    return out
 
 
 if __name__ == "__main__":

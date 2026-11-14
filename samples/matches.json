@@ -76,6 +76,27 @@
           "evidence": [],
           "window_checks": {}
         }
+      ],
+      "room_groups": [
+        {
+          "group_id": "RG-1",
+          "photos": [
+            "img_311",
+            "img_402"
+          ],
+          "accounts": [
+            "acct_017",
+            "acct_404"
+          ],
+          "scan_id": "mp_4471",
+          "details": [
+            "same two-pin socket left of bed",
+            "same carpet stain"
+          ],
+          "outside_ring": [
+            "acct_404"
+          ]
+        }
       ]
     }
   ]

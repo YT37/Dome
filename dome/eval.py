@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 from itertools import combinations
+from typing import Optional
 
 from .agents.linker import link_accounts, load_dataset, resolve_dataset
 
@@ -19,13 +20,13 @@ def _pairs(groups) -> set:
     return {p for g in groups for p in combinations(sorted(g), 2)}
 
 
-def score(data: str) -> dict:
+def score(data: str, layers: str = "both", private: bool = True) -> dict:
     ds = load_dataset(data)
     d = resolve_dataset(data)
     key_file = next(p for p in (d / "answer_key.json", d.parent / "answer_key" / "answer_key.json")
                     if p.exists())
     key = json.loads(key_file.read_text(encoding="utf-8"))
-    linked = link_accounts(ds)
+    linked = link_accounts(ds, layers=layers, private=private)
     rings = linked.rings_file["rings"]
     # Both answer-key shapes: {"rings": {A: ...}} (mini) and {A: ..., B: ...} (Ishaan's synth).
     ring_key = key.get("rings") or {k: v for k, v in key.items()
@@ -91,15 +92,60 @@ def score(data: str) -> dict:
             "recruiters": {"flagged": flagged, "true": sorted(true_recruiters),
                            "missed": sorted(true_recruiters - set(flagged)),
                            "wrong": sorted(set(flagged) - true_recruiters)},
-            "reworded_link": reworded, "embedding_catch": catch}
+            "reworded_link": reworded, "embedding_catch": catch,
+            "v2": score_v2(d, key_file, ring_key, rings, linked) if private else None}
+
+
+def score_v2(d, key_file, ring_key, rings, linked) -> Optional[dict]:
+    """Patterns vs answer_key_private.json (the synthetic generator's planted instances)."""
+    pk_file = key_file.parent / "answer_key_private.json"
+    if not pk_file.exists():
+        return None
+    pk = json.loads(pk_file.read_text(encoding="utf-8"))["rings"]
+    out = {}
+    for name, planted in pk.items():
+        members = set(ring_key.get(name, {}).get("members", []))
+        ring = max(rings, key=lambda r: len(members & set(r["members"])), default=None)
+        if ring is None:
+            continue
+        got_roles = {x["account"]: x["role"] for x in ring.get("roles", [])}
+        role_hits = {a: (want, got_roles.get(a)) for a, want in planted.get("roles", {}).items()}
+        handoffs = {(h["key"], h["from"], h["to"]) for h in ring.get("relay", [])}
+        want_h = [(h["key"], h["from"], h["to"]) for h in planted.get("handoffs", [])]
+        hb = {tuple(sorted(p[:2])) for p in linked.stats.get("heartbeat_pairs", [])}
+        hb_groups = [{"group": g, "linked_pairs": sum(tuple(sorted(p)) in hb for p in combinations(g, 2)),
+                      "pairs": len(list(combinations(g, 2)))} for g in planted.get("heartbeat_groups", [])]
+        best_event = max(ring.get("events", []), key=lambda e: (len({i["type"] for i in e["items"]}),
+                                                                 bool(e.get("place_hint"))), default=None)
+        out[name] = {"ring_id": ring["ring_id"], "kind_counts": ring.get("kind_counts", {}),
+                     "roles": role_hits, "roles_right": sum(w == g for w, g in role_hits.values()),
+                     "handoffs_found": [h for h in want_h if h in handoffs], "handoffs_planted": want_h,
+                     "relay_chain": [f"{h['from']} -> {h['to']} ({h['key']})" for h in ring.get("relay", [])],
+                     "heartbeat": hb_groups, "events": len(ring.get("events", [])),
+                     "best_event": best_event, "location_hints": len(ring.get("location_hints", []))}
+    return out
+
+
+def three_way(data: str, private: bool = True) -> dict:
+    """Precision/recall for content only, network only and both (the Arlequin slide)."""
+    out = {}
+    for layers in ("content", "network", "both"):
+        r = score(data, layers=layers, private=private)
+        out[layers] = {"precision": r["precision"], "recall": r["recall"], "rings": r["stats"]["rings"],
+                       "negatives_linked": sum(len(x["pulled_into_a_ring"]) for x in r["hard_negatives"].values())}
+    return out
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(prog="dome.eval")
     ap.add_argument("--data", default="mini")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--layers", default="both", choices=["content", "network", "both"])
+    ap.add_argument("--no-private", action="store_true",
+                    help="drop messages and payments (Track 2: public data only)")
+    ap.add_argument("--three-way", action="store_true", help="also run content / network / both")
     a = ap.parse_args()
-    r = score(a.data)
+    r = score(a.data, layers=a.layers, private=not a.no_private)
     if a.json:
         print(json.dumps(r, indent=2))
         return
@@ -132,6 +178,25 @@ def main() -> None:
         print(f"  MinHash Jaccard {c['jaccard']:.2f} (missed)   embedding cosine {c['cosine']:.2f} (caught)")
         print(f"    A: {c['a'][:90]}")
         print(f"    B: {c['b'][:90]}")
+    for name, v in (r.get("v2") or {}).items():
+        print(f"\nv2 patterns, Ring {name} ({v['ring_id']})")
+        print("  sticky notes per kind: " + ", ".join(f"{k} {n}" for k, n in v["kind_counts"].items()))
+        print(f"  money shape: {v['roles_right']}/{len(v['roles'])} planted roles right  " +
+              ", ".join(f"{a} {w}->{g}" for a, (w, g) in v["roles"].items()))
+        print(f"  relay race: {len(v['handoffs_found'])}/{len(v['handoffs_planted'])} planted handoffs found;"
+              f" chain: {' | '.join(v['relay_chain']) or 'none'}")
+        for g in v["heartbeat"]:
+            print(f"  heartbeat: {g['linked_pairs']}/{g['pairs']} pairs of {g['group']} linked")
+        e = v["best_event"]
+        if e:
+            print(f"  echo: {v['events']} events; e.g. {e['event_id']} at {e.get('place_hint') or 'no place'}: "
+                  + " -> ".join(f"{i['type']} {i['ref']} {i['time'][11:16]}" for i in e["items"]))
+        print(f"  location hints for the Zoner: {v['location_hints']}")
+    if a.three_way:
+        print("\nThree-way comparison (" + ("public only" if a.no_private else "with messages + payments") + ")")
+        for layers, x in three_way(a.data, private=not a.no_private).items():
+            print(f"  {layers:<8} precision {x['precision']:.2f}  recall {x['recall']:.2f}  rings {x['rings']}"
+                  f"  hard negatives linked {x['negatives_linked']}")
     print("\nAll accounts are synthetic. Rings are leads for human review.")
 
 
