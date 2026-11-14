@@ -1,0 +1,9 @@
+[
+  {"label": "A",  "role": "ring",  "unit": "4B", "property_id": "CS-PLACEHOLDER-A",  "scan_id": "mp_placeholder_a",  "lat": 29.7428, "lon": -95.3772},
+  {"label": "B1", "role": "ring",  "unit": "2C", "property_id": "CS-PLACEHOLDER-B1", "scan_id": "mp_placeholder_b1", "lat": 29.7495, "lon": -95.3530},
+  {"label": "B2", "role": "ring",  "unit": "5A", "property_id": "CS-PLACEHOLDER-B2", "scan_id": "mp_placeholder_b2", "lat": 29.7452, "lon": -95.3972},
+  {"label": "C",  "role": "ring",  "unit": "3D", "property_id": "CS-PLACEHOLDER-C",  "scan_id": "mp_placeholder_c",  "lat": 29.7320, "lon": -95.4170},
+  {"label": "D",  "role": "decoy", "unit": "1A", "property_id": "CS-PLACEHOLDER-D",  "scan_id": "mp_placeholder_d",  "lat": 29.7395, "lon": -95.3745},
+  {"label": "E",  "role": "decoy", "unit": "6B", "property_id": "CS-PLACEHOLDER-E",  "scan_id": "mp_placeholder_e",  "lat": 29.7470, "lon": -95.4005},
+  {"label": "F",  "role": "decoy", "unit": "2A", "property_id": "CS-PLACEHOLDER-F",  "scan_id": "mp_placeholder_f",  "lat": 29.7985, "lon": -95.3990}
+]
