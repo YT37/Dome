@@ -30,6 +30,8 @@
     },
     center: [-40, 25], zoom: 1.3, attributionControl: { compact: true },
   });
+  let styleReady = false, onReady = null;
+  map.on("load", () => { styleReady = true; if (onReady) { const f = onReady; onReady = null; f(); } });
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "bottom-right");
 
   // --------------------------------------------------------------- steps
@@ -52,6 +54,8 @@
   function go(i) {
     if (!F) return;
     i = Math.max(0, Math.min(STEPS.length - 1, i));
+    if (!styleReady) return;
+    if (!map.getSource("zones")) addLayers();
     step = i;
     document.querySelectorAll("#steps li").forEach((li, j) => {
       li.classList.toggle("cur", j === i); li.classList.toggle("done", j < i);
@@ -361,10 +365,12 @@
 
   function showMoney() {
     const m = P.money || {};
+    const lab = Object.fromEntries((m.wallet_clusters || []).map((w) => [String(w.id), w.masked_label || w.id]));
+    const nm = (x) => lab[String(x)] || x || "";
     const evs = [...(m.flows || []).map((f) => ({ ...f, k: "money" })), ...(m.events || []).map((f) => ({ ...f, k: f.kind === "post" ? "post" : "money" }))]
       .sort((a, b) => String(a.time || a.t || "").localeCompare(String(b.time || b.t || "")));
     openSheet("Money · payment then post", `<div class="list">
-      <b>Timeline</b><div class="timeline">${evs.slice(0, 80).map((e) => `<div class="ev ${e.k}"><small>${esc(e.time || e.t || "")}</small><br>${esc(e.masked_label || e.label || `${e.from || ""} → ${e.to || ""}`)} <span class="fine">${esc(e.reason || e.kind || "")}</span></div>`).join("") || "<p class='fine'>No timed flows.</p>"}</div>
+      <b>Timeline</b><div class="timeline">${evs.slice(0, 80).map((e) => `<div class="ev ${e.k}"><small>${esc(e.time || e.t || "")}</small><br>${esc(e.masked_label || e.label || `${nm(e.from)} → ${nm(e.to)}`)} <span class="fine">${esc(e.reason || e.kind || "")}</span></div>`).join("") || "<p class='fine'>No timed flows.</p>"}</div>
       <b>Consolidation</b>${(m.wallet_clusters || []).map((w) => `<div class="row"><div><b>${esc(w.masked_label || w.id)}</b> · ${esc(w.role || "")}<div class="sig">${esc(w.reason || "")}</div></div></div>`).join("") || "<p class='fine'>None.</p>"}
       <b>Cash-out</b>${(m.cash_out || []).map((c) => `<div class="row"><div><b>${esc(c.masked_label || c.service || "")}</b><div class="sig">${esc(c.reason || "")}</div></div></div>`).join("") || "<p class='fine'>None.</p>"}
       ${(m.roles || []).length ? `<b>Roles</b>${m.roles.map((r) => `<div class="row"><div><b>${esc(r.account || r.id)}</b> · ${esc(r.role)}<div class="sig">${esc(r.reason || "")}</div></div></div>`).join("")}` : ""}
@@ -422,7 +428,7 @@
     P = await (await fetch(`/panels?case=${encodeURIComponent(caseId)}`)).json();
     for (const k of ["spotter", "topology", "money"]) document.querySelector(`[data-panel=${k}]`).hidden = !P[k];
     const ready = () => { addLayers(); go(0); };
-    map.isStyleLoaded() ? ready() : map.once("load", ready);
+    if (styleReady) ready(); else onReady = ready;
   }
   (async () => {
     const cases = await (await fetch("/cases")).json();
