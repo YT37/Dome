@@ -197,12 +197,12 @@ def main() -> None:
         for layers, x in three_way(a.data, private=not a.no_private).items():
             print(f"  {layers:<8} precision {x['precision']:.2f}  recall {x['recall']:.2f}  rings {x['rings']}"
                   f"  hard negatives linked {x['negatives_linked']}")
-    if a.three_way and not a.no_private:
+    if a.three_way:
         from .agents import topo
-        if topo.available() and topo.MODEL_PATH.exists():
+        if topo.available() and topo.model_path(not a.no_private).exists():
             print("\nFour-way, account level: is this account in a ring? (topological = UniGCN on the "
                   "combinatorial complex, trained on mini only)")
-            for name, x in topo.evaluate(a.data).items():
+            for name, x in topo.evaluate(a.data, private=not a.no_private).items():
                 extra = f"  AUC {x['auc']:.2f}" if "auc" in x else ""
                 print(f"  {name:<12} precision {x['precision']:.2f}  recall {x['recall']:.2f}{extra}")
         else:

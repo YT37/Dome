@@ -146,7 +146,14 @@ class Supervisor:
 
     # ------------------------------------------------------------------ v2 decision facts
     def _needs_login_fallback(self, ring) -> bool:
-        return bool(ring.roles) and not ring.location_hints
+        # Only meaningful with the private layers (Track 1): money-shape roles came from
+        # messages/payments that named no place. With --no-private (Track 2) there are no
+        # hints by design, so the Zoner uses public place clues as usual and nothing is capped.
+        rings = self.case.load("rings.json")
+        if rings is None or not rings.private_layers:
+            return False
+        money_roles = [r for r in ring.roles if r.role in ("collector", "handler", "hub")]
+        return bool(money_roles) and not ring.location_hints
 
     def _outside_groups(self) -> list[dict]:
         m = self.case.load("matches.json")

@@ -163,3 +163,16 @@ def test_topological_scorer_is_optional_and_scores_ring_a(monkeypatch):
     key = json.loads((SYNTH_KEY / "answer_key.json").read_text(encoding="utf-8"))
     ring_a = max(on["rings"], key=lambda r: len(set(key["A"]["members"]) & set(r["members"])))
     assert ring_a["topo_score"] >= 0.9
+
+
+def test_track2_no_private_runs_to_a_high_lead_without_the_hints_cap(tmp_path):
+    """Arlequin Track 2: public data only. No messages/payments -> no 'no hints' cap."""
+    case = Case.open("t2", scenario="ring_a", root=tmp_path, reset=True, dataset="synth",
+                     seed_account="acct_103", private_layers=False)
+    run_scripted(case)
+    rings = case.load("rings.json")
+    assert rings.private_layers is False
+    assert not {"money", "dm", "merchant", "echo"} & set(case.selected_ring().key_kinds)
+    assert NO_HINTS not in [d.decision for d in case.decisions()]
+    lead = case.load("brief.json").leads[0]
+    assert (lead.property_id, lead.tier) == ("CS-88412", "High")
