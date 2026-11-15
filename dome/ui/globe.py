@@ -108,11 +108,11 @@ def _load(d: Path, name: str):
         return None
 
 
-MATTERPORT_REQUIRED = {"title": "0", "mls": "2", "brand": "0", "help": "0", "hr": "0", "dh": "0", "search": "0", "qs": "1"}
+MATTERPORT_REQUIRED = {"title": "0", "mls": "2", "brand": "0", "help": "0", "hr": "0", "dh": "0", "search": "0", "qs": "1", "play": "1"}
 
 
 def matterport_url(embed: dict | None) -> str | None:
-    """The showcase URL, always with the title and details hidden (the splash shows the street address)."""
+    """The showcase URL, always with the title and details hidden (the splash shows the street address); play=1 skips the splash and opens straight into the scan."""
     if not embed or not re.match(r"^[A-Za-z0-9]{6,20}$", str(embed.get("model_id", ""))):
         return None
     params = {}
@@ -226,7 +226,20 @@ def flight():
                          "inliers": m.get("inliers")} for m in pack.get("matches") or []],
         }
     ring = (rings.get("rings") or [None])[0] or {}
+    rm = _load(d, "room_match.json") or {}
+    thr = (best_zone or {}).get("threshold", 0.4)
+    narrow = None
+    if rm.get("P") or rm.get("coarse"):
+        P = rm.get("P") or {}
+        narrow = {"scans": len(rm.get("coarse") or P), "shortlist": len(rm.get("shortlist") or []),
+                  "matched": sum(1 for v in P.values() if (v or 0) >= thr), "threshold": thr,
+                  "groups": len(rm.get("groups") or []), "photos": len(rm.get("photos") or []),
+                  "groups_matched": sum(1 for g in rm.get("groups") or []
+                                        if (g.get("matched") or {}).get((best or {}).get("scan_id")))}
+    wc = (_load(d, "window_check.json") or {}).get((best or {}).get("scan_id") or "") or None
+    window = {"W": wc.get("W"), "photo": wc.get("photo"), "items": wc.get("items") or []} if wc else None
     out = {
+        "narrow": narrow, "window": window,
         "case": d.name,
         "zones": zones.get("zones", []),
         "candidates": pins,

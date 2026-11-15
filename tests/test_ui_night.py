@@ -28,6 +28,7 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setenv("DOME_GLOBE", "1")
     monkeypatch.setenv("DOME_STEPS", "1")
     monkeypatch.delenv("DOME_GRAPH", raising=False)
+    monkeypatch.delenv("DOME_ASK", raising=False)          # .env may set it; ask tests set it themselves
     monkeypatch.setattr(ui, "CASES", tmp_path / "case")
     (tmp_path / "case").mkdir()
     return ui.app.test_client()
@@ -61,8 +62,8 @@ def test_everything_new_is_off_without_the_flag(tmp_path, monkeypatch):
 
 def test_globe_page_and_flag(client):
     page = client.get("/globe").get_data(as_text=True)
-    assert ("Synthetic case.</b> Real buildings are used only as demo locations; no real activity is implied."
-            in page) and "Public data only" not in page
+    assert "synthetic" not in page.lower() and "demo location" not in page.lower()
+    assert "Illustrative case. No real activity at this location." in client.get("/static/globe.js").get_data(as_text=True)
     assert "Chart.js/4.4.1/chart.umd.min.js" in page
     assert "maplibre-gl@5.6.0" in page            # pinned CDN versions
     flags = client.get("/ui-flags").get_json()
@@ -365,7 +366,7 @@ def test_matterport_url_always_hides_title_and_details(params):
     url = globe.matterport_url({"model_id": "LqCMcmmVH3d", "ss": 9, "params": params})
     assert url.startswith("https://my.matterport.com/show/?m=LqCMcmmVH3d&ss=9&")
     q = url.split("?", 1)[1].split("&")
-    assert "title=0" in q and "mls=2" in q and "title=1" not in q and "<" not in url
+    assert "title=0" in q and "mls=2" in q and "play=1" in q and "title=1" not in q and "<" not in url
 
 
 def test_flight_carries_the_safe_embed_url(client):

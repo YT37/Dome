@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#010102">
-<title>Dome · Case Console</title>
+<title>Dome · Homepage</title>
+<meta name="description" content="Dome: leads for human verification, built on synthetic data.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -18,8 +19,7 @@
 
 <div class="app">
   <div class="banner" role="note">
-    <b>Synthetic data</b><span class="sep">·</span>Leads for human verification only
-    <span class="sep">·</span><span class="chip public" id="publicChip" hidden><span class="dot"></span>Public data only</span>
+    Leads for human verification only<span class="chip public" id="publicChip" hidden></span>
   </div>
 
   <nav class="rail" aria-label="Views">
@@ -27,8 +27,8 @@
     <a href="?view=overview" data-view="overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>Overview</a>
     <a href="?view=network" data-view="network"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="7" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8.3 7.2 15.6 7M7.3 8.2l3.6 7.6M16.9 9.2l-3.6 6.7"/></svg>Network</a>
     <a href="?view=topology" data-view="topology"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 18 12 5l7 13z"/><circle cx="12" cy="5" r="1.8"/><circle cx="5" cy="18" r="1.8"/><circle cx="19" cy="18" r="1.8"/><circle cx="12" cy="13.5" r="1.4"/></svg>Topology</a>
-    <a href="?view=map" data-view="map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 19a9 9 0 0 1 18 0"/><path d="M7 19a5 5 0 0 1 10 0"/><circle cx="12" cy="17" r="1.6"/></svg>Map</a>
-    <a href="?view=evidence" data-view="evidence"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Evidence</a>
+    <a href="?view=map" data-view="map" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 19a9 9 0 0 1 18 0"/><path d="M7 19a5 5 0 0 1 10 0"/><circle cx="12" cy="17" r="1.6"/></svg>Map</a>
+    <a href="?view=evidence" data-view="evidence" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Evidence</a>
     <a href="?view=log" data-view="log"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg>Decisions</a>
     <span class="spacer"></span>
     <a href="?view=guide" data-view="guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>Guide</a>
@@ -36,13 +36,16 @@
 
   <header class="command">
     <div class="title">
-      <h1 id="caseTitle">Case console</h1>
-      <p id="caseNote">Flagged synthetic accounts → one ring → a dome over its area → one building to verify.</p>
+      <nav class="apptabs" aria-label="Pages"><a href="/" class="on" aria-current="page">Homepage</a><a href="/globe" id="globeTab" hidden>Globe</a></nav>
+      <h1 id="caseTitle">Homepage</h1>
+      <p id="caseNote">Flagged accounts → one ring → a dome over its area → one building to verify.</p>
     </div>
     <div class="controls">
       <div class="seg" role="group" aria-label="Preset" id="presetSeg"></div>
+      <button class="btn" id="presentBtn" type="button" title="Presenter mode: larger text">Presenter</button>
+      <details class="settings"><summary class="btn" title="Settings">Settings</summary><div class="settings-pop">
       <label class="switch" title="Rule-based planner, no LLM. The offline fallback."><input type="checkbox" id="scripted" checked> Scripted (no LLM)</label>
-      <label class="switch" title="Switch views as each step finishes: graph, then map, then the overview"><input type="checkbox" id="tour"> Auto tour</label>
+      <label class="switch" title="Switch views as each step finishes: graph, then map, then the overview"><input type="checkbox" id="tour"> Auto tour</label></div></details>
       <label class="sr" for="replaySel">Replay a recorded case</label>
       <select class="ctl" id="replaySel" aria-label="Replay a recorded case"><option value="">Replay…</option></select>
       <button class="btn primary" id="runBtn" type="button">
@@ -50,11 +53,12 @@
         <span>Run Case</span></button>
     </div>
     <ol class="pipeline" id="pipeline" aria-label="Pipeline">
-      <li class="step" data-step="linker"><span class="n">1</span><span class="t"><b>Linker</b><span>Which accounts are one ring?</span></span></li>
-      <li class="step" data-step="zoner"><span class="n">2</span><span class="t"><b>Zoner</b><span>Where, as an area?</span></span></li>
-      <li class="step" data-step="lister"><span class="n">3</span><span class="t"><b>Lister</b><span>Which buildings fit?</span></span></li>
-      <li class="step" data-step="locator"><span class="n">4</span><span class="t"><b>Locator</b><span>Which room and view match?</span></span></li>
-      <li class="step" data-step="briefer"><span class="n">5</span><span class="t"><b>Briefer</b><span>How strong, and why?</span></span></li>
+      <li class="step" data-step="spotter"><span class="n">1</span><span class="t"><b>Spotter</b><span>Which accounts to start from?</span></span></li>
+      <li class="step" data-step="linker"><span class="n">2</span><span class="t"><b>Linker</b><span>Which accounts are one ring? (+ money)</span></span></li>
+      <li class="step" data-step="zoner"><span class="n">3</span><span class="t"><b>Zoner</b><span>Where, as an area?</span></span></li>
+      <li class="step" data-step="lister"><span class="n">4</span><span class="t"><b>Lister</b><span>Which buildings fit?</span></span></li>
+      <li class="step" data-step="locator"><span class="n">5</span><span class="t"><b>Locator</b><span>Which room and view match?</span></span></li>
+      <li class="step" data-step="briefer"><span class="n">6</span><span class="t"><b>Briefer</b><span>How strong, and why?</span></span></li>
     </ol>
   </header>
 
@@ -70,6 +74,7 @@
         <div class="kpi" id="kCand"><span>Buildings in zone → photo match</span><b>–</b></div>
         <div class="kpi" id="kLead"><span>Top lead</span><b>–</b></div>
       </div>
+      <div class="flowrow" id="flowRow" aria-label="How it works: the six agents"></div>
       <div class="grid4">
         <div class="panel"><div class="ph"><h2>Account Graph</h2><span class="sub" id="gSub">Flagged accounts and their reposts</span><span class="grow"></span><button class="help" data-guide="graph" aria-label="How to read the graph">?</button></div>
           <div class="pb"><div class="cy" id="cyMini"></div><div class="legend"><span><i style="background:var(--ring)"></i>Ring</span><span><i style="background:transparent;border:2px solid var(--recruiter)"></i>Recruiter</span><span><i style="background:#3a3f48"></i>Not linked</span></div></div></div>
@@ -96,7 +101,7 @@
           <div class="pb"><div class="cy" id="cyBig"></div><div class="legend" id="bigLegend"></div></div></div>
         <aside class="side">
           <div class="card" id="inspect"><h3>Inspector</h3><p class="muted">Hover or click an account or a link.</p></div>
-          <div class="card"><h3>Why these accounts are one ring</h3><div class="hbars" id="kindBars"><p class="muted">Appears when rings.json is written.</p></div></div>
+          <div class="card"><h3>Why these accounts are one ring</h3><p><button class="btn" type="button" data-why="relay">Relay</button> <button class="btn" type="button" data-why="heartbeat">Heartbeat</button> <button class="btn" type="button" data-why="echo">Echo event</button> <button class="btn" type="button" data-why="kinds">Links by kind</button></p><div class="hbars" id="kindBars"><p class="muted">Appears when rings.json is written.</p></div></div>
           <div class="card"><h3>Reading it</h3>
             <p><span class="swatch" style="background:var(--ring)"></span>Ring members light up when the Linker finishes. Thick links need <b>two kinds</b> of public key.</p>
             <p><span class="swatch" style="border:2px solid var(--recruiter)"></span>Recruiters: agency bios whose reposts go into the ring.</p>
@@ -159,17 +164,16 @@
     <section class="view" id="view-guide" aria-label="How to read Dome">
       <div class="guide">
         <nav class="toc" aria-label="Guide contents">
-          <a href="#g-start">Dome in 60 seconds</a><a href="#g-pipeline">The five agents</a><a href="#g-graph">Reading the graph</a>
+          <a href="#g-start">Dome in 60 seconds</a><a href="#g-pipeline">The six agents</a><a href="#g-graph">Reading the graph</a>
           <a href="#g-topology">Topology view</a><a href="#g-dome">The dome</a><a href="#g-factors">The five factors</a>
           <a href="#g-tiers">Tiers and caps</a><a href="#g-log">The decision log</a><a href="#g-verify">Verify next</a><a href="#g-not">What Dome is not</a>
         </nav>
         <article class="doc">
           <h2 id="g-start">How to read Dome's results</h2>
           <p class="lede">Dome turns a set of already-flagged social accounts into a short, explained list of buildings where a group's photos were most likely taken. Every result is a <b>lead for a human to verify</b>, never a finding.</p>
-          <div class="callout"><b>All data here is synthetic.</b> Accounts, handles, ads and phone numbers (555 only) are made up. Photos are renders of 3D scans with grey silhouettes. This run uses <b>public data only</b>: ads, photos, reposts, replies and the places ads name.</div>
 
-          <h3 id="g-pipeline"><span class="k">1</span>The five agents</h3>
-          <p>A supervisor runs five agents in order. Each writes one JSON file into the case folder and a line into the log. The supervisor decides the next step from the data, and every number comes from deterministic code.</p>
+          <h3 id="g-pipeline"><span class="k">1</span>The six agents</h3>
+          <p>A supervisor runs six agents in order (Spotter, Linker with money, Zoner, Lister, Locator, Briefer). Each writes one JSON file into the case folder and a line into the log. The supervisor decides the next step from the data, and every number comes from deterministic code.</p>
           <div class="flow"><div><b>Linker</b>Which accounts are one ring? → rings.json</div><div><b>Zoner</b>Where, as an area? → zones.json</div><div><b>Lister</b>Which buildings fit? → candidates.json</div><div><b>Locator</b>Which room and window view match? → matches.json</div><div><b>Briefer</b>How strong, and why? → brief.json</div></div>
 
           <h3 id="g-graph"><span class="k">2</span>Reading the graph</h3>
@@ -225,7 +229,7 @@
             <li>Not evidence of anyone's presence. A lead is a place to check, nothing more.</li>
             <li>Not an address finder. Areas, not addresses; buildings appear by display name only.</li>
             <li>Not a contact tool. Nothing here messages, dispatches or publishes anything, and there is no chat.</li></ul></div>
-          <p class="muted" style="margin-top:18px">Leads for human verification. Place clues give areas, not addresses. Not evidence of anyone's presence. Generated from synthetic data.</p>
+          <p class="muted" style="margin-top:18px">Leads for human verification. Place clues give areas, not addresses. Not evidence of anyone's presence.</p>
         </article>
       </div>
     </section>
@@ -236,11 +240,10 @@
 
 <div class="intro" id="intro" hidden>
   <div class="intro-card" role="dialog" aria-modal="true" aria-labelledby="introTitle">
-    <span class="chip"><span class="dot"></span>Synthetic data · public data only</span>
     <h2 id="introTitle">A dome over the search area that shrinks to one building</h2>
     <p>Dome helps trust and safety teams, anti-trafficking NGOs and police units turn a set of flagged accounts into a short list of buildings to verify.</p>
     <ul>
-      <li>Press <b>Run Case</b> and watch five agents work, step by step.</li>
+      <li>Press <b>Run Case</b> and watch six agents work, step by step.</li>
       <li>The ring lights up in the graph; look-alikes stay grey.</li>
       <li>The dome shrinks from an area to one building with its reasons.</li>
     </ul>
@@ -254,6 +257,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.30.2/dist/cytoscape.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="/static/drawer.js"></script>
 <script src="/static/app.js"></script>
 </body>
 </html>

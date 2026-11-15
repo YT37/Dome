@@ -14,22 +14,19 @@
 <link rel="icon" href="/static/logo-mark.svg" type="image/svg+xml">
 </head>
 <body>
-<div class="banner" role="note">
-  <b>Synthetic case.</b> Real buildings are used only as demo locations; no real activity is implied.
-</div>
 
 <div id="map" aria-label="Globe"></div>
 
 <header class="top">
   <div class="brand">
     <img src="/static/logo-mark.svg" width="38" height="32" alt="Dome">
-    <div><b>Dome</b><span id="caseLabel">case</span></div>
+    <nav class="apptabs" aria-label="Pages"><a href="/" id="homeTab">Homepage</a><a href="/globe" class="on" aria-current="page">Globe</a></nav>
+    <span class="casename" id="caseLabel">case</span>
   </div>
   <div class="actions">
-    <select id="caseSel" class="ctl" aria-label="Case"></select>
+    <select id="caseSel" class="ctl" aria-label="Case" hidden></select>
     <button class="btn" id="replayBtn" type="button" title="Replay with fixed timing (R)">Replay</button>
     <button class="btn" id="presentBtn" type="button" title="Presenter mode (P)">Presenter</button>
-    <a class="btn ghost" href="/" title="The classic case console">Classic console</a>
   </div>
 </header>
 
@@ -39,15 +36,11 @@
 
 <nav class="dock" aria-label="Panels">
   <button type="button" data-panel="graph">Link chart</button>
-  <button type="button" data-panel="spotter" hidden>Spotter queue</button>
-  <button type="button" data-panel="topology" hidden>Topology</button>
-  <button type="button" data-panel="money" hidden>Money</button>
   <button type="button" data-panel="steps" hidden>Show the work</button>
-  <button type="button" data-panel="ask" hidden>Ask about this case</button>
   <span class="keys"><kbd>←</kbd><kbd>→</kbd> step · <kbd>P</kbd> presenter · <kbd>R</kbd> replay</span>
 </nav>
 
-<div class="ticker" id="ticker" aria-live="polite"></div>
+<div class="ticker" id="ticker" aria-live="polite" hidden></div>
 
 <section class="sheet" id="sheet" hidden>
   <header><h2 id="sheetTitle"></h2><button class="btn ghost" id="sheetClose" type="button">Close</button></header>
