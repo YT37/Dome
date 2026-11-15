@@ -11,7 +11,8 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 # v1 kinds plus the v2 sticky notes and pattern kinds. `text` is the "same script" note and
 # `time` the posting-time / creation-burst tie-breaker (names kept so v1 files still validate).
 KeyKind = Literal["contact", "photo", "device", "text", "interaction", "place", "time",
-                  "money", "dm", "room", "style", "route", "merchant", "heartbeat", "echo"]
+                  "money", "dm", "room", "style", "route", "merchant", "heartbeat", "echo",
+                  "keyword"]
 RoleName = Literal["collector", "handler", "worker", "recruiter", "hub"]
 Layers = Literal["content", "network", "both"]
 Tier = Literal["High", "Medium", "Low"]

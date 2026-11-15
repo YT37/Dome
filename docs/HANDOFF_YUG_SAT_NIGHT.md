@@ -30,9 +30,10 @@ Until #3 merges, check out `avishek-topo`: it is `main` plus #3. Your `yug` bran
 | 6 | Two new supervisor decisions. (a) Private data on but no place in it: Zoner uses logins and leads cap at Medium. (b) Room groups holding photos from accounts outside the ring: the Linker re-runs once with "same room" links | `dome/supervisor.py` | `pytest tests/test_v2.py -k "hints or room"` |
 | 7 | Topological ring scorer (for Arlequin): a UniGCN network from TopoModelX. Accounts are nodes, each shared key is a cell holding all its accounts, and echo events are bigger cells. It gives each ring a `topo_score` as a second opinion; the rules still make every link. There are two models, with private data and public-only. It's optional: if TopoX isn't installed, `topo_score` is just empty | `dome/agents/topo.py`, `dome/models/*.pt`, `requirements-topo.txt` | `python -m dome.agents.topo --eval synth --no-private` |
 | 8 | Synthetic messages and payments with the patterns planted. Not used in the Track 2 demo | `dome/synth/private_layers.py`, `data/synth/messages.json`, `transactions.json`, `answer_key_private.json` | `pytest tests/test_v2.py` |
+| 8b | **Shared keyword** sticky note (public, so it works in Track 2): repeated hashtags, emoji and code words in captions and public comments (`comments.json`, planted by `dome/synth/public_comments.py`). Tags used by 40+ accounts and one-off uses count for nothing | `dome/agents/linker.py` (`keywords`), `dome/config.py` (`CODE_WORDS`, `KEYWORD_*`) | `pytest tests/test_v2.py -k keyword` |
 | 9 | The Linker falls back to n-gram text vectors when the MiniLM model can't download (venue Wi-Fi) | `dome/agents/linker.py` | none needed |
 
-**Numbers on synth, Track 2 (public only):** Ring A found 12/12 with precision 1.00. All 150 hard negatives stay unlinked and 3/3 recruiters are flagged. At the account level the rules find 0.80 / 0.80 / 0.93 of ring accounts (content / network / both); the topological model finds 1.00 with precision 1.00. On mini Ring C, which the model never saw, every Ring C account ranks above every non-ring account, but none scores above 0.5. Say that honestly if asked.
+**Numbers on synth, Track 2 (public only), with the shared keyword:** Ring A found 12/12 with precision 1.00, and its 3 recruiters now join the ring through shared code words. All 150 hard negatives stay unlinked. At the account level the rules find 1.00 / 0.80 / 1.00 of ring accounts (content / network / both), and the topological model also finds 1.00 (AUC 0.90). On mini Ring C (no code words, never seen in training) the topological model scores every account below 0.5. Say that honestly if asked: it learned the shape of rings that use code words.
 
 ---
 
@@ -67,7 +68,7 @@ git fetch origin && git switch avishek-topo   # or main once PR #3 is merged
 pip install -r requirements.txt
 pip install -r requirements-topo.txt          # optional: topological scorer (PyTorch Geometric)
 
-pytest -q                                     # expect 90 passed, 6 skipped
+pytest -q                                     # expect 91 passed, 6 skipped
 
 # Track 2 demo (public data only), stub data tools: Ring A's building #1, High, 66
 DOME_STUBS=1 python -m dome.supervisor --case t2-a --data synth --no-private --scripted

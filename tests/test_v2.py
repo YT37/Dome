@@ -48,7 +48,9 @@ def synth():
 
 def test_shared_wallet_and_dms_link_ring_a(synth):
     r = synth["ring"]
-    assert set(r["members"]) == synth["members"]
+    # the ring is Ring A; its recruiters may join it (shared code words in comments)
+    assert synth["members"] <= set(r["members"])
+    assert set(r["members"]) - synth["members"] <= set(synth["key"]["A"].get("recruiters", []))
     assert r["kind_counts"].get("money", 0) > 0 and r["kind_counts"].get("dm", 0) > 0
     reasons = " ".join(l["reason"] for l in r["links"])
     assert "same wallet" in reasons and "direct messages" in reasons
@@ -176,3 +178,18 @@ def test_track2_no_private_runs_to_a_high_lead_without_the_hints_cap(tmp_path):
     assert NO_HINTS not in [d.decision for d in case.decisions()]
     lead = case.load("brief.json").leads[0]
     assert (lead.property_id, lead.tier) == ("CS-88412", "High")
+
+
+def test_shared_keyword_links_ring_but_common_tags_and_one_offs_do_not():
+    """Public captions/comments: repeated rare code words link; #love and a single use don't."""
+    ds = linker.load_dataset("synth")
+    if not ds.get("comments"):
+        pytest.skip("no comments.json in data/synth")
+    kk = json.loads((SYNTH_KEY / "answer_key_keywords.json").read_text(encoding="utf-8"))
+    rf = linker.link_accounts(ds, private=False).rings_file
+    ring = max(rf["rings"], key=lambda r: len(set(kk["rings"]["A"]["accounts"]) & set(r["members"])))
+    assert "keyword" in ring["key_kinds"]
+    assert any("#tapin" in l["reason"] for l in ring["links"])
+    in_ring = {m for r in rf["rings"] for m in r["members"]}
+    assert not set(kk["one_off_tapin"]) & in_ring
+    assert not any(t in l["reason"] for r in rf["rings"] for l in r["links"] for t in kk["common_tags"])

@@ -69,6 +69,17 @@ MinHash missed (Jaccard 0.00) and sentence embeddings caught (cosine 0.77 on `sy
 
 The answer key (`data/answer_key/`) is read only by `dome/eval.py`. No agent opens it.
 
+### Shared keyword (public, Track 2)
+
+The same hashtag, emoji or code word (`#tapin`, the rose emoji for "roses" = money) used
+again and again in captions and public comments (`comments.json`) is a sticky note (`keyword`,
+weight 0.5, content layer). An account must use it at least twice, and a tag used by more than
+40 accounts (`#love`, `#houston`) counts for nothing; a single use ("what does #tapin mean")
+counts for nothing either. `python -m dome.synth.public_comments --data data/synth --key
+data/answer_key/answer_key.json` plants the code words and the decoys. On synth, Track 2: Ring A
+plus its 3 recruiters form one ring, the friend group (heavy users of common tags) and the
+one-off users stay unlinked, and content-only recall rises to 1.00.
+
 ### v2: messages and payments (Arlequin Track 1)
 
 Two more synthetic files, `messages.json` and `transactions.json`, sit next to the accounts

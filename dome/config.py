@@ -65,10 +65,16 @@ COSTAR_TYPE_MAP = {
 # Linker key weights (R = 1 - prod(1 - w_k), capped)
 # v2: the 10 sticky notes (text = "same script"; time = posting-time/creation-burst tie-breaker)
 KEY_WEIGHTS = {"money": 0.9, "contact": 0.9, "dm": 0.85, "room": 0.8, "photo": 0.8, "device": 0.7,
-               "text": 0.6, "style": 0.5, "route": 0.5, "merchant": 0.4,
+               "text": 0.6, "keyword": 0.5, "style": 0.5, "route": 0.5, "merchant": 0.4,
                "interaction": 0.5, "heartbeat": 0.4, "echo": 0.7, "place": 0.3, "time": 0.2}
 # kinds that give an area, not identity: never count toward the two-kinds rule
 NON_COUNTING_KINDS = ("place", "merchant")
+
+# shared keyword (public: captions and comments): hashtags, emoji and known code words that an
+# account uses repeatedly. Rarity down-weighting makes common tags (#love) count for nothing.
+KEYWORD_MIN_USES = 2          # per account: once is chance, twice is a habit
+KEYWORD_MAX_USERS = 40        # a tag used by more accounts than this is common, not a signal
+CODE_WORDS = ("tapin", "passe", "roses", "donations", "incall", "outcall", "sugarline")
 
 # v2 patterns
 HEARTBEAT_MIN_EVENTS = 20     # posts + messages + payments an account needs for a rhythm
