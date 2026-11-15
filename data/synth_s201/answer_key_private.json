@@ -1,0 +1,116 @@
+{
+ "synthetic": true,
+ "rings": {
+  "A": {
+   "members": [
+    "acct_114",
+    "acct_136",
+    "acct_233",
+    "acct_288",
+    "acct_384",
+    "acct_393",
+    "acct_399",
+    "acct_460",
+    "acct_610",
+    "acct_663",
+    "acct_824",
+    "acct_874"
+   ],
+   "roles": {
+    "acct_114": "collector",
+    "acct_136": "handler",
+    "acct_233": "hub",
+    "acct_259": "recruiter"
+   },
+   "wallets": [
+    "$sunny_rose5",
+    "$velvet_k9"
+   ],
+   "handoffs": [
+    {
+     "key": "contact:555-0199",
+     "from": "acct_399",
+     "to": "acct_460"
+    },
+    {
+     "key": "money:$velvet_k9",
+     "from": "acct_460",
+     "to": "acct_610"
+    }
+   ],
+   "heartbeat_groups": [
+    [
+     "acct_288",
+     "acct_384",
+     "acct_393"
+    ]
+   ],
+   "events": [
+    {
+     "post": "post_0039",
+     "messages": [
+      "msg_4201",
+      "msg_4202",
+      "msg_4203"
+     ],
+     "payments": [
+      "tx_5057",
+      "tx_5058"
+     ],
+     "rides": [
+      "tx_5059"
+     ]
+    },
+    {
+     "post": "post_0566",
+     "messages": [
+      "msg_4204",
+      "msg_4205",
+      "msg_4206"
+     ],
+     "payments": [
+      "tx_5060",
+      "tx_5061"
+     ],
+     "rides": [
+      "tx_5062"
+     ]
+    },
+    {
+     "post": "post_0901",
+     "messages": [
+      "msg_4207",
+      "msg_4208",
+      "msg_4209"
+     ],
+     "payments": [
+      "tx_5063",
+      "tx_5064"
+     ],
+     "rides": [
+      "tx_5065"
+     ]
+    },
+    {
+     "post": "post_1571",
+     "messages": [
+      "msg_4210",
+      "msg_4211",
+      "msg_4212"
+     ],
+     "payments": [
+      "tx_5066",
+      "tx_5067"
+     ],
+     "rides": [
+      "tx_5068"
+     ]
+    }
+   ],
+   "merchants": [
+    "Lone Star Motel (synthetic)"
+   ],
+   "hidden_room_account": null
+  }
+ }
+}
