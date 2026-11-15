@@ -34,3 +34,5 @@ data/demo_assets/**/*.png
 deploy/firebase/functions/
 deploy/firebase/public/
 deploy/firebase/.firebase/
+handcheck/shortlist.md
+handcheck/shortlist_near.md

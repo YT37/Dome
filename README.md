@@ -2,18 +2,18 @@
 
 <p align="center"><img src="dome/ui/static/logo.svg" width="420" alt="Dome: Find the ring. Find the room."></p>
 
-> A dome over the search area that shrinks to one building.
+> **Find the ring. Find the room.**
 
 Dome is an investigation tool for trust and safety teams, anti-trafficking NGOs and police
-trafficking units. Five agents under one LangChain **deepagents** supervisor take a set of
-already-flagged social accounts, find the ring behind them, and narrow its photos down to the
-building where they were most likely taken. **Every output is a lead for human verification.**
+trafficking units. Six agents under one LangChain **deepagents** supervisor pick out suspicious
+social accounts, find the ring behind them, and narrow its photos down to the building, and the
+room, where they were most likely taken. **Every output is a lead for human verification.**
 
 **All data is synthetic.** No real accounts, people or phone numbers. Nothing is scraped.
 
-The demo follows **one ring (Ring A)**: 12 posting accounts with a shared phone, a reworded
-ad script, reposted room photos and three recruiters. Dome links them, draws the area, lists
-the buildings inside, matches the photos to one building's scan, and explains a **High** lead.
+**Ring A**: 12 posting accounts with a shared phone, a reworded ad script, reposted room photos
+and three recruiters. Dome links them, draws the area, lists the buildings inside, matches the
+photos to one building's scan, and explains a **High** lead.
 
 ## Results
 
@@ -127,7 +127,7 @@ the "Show the work" view read them from there.
 **LangSmith trace** of one run (Gemini supervisor, Linker → Zoner → Lister → Locator, paused for
 report approval): https://smith.langchain.com/public/e1136b0e-1f00-4dbb-8d0b-a3cf1d447ec6/r
 
-## Linker on its own (Arlequin solo demo)
+## Linker on its own
 
 Scored against the hidden answer key:
 
@@ -141,24 +141,23 @@ python -m dome.agents.linker --case solo --data synth --seed acct_103
 | `synth` (784 accounts) | 1.00 | 1.00 | 1.00 | 150 accounts, all unlinked | 3 of 3 |
 | `mini` (132 accounts, used by tests) | 1.00 | 1.00 | 0.96–1.00 | 23 accounts, all unlinked | 3 of 3 |
 
-The dataset contains more than one ring, and the Linker must keep them apart, so the scores
-cover every ring in it; the demo then follows Ring A. Each run also shows a reworded ad that
+The scores cover every account in the dataset, hard negatives included. Each run also shows a reworded ad that
 MinHash missed (Jaccard 0.00) and sentence embeddings caught (cosine 0.77 on `synth`).
 
 The answer key (`data/answer_key/`) is read only by `dome/eval.py`. No agent opens it.
 
-### Shared keyword (public, Track 2)
+### Shared keyword
 
 The same hashtag, emoji or code word (`#tapin`, the rose emoji for "roses" = money) used
 again and again in captions and public comments (`comments.json`) is a sticky note (`keyword`,
 weight 0.5, content layer). An account must use it at least twice, and a tag used by more than
 40 accounts (`#love`, `#houston`) counts for nothing; a single use ("what does #tapin mean")
 counts for nothing either. `python -m dome.synth.public_comments --data data/synth --key
-data/answer_key/answer_key.json` plants the code words and the decoys. On synth, Track 2: Ring A
+data/answer_key/answer_key.json` plants the code words and the decoys. On synth: Ring A
 plus its 3 recruiters form one ring, the friend group (heavy users of common tags) and the
 one-off users stay unlinked, and content-only recall rises to 1.00.
 
-### v2: messages and payments (Arlequin Track 1)
+### Messages and payments
 
 Two more synthetic files, `messages.json` and `transactions.json`, sit next to the accounts
 (`python -m dome.synth.private_layers --data data/synth --key data/answer_key/answer_key.json`
@@ -184,7 +183,7 @@ stay unlinked.
 Network-only with public data alone drops to recall 0.38: the messages and payments are what
 make the connectivity layer strong, and the content layer is what keeps it honest.
 
-### Topological ring scorer (Arlequin)
+### Topological ring scorer
 
 `dome/agents/topo.py` turns the Linker's evidence into a combinatorial complex: accounts are
 points, every sticky note shared by 2+ accounts is one cell holding all of them (a phone, a
@@ -323,7 +322,7 @@ anywhere else is **Medium**, with a cap line saying why. Everything else is **Lo
    key. Leiden splits linked groups of 20+.
 5. **Recruiters:** a bio offering modelling or jobs, with most reposts/replies going into the ring.
 
-6. **v2 sticky notes and patterns** (`dome/agents/patterns.py`): shared wallet (0.9), direct
+6. **More sticky notes and patterns** (`dome/agents/patterns.py`): shared wallet (0.9), direct
    messages (0.85), same room from the Locator's room groups (0.8), same merchant (0.4, an
    area only, never counts toward the two), heartbeat (0.4: same daily rhythm, never active in
    the same 10 minutes), echo (0.7: two accounts in 2+ events). Relay race and money-shape
@@ -331,7 +330,7 @@ anywhere else is **Medium**, with a cap line saying why. Everything else is **Lo
 
 Ring confidence R = 1 − Π(1 − w_k) over the kinds the ring shares, capped at 0.95.
 
-**v2 supervisor decisions:** a ring with roles but no place in its messages or payments makes
+**Supervisor decisions:** a ring with roles but no place in its messages or payments makes
 the Zoner fall back to login data and caps every lead at Medium; room groups holding photos
 from accounts outside the ring re-run the Linker once with same-room links (logged with which
 members and roles changed). The Lister adds up to +0.15 fit for buildings within 500 m of a
@@ -340,10 +339,10 @@ Tuning lives in `dome/config.py`.
 
 ## Status
 
-- **Real:** supervisor, schemas, Linker, Lister, Locator logic, scoring (`dome/eval.py`).
-- **Stubs:** `zoner.py` and `briefer.py` (Ishaan; the Briefer stub already applies the tier
-  rules), and everything in `dome/data_tools/` (Yug), which answer from Ring A's fixture in
-  `samples/scenarios/ring_a/`.
-- `data/synth/` is Ishaan's generator output (`python -m dome.synth.generate`);
-  `samples/data/mini/` is a smaller hand-built set used by the tests.
-  `samples/*.json` is the contract; `dome/schemas.py` wins if they differ.
+- **Real end to end:** Spotter, Linker (with money), Zoner, Lister, Locator (CoStar, Matterport,
+  Vexcel, room match, geo fix, Gemini window check), Briefer, the case complex and the UI.
+- `DOME_STUBS=1` swaps the data tools for Ring A's fixture in `samples/scenarios/ring_a/`, so the
+  tests and a no-key run work anywhere.
+- `data/synth/` is the generator output (`python -m dome.synth.generate`); `samples/data/mini/` is
+  a smaller set used by the tests. `samples/*.json` is the contract; `dome/schemas.py` wins if they
+  differ.

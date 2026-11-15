@@ -1,9 +1,0 @@
-{
-  "case_id": "demo-c",
-  "scenario": "ring_a",
-  "ring_id": null,
-  "dataset": "mini",
-  "seed_account": "acct_701",
-  "layers": "both",
-  "private_layers": false
-}
