@@ -583,8 +583,10 @@
         W.map.addLayer({ id: "line", type: "line", source: "f", filter: ["==", ["geometry-type"], "LineString"], paint: { "line-color": "#fff", "line-width": 2, "line-dasharray": [2, 2] } });
         W.map.addLayer({ id: "pts", type: "circle", source: "f", filter: ["==", ["geometry-type"], "Point"], paint: {
           "circle-radius": ["case", ["boolean", ["get", "top"], false], 9, 5],
-          "circle-color": ["coalesce", ["get", "color"], ["case", ["boolean", ["get", "top"], false], "#ef5f5f", "#dfe2ea"]],
+          "circle-color": ["case", ["has", "color"], ["to-color", ["get", "color"]], ["boolean", ["get", "top"], false], "#ef5f5f", "#dfe2ea"],
           "circle-stroke-color": "#0b0c10", "circle-stroke-width": 1.5 } });
+        W.map.once("idle", () => { const m = W.map; if (m) $("#stepView").dataset.rendered =
+          m.queryRenderedFeatures({ layers: ["poly", "pts", "line"] }).length; });   // checkable rendered-feature count
       });
     }
     clearTimeout(W.timer);
@@ -619,6 +621,7 @@
       addLayers(); go(toBrief ? STEPS.length - 1 : 0);      // a live run lands on the brief (approve there)
       // deep links for presenting: ?step=<1-11>&work=<agent>&wstep=<n>
       if (qs.get("step")) go(+qs.get("step") - 1);
+      if (qs.get("panel")) document.querySelector(`[data-panel="${CSS.escape(qs.get("panel"))}"]`)?.click();
     };
     if (qs.get("work") && !$("#drawer").dataset.linked) {      // does not wait for the map
       $("#drawer").dataset.linked = "1";
