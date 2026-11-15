@@ -76,5 +76,19 @@
         "recall": 1.0
       }
     }
-  ]
+  ],
+  "fresh_test": {
+    "dataset": "data/synth_fresh_s3301",
+    "threshold": 0.564,
+    "precision": 1.0,
+    "recall": 1.0,
+    "auc": 1.0,
+    "precision_at_15": 1.0,
+    "ring_found": "15/15",
+    "rules": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "note": "fresh seed 3301 (private layers 4301), generated after the model was final; run once, model commit 2c0b059"
+  }
 }
