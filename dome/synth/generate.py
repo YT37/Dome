@@ -110,6 +110,15 @@ SPA_SCRIPT ="Day spa: facials, manicures and wellness packages. Book at {phone}.
 
 RECRUITER_BIOS = ["Modelling agency. Now hiring.", "Job offers: hostess, promo, front desk.",
                   "Talent and modelling agency."]
+# Spotter layer: bland, vague over-paid offers (no explicit content) and realistic honest ones.
+LURE_POSTS = ["Hostess and promo work, $1,200 a week, no experience needed, start this week. DM for details.",
+              "Easy money, cash paid weekly, travel covered, no interview needed. Message us today.",
+              "Front desk and event staff wanted, $900 a week, flexible hours, housing help available. DM now."]
+HONEST_ROLES = ["line cook", "cashier", "barista", "warehouse associate", "front desk clerk", "dishwasher"]
+HONEST_DETAILS = ["food handler card required", "two years of experience preferred", "uniform provided",
+                  "background check required", "weekend availability needed"]
+SPOTTER_NEGATIVES = {"honest_job_poster": 8, "honest_new_account": 10}
+
 RECRUITER_POSTS = ["Now hiring front desk and promo staff. Housing help available. DM for details.",
                    "Open casting this month for catalogue modelling. Travel covered. DM us.",
                    "Hiring event staff, no experience needed, start right away. Message for details."]
@@ -454,6 +463,51 @@ class World:
             {k: b[k] for k in ("label", "property_id", "scan_id")}
             for b in self.buildings.values() if b["role"] == "decoy"]
 
+    # ---- Spotter layer (runs last, own random stream: nothing above changes) ------------------
+
+    def build_spotter_layer(self, seed):
+        """Profile fields, bland lure posts, and Spotter hard negatives.
+
+        Ring A's accounts are batch-created look-alikes with no profile photo; its recruiters post
+        vague over-paid offers. Honest job posters (realistic pay, apply in person) and honest new
+        accounts (no photo, but created alone) are there so the Spotter can't flag everything.
+        """
+        r = random.Random(seed + 2000)
+        ring = set(self.groups.get("ring_A", []))
+        for a in self.accounts:
+            a["has_profile_photo"] = False if a["account_id"] in ring else r.random() < 0.85
+
+        for i, acct in enumerate(self.groups.get("ring_A_recruiter", [])):
+            for j in range(2):
+                self.add_post(acct, LURE_POSTS[(i + j) % len(LURE_POSTS)], self.time_in(START, DAYS))
+
+        honest_jobs, honest_new = [], []
+        for _ in range(SPOTTER_NEGATIVES["honest_job_poster"]):
+            area = r.choice(self.areas)
+            acct = self.add_account("honest_job_poster", r.choice(["Family-run diner.", "Neighborhood bakery.",
+                                    "Local moving company.", "Small print shop."]),
+                                    self.time_in(datetime(2020, 1, 1, tzinfo=timezone.utc), 1500), [], self.home_of(area))
+            honest_jobs.append(acct)
+            for _ in range(r.randint(1, 2)):
+                text = (f"Hiring a {r.choice(HONEST_ROLES)} in {area}, ${r.randint(15, 22)}/hr, "
+                        f"{r.choice(HONEST_DETAILS)}. Apply in person {r.choice(['Mon-Fri', 'weekday mornings', 'after 2 PM'])}.")
+                self.add_post(acct, text, self.time_in(START, DAYS), stated_area=area)
+        for _ in range(SPOTTER_NEGATIVES["honest_new_account"]):
+            area = r.choice(self.areas)
+            acct = self.add_account("honest_new_account", "", self.time_in(START, DAYS - 3), [], self.home_of(area))
+            honest_new.append(acct)
+            for _ in range(r.randint(1, 3)):
+                self.add_post(acct, self.casual_text(None, fresh=True), self.time_in(START, DAYS))
+        for a in self.accounts:
+            if a["account_id"] in set(honest_new):
+                a["has_profile_photo"] = False
+
+        self.spotter_key = {
+            "positives": sorted(ring | set(self.groups.get("ring_A_recruiter", []))),
+            "negatives": {"honest_job_poster": sorted(honest_jobs), "honest_new_account": sorted(honest_new),
+                          **self.answer_key.get("hard_negatives", {})},
+        }
+
     # ---- output -----------------------------------------------------------------------------
 
     def finish(self):
@@ -484,6 +538,7 @@ def generate(out_dir, answer_key_dir, seed=37):
     for label in RINGS:
         w.build_ring(label)
     w.build_hard_negatives()
+    w.build_spotter_layer(seed)
     w.finish()
 
     out_dir = Path(out_dir)
@@ -493,6 +548,7 @@ def generate(out_dir, answer_key_dir, seed=37):
     save_json(out_dir / "renders.json", w.renders)
     # Agents must never read this file. Scoring only.
     save_json(Path(answer_key_dir) / "answer_key.json", w.answer_key)
+    save_json(Path(answer_key_dir) / "spotter_key.json", w.spotter_key)   # scoring only
     return w
 
 
