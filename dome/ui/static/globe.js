@@ -143,7 +143,7 @@
       <div class="stats"><div class="stat"><b>${n.scans}</b><span>scans compared</span></div>
         <div class="stat"><b>${n.shortlist}</b><span>kept for point matching</span></div>
         <div class="stat"><b>${n.matched}</b><span>at P ≥ ${n.threshold}</span></div></div>
-      <p>The ring's ${n.photos} photos fall into ${n.groups} rooms. One building's scan matches P ${pct(b.P)} of them.</p>`);
+      <p>The ring's ${n.photos} photos fall into ${n.groups} rooms. One building's scan matches ${n.groups_matched} of them (P ${pct(b.P)}).</p>`);
   }
 
   function sWindow() {

@@ -115,6 +115,7 @@ function syncFlow() {
     const k = $(".key", f); k.textContent = done ? (k.dataset.key || "–") : (active ? "working…" : "–");
   });
 }
+$("#presentBtn")?.addEventListener("click", () => { document.body.classList.toggle("present"); $("#presentBtn").classList.toggle("primary"); });
 document.addEventListener("click", (e) => {
   const f = e.target.closest(".flowstage"); if (f && window.DomeDrawer && FLOW?.steps) DomeDrawer.open(S.caseId, f.dataset.work);
   const w = e.target.closest("[data-why]"); if (w && window.DomeDrawer) DomeDrawer.open(S.caseId, "linker", w.dataset.why);

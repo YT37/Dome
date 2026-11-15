@@ -233,7 +233,9 @@ def flight():
         P = rm.get("P") or {}
         narrow = {"scans": len(rm.get("coarse") or P), "shortlist": len(rm.get("shortlist") or []),
                   "matched": sum(1 for v in P.values() if (v or 0) >= thr), "threshold": thr,
-                  "groups": len(rm.get("groups") or []), "photos": len(rm.get("photos") or [])}
+                  "groups": len(rm.get("groups") or []), "photos": len(rm.get("photos") or []),
+                  "groups_matched": sum(1 for g in rm.get("groups") or []
+                                        if (g.get("matched") or {}).get((best or {}).get("scan_id")))}
     wc = (_load(d, "window_check.json") or {}).get((best or {}).get("scan_id") or "") or None
     window = {"W": wc.get("W"), "photo": wc.get("photo"), "items": wc.get("items") or []} if wc else None
     out = {
