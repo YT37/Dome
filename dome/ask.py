@@ -67,6 +67,37 @@ def _model():
     return init_chat_model(os.getenv("DOME_MODEL", config.MODEL))
 
 
+def _cached_invoke(user: str) -> str:
+    """The model's raw reply, cached under cache/gemini/ask_<hash>.json keyed by model +
+    system prompt + case files + question (free-tier quota: same question, no new call)."""
+    import hashlib
+    from .data_tools.gemini_vision import cache_dir, log_call
+    model_name = os.getenv("DOME_MODEL", config.MODEL)
+    key = hashlib.sha256("\x1f".join((model_name, SYSTEM, user)).encode()).hexdigest()[:20]
+    path = cache_dir() / f"ask_{key}.json"
+    if path.exists():
+        try:
+            text = json.loads(path.read_text(encoding="utf-8"))["text"]
+            log_call("ask", cached=True)
+            return text
+        except (KeyError, ValueError):
+            pass
+    try:
+        msg = _model().invoke([("system", SYSTEM), ("user", user)])
+    except Exception as exc:
+        from .data_tools.gemini_vision import is_quota_error
+        log_call("ask", cached=False, ok=False, note="quota" if is_quota_error(exc) else type(exc).__name__)
+        raise
+    content = getattr(msg, "content", msg)
+    if isinstance(content, list):               # some chat models return a list of parts
+        content = "".join(p.get("text", "") if isinstance(p, dict) else str(p) for p in content)
+    text = content if isinstance(content, str) else json.dumps(content)
+    log_call("ask", cached=False)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({"model": model_name, "text": text}, indent=1), encoding="utf-8")
+    return text
+
+
 def _parse(text: str) -> Optional[dict]:
     m = re.search(r"\{.*\}", text or "", re.S)
     if not m:
@@ -83,9 +114,19 @@ def answer(case_id: str, question: str, root: Optional[Path] = None, model=None)
     if not files or not (question or "").strip():
         return refusal
     blob = "\n\n".join(f"=== {name} ===\n{json.dumps(data)[:MAX_CHARS_PER_FILE]}" for name, data in files.items())
-    llm = model or _model()
-    msg = llm.invoke([("system", SYSTEM), ("user", f"Case files:\n{blob}\n\nQuestion: {question.strip()}")])
-    parsed = _parse(getattr(msg, "content", msg) if not isinstance(msg, str) else msg)
+    user = f"Case files:\n{blob}\n\nQuestion: {question.strip()}"
+    if model is not None:                       # injected model (tests): no disk cache
+        msg = model.invoke([("system", SYSTEM), ("user", user)])
+        text = getattr(msg, "content", msg) if not isinstance(msg, str) else msg
+    else:
+        try:
+            text = _cached_invoke(user)
+        except Exception as exc:                # no cached answer and the call failed
+            from .data_tools.gemini_vision import is_quota_error
+            note = "Gemini quota reached and no cached answer for this question" if is_quota_error(exc) \
+                else f"model call failed ({type(exc).__name__})"
+            return {**refusal, "reason": note}
+    parsed = _parse(text if isinstance(text, str) else json.dumps(text))
     if not parsed or not parsed.get("answerable"):
         return refusal
     cites = [c for c in parsed.get("citations", []) if isinstance(c, dict)

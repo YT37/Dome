@@ -182,7 +182,30 @@ def vision_model() -> str:
 
 
 def cache_dir() -> Path:
-    return Path(os.environ.get("DOME_VISION_CACHE", config.ROOT / "cache" / "vision"))
+    """Every Gemini answer lives here (free tier: ~20 requests/day), keyed by a hash of
+    prompt version + task + model + prompt + image bytes, and is reused on every rerun."""
+    return Path(os.environ.get("DOME_VISION_CACHE", config.ROOT / "cache" / "gemini"))
+
+
+LEGACY_CACHE = config.ROOT / "cache" / "vision"      # where answers were cached before Nov 15
+
+
+def is_quota_error(exc: BaseException) -> bool:
+    t = f"{type(exc).__name__} {exc}".lower()
+    return any(k in t for k in ("429", "resource_exhausted", "resourceexhausted", "quota", "rate limit"))
+
+
+def log_call(task: str, cached: bool, ok: bool = True, note: str = "") -> None:
+    """One line per Gemini request or cache hit in cache/gemini/calls.jsonl (no prompts, no
+    images, no keys), so a rerun can prove it made zero live calls."""
+    try:
+        d = cache_dir()
+        d.mkdir(parents=True, exist_ok=True)
+        with (d / "calls.jsonl").open("a", encoding="utf-8") as f:
+            f.write(json.dumps({"t": __import__("time").time(), "task": task, "cached": cached,
+                                "ok": ok, "note": note[:120]}) + "\n")
+    except OSError:
+        pass
 
 
 def resolve(path: str) -> Path:
@@ -237,9 +260,15 @@ def ask_json(task: str, prompt: str, images: list[tuple[bytes, str]],
         h.update(hashlib.sha256(b).digest())
     key = h.hexdigest()[:20]
     path = cache_dir() / f"{task}_{key}.json"
+    legacy = LEGACY_CACHE / f"{task}_{key}.json"
+    if not path.exists() and legacy.exists() and "DOME_VISION_CACHE" not in os.environ:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(legacy.read_bytes())          # same key scheme: reuse, don't re-ask
     if path.exists():
         try:
-            return schema.model_validate(json.loads(path.read_text(encoding="utf-8"))["answer"])
+            answer = schema.model_validate(json.loads(path.read_text(encoding="utf-8"))["answer"])
+            log_call(task, cached=True)
+            return answer
         except (ValidationError, KeyError, json.JSONDecodeError):
             log.warning("ignoring unreadable cache file %s", path)
     if not _key():
@@ -248,11 +277,16 @@ def ask_json(task: str, prompt: str, images: list[tuple[bytes, str]],
     for _ in range(2):                       # one retry on a malformed answer
         try:
             answer = _parse(GENERATE(task, model, prompt, images), schema)
+            log_call(task, cached=False)
             break
         except (ValidationError, json.JSONDecodeError, ValueError) as exc:
             last = exc
-        except Exception as exc:              # API / network / quota
-            raise GeminiUnavailable(f"{task}: {type(exc).__name__}: {exc}"[:300]) from exc
+            log_call(task, cached=False, ok=False, note="malformed answer")
+        except Exception as exc:              # API / network / quota: nothing cached to fall back on
+            quota = is_quota_error(exc)
+            log_call(task, cached=False, ok=False, note="quota" if quota else type(exc).__name__)
+            reason = "Gemini quota reached, no cached answer" if quota else f"{type(exc).__name__}: {exc}"
+            raise GeminiUnavailable(f"{task}: {reason}"[:300]) from exc
     else:
         raise GeminiUnavailable(f"{task}: malformed answer twice ({last})")
     path.parent.mkdir(parents=True, exist_ok=True)
