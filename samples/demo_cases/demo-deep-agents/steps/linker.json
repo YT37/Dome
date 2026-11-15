@@ -1,0 +1,2057 @@
+{
+ "agent": "linker",
+ "title": "Linker \u00b7 notes to rings",
+ "case": "demo-deep-agents",
+ "steps": [
+  {
+   "id": "kinds",
+   "title": "Notes per kind inside the ring",
+   "kind": "chart",
+   "data": {
+    "type": "bar",
+    "labels": [
+     "keyword",
+     "text",
+     "contact",
+     "photo",
+     "place",
+     "time",
+     "money",
+     "dm",
+     "interaction",
+     "heartbeat"
+    ],
+    "datasets": [
+     {
+      "label": "links using this kind",
+      "data": [
+       72,
+       69,
+       66,
+       66,
+       66,
+       66,
+       36,
+       20,
+       13,
+       3
+      ]
+     }
+    ],
+    "threshold": null,
+    "x": null,
+    "y": null,
+    "horizontal": false,
+    "stacked": false,
+    "highlight": []
+   },
+   "caption": "R-1: 15 accounts, 72 links. Kinds: money, contact, dm, photo, text, keyword, interaction, heartbeat, place, time.",
+   "source": "case/demo-deep-agents/rings.json"
+  },
+  {
+   "id": "fanout",
+   "title": "Key fan-out: common keys count for little",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "kind",
+     "key",
+     "accounts sharing it (in this file)"
+    ],
+    "rows": [
+     [
+      "place",
+      "lm_central_station",
+      22
+     ],
+     [
+      "interaction",
+      "direct_x2",
+      18
+     ],
+     [
+      "keyword",
+      "#tapin",
+      15
+     ],
+     [
+      "contact",
+      "555-\u202687",
+      12
+     ],
+     [
+      "text",
+      "tmpl_40",
+      12
+     ],
+     [
+      "place",
+      "lm_midtown_park",
+      12
+     ],
+     [
+      "time",
+      "created_2026-09-02",
+      12
+     ],
+     [
+      "interaction",
+      "direct_x3",
+      10
+     ],
+     [
+      "money",
+      "$sunny_rose5",
+      9
+     ],
+     [
+      "merchant",
+      "lone_star_motel_synthetic",
+      7
+     ],
+     [
+      "photo",
+      "phash_e51a6d5c",
+      6
+     ],
+     [
+      "photo",
+      "phash_e51a196c",
+      6
+     ],
+     [
+      "photo",
+      "phash_bcc6f3e3",
+      5
+     ],
+     [
+      "photo",
+      "phash_f3b8536c",
+      5
+     ],
+     [
+      "place",
+      "lm_main_street_square",
+      5
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "A key shared by many accounts is down-weighted by inverse frequency (rings.json notes: same stated area (lm_midtown_park) shared by 24, same stated area (lm_main_street_square) shared by 31, same stated area (lm_central_station) shared by 22). Fan-out counted from the links and hints in rings.json.",
+   "source": "case/demo-deep-agents/rings.json"
+  },
+  {
+   "id": "pairs",
+   "title": "Candidate pairs: links and one-kind hints",
+   "kind": "graph",
+   "data": {
+    "nodes": [
+     {
+      "id": "acct_002",
+      "label": "acct_002",
+      "group": 6
+     },
+     {
+      "id": "acct_021",
+      "label": "acct_021",
+      "group": 6
+     },
+     {
+      "id": "acct_026",
+      "label": "acct_026",
+      "group": 6
+     },
+     {
+      "id": "acct_043",
+      "label": "acct_043",
+      "group": 6
+     },
+     {
+      "id": "acct_044",
+      "label": "acct_044",
+      "group": 6
+     },
+     {
+      "id": "acct_056",
+      "label": "acct_056",
+      "group": 6
+     },
+     {
+      "id": "acct_057",
+      "label": "acct_057",
+      "group": 6
+     },
+     {
+      "id": "acct_103",
+      "label": "acct_103",
+      "group": 0
+     },
+     {
+      "id": "acct_112",
+      "label": "acct_112",
+      "group": 6
+     },
+     {
+      "id": "acct_131",
+      "label": "acct_131",
+      "group": 0
+     },
+     {
+      "id": "acct_132",
+      "label": "acct_132",
+      "group": 6
+     },
+     {
+      "id": "acct_135",
+      "label": "acct_135",
+      "group": 6
+     },
+     {
+      "id": "acct_152",
+      "label": "acct_152",
+      "group": 6
+     },
+     {
+      "id": "acct_166",
+      "label": "acct_166",
+      "group": 0
+     },
+     {
+      "id": "acct_183",
+      "label": "acct_183",
+      "group": 6
+     },
+     {
+      "id": "acct_193",
+      "label": "acct_193",
+      "group": 6
+     },
+     {
+      "id": "acct_199",
+      "label": "acct_199",
+      "group": 6
+     },
+     {
+      "id": "acct_201",
+      "label": "acct_201",
+      "group": 0
+     },
+     {
+      "id": "acct_205",
+      "label": "acct_205",
+      "group": 6
+     },
+     {
+      "id": "acct_207",
+      "label": "acct_207",
+      "group": 6
+     },
+     {
+      "id": "acct_218",
+      "label": "acct_218",
+      "group": 6
+     },
+     {
+      "id": "acct_220",
+      "label": "acct_220",
+      "group": 0
+     },
+     {
+      "id": "acct_228",
+      "label": "acct_228",
+      "group": 0
+     },
+     {
+      "id": "acct_236",
+      "label": "acct_236",
+      "group": 0
+     },
+     {
+      "id": "acct_238",
+      "label": "acct_238",
+      "group": 6
+     },
+     {
+      "id": "acct_252",
+      "label": "acct_252",
+      "group": 6
+     },
+     {
+      "id": "acct_376",
+      "label": "acct_376",
+      "group": 6
+     },
+     {
+      "id": "acct_386",
+      "label": "acct_386",
+      "group": 6
+     },
+     {
+      "id": "acct_389",
+      "label": "acct_389",
+      "group": 6
+     },
+     {
+      "id": "acct_406",
+      "label": "acct_406",
+      "group": 6
+     },
+     {
+      "id": "acct_410",
+      "label": "acct_410",
+      "group": 0
+     },
+     {
+      "id": "acct_411",
+      "label": "acct_411",
+      "group": 6
+     },
+     {
+      "id": "acct_421",
+      "label": "acct_421",
+      "group": 6
+     },
+     {
+      "id": "acct_497",
+      "label": "acct_497",
+      "group": 6
+     },
+     {
+      "id": "acct_510",
+      "label": "acct_510",
+      "group": 0
+     },
+     {
+      "id": "acct_516",
+      "label": "acct_516",
+      "group": 6
+     },
+     {
+      "id": "acct_562",
+      "label": "acct_562",
+      "group": 6
+     },
+     {
+      "id": "acct_568",
+      "label": "acct_568",
+      "group": 6
+     },
+     {
+      "id": "acct_573",
+      "label": "acct_573",
+      "group": 6
+     },
+     {
+      "id": "acct_626",
+      "label": "acct_626",
+      "group": 0
+     },
+     {
+      "id": "acct_702",
+      "label": "acct_702",
+      "group": 6
+     },
+     {
+      "id": "acct_715",
+      "label": "acct_715",
+      "group": 6
+     },
+     {
+      "id": "acct_730",
+      "label": "acct_730",
+      "group": 0
+     },
+     {
+      "id": "acct_786",
+      "label": "acct_786",
+      "group": 6
+     },
+     {
+      "id": "acct_796",
+      "label": "acct_796",
+      "group": 6
+     },
+     {
+      "id": "acct_806",
+      "label": "acct_806",
+      "group": 6
+     },
+     {
+      "id": "acct_821",
+      "label": "acct_821",
+      "group": 6
+     },
+     {
+      "id": "acct_830",
+      "label": "acct_830",
+      "group": 6
+     },
+     {
+      "id": "acct_843",
+      "label": "acct_843",
+      "group": 0
+     },
+     {
+      "id": "acct_869",
+      "label": "acct_869",
+      "group": 6
+     },
+     {
+      "id": "acct_873",
+      "label": "acct_873",
+      "group": 6
+     },
+     {
+      "id": "acct_897",
+      "label": "acct_897",
+      "group": 0
+     },
+     {
+      "id": "acct_905",
+      "label": "acct_905",
+      "group": 0
+     },
+     {
+      "id": "acct_926",
+      "label": "acct_926",
+      "group": 6
+     },
+     {
+      "id": "acct_931",
+      "label": "acct_931",
+      "group": 0
+     },
+     {
+      "id": "acct_935",
+      "label": "acct_935",
+      "group": 6
+     },
+     {
+      "id": "acct_972",
+      "label": "acct_972",
+      "group": 6
+     },
+     {
+      "id": "acct_985",
+      "label": "acct_985",
+      "group": 6
+     },
+     {
+      "id": "acct_994",
+      "label": "acct_994",
+      "group": 6
+     }
+    ],
+    "edges": [
+     {
+      "source": "acct_103",
+      "target": "acct_220",
+      "style": "strong"
+     },
+     {
+      "source": "acct_103",
+      "target": "acct_228",
+      "style": "strong"
+     },
+     {
+      "source": "acct_103",
+      "target": "acct_510",
+      "style": "strong"
+     },
+     {
+      "source": "acct_103",
+      "target": "acct_236",
+      "style": "strong"
+     },
+     {
+      "source": "acct_103",
+      "target": "acct_410",
+      "style": "strong"
+     },
+     {
+      "source": "acct_103",
+      "target": "acct_201",
+      "style": "strong"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_510",
+      "style": "strong"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_510",
+      "style": "strong"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_228",
+      "style": "strong"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_410",
+      "style": "strong"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_626",
+      "style": "strong"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_730",
+      "style": "strong"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_236",
+      "style": "strong"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_220",
+      "style": "strong"
+     },
+     {
+      "source": "acct_220",
+      "target": "acct_228",
+      "style": "strong"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_626",
+      "style": "strong"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_626",
+      "style": "strong"
+     },
+     {
+      "source": "acct_103",
+      "target": "acct_730",
+      "style": "strong"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_626",
+      "style": "strong"
+     },
+     {
+      "source": "acct_220",
+      "target": "acct_626",
+      "style": "strong"
+     },
+     {
+      "source": "acct_220",
+      "target": "acct_236",
+      "style": "strong"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_236",
+      "style": "strong"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_410",
+      "style": "strong"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_626",
+      "style": "strong"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_228",
+      "style": "strong"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_236",
+      "style": "strong"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_730",
+      "style": "strong"
+     },
+     {
+      "source": "acct_626",
+      "target": "acct_730",
+      "style": "strong"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_410",
+      "style": "strong"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_626",
+      "style": "strong"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_730",
+      "style": "strong"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_510",
+      "style": "strong"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_510",
+      "style": "strong"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_730",
+      "style": "strong"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_730",
+      "style": "strong"
+     },
+     {
+      "source": "acct_220",
+      "target": "acct_510",
+      "style": "strong"
+     },
+     {
+      "source": "acct_220",
+      "target": "acct_730",
+      "style": "strong"
+     },
+     {
+      "source": "acct_103",
+      "target": "acct_626",
+      "style": "strong"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_410",
+      "style": "strong"
+     },
+     {
+      "source": "acct_220",
+      "target": "acct_410",
+      "style": "strong"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_201",
+      "style": "strong"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_843",
+      "style": "strong"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_897",
+      "style": "strong"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_843",
+      "style": "strong"
+     },
+     {
+      "source": "acct_730",
+      "target": "acct_897",
+      "style": "strong"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_730",
+      "style": "strong"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_843",
+      "style": "strong"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_843",
+      "style": "strong"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_897",
+      "style": "strong"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_897",
+      "style": "strong"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_897",
+      "style": "strong"
+     },
+     {
+      "source": "acct_843",
+      "target": "acct_897",
+      "style": "strong"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_510",
+      "style": "strong"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_843",
+      "style": "strong"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_843",
+      "style": "strong"
+     },
+     {
+      "source": "acct_626",
+      "target": "acct_843",
+      "style": "strong"
+     },
+     {
+      "source": "acct_730",
+      "target": "acct_843",
+      "style": "strong"
+     },
+     {
+      "source": "acct_626",
+      "target": "acct_897",
+      "style": "strong"
+     },
+     {
+      "source": "acct_103",
+      "target": "acct_131",
+      "style": "strong"
+     },
+     {
+      "source": "acct_103",
+      "target": "acct_843",
+      "style": "strong"
+     },
+     {
+      "source": "acct_103",
+      "target": "acct_897",
+      "style": "strong"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_220",
+      "style": "strong"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_897",
+      "style": "strong"
+     },
+     {
+      "source": "acct_220",
+      "target": "acct_843",
+      "style": "strong"
+     },
+     {
+      "source": "acct_220",
+      "target": "acct_897",
+      "style": "strong"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_897",
+      "style": "strong"
+     },
+     {
+      "source": "acct_166",
+      "target": "acct_931",
+      "style": "strong"
+     },
+     {
+      "source": "acct_905",
+      "target": "acct_931",
+      "style": "strong"
+     },
+     {
+      "source": "acct_166",
+      "target": "acct_905",
+      "style": "strong"
+     },
+     {
+      "source": "acct_166",
+      "target": "acct_201",
+      "style": "strong"
+     },
+     {
+      "source": "acct_220",
+      "target": "acct_931",
+      "style": "strong"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_931",
+      "style": "strong"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_806",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_806",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_715",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_516",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_376",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_421",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_568",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_421",
+      "target": "acct_510",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_516",
+      "target": "acct_730",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_112",
+      "target": "acct_410",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_376",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_573",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_220",
+      "target": "acct_376",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_516",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_873",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_112",
+      "target": "acct_897",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_421",
+      "target": "acct_897",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_516",
+      "target": "acct_897",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_573",
+      "target": "acct_897",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_103",
+      "target": "acct_166",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_103",
+      "target": "acct_905",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_103",
+      "target": "acct_931",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_166",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_905",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_931",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_166",
+      "target": "acct_220",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_166",
+      "target": "acct_228",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_166",
+      "target": "acct_236",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_166",
+      "target": "acct_410",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_166",
+      "target": "acct_510",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_166",
+      "target": "acct_626",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_166",
+      "target": "acct_730",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_166",
+      "target": "acct_843",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_166",
+      "target": "acct_897",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_905",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_931",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_220",
+      "target": "acct_905",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_905",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_931",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_905",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_931",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_905",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_905",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_931",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_626",
+      "target": "acct_905",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_626",
+      "target": "acct_931",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_730",
+      "target": "acct_905",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_730",
+      "target": "acct_931",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_843",
+      "target": "acct_905",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_843",
+      "target": "acct_931",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_897",
+      "target": "acct_905",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_897",
+      "target": "acct_931",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_002",
+      "target": "acct_131",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_056",
+      "target": "acct_131",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_132",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_238",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_131",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_201",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_228",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_236",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_410",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_510",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_626",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_730",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_843",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_135",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_205",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_252",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_411",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_497",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_562",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_702",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_821",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_830",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_869",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_935",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_985",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_135",
+      "target": "acct_201",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_135",
+      "target": "acct_228",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_135",
+      "target": "acct_236",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_135",
+      "target": "acct_410",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_135",
+      "target": "acct_510",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_135",
+      "target": "acct_626",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_135",
+      "target": "acct_730",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_135",
+      "target": "acct_843",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_205",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_252",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_411",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_497",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_562",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_702",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_821",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_830",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_869",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_935",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_201",
+      "target": "acct_985",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_205",
+      "target": "acct_228",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_205",
+      "target": "acct_236",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_205",
+      "target": "acct_410",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_205",
+      "target": "acct_510",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_205",
+      "target": "acct_626",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_205",
+      "target": "acct_730",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_205",
+      "target": "acct_843",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_252",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_411",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_497",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_562",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_702",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_821",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_830",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_869",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_935",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_228",
+      "target": "acct_985",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_252",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_411",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_497",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_562",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_702",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_821",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_830",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_869",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_935",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_236",
+      "target": "acct_985",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_252",
+      "target": "acct_410",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_252",
+      "target": "acct_510",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_252",
+      "target": "acct_626",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_252",
+      "target": "acct_730",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_252",
+      "target": "acct_843",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_411",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_497",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_562",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_702",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_821",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_830",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_869",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_935",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_410",
+      "target": "acct_985",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_411",
+      "target": "acct_510",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_411",
+      "target": "acct_626",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_411",
+      "target": "acct_730",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_411",
+      "target": "acct_843",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_497",
+      "target": "acct_510",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_497",
+      "target": "acct_626",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_497",
+      "target": "acct_730",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_497",
+      "target": "acct_843",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_562",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_702",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_821",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_830",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_869",
+      "style": "dashed"
+     }
+    ]
+   },
+   "caption": "Solid: 72 pairs sharing two or more kinds of key. Dashed: 200 pairs sharing only one kind (a hint, never a link).",
+   "source": "case/demo-deep-agents/rings.json"
+  },
+  {
+   "id": "two_kinds",
+   "title": "The two-kinds rule",
+   "kind": "chart",
+   "data": {
+    "type": "bar",
+    "labels": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "6",
+     "7",
+     "8",
+     "9"
+    ],
+    "datasets": [
+     {
+      "label": "pairs",
+      "data": [
+       190,
+       14,
+       1,
+       1,
+       21,
+       24,
+       19,
+       2
+      ]
+     }
+    ],
+    "threshold": null,
+    "x": "different kinds shared",
+    "y": "pairs",
+    "horizontal": false,
+    "stacked": false,
+    "highlight": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "caption": "Two accounts link only if they share at least two different kinds of key (highlighted).",
+   "source": "case/demo-deep-agents/rings.json"
+  },
+  {
+   "id": "relay",
+   "title": "Relay: a phone or wallet handed from one account to the next",
+   "kind": "graph",
+   "data": {
+    "nodes": [
+     {
+      "id": "acct_410",
+      "label": "acct_410",
+      "group": 0
+     },
+     {
+      "id": "acct_510",
+      "label": "acct_510",
+      "group": 0
+     },
+     {
+      "id": "key:contact:555-\u202699",
+      "label": "contact:555-\u202699",
+      "group": 3
+     },
+     {
+      "id": "acct_626",
+      "label": "acct_626",
+      "group": 0
+     },
+     {
+      "id": "key:money:$velvet_k9",
+      "label": "money:$velvet_k9",
+      "group": 3
+     }
+    ],
+    "edges": [
+     {
+      "source": "acct_410",
+      "target": "key:contact:555-\u202699",
+      "label": "last seen 2026-10-10"
+     },
+     {
+      "source": "key:contact:555-\u202699",
+      "target": "acct_510",
+      "label": "first seen 2026-10-12"
+     },
+     {
+      "source": "acct_510",
+      "target": "key:money:$velvet_k9",
+      "label": "last seen 2026-10-24"
+     },
+     {
+      "source": "key:money:$velvet_k9",
+      "target": "acct_626",
+      "label": "first seen 2026-10-26"
+     }
+    ]
+   },
+   "caption": "555-\u202699 left acct_410 and appeared on acct_510 2 day(s) 0 h later; $velvet_k9 left acct_510 and appeared on acct_626 2 day(s) 0 h later",
+   "source": "case/demo-deep-agents/rings.json"
+  },
+  {
+   "id": "relay_table",
+   "title": "Relay dates",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "key",
+     "from",
+     "last seen there",
+     "to",
+     "first seen there"
+    ],
+    "rows": [
+     [
+      "contact:555-\u202699",
+      "acct_410",
+      "2026-10-10T18:00",
+      "acct_510",
+      "2026-10-12T18:00"
+     ],
+     [
+      "money:$velvet_k9",
+      "acct_510",
+      "2026-10-24T09:36",
+      "acct_626",
+      "2026-10-26T09:36"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "The key stops on one account and starts on the next a short time later.",
+   "source": "case/demo-deep-agents/rings.json"
+  },
+  {
+   "id": "heartbeat",
+   "title": "Heartbeat: acct_220 and acct_228 keep the same daily rhythm",
+   "kind": "chart",
+   "data": {
+    "type": "bar",
+    "labels": [
+     "00",
+     "01",
+     "02",
+     "03",
+     "04",
+     "05",
+     "06",
+     "07",
+     "08",
+     "09",
+     "10",
+     "11",
+     "12",
+     "13",
+     "14",
+     "15",
+     "16",
+     "17",
+     "18",
+     "19",
+     "20",
+     "21",
+     "22",
+     "23"
+    ],
+    "datasets": [
+     {
+      "label": "acct_220",
+      "data": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       2,
+       0,
+       0,
+       2,
+       0
+      ]
+     },
+     {
+      "label": "acct_228",
+      "data": [
+       0,
+       0,
+       0,
+       1,
+       1,
+       0,
+       0,
+       2,
+       1,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "threshold": null,
+    "x": "hour of day (UTC)",
+    "y": "posts",
+    "horizontal": false,
+    "stacked": false,
+    "highlight": []
+   },
+   "caption": "same daily rhythm (cosine 1.00) but active together in only 0% of 10-minute slots: takes turns. 3 heartbeat pairs in this ring. Posts per hour from data/synth/posts.json.",
+   "source": "case/demo-deep-agents/rings.json, data/synth/posts.json"
+  },
+  {
+   "id": "echo",
+   "title": "Echo event E-7: one booking seen four ways",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "what",
+     "record",
+     "time (UTC)",
+     "since the ad"
+    ],
+    "rows": [
+     [
+      "ad",
+      "post_1331",
+      "21:34",
+      "+0 min"
+     ],
+     [
+      "message",
+      "msg_4210",
+      "21:37",
+      "+3 min"
+     ],
+     [
+      "message",
+      "msg_4211",
+      "21:41",
+      "+7 min"
+     ],
+     [
+      "payment",
+      "tx_5066",
+      "22:00",
+      "+26 min"
+     ],
+     [
+      "message",
+      "msg_3477",
+      "22:07",
+      "+33 min"
+     ],
+     [
+      "message",
+      "msg_3478",
+      "22:09",
+      "+35 min"
+     ],
+     [
+      "message",
+      "msg_4212",
+      "22:09",
+      "+35 min"
+     ],
+     [
+      "message",
+      "msg_4023",
+      "22:13",
+      "+39 min"
+     ],
+     [
+      "payment",
+      "tx_5067",
+      "22:14",
+      "+40 min"
+     ],
+     [
+      "message",
+      "msg_4024",
+      "22:15",
+      "+41 min"
+     ],
+     [
+      "ride",
+      "tx_5068",
+      "22:49",
+      "+75 min"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "ad, message, payment, ride within 75 minutes, sharing 2 flagged account(s). Ties acct_131, acct_236; place hint: Downtown, Houston (an area, never an address). 9 echo events in this ring.",
+   "source": "case/demo-deep-agents/rings.json"
+  },
+  {
+   "id": "clusters",
+   "title": "R-1: the cluster",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "account",
+     "role",
+     "why"
+    ],
+    "rows": [
+     [
+      "acct_103",
+      "collector",
+      "receives payments from 6 members; pays none out"
+     ],
+     [
+      "acct_131",
+      "handler",
+      "pays lodging, rideshare, telecom (motel, rides, phone top-ups)"
+     ],
+     [
+      "acct_166",
+      "recruiter",
+      "bio says 'modelling agency'; 8 of 9 reposts/replies go to ring accounts"
+     ],
+     [
+      "acct_201",
+      "hub",
+      "11 of 14 members message it"
+     ],
+     [
+      "acct_220",
+      "worker",
+      "posts ads; no collector, handler or hub pattern"
+     ],
+     [
+      "acct_228",
+      "worker",
+      "posts ads; no collector, handler or hub pattern"
+     ],
+     [
+      "acct_236",
+      "worker",
+      "posts ads; no collector, handler or hub pattern"
+     ],
+     [
+      "acct_410",
+      "worker",
+      "posts ads; no collector, handler or hub pattern"
+     ],
+     [
+      "acct_510",
+      "worker",
+      "posts ads; no collector, handler or hub pattern"
+     ],
+     [
+      "acct_626",
+      "worker",
+      "posts ads; no collector, handler or hub pattern"
+     ],
+     [
+      "acct_730",
+      "worker",
+      "posts ads; no collector, handler or hub pattern"
+     ],
+     [
+      "acct_843",
+      "worker",
+      "posts ads; no collector, handler or hub pattern"
+     ],
+     [
+      "acct_897",
+      "worker",
+      "posts ads; no collector, handler or hub pattern"
+     ],
+     [
+      "acct_905",
+      "recruiter",
+      "bio says 'job offers'; 8 of 9 reposts/replies go to ring accounts"
+     ],
+     [
+      "acct_931",
+      "recruiter",
+      "bio says 'modelling agency'; 8 of 9 reposts/replies go to ring accounts"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "Leiden clustering over the links; ring confidence R 0.95.",
+   "source": "case/demo-deep-agents/rings.json"
+  },
+  {
+   "id": "money_pass",
+   "title": "Money second pass: wallet notes",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "account",
+     "wallet cluster",
+     "reason"
+    ],
+    "rows": [
+     [
+      "acct_626",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 6 times (chance level 0.1)"
+     ],
+     [
+      "acct_897",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 6 times (chance level 0.1)"
+     ],
+     [
+      "acct_131",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 6 times (chance level 0.1)"
+     ],
+     [
+      "acct_410",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.0)"
+     ],
+     [
+      "acct_843",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.1)"
+     ],
+     [
+      "acct_510",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.1)"
+     ],
+     [
+      "acct_201",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.0)"
+     ],
+     [
+      "acct_236",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.1)"
+     ],
+     [
+      "acct_103",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.1)"
+     ],
+     [
+      "acct_228",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.1)"
+     ],
+     [
+      "acct_220",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.0)"
+     ],
+     [
+      "acct_730",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 3 times (chance level 0.0)"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "Wallet notes add a money kind of key to accounts, then the two-kinds rule runs again.",
+   "source": "case/demo-deep-agents/wallet_notes.json"
+  }
+ ]
+}

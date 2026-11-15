@@ -1,0 +1,56 @@
+{
+ "case_id": "dag-a",
+ "ring_id": "R-1",
+ "status": "complete",
+ "leads": [
+  {
+   "rank": 1,
+   "property_id": "RL-213304177",
+   "display_name": "Building A (synthetic case)",
+   "address": "",
+   "zone_id": "Z-1-1",
+   "tier": "High",
+   "score": 59,
+   "factors": {
+    "R": 0.95,
+    "Z": 0.34,
+    "F": 0.8,
+    "P": 0.68,
+    "W": 0.6
+   },
+   "reasons": [
+    "R 0.95: 15 accounts linked by keyword (72 links), text (69 links), contact (66 links)",
+    "Z 0.34: inside Z-1-1 (14 km2, 81% of place-clue weight); 72 ads name Midtown, Downtown or Main Street Square",
+    "F 0.80: multifamily matches apartment photos; 3 floors fits a floor 2 to 3 view",
+    "P 0.68: 13 of 20 room photos match the unit scan, 5487 matched points",
+    "W 0.60: window view agrees on building across, open sky, height above street; not seen: parking front, trees"
+   ],
+   "caps": [],
+   "verify_next": [
+    "Through legal process, request lease and short-term booking records for units on floor 3 for dates in late 2026",
+    "Through legal process, request the payment records behind any such booking",
+    "Confirms: a lease or booking on those floors overlapping the ad dates, with a unit layout that matches the photos",
+    "Rules out: no occupancy in those dates, or unit layouts that differ from the matched rooms",
+    "A human reviewer compares each matched photo with its scan view side by side"
+   ]
+  }
+ ],
+ "zones": [
+  "Z-1-1"
+ ],
+ "failed_steps": [],
+ "decisions": [
+  "run_linker: The case has no rings.json yet, so the Linker must be executed first to identify account rings.",
+  "run_linker: rings.json does not exist yet and case_status requires run_linker without room_groups.",
+  "run_zoner: rings.json exists with R=0.95 and 7 location hints, so the Zoner must be executed next to determine spatial search zones.",
+  "run_zoner: Ring R-1 has 7 location hints and R=0.95, so run_zoner is executed without logins fallback as required by case_status.",
+  "run_lister: Zone Z-1-1 is not wide (wide=false), so run_lister is executed with scanned_only=false as required.",
+  "run_locator: Zone Z-1-1 has 129 candidates listed but is not yet located, so run_locator is executed next for zone Z-1-1.",
+  "run_briefer: All zones are located and matched, so the Briefer must be executed next to generate brief.json and calculate lead scores.",
+  "run_briefer: All zones have been processed and ring confidence R=0.95 is above threshold, so proceeding to run Briefer.",
+  "report_approved: Report approved (auto (scripted))."
+ ],
+ "summary": "The investigation identified an account ring with confidence R 0.95. One High tier lead was identified for Building A (synthetic case) with a score of 59. No score caps were applied to this lead.",
+ "text_source": "llm",
+ "footer": "Leads for human verification. Place clues give areas, not addresses. Not evidence of anyone's presence. Generated from synthetic data."
+}

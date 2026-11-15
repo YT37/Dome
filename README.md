@@ -127,8 +127,8 @@ scan, the shortlist, inliers per photo and scan, room groups, P) are written to
 `data/matches/summary.json` and copied per case to `case/<id>/room_match.json`; the complex and
 the "Show the work" view read them from there.
 
-**LangSmith trace** of one run (Gemini supervisor, Linker → Zoner → Lister → Locator, paused for
-report approval): https://smith.langchain.com/public/e1136b0e-1f00-4dbb-8d0b-a3cf1d447ec6/r
+**LangSmith trace** of one run (Gemini supervisor on the stub data tools, Linker → Zoner → Lister →
+Locator, paused for report approval): https://smith.langchain.com/public/e1136b0e-1f00-4dbb-8d0b-a3cf1d447ec6/r
 
 ## Linker on its own
 
@@ -145,7 +145,7 @@ python -m dome.agents.linker --case solo --data synth --seed acct_103
 | `mini` (132 accounts, used by tests) | 1.00 | 1.00 | 0.96–1.00 | 23 accounts, all unlinked | 3 of 3 |
 
 The scores cover every account in the dataset, hard negatives included. Each run also shows a reworded ad that
-MinHash missed (Jaccard 0.00) and sentence embeddings caught (cosine 0.77 on `synth`).
+MinHash missed (Jaccard 0.08) and sentence embeddings caught (cosine 0.89 on `synth`).
 
 The answer key (`data/answer_key/`) is read only by `dome/eval.py`. No agent opens it.
 
@@ -179,12 +179,11 @@ stay unlinked.
 
 | Layers | Precision | Recall | Hard negatives linked |
 |---|---|---|---|
-| content only | 1.00 | 1.00 | 0 |
+| content only | 0.99 | 1.00 | 2 |
 | network only | 0.93 | 1.00 | 7 |
 | both (Dome) | 1.00 | 1.00 | 0 |
 
-Network-only with public data alone drops to recall 0.38: the messages and payments are what
-make the connectivity layer strong, and the content layer is what keeps it honest.
+Each layer alone links some hard negatives; requiring both is what keeps them out.
 
 ### Topological ring scorer
 
@@ -202,20 +201,22 @@ python -m dome.agents.topo --train              # ~10 s on CPU, saves dome/model
 python -m dome.eval --data synth --three-way    # adds the four-way table
 ```
 
-Trained only on `mini` Rings A and B (plus 70% of its other accounts). Honest results:
+Trained only on `mini` Rings A and B (plus 70% of its other accounts). The mini Ring C row is from
+Saturday's evaluation; the synth row was re-run on the final data:
 
 | Test (never seen in training) | Precision | Recall | AUC |
 |---|---|---|---|
 | mini Ring C + 30% held-out accounts | 1.00 | 0.33 (2 of 6 above 0.5) | 1.00 |
 | synth, whole dataset (account level) | 1.00 | 1.00 | 0.90 |
 
-On synth the rule layers find 0.80 (content), 0.80 (network) and 0.93 (both) of ring accounts
-at the account level; the topological model also catches the third recruiter. On mini Ring C,
+On synth, at the account level, the rule layers find 1.00 (content, precision 0.88), 0.80 (network,
+precision 0.63) and 1.00 (both, precision 1.00) of ring accounts; the topological model scores
+1.00 / 1.00 (AUC 0.90). On mini Ring C,
 whose evidence looks different from A and B (no shared phone or script), every Ring C account
 still ranks above every non-ring account (AUC 1.00), but only 2 of 6 clear 0.5: with this little
 training data the model learns the shape of the rings it saw. `DOME_TOPO=0` turns it off.
 
-**Public-only model (kept, not used in the demo):** Arlequin allows any synthetic data, so every
+**Public-only model (kept, not used in the demo; Saturday's numbers):** Arlequin allows any synthetic data, so every
 demo runs with messages and payments on. A second model, `dome/models/topo_unigcn_public.pt`, was
 trained without messages or payments for the public-only setting; on synth it still finds every
 ring account (precision 1.00, recall 1.00, AUC 0.90); on mini Ring C every account still ranks
@@ -268,12 +269,27 @@ for chunk in agent.stream({"messages": [{"role": "user", "content": "Run the pip
 | 4 | Locator | `matches.json` | Which building's room and window view match? |
 | 5 | Briefer | `brief.json` + `summary.html` | How strong is the lead and why? |
 
-`dome/supervisor.py` is a `create_deep_agent` supervisor (`deepagents==0.7.38`). Its tools:
-`case_status`, `run_linker`, `run_zoner`, `run_lister`, `run_locator`, `run_briefer`,
-`write_brief_text`, `log_decision`, plus read-only file tools (`ls`, `read_file`, `glob`,
-`grep`) scoped to the case folder. `execute`, `write_file`, `edit_file`, `delete` and the
-general-purpose subagent are not registered at all, writes are also denied by permission,
-and a harness profile hides them.
+`dome/supervisor.py` is a `create_deep_agent` supervisor (`deepagents==0.7.38`) with three
+specialist **sub-agents**, reached through Deep Agents' `task` tool:
+
+| Sub-agent | Its tools | Job |
+|---|---|---|
+| `ring-analyst` | `run_linker` | Build the ring and say why (Spotter and money run with it) |
+| `place-analyst` | `run_zoner`, `run_lister`, `run_locator` | Dome, buildings, room match, pin fix, window check |
+| `brief-writer` | `run_briefer`, `write_brief_text` | Score from code, then the plain-language report |
+
+All of them also have `case_status`, `log_decision` and read-only file tools (`ls`, `read_file`,
+`glob`, `grep`) on the case folder through a Deep Agents `FilesystemBackend`. The supervisor itself
+keeps only `case_status` and `log_decision`: it plans, checks `required_next` and delegates.
+`execute`, `write_file`, `edit_file`, `delete` and the general-purpose sub-agent are not
+registered, every write is denied by a `FilesystemPermission` that the sub-agents inherit, and a
+harness profile hides the rest. `DOME_SUBAGENTS=0` falls back to a single supervisor.
+
+One real Gemini-driven run of the case (`--case dag-a`, no `--scripted`) went supervisor →
+ring-analyst → place-analyst → brief-writer and reached the same lead as the scripted run
+(Building A, High 59, P 0.68, W 0.60). The brief-writer's first draft cited two numbers that are
+not in that lead's factors; `write_brief_text` refused it, named them, and the second draft
+passed. The run is recorded as the replay `demo-deep-agents`.
 
 The AI picks the next step, logs why, and writes the brief's words. **Numbers come from
 deterministic code**: same case folder in, same scores out. Every `run_*` tool hashes its
@@ -350,7 +366,8 @@ The libraries, models, data and services below are other people's work; we credi
 - **The six agents and their contracts** (`dome/agents/`, `dome/schemas.py`, `dome/supervisor.py`):
   Spotter's three-kinds rule, the Linker's sticky notes, two-kinds rule and down-weighting, money
   discovery on a synthetic ledger (payment-then-post timing, shared-input clustering, roles), the
-  Zoner, Lister, Locator and Briefer, the supervisor's decisions and guards, and the case complex.
+  Zoner, Lister, Locator and Briefer, the Deep Agents supervisor with its three specialist
+  sub-agents, its decisions and guards, and the case complex.
 - **Finding the room** (`dome/data_tools/room_match.py`, `render.py`): rendering ad photos from
   held-out Matterport sweeps, a coarse DINOv2 pass over every candidate scan, DISK + LightGlue +
   RANSAC verification, room groups, and the 50-inlier threshold (tuned on building A vs decoy D).

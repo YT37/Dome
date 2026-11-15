@@ -1,0 +1,128 @@
+{
+ "agent": "zoner",
+ "title": "Zoner \u00b7 the dome",
+ "case": "demo-deep-agents",
+ "steps": [
+  {
+   "id": "map",
+   "title": "The dome over the search area",
+   "kind": "map",
+   "data": {
+    "features": {
+     "type": "FeatureCollection",
+     "features": [
+      {
+       "type": "Feature",
+       "properties": {
+        "label": "Z-1-1"
+       },
+       "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+         [
+          [
+           -95.38015,
+           29.73327
+          ],
+          [
+           -95.3905,
+           29.73327
+          ],
+          [
+           -95.3905,
+           29.7604
+          ],
+          [
+           -95.38015,
+           29.7604
+          ],
+          [
+           -95.38015,
+           29.76944
+          ],
+          [
+           -95.3491,
+           29.76944
+          ],
+          [
+           -95.3491,
+           29.75136
+          ],
+          [
+           -95.35945,
+           29.75136
+          ],
+          [
+           -95.35945,
+           29.73327
+          ],
+          [
+           -95.3698,
+           29.73327
+          ],
+          [
+           -95.3698,
+           29.72423
+          ],
+          [
+           -95.38015,
+           29.72423
+          ],
+          [
+           -95.38015,
+           29.73327
+          ]
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    "zoom": 14
+   },
+   "caption": "Place clues give an area, never an address.",
+   "source": "case/demo-deep-agents/zones.json"
+  },
+  {
+   "id": "table",
+   "title": "Zone numbers",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "zone",
+     "area km\u00b2",
+     "clue weight",
+     "confidence Z",
+     "wide"
+    ],
+    "rows": [
+     [
+      "Z-1-1",
+      "14.0",
+      "0.81",
+      "0.34",
+      "no"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "A wide zone (most clues city-wide, or over 25 km\u00b2) keeps only scanned buildings.",
+   "source": "case/demo-deep-agents/zones.json"
+  },
+  {
+   "id": "reasons_Z-1-1",
+   "title": "Why Z-1-1",
+   "kind": "text",
+   "data": {
+    "text": "Z-1-1",
+    "bullets": [
+     "72 ads name Midtown, Downtown or Main Street Square",
+     "area code 713 fits (71 ads, city-wide clue)",
+     "login layer off"
+    ]
+   },
+   "caption": "The Zoner's own reasons, as written.",
+   "source": "case/demo-deep-agents/zones.json"
+  }
+ ]
+}

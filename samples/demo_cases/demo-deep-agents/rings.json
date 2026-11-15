@@ -1,0 +1,4997 @@
+{
+ "case_id": "dag-a",
+ "rings": [
+  {
+   "ring_id": "R-1",
+   "members": [
+    "acct_103",
+    "acct_131",
+    "acct_166",
+    "acct_201",
+    "acct_220",
+    "acct_228",
+    "acct_236",
+    "acct_410",
+    "acct_510",
+    "acct_626",
+    "acct_730",
+    "acct_843",
+    "acct_897",
+    "acct_905",
+    "acct_931"
+   ],
+   "confidence": 0.95,
+   "key_kinds": [
+    "money",
+    "contact",
+    "dm",
+    "photo",
+    "text",
+    "keyword",
+    "interaction",
+    "heartbeat",
+    "place",
+    "time"
+   ],
+   "links": [
+    {
+     "a": "acct_103",
+     "b": "acct_220",
+     "keys": [
+      "money:direct_tx_5026",
+      "contact:555-0187",
+      "dm:acct_103~acct_220",
+      "photo:phash_bcc6f3e3",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "paid each other directly; same contact 555-0187; 1 direct messages, 1 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_103",
+     "b": "acct_228",
+     "keys": [
+      "money:direct_tx_5027",
+      "contact:555-0187",
+      "dm:acct_103~acct_228",
+      "photo:phash_f3b8536c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "paid each other directly; same contact 555-0187; 1 direct messages, 1 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_103",
+     "b": "acct_510",
+     "keys": [
+      "money:direct_tx_5030",
+      "contact:555-0187",
+      "dm:acct_103~acct_510",
+      "photo:phash_9eaf52a5",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "paid each other directly; same contact 555-0187; 1 direct messages, 1 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_103",
+     "b": "acct_236",
+     "keys": [
+      "money:direct_tx_5028",
+      "contact:555-0187",
+      "dm:acct_103~acct_236",
+      "photo:phash_bcc6f3e3",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_main_street_square",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "paid each other directly; same contact 555-0187; 1 direct messages, 1 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_main_street_square) (shared by 31 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_103",
+     "b": "acct_410",
+     "keys": [
+      "money:direct_tx_5029",
+      "contact:555-0187",
+      "dm:acct_103~acct_410",
+      "photo:phash_890f1bc6",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "paid each other directly; same contact 555-0187; 1 direct messages, 1 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_103",
+     "b": "acct_201",
+     "keys": [
+      "money:direct_tx_5025",
+      "contact:555-0187",
+      "dm:acct_103~acct_201",
+      "photo:phash_ba3c0547",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "paid each other directly; same contact 555-0187; 5 direct messages, 4 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_201",
+     "b": "acct_510",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "dm:acct_201~acct_510",
+      "photo:phash_e38c6aba",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "interaction:direct_x2",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "interaction",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; 3 direct messages, 2 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; 2 reposts/replies between them; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_410",
+     "b": "acct_510",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0199",
+      "photo:phash_e38c6aba",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "interaction:direct_x2",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "interaction",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0199; same photo reposted; same ad script; both keep using #tapin in captions/comments; 2 reposts/replies between them; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_201",
+     "b": "acct_228",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "dm:acct_201~acct_228",
+      "photo:phash_8cb261c5",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; 3 direct messages, 3 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_201",
+     "b": "acct_410",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "dm:acct_201~acct_410",
+      "photo:phash_8cb261c5",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; 3 direct messages, 3 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_201",
+     "b": "acct_626",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "dm:acct_201~acct_626",
+      "photo:phash_8cb261c5",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; 3 direct messages, 2 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_201",
+     "b": "acct_730",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "dm:acct_201~acct_730",
+      "photo:phash_eeb1419b",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; 3 direct messages, 3 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_201",
+     "b": "acct_236",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "dm:acct_201~acct_236",
+      "photo:phash_c29e5d23",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; 3 direct messages, 2 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_201",
+     "b": "acct_220",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "dm:acct_201~acct_220",
+      "photo:phash_e51a6d5c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; 3 direct messages, 3 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_220",
+     "b": "acct_228",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_e51a6d5c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "interaction:direct_x2",
+      "heartbeat:acct_220~acct_228",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "interaction",
+      "heartbeat",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; 2 reposts/replies between them; same daily rhythm (cosine 1.00) but active together in only 0% of 10-minute slots: takes turns; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_510",
+     "b": "acct_626",
+     "keys": [
+      "money:$velvet_k9",
+      "contact:555-0187",
+      "photo:phash_e51a6d5c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $velvet_k9 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_410",
+     "b": "acct_626",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_fbe19eb8",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "interaction:direct_x2",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "interaction",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; 2 reposts/replies between them; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_103",
+     "b": "acct_730",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_f3b8536c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "interaction:direct_x2",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "interaction",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; 2 reposts/replies between them; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_236",
+     "b": "acct_626",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_e51a196c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "interaction:direct_x2",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "interaction",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; 2 reposts/replies between them; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_220",
+     "b": "acct_626",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_e51a6d5c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "interaction:direct_x2",
+      "place:lm_main_street_square",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "interaction",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; 2 reposts/replies between them; same stated area (lm_main_street_square) (shared by 31 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_220",
+     "b": "acct_236",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_e51a196c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "heartbeat:acct_220~acct_236",
+      "place:lm_main_street_square",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "heartbeat",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same daily rhythm (cosine 0.99) but active together in only 0% of 10-minute slots: takes turns; same stated area (lm_main_street_square) (shared by 31 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_228",
+     "b": "acct_236",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_a59b32cd",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "heartbeat:acct_228~acct_236",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "heartbeat",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same daily rhythm (cosine 1.00) but active together in only 0% of 10-minute slots: takes turns; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_131",
+     "b": "acct_410",
+     "keys": [
+      "contact:555-0187",
+      "dm:acct_131~acct_410",
+      "photo:phash_fbe19eb8",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same contact 555-0187; 1 direct messages, 1 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_131",
+     "b": "acct_626",
+     "keys": [
+      "contact:555-0187",
+      "dm:acct_131~acct_626",
+      "photo:phash_fbe19eb8",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same contact 555-0187; 1 direct messages, 1 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_131",
+     "b": "acct_228",
+     "keys": [
+      "contact:555-0187",
+      "dm:acct_131~acct_228",
+      "photo:phash_eeb1419b",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same contact 555-0187; 1 direct messages, 1 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_131",
+     "b": "acct_236",
+     "keys": [
+      "contact:555-0187",
+      "dm:acct_131~acct_236",
+      "photo:phash_e51a196c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same contact 555-0187; 1 direct messages, 1 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_410",
+     "b": "acct_730",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_fbe19eb8",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_626",
+     "b": "acct_730",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_fbe19eb8",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_228",
+     "b": "acct_410",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_8cb261c5",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_228",
+     "b": "acct_626",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_8cb261c5",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_228",
+     "b": "acct_730",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_eeb1419b",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_228",
+     "b": "acct_510",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_e51a6d5c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_236",
+     "b": "acct_510",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_e51a196c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_236",
+     "b": "acct_730",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_e51a196c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_510",
+     "b": "acct_730",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_e51a196c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_220",
+     "b": "acct_510",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_e51a6d5c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_220",
+     "b": "acct_730",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_e51a196c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_103",
+     "b": "acct_626",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_f3b8536c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_main_street_square",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_main_street_square) (shared by 31 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_236",
+     "b": "acct_410",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_d61c6177",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_220",
+     "b": "acct_410",
+     "keys": [
+      "money:$sunny_rose5",
+      "contact:555-0187",
+      "photo:phash_b7330c0c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "money",
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same wallet $sunny_rose5 receives their money; same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_131",
+     "b": "acct_201",
+     "keys": [
+      "contact:555-0187",
+      "dm:acct_131~acct_201",
+      "photo:phash_eeb1419b",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same contact 555-0187; 3 direct messages, 3 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_201",
+     "b": "acct_843",
+     "keys": [
+      "contact:555-0187",
+      "dm:acct_201~acct_843",
+      "photo:phash_e38c6aba",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same contact 555-0187; 3 direct messages, 3 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_201",
+     "b": "acct_897",
+     "keys": [
+      "contact:555-0187",
+      "dm:acct_201~acct_897",
+      "photo:phash_8cb261c5",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "dm",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 1.0,
+     "reason": "same contact 555-0187; 3 direct messages, 2 with instructions or money talk; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_131",
+     "b": "acct_843",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_b3cc38d3",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "interaction:direct_x2",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "interaction",
+      "place",
+      "time"
+     ],
+     "strength": 0.99,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; 2 reposts/replies between them; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_730",
+     "b": "acct_897",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_9eaf52a5",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "interaction:direct_x2",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "interaction",
+      "place",
+      "time"
+     ],
+     "strength": 0.99,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; 2 reposts/replies between them; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_131",
+     "b": "acct_730",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_fbe19eb8",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.99,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_410",
+     "b": "acct_843",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_e38c6aba",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.99,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_510",
+     "b": "acct_843",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_e38c6aba",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.99,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_228",
+     "b": "acct_897",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_8cb261c5",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.99,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_410",
+     "b": "acct_897",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_8cb261c5",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.99,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_510",
+     "b": "acct_897",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_e38c6aba",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.99,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_843",
+     "b": "acct_897",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_e38c6aba",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.99,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_131",
+     "b": "acct_510",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_e51a196c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.98,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_228",
+     "b": "acct_843",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_f3b8536c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.98,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_236",
+     "b": "acct_843",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_b3cc38d3",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.98,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_626",
+     "b": "acct_843",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_f3b8536c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.98,
+     "reason": "same contact 555-0187; same photo reposted; reworded copy of the same script (embeddings caught it, MinHash missed it); both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_730",
+     "b": "acct_843",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_f3b8536c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_central_station",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.98,
+     "reason": "same contact 555-0187; same photo reposted; reworded copy of the same script (embeddings caught it, MinHash missed it); both keep using #tapin in captions/comments; same stated area (lm_central_station) (shared by 22 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_626",
+     "b": "acct_897",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_8cb261c5",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_main_street_square",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.98,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_main_street_square) (shared by 31 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_103",
+     "b": "acct_131",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_bcc6f3e3",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.98,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_103",
+     "b": "acct_843",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_f3b8536c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.98,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_103",
+     "b": "acct_897",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_bcc6f3e3",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.98,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_131",
+     "b": "acct_220",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_e51a196c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.98,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_131",
+     "b": "acct_897",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_c29e5d23",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.98,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_220",
+     "b": "acct_843",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_b3cc38d3",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.98,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_220",
+     "b": "acct_897",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_e51a6d5c",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_midtown_park",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.98,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_236",
+     "b": "acct_897",
+     "keys": [
+      "contact:555-0187",
+      "photo:phash_c29e5d23",
+      "text:tmpl_40",
+      "keyword:#tapin",
+      "place:lm_main_street_square",
+      "time:created_2026-09-02"
+     ],
+     "kinds": [
+      "contact",
+      "photo",
+      "text",
+      "keyword",
+      "place",
+      "time"
+     ],
+     "strength": 0.98,
+     "reason": "same contact 555-0187; same photo reposted; same ad script; both keep using #tapin in captions/comments; same stated area (lm_main_street_square) (shared by 31 accounts, down-weighted); accounts created the same day (2026-09-02)"
+    },
+    {
+     "a": "acct_166",
+     "b": "acct_931",
+     "keys": [
+      "text:tmpl_39",
+      "keyword:#tapin",
+      "interaction:coamp_x2"
+     ],
+     "kinds": [
+      "text",
+      "keyword",
+      "interaction"
+     ],
+     "strength": 0.87,
+     "reason": "same ad script; both keep using #tapin in captions/comments; both amplified the same post within an hour (2 times)"
+    },
+    {
+     "a": "acct_905",
+     "b": "acct_931",
+     "keys": [
+      "text:tmpl_35",
+      "keyword:#tapin"
+     ],
+     "kinds": [
+      "text",
+      "keyword"
+     ],
+     "strength": 0.74,
+     "reason": "same ad script; both keep using #tapin in captions/comments"
+    },
+    {
+     "a": "acct_166",
+     "b": "acct_905",
+     "keys": [
+      "text:tmpl_61",
+      "keyword:#tapin"
+     ],
+     "kinds": [
+      "text",
+      "keyword"
+     ],
+     "strength": 0.74,
+     "reason": "same ad script; both keep using #tapin in captions/comments"
+    },
+    {
+     "a": "acct_166",
+     "b": "acct_201",
+     "keys": [
+      "keyword:#tapin",
+      "interaction:direct_x2"
+     ],
+     "kinds": [
+      "keyword",
+      "interaction"
+     ],
+     "strength": 0.62,
+     "reason": "both keep using #tapin in captions/comments; 2 reposts/replies between them"
+    },
+    {
+     "a": "acct_220",
+     "b": "acct_931",
+     "keys": [
+      "keyword:#tapin",
+      "interaction:direct_x2"
+     ],
+     "kinds": [
+      "keyword",
+      "interaction"
+     ],
+     "strength": 0.62,
+     "reason": "both keep using #tapin in captions/comments; 2 reposts/replies between them"
+    },
+    {
+     "a": "acct_410",
+     "b": "acct_931",
+     "keys": [
+      "keyword:#tapin",
+      "interaction:direct_x2"
+     ],
+     "kinds": [
+      "keyword",
+      "interaction"
+     ],
+     "strength": 0.62,
+     "reason": "both keep using #tapin in captions/comments; 2 reposts/replies between them"
+    }
+   ],
+   "recruiters": [
+    {
+     "account": "acct_166",
+     "reason": "bio says 'modelling agency'; 8 of 9 reposts/replies go to ring accounts"
+    },
+    {
+     "account": "acct_905",
+     "reason": "bio says 'job offers'; 8 of 9 reposts/replies go to ring accounts"
+    },
+    {
+     "account": "acct_931",
+     "reason": "bio says 'modelling agency'; 8 of 9 reposts/replies go to ring accounts"
+    }
+   ],
+   "place_keys": [
+    "place:lm_central_station",
+    "place:lm_midtown_park",
+    "place:lm_main_street_square"
+   ],
+   "photos": [
+    {
+     "photo_id": "img_0282",
+     "path": "data/photos/img_0282.jpg",
+     "account": "acct_131",
+     "has_window": false
+    },
+    {
+     "photo_id": "img_0870",
+     "path": "data/photos/img_0870.jpg",
+     "account": "acct_103",
+     "has_window": true
+    },
+    {
+     "photo_id": "img_1094",
+     "path": "data/photos/img_1094.jpg",
+     "account": "acct_103",
+     "has_window": false
+    },
+    {
+     "photo_id": "img_1517",
+     "path": "data/photos/img_1517.jpg",
+     "account": "acct_103",
+     "has_window": false
+    },
+    {
+     "photo_id": "img_2106",
+     "path": "data/photos/img_2106.jpg",
+     "account": "acct_103",
+     "has_window": false
+    },
+    {
+     "photo_id": "img_2583",
+     "path": "data/photos/img_2583.jpg",
+     "account": "acct_201",
+     "has_window": false
+    },
+    {
+     "photo_id": "img_2654",
+     "path": "data/photos/img_2654.jpg",
+     "account": "acct_131",
+     "has_window": false
+    },
+    {
+     "photo_id": "img_3218",
+     "path": "data/photos/img_3218.jpg",
+     "account": "acct_131",
+     "has_window": true
+    },
+    {
+     "photo_id": "img_4451",
+     "path": "data/photos/img_4451.jpg",
+     "account": "acct_201",
+     "has_window": false
+    },
+    {
+     "photo_id": "img_4460",
+     "path": "data/photos/img_4460.jpg",
+     "account": "acct_103",
+     "has_window": false
+    },
+    {
+     "photo_id": "img_4556",
+     "path": "data/photos/img_4556.jpg",
+     "account": "acct_131",
+     "has_window": true
+    },
+    {
+     "photo_id": "img_5204",
+     "path": "data/photos/img_5204.jpg",
+     "account": "acct_131",
+     "has_window": false
+    },
+    {
+     "photo_id": "img_6324",
+     "path": "data/photos/img_6324.jpg",
+     "account": "acct_201",
+     "has_window": false
+    },
+    {
+     "photo_id": "img_6539",
+     "path": "data/photos/img_6539.jpg",
+     "account": "acct_103",
+     "has_window": false
+    },
+    {
+     "photo_id": "img_7115",
+     "path": "data/photos/img_7115.jpg",
+     "account": "acct_131",
+     "has_window": true
+    },
+    {
+     "photo_id": "img_8176",
+     "path": "data/photos/img_8176.jpg",
+     "account": "acct_201",
+     "has_window": false
+    },
+    {
+     "photo_id": "img_8800",
+     "path": "data/photos/img_8800.jpg",
+     "account": "acct_131",
+     "has_window": true
+    },
+    {
+     "photo_id": "img_9315",
+     "path": "data/photos/img_9315.jpg",
+     "account": "acct_103",
+     "has_window": false
+    },
+    {
+     "photo_id": "img_9494",
+     "path": "data/photos/img_9494.jpg",
+     "account": "acct_103",
+     "has_window": false
+    },
+    {
+     "photo_id": "img_9498",
+     "path": "data/photos/img_9498.jpg",
+     "account": "acct_103",
+     "has_window": false
+    }
+   ],
+   "roles": [
+    {
+     "account": "acct_103",
+     "role": "collector",
+     "reason": "receives payments from 6 members; pays none out"
+    },
+    {
+     "account": "acct_131",
+     "role": "handler",
+     "reason": "pays lodging, rideshare, telecom (motel, rides, phone top-ups)"
+    },
+    {
+     "account": "acct_201",
+     "role": "hub",
+     "reason": "11 of 14 members message it"
+    },
+    {
+     "account": "acct_166",
+     "role": "recruiter",
+     "reason": "messages 6 strangers first with job offers"
+    },
+    {
+     "account": "acct_905",
+     "role": "recruiter",
+     "reason": "bio says 'job offers'; 8 of 9 reposts/replies go to ring accounts"
+    },
+    {
+     "account": "acct_931",
+     "role": "recruiter",
+     "reason": "bio says 'modelling agency'; 8 of 9 reposts/replies go to ring accounts"
+    },
+    {
+     "account": "acct_220",
+     "role": "worker",
+     "reason": "posts ads; no collector, handler or hub pattern"
+    },
+    {
+     "account": "acct_228",
+     "role": "worker",
+     "reason": "posts ads; no collector, handler or hub pattern"
+    },
+    {
+     "account": "acct_236",
+     "role": "worker",
+     "reason": "posts ads; no collector, handler or hub pattern"
+    },
+    {
+     "account": "acct_410",
+     "role": "worker",
+     "reason": "posts ads; no collector, handler or hub pattern"
+    },
+    {
+     "account": "acct_510",
+     "role": "worker",
+     "reason": "posts ads; no collector, handler or hub pattern"
+    },
+    {
+     "account": "acct_626",
+     "role": "worker",
+     "reason": "posts ads; no collector, handler or hub pattern"
+    },
+    {
+     "account": "acct_730",
+     "role": "worker",
+     "reason": "posts ads; no collector, handler or hub pattern"
+    },
+    {
+     "account": "acct_843",
+     "role": "worker",
+     "reason": "posts ads; no collector, handler or hub pattern"
+    },
+    {
+     "account": "acct_897",
+     "role": "worker",
+     "reason": "posts ads; no collector, handler or hub pattern"
+    }
+   ],
+   "relay": [
+    {
+     "key": "contact:555-0199",
+     "from": "acct_410",
+     "to": "acct_510",
+     "from_last_seen": "2026-10-10T18:00:00Z",
+     "to_first_seen": "2026-10-12T18:00:00Z",
+     "reason": "555-0199 left acct_410 and appeared on acct_510 2 day(s) 0 h later"
+    },
+    {
+     "key": "money:$velvet_k9",
+     "from": "acct_510",
+     "to": "acct_626",
+     "from_last_seen": "2026-10-24T09:36:00Z",
+     "to_first_seen": "2026-10-26T09:36:00Z",
+     "reason": "$velvet_k9 left acct_510 and appeared on acct_626 2 day(s) 0 h later"
+    }
+   ],
+   "events": [
+    {
+     "event_id": "E-1",
+     "start": "2026-10-01T04:48:00Z",
+     "end": "2026-10-01T06:03:00Z",
+     "members": [
+      "acct_131",
+      "acct_410"
+     ],
+     "items": [
+      {
+       "type": "ad",
+       "ref": "post_0012",
+       "time": "2026-10-01T04:48:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4201",
+       "time": "2026-10-01T04:51:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4202",
+       "time": "2026-10-01T04:55:00Z"
+      },
+      {
+       "type": "payment",
+       "ref": "tx_5057",
+       "time": "2026-10-01T05:14:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4203",
+       "time": "2026-10-01T05:23:00Z"
+      },
+      {
+       "type": "payment",
+       "ref": "tx_5058",
+       "time": "2026-10-01T05:28:00Z"
+      },
+      {
+       "type": "ride",
+       "ref": "tx_5059",
+       "time": "2026-10-01T06:03:00Z"
+      }
+     ],
+     "place_hint": "Downtown, Houston",
+     "reason": "ad, message, payment, ride within 75 minutes, sharing 2 flagged account(s)"
+    },
+    {
+     "event_id": "E-2",
+     "start": "2026-10-05T03:28:00Z",
+     "end": "2026-10-05T04:29:00Z",
+     "members": [
+      "acct_228"
+     ],
+     "items": [
+      {
+       "type": "ad",
+       "ref": "post_0208",
+       "time": "2026-10-05T03:28:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3721",
+       "time": "2026-10-05T04:21:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3722",
+       "time": "2026-10-05T04:23:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3175",
+       "time": "2026-10-05T04:27:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3176",
+       "time": "2026-10-05T04:29:00Z"
+      }
+     ],
+     "place_hint": null,
+     "reason": "ad, message within 61 minutes, sharing 1 flagged account(s)"
+    },
+    {
+     "event_id": "E-3",
+     "start": "2026-10-12T12:52:00Z",
+     "end": "2026-10-12T14:07:00Z",
+     "members": [
+      "acct_131",
+      "acct_228"
+     ],
+     "items": [
+      {
+       "type": "ad",
+       "ref": "post_0541",
+       "time": "2026-10-12T12:52:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4204",
+       "time": "2026-10-12T12:55:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4205",
+       "time": "2026-10-12T12:59:00Z"
+      },
+      {
+       "type": "payment",
+       "ref": "tx_5060",
+       "time": "2026-10-12T13:18:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4206",
+       "time": "2026-10-12T13:27:00Z"
+      },
+      {
+       "type": "payment",
+       "ref": "tx_5061",
+       "time": "2026-10-12T13:32:00Z"
+      },
+      {
+       "type": "ride",
+       "ref": "tx_5062",
+       "time": "2026-10-12T14:07:00Z"
+      }
+     ],
+     "place_hint": "Downtown, Houston",
+     "reason": "ad, message, payment, ride within 75 minutes, sharing 2 flagged account(s)"
+    },
+    {
+     "event_id": "E-4",
+     "start": "2026-10-15T04:18:00Z",
+     "end": "2026-10-15T04:59:00Z",
+     "members": [
+      "acct_236"
+     ],
+     "items": [
+      {
+       "type": "ad",
+       "ref": "post_0684",
+       "time": "2026-10-15T04:18:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3316",
+       "time": "2026-10-15T04:20:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3861",
+       "time": "2026-10-15T04:57:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3862",
+       "time": "2026-10-15T04:59:00Z"
+      }
+     ],
+     "place_hint": null,
+     "reason": "ad, message within 41 minutes, sharing 1 flagged account(s)"
+    },
+    {
+     "event_id": "E-5",
+     "start": "2026-10-16T22:06:00Z",
+     "end": "2026-10-16T22:45:00Z",
+     "members": [
+      "acct_220"
+     ],
+     "items": [
+      {
+       "type": "ad",
+       "ref": "post_0767",
+       "time": "2026-10-16T22:06:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3323",
+       "time": "2026-10-16T22:26:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3324",
+       "time": "2026-10-16T22:28:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3869",
+       "time": "2026-10-16T22:43:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3870",
+       "time": "2026-10-16T22:45:00Z"
+      }
+     ],
+     "place_hint": null,
+     "reason": "ad, message within 39 minutes, sharing 1 flagged account(s)"
+    },
+    {
+     "event_id": "E-6",
+     "start": "2026-10-20T08:27:00Z",
+     "end": "2026-10-20T09:42:00Z",
+     "members": [
+      "acct_131",
+      "acct_626"
+     ],
+     "items": [
+      {
+       "type": "ad",
+       "ref": "post_0933",
+       "time": "2026-10-20T08:27:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4207",
+       "time": "2026-10-20T08:30:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4208",
+       "time": "2026-10-20T08:34:00Z"
+      },
+      {
+       "type": "payment",
+       "ref": "tx_5063",
+       "time": "2026-10-20T08:53:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4209",
+       "time": "2026-10-20T09:02:00Z"
+      },
+      {
+       "type": "payment",
+       "ref": "tx_5064",
+       "time": "2026-10-20T09:07:00Z"
+      },
+      {
+       "type": "ride",
+       "ref": "tx_5065",
+       "time": "2026-10-20T09:42:00Z"
+      }
+     ],
+     "place_hint": "Downtown, Houston",
+     "reason": "ad, message, payment, ride within 75 minutes, sharing 2 flagged account(s)"
+    },
+    {
+     "event_id": "E-7",
+     "start": "2026-10-27T21:34:00Z",
+     "end": "2026-10-27T22:49:00Z",
+     "members": [
+      "acct_131",
+      "acct_236"
+     ],
+     "items": [
+      {
+       "type": "ad",
+       "ref": "post_1331",
+       "time": "2026-10-27T21:34:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4210",
+       "time": "2026-10-27T21:37:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4211",
+       "time": "2026-10-27T21:41:00Z"
+      },
+      {
+       "type": "payment",
+       "ref": "tx_5066",
+       "time": "2026-10-27T22:00:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3477",
+       "time": "2026-10-27T22:07:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3478",
+       "time": "2026-10-27T22:09:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4212",
+       "time": "2026-10-27T22:09:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4023",
+       "time": "2026-10-27T22:13:00Z"
+      },
+      {
+       "type": "payment",
+       "ref": "tx_5067",
+       "time": "2026-10-27T22:14:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4024",
+       "time": "2026-10-27T22:15:00Z"
+      },
+      {
+       "type": "ride",
+       "ref": "tx_5068",
+       "time": "2026-10-27T22:49:00Z"
+      }
+     ],
+     "place_hint": "Downtown, Houston",
+     "reason": "ad, message, payment, ride within 75 minutes, sharing 2 flagged account(s)"
+    },
+    {
+     "event_id": "E-8",
+     "start": "2026-11-06T19:58:00Z",
+     "end": "2026-11-06T20:25:00Z",
+     "members": [
+      "acct_220"
+     ],
+     "items": [
+      {
+       "type": "ad",
+       "ref": "post_1816",
+       "time": "2026-11-06T19:58:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4161",
+       "time": "2026-11-06T20:18:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4162",
+       "time": "2026-11-06T20:20:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3615",
+       "time": "2026-11-06T20:23:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3616",
+       "time": "2026-11-06T20:25:00Z"
+      }
+     ],
+     "place_hint": null,
+     "reason": "ad, message within 27 minutes, sharing 1 flagged account(s)"
+    },
+    {
+     "event_id": "E-9",
+     "start": "2026-11-07T04:56:00Z",
+     "end": "2026-11-07T06:15:00Z",
+     "members": [
+      "acct_228"
+     ],
+     "items": [
+      {
+       "type": "ad",
+       "ref": "post_1835",
+       "time": "2026-11-07T04:56:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3639",
+       "time": "2026-11-07T06:02:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_3640",
+       "time": "2026-11-07T06:04:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4185",
+       "time": "2026-11-07T06:13:00Z"
+      },
+      {
+       "type": "message",
+       "ref": "msg_4186",
+       "time": "2026-11-07T06:15:00Z"
+      }
+     ],
+     "place_hint": null,
+     "reason": "ad, message within 79 minutes, sharing 1 flagged account(s)"
+    }
+   ],
+   "location_hints": [
+    {
+     "kind": "merchant",
+     "text": "Lone Star Motel (synthetic), Downtown, Houston",
+     "lat": 29.759,
+     "lon": -95.366,
+     "weight": 0.9,
+     "source": [
+      "tx_5058",
+      "tx_5031",
+      "tx_5033",
+      "tx_5034",
+      "tx_5036",
+      "tx_5061",
+      "tx_5037",
+      "tx_5039",
+      "tx_5040",
+      "tx_5064"
+     ]
+    },
+    {
+     "kind": "merchant",
+     "text": "Rideshare, Downtown, Houston",
+     "lat": 29.7596,
+     "lon": -95.3652,
+     "weight": 0.5,
+     "source": [
+      "tx_5059",
+      "tx_5062",
+      "tx_5065",
+      "tx_5068"
+     ]
+    },
+    {
+     "kind": "echo",
+     "text": "Downtown, Houston",
+     "lat": 29.759,
+     "lon": -95.366,
+     "weight": 0.5,
+     "source": [
+      "E-1"
+     ]
+    },
+    {
+     "kind": "echo",
+     "text": "Downtown, Houston",
+     "lat": 29.759,
+     "lon": -95.366,
+     "weight": 0.5,
+     "source": [
+      "E-3"
+     ]
+    },
+    {
+     "kind": "echo",
+     "text": "Downtown, Houston",
+     "lat": 29.759,
+     "lon": -95.366,
+     "weight": 0.5,
+     "source": [
+      "E-6"
+     ]
+    },
+    {
+     "kind": "echo",
+     "text": "Downtown, Houston",
+     "lat": 29.759,
+     "lon": -95.366,
+     "weight": 0.5,
+     "source": [
+      "E-7"
+     ]
+    },
+    {
+     "kind": "chat_place",
+     "text": "Lone Star Motel (synthetic) named in chat",
+     "lat": 29.759,
+     "lon": -95.366,
+     "weight": 0.4,
+     "source": [
+      "msg_4202",
+      "msg_4205",
+      "msg_4208",
+      "msg_4211"
+     ]
+    }
+   ],
+   "kind_counts": {
+    "money": 36,
+    "contact": 66,
+    "dm": 20,
+    "photo": 66,
+    "text": 69,
+    "keyword": 72,
+    "interaction": 13,
+    "heartbeat": 3,
+    "place": 66,
+    "time": 66
+   },
+   "topo_score": 1.0,
+   "money": {
+    "wallet_clusters": [
+     {
+      "cluster_id": "W-1",
+      "role": "advertiser",
+      "addresses": 2,
+      "confidence": 0.98,
+      "reasons": [
+       "paid the ad platform 2-15 min before 57 ring posts (chance level: 1.3)"
+      ]
+     },
+     {
+      "cluster_id": "W-2",
+      "role": "collector",
+      "addresses": 3,
+      "confidence": 0.79,
+      "reasons": [
+       "44 of 44 incoming payments arrive during the ring's active hours (chance level 9.2), at 3 repeated amounts"
+      ]
+     },
+     {
+      "cluster_id": "W-3",
+      "role": "aggregator",
+      "addresses": 1,
+      "confidence": 0.99,
+      "reasons": [
+       "receives 11 consolidations from 1 collector cluster(s)"
+      ]
+     },
+     {
+      "cluster_id": "W-4",
+      "role": "cash_out",
+      "addresses": 1,
+      "confidence": 0.99,
+      "reasons": [
+       "receives from the aggregator 4 times and sends to Exchange X deposit 4 times"
+      ]
+     }
+    ],
+    "flows": [
+     {
+      "from": "W-2",
+      "to": "W-3",
+      "btc": 0.5332,
+      "txs": 11
+     },
+     {
+      "from": "W-3",
+      "to": "W-4",
+      "btc": 0.79,
+      "txs": 4
+     }
+    ],
+    "cash_out": [
+     {
+      "cluster_id": "W-4",
+      "service": "Exchange X",
+      "times": 4
+     }
+    ],
+    "payment_then_post": [
+     {
+      "wallet": "W-1",
+      "paid_at": "2026-10-01T04:33:00",
+      "post_at": "2026-10-01T04:48:00",
+      "account": "acct_410"
+     },
+     {
+      "wallet": "W-1",
+      "paid_at": "2026-10-01T08:09:00",
+      "post_at": "2026-10-01T08:18:00",
+      "account": "acct_730"
+     },
+     {
+      "wallet": "W-1",
+      "paid_at": "2026-10-01T21:07:00",
+      "post_at": "2026-10-01T21:16:00",
+      "account": "acct_236"
+     },
+     {
+      "wallet": "W-1",
+      "paid_at": "2026-10-02T16:05:00",
+      "post_at": "2026-10-02T16:10:00",
+      "account": "acct_843"
+     },
+     {
+      "wallet": "W-1",
+      "paid_at": "2026-10-02T19:43:00",
+      "post_at": "2026-10-02T19:58:00",
+      "account": "acct_730"
+     },
+     {
+      "wallet": "W-1",
+      "paid_at": "2026-10-03T06:45:00",
+      "post_at": "2026-10-03T06:59:00",
+      "account": "acct_843"
+     },
+     {
+      "wallet": "W-1",
+      "paid_at": "2026-10-04T09:36:00",
+      "post_at": "2026-10-04T09:50:00",
+      "account": "acct_626"
+     },
+     {
+      "wallet": "W-1",
+      "paid_at": "2026-10-05T07:33:00",
+      "post_at": "2026-10-05T07:41:00",
+      "account": "acct_228"
+     },
+     {
+      "wallet": "W-1",
+      "paid_at": "2026-10-05T20:55:00",
+      "post_at": "2026-10-05T21:09:00",
+      "account": "acct_843"
+     },
+     {
+      "wallet": "W-1",
+      "paid_at": "2026-10-06T16:17:00",
+      "post_at": "2026-10-06T16:19:00",
+      "account": "acct_103"
+     }
+    ],
+    "attribution_confidence": 0.94
+   }
+  }
+ ],
+ "weak_hints": [
+  {
+   "a": "acct_410",
+   "b": "acct_806",
+   "keys": [
+    "contact:555-0199"
+   ],
+   "kinds": [
+    "contact"
+   ],
+   "strength": 0.9,
+   "reason": "same contact 555-0199; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_510",
+   "b": "acct_806",
+   "keys": [
+    "contact:555-0199"
+   ],
+   "kinds": [
+    "contact"
+   ],
+   "strength": 0.9,
+   "reason": "same contact 555-0199; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_715",
+   "keys": [
+    "merchant:rideshare",
+    "place:lm_midtown_park"
+   ],
+   "kinds": [
+    "merchant",
+    "place"
+   ],
+   "strength": 0.48,
+   "reason": "pay the same business (rideshare); same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_236",
+   "b": "acct_516",
+   "keys": [
+    "interaction:direct_x2"
+   ],
+   "kinds": [
+    "interaction"
+   ],
+   "strength": 0.46,
+   "reason": "2 reposts/replies between them; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_228",
+   "b": "acct_376",
+   "keys": [
+    "interaction:direct_x3"
+   ],
+   "kinds": [
+    "interaction"
+   ],
+   "strength": 0.45,
+   "reason": "3 reposts/replies between them; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_228",
+   "b": "acct_421",
+   "keys": [
+    "interaction:direct_x2"
+   ],
+   "kinds": [
+    "interaction"
+   ],
+   "strength": 0.45,
+   "reason": "2 reposts/replies between them; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_568",
+   "keys": [
+    "merchant:rideshare",
+    "place:midtown"
+   ],
+   "kinds": [
+    "merchant",
+    "place"
+   ],
+   "strength": 0.43,
+   "reason": "pay the same business (rideshare); same stated area (midtown) (shared by 46 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_421",
+   "b": "acct_510",
+   "keys": [
+    "interaction:direct_x2"
+   ],
+   "kinds": [
+    "interaction"
+   ],
+   "strength": 0.43,
+   "reason": "2 reposts/replies between them; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_516",
+   "b": "acct_730",
+   "keys": [
+    "interaction:direct_x2"
+   ],
+   "kinds": [
+    "interaction"
+   ],
+   "strength": 0.43,
+   "reason": "2 reposts/replies between them; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_112",
+   "b": "acct_410",
+   "keys": [
+    "interaction:direct_x2"
+   ],
+   "kinds": [
+    "interaction"
+   ],
+   "strength": 0.42,
+   "reason": "2 reposts/replies between them; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_376",
+   "keys": [
+    "interaction:direct_x3"
+   ],
+   "kinds": [
+    "interaction"
+   ],
+   "strength": 0.42,
+   "reason": "3 reposts/replies between them; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_201",
+   "b": "acct_573",
+   "keys": [
+    "interaction:direct_x3"
+   ],
+   "kinds": [
+    "interaction"
+   ],
+   "strength": 0.42,
+   "reason": "3 reposts/replies between them; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_220",
+   "b": "acct_376",
+   "keys": [
+    "interaction:direct_x3"
+   ],
+   "kinds": [
+    "interaction"
+   ],
+   "strength": 0.42,
+   "reason": "3 reposts/replies between them; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_410",
+   "b": "acct_516",
+   "keys": [
+    "interaction:direct_x2"
+   ],
+   "kinds": [
+    "interaction"
+   ],
+   "strength": 0.42,
+   "reason": "2 reposts/replies between them; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_873",
+   "keys": [
+    "merchant:rideshare"
+   ],
+   "kinds": [
+    "merchant"
+   ],
+   "strength": 0.4,
+   "reason": "pay the same business (rideshare); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_112",
+   "b": "acct_897",
+   "keys": [
+    "interaction:direct_x3"
+   ],
+   "kinds": [
+    "interaction"
+   ],
+   "strength": 0.38,
+   "reason": "3 reposts/replies between them; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_421",
+   "b": "acct_897",
+   "keys": [
+    "interaction:direct_x2"
+   ],
+   "kinds": [
+    "interaction"
+   ],
+   "strength": 0.38,
+   "reason": "2 reposts/replies between them; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_516",
+   "b": "acct_897",
+   "keys": [
+    "interaction:direct_x2"
+   ],
+   "kinds": [
+    "interaction"
+   ],
+   "strength": 0.38,
+   "reason": "2 reposts/replies between them; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_573",
+   "b": "acct_897",
+   "keys": [
+    "interaction:direct_x2"
+   ],
+   "kinds": [
+    "interaction"
+   ],
+   "strength": 0.38,
+   "reason": "2 reposts/replies between them; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_103",
+   "b": "acct_166",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_103",
+   "b": "acct_905",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_103",
+   "b": "acct_931",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_166",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_905",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_931",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_166",
+   "b": "acct_220",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_166",
+   "b": "acct_228",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_166",
+   "b": "acct_236",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_166",
+   "b": "acct_410",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_166",
+   "b": "acct_510",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_166",
+   "b": "acct_626",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_166",
+   "b": "acct_730",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_166",
+   "b": "acct_843",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_166",
+   "b": "acct_897",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_201",
+   "b": "acct_905",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_201",
+   "b": "acct_931",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_220",
+   "b": "acct_905",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_228",
+   "b": "acct_905",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_228",
+   "b": "acct_931",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_236",
+   "b": "acct_905",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_236",
+   "b": "acct_931",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_410",
+   "b": "acct_905",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_510",
+   "b": "acct_905",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_510",
+   "b": "acct_931",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_626",
+   "b": "acct_905",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_626",
+   "b": "acct_931",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_730",
+   "b": "acct_905",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_730",
+   "b": "acct_931",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_843",
+   "b": "acct_905",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_843",
+   "b": "acct_931",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_897",
+   "b": "acct_905",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_897",
+   "b": "acct_931",
+   "keys": [
+    "keyword:#tapin"
+   ],
+   "kinds": [
+    "keyword"
+   ],
+   "strength": 0.35,
+   "reason": "both keep using #tapin in captions/comments; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_002",
+   "b": "acct_131",
+   "keys": [
+    "merchant:lone_star_motel_synthetic",
+    "place:lm_midtown_park"
+   ],
+   "kinds": [
+    "merchant",
+    "place"
+   ],
+   "strength": 0.25,
+   "reason": "pay the same business (lone_star_motel_synthetic) (shared by 31 accounts, down-weighted); same stated area (lm_midtown_park) (shared by 24 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_056",
+   "b": "acct_131",
+   "keys": [
+    "merchant:lone_star_motel_synthetic",
+    "place:midtown"
+   ],
+   "kinds": [
+    "merchant",
+    "place"
+   ],
+   "strength": 0.17,
+   "reason": "pay the same business (lone_star_motel_synthetic) (shared by 31 accounts, down-weighted); same stated area (midtown) (shared by 46 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_132",
+   "keys": [
+    "merchant:lone_star_motel_synthetic",
+    "place:downtown"
+   ],
+   "kinds": [
+    "merchant",
+    "place"
+   ],
+   "strength": 0.17,
+   "reason": "pay the same business (lone_star_motel_synthetic) (shared by 31 accounts, down-weighted); same stated area (downtown) (shared by 46 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_238",
+   "keys": [
+    "merchant:lone_star_motel_synthetic",
+    "place:midtown"
+   ],
+   "kinds": [
+    "merchant",
+    "place"
+   ],
+   "strength": 0.17,
+   "reason": "pay the same business (lone_star_motel_synthetic) (shared by 31 accounts, down-weighted); same stated area (midtown) (shared by 46 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_044",
+   "b": "acct_131",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_044",
+   "b": "acct_201",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_044",
+   "b": "acct_228",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_044",
+   "b": "acct_236",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_044",
+   "b": "acct_410",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_044",
+   "b": "acct_510",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_044",
+   "b": "acct_626",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_044",
+   "b": "acct_730",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_044",
+   "b": "acct_843",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_135",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_205",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_252",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_411",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_497",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_562",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_702",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_821",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_830",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_869",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_935",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_131",
+   "b": "acct_985",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_135",
+   "b": "acct_201",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_135",
+   "b": "acct_228",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_135",
+   "b": "acct_236",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_135",
+   "b": "acct_410",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_135",
+   "b": "acct_510",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_135",
+   "b": "acct_626",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_135",
+   "b": "acct_730",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_135",
+   "b": "acct_843",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_201",
+   "b": "acct_205",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_201",
+   "b": "acct_252",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_201",
+   "b": "acct_411",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_201",
+   "b": "acct_497",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_201",
+   "b": "acct_562",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_201",
+   "b": "acct_702",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_201",
+   "b": "acct_821",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_201",
+   "b": "acct_830",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_201",
+   "b": "acct_869",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_201",
+   "b": "acct_935",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_201",
+   "b": "acct_985",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_205",
+   "b": "acct_228",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_205",
+   "b": "acct_236",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_205",
+   "b": "acct_410",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_205",
+   "b": "acct_510",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_205",
+   "b": "acct_626",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_205",
+   "b": "acct_730",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_205",
+   "b": "acct_843",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_228",
+   "b": "acct_252",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_228",
+   "b": "acct_411",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_228",
+   "b": "acct_497",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_228",
+   "b": "acct_562",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_228",
+   "b": "acct_702",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_228",
+   "b": "acct_821",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_228",
+   "b": "acct_830",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_228",
+   "b": "acct_869",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_228",
+   "b": "acct_935",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_228",
+   "b": "acct_985",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_236",
+   "b": "acct_252",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_236",
+   "b": "acct_411",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_236",
+   "b": "acct_497",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_236",
+   "b": "acct_562",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_236",
+   "b": "acct_702",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_236",
+   "b": "acct_821",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_236",
+   "b": "acct_830",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_236",
+   "b": "acct_869",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_236",
+   "b": "acct_935",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_236",
+   "b": "acct_985",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_252",
+   "b": "acct_410",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_252",
+   "b": "acct_510",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_252",
+   "b": "acct_626",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_252",
+   "b": "acct_730",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_252",
+   "b": "acct_843",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_410",
+   "b": "acct_411",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_410",
+   "b": "acct_497",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_410",
+   "b": "acct_562",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_410",
+   "b": "acct_702",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_410",
+   "b": "acct_821",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_410",
+   "b": "acct_830",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_410",
+   "b": "acct_869",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_410",
+   "b": "acct_935",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_410",
+   "b": "acct_985",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_411",
+   "b": "acct_510",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_411",
+   "b": "acct_626",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_411",
+   "b": "acct_730",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_411",
+   "b": "acct_843",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_497",
+   "b": "acct_510",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_497",
+   "b": "acct_626",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_497",
+   "b": "acct_730",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_497",
+   "b": "acct_843",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_510",
+   "b": "acct_562",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_510",
+   "b": "acct_702",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_510",
+   "b": "acct_821",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_510",
+   "b": "acct_830",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_510",
+   "b": "acct_869",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_510",
+   "b": "acct_935",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_510",
+   "b": "acct_985",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_562",
+   "b": "acct_626",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_562",
+   "b": "acct_730",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_562",
+   "b": "acct_843",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_626",
+   "b": "acct_702",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_626",
+   "b": "acct_821",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_626",
+   "b": "acct_830",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_626",
+   "b": "acct_869",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_626",
+   "b": "acct_935",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_626",
+   "b": "acct_985",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_702",
+   "b": "acct_730",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_702",
+   "b": "acct_843",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_730",
+   "b": "acct_821",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_730",
+   "b": "acct_830",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_730",
+   "b": "acct_869",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_730",
+   "b": "acct_935",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_730",
+   "b": "acct_985",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_821",
+   "b": "acct_843",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_830",
+   "b": "acct_843",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_843",
+   "b": "acct_869",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_843",
+   "b": "acct_935",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_843",
+   "b": "acct_985",
+   "keys": [
+    "place:lm_central_station"
+   ],
+   "kinds": [
+    "place"
+   ],
+   "strength": 0.15,
+   "reason": "same stated area (lm_central_station) (shared by 22 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_152",
+   "b": "acct_183",
+   "keys": [
+    "dm:acct_152~acct_183",
+    "interaction:direct_x3",
+    "merchant:lone_star_motel_synthetic",
+    "place:heights"
+   ],
+   "kinds": [
+    "dm",
+    "interaction",
+    "merchant",
+    "place"
+   ],
+   "strength": 0.92,
+   "reason": "8 direct messages, 1 with instructions or money talk; 3 reposts/replies between them; pay the same business (lone_star_motel_synthetic) (shared by 31 accounts, down-weighted); same stated area (heights) (shared by 44 accounts, down-weighted); no content layer in this group, so a hint and not a ring"
+  },
+  {
+   "a": "acct_926",
+   "b": "acct_972",
+   "keys": [
+    "photo:phash_52681361",
+    "text:tmpl_21"
+   ],
+   "kinds": [
+    "photo",
+    "text"
+   ],
+   "strength": 0.92,
+   "reason": "same photo reposted; reworded copy of the same script (embeddings caught it, MinHash missed it); no connectivity layer in this group, so a hint and not a ring"
+  },
+  {
+   "a": "acct_193",
+   "b": "acct_207",
+   "keys": [
+    "dm:acct_193~acct_207",
+    "interaction:direct_x4"
+   ],
+   "kinds": [
+    "dm",
+    "interaction"
+   ],
+   "strength": 0.9,
+   "reason": "8 direct messages, 2 with instructions or money talk; 4 reposts/replies between them; no content layer in this group, so a hint and not a ring"
+  },
+  {
+   "a": "acct_183",
+   "b": "acct_199",
+   "keys": [
+    "dm:acct_183~acct_199",
+    "place:heights"
+   ],
+   "kinds": [
+    "dm",
+    "place"
+   ],
+   "strength": 0.81,
+   "reason": "8 direct messages, 1 with instructions or money talk; same stated area (heights) (shared by 44 accounts, down-weighted); one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_021",
+   "b": "acct_152",
+   "keys": [
+    "dm:acct_021~acct_152"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "10 direct messages, 1 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_021",
+   "b": "acct_199",
+   "keys": [
+    "dm:acct_021~acct_199"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "14 direct messages, 2 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_021",
+   "b": "acct_207",
+   "keys": [
+    "dm:acct_021~acct_207"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "12 direct messages, 2 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_021",
+   "b": "acct_218",
+   "keys": [
+    "dm:acct_021~acct_218"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "6 direct messages, 2 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_026",
+   "b": "acct_406",
+   "keys": [
+    "photo:phash_c04d9966"
+   ],
+   "kinds": [
+    "photo"
+   ],
+   "strength": 0.8,
+   "reason": "same photo reposted; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_026",
+   "b": "acct_994",
+   "keys": [
+    "photo:phash_eb8a325e"
+   ],
+   "kinds": [
+    "photo"
+   ],
+   "strength": 0.8,
+   "reason": "same photo reposted; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_043",
+   "b": "acct_183",
+   "keys": [
+    "dm:acct_043~acct_183"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "10 direct messages, 2 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_043",
+   "b": "acct_193",
+   "keys": [
+    "dm:acct_043~acct_193"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "8 direct messages, 1 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_043",
+   "b": "acct_199",
+   "keys": [
+    "dm:acct_043~acct_199"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "18 direct messages, 3 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_043",
+   "b": "acct_207",
+   "keys": [
+    "dm:acct_043~acct_207"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "12 direct messages, 2 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_043",
+   "b": "acct_218",
+   "keys": [
+    "dm:acct_043~acct_218"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "10 direct messages, 1 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_057",
+   "b": "acct_389",
+   "keys": [
+    "photo:phash_3a473f40"
+   ],
+   "kinds": [
+    "photo"
+   ],
+   "strength": 0.8,
+   "reason": "same photo reposted; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_057",
+   "b": "acct_786",
+   "keys": [
+    "photo:phash_f463dbcd"
+   ],
+   "kinds": [
+    "photo"
+   ],
+   "strength": 0.8,
+   "reason": "same photo reposted; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_152",
+   "b": "acct_193",
+   "keys": [
+    "dm:acct_152~acct_193"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "8 direct messages, 1 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_152",
+   "b": "acct_207",
+   "keys": [
+    "dm:acct_152~acct_207"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "6 direct messages, 1 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_152",
+   "b": "acct_218",
+   "keys": [
+    "dm:acct_152~acct_218"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "8 direct messages, 1 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_183",
+   "b": "acct_193",
+   "keys": [
+    "dm:acct_183~acct_193"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "8 direct messages, 1 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_183",
+   "b": "acct_218",
+   "keys": [
+    "dm:acct_183~acct_218"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "6 direct messages, 1 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_193",
+   "b": "acct_199",
+   "keys": [
+    "dm:acct_193~acct_199"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "8 direct messages, 2 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_193",
+   "b": "acct_218",
+   "keys": [
+    "dm:acct_193~acct_218"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "8 direct messages, 2 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_199",
+   "b": "acct_207",
+   "keys": [
+    "dm:acct_199~acct_207"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "10 direct messages, 1 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_199",
+   "b": "acct_218",
+   "keys": [
+    "dm:acct_199~acct_218"
+   ],
+   "kinds": [
+    "dm"
+   ],
+   "strength": 0.8,
+   "reason": "8 direct messages, 1 with instructions or money talk; one key kind is a hint, not a link"
+  },
+  {
+   "a": "acct_386",
+   "b": "acct_796",
+   "keys": [
+    "photo:phash_cde0fe7e"
+   ],
+   "kinds": [
+    "photo"
+   ],
+   "strength": 0.8,
+   "reason": "same photo reposted; one key kind is a hint, not a link"
+  }
+ ],
+ "layers": "both",
+ "private_layers": true,
+ "room_links_used": false
+}

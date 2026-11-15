@@ -1,0 +1,323 @@
+{
+ "agent": "spotter",
+ "title": "Spotter \u00b7 flagged accounts",
+ "case": "demo-deep-agents",
+ "steps": [
+  {
+   "id": "scanned",
+   "title": "Accounts scanned",
+   "kind": "text",
+   "data": {
+    "text": "788 accounts scanned \u2192 15 in the queue",
+    "bullets": [
+     "flagged only when at least 3 different signal kinds agree"
+    ]
+   },
+   "caption": "Every synthetic account is scored on public signals.",
+   "source": "data/synth/accounts.json, case/demo-deep-agents/spotter.json"
+  },
+  {
+   "id": "heatmap",
+   "title": "Signals per account",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "account",
+     "lookalike_account",
+     "lure_offer",
+     "recruiter_pattern",
+     "repeated_phone",
+     "repeated_photo",
+     "repeated_script"
+    ],
+    "rows": [
+     [
+      "acct_103",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "\u25cf"
+     ],
+     [
+      "acct_131",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "\u25cf"
+     ],
+     [
+      "acct_201",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "\u25cf"
+     ],
+     [
+      "acct_220",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "\u25cf"
+     ],
+     [
+      "acct_228",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "\u25cf"
+     ],
+     [
+      "acct_236",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "\u25cf"
+     ],
+     [
+      "acct_410",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "\u25cf"
+     ],
+     [
+      "acct_510",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "\u25cf"
+     ],
+     [
+      "acct_626",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "\u25cf"
+     ],
+     [
+      "acct_730",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "\u25cf"
+     ],
+     [
+      "acct_843",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "\u25cf"
+     ],
+     [
+      "acct_897",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "\u25cf"
+     ],
+     [
+      "acct_166",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf"
+     ],
+     [
+      "acct_905",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf"
+     ],
+     [
+      "acct_931",
+      "",
+      "\u25cf",
+      "\u25cf",
+      "",
+      "",
+      "\u25cf"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "Which signal kinds fired for each queued account.",
+   "source": "case/demo-deep-agents/spotter.json"
+  },
+  {
+   "id": "kinds",
+   "title": "How many different signal kinds agree",
+   "kind": "chart",
+   "data": {
+    "type": "bar",
+    "labels": [
+     "1",
+     "2",
+     "3",
+     "4"
+    ],
+    "datasets": [
+     {
+      "label": "accounts",
+      "data": [
+       0,
+       0,
+       3,
+       12
+      ]
+     }
+    ],
+    "threshold": {
+     "value": null,
+     "label": "cut at 3"
+    },
+    "x": "signal kinds",
+    "y": "accounts",
+    "horizontal": false,
+    "stacked": false,
+    "highlight": [
+     2,
+     3
+    ]
+   },
+   "caption": "flagged only when at least 3 different signal kinds agree",
+   "source": "case/demo-deep-agents/spotter.json"
+  },
+  {
+   "id": "queue",
+   "title": "Ranked queue",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "rank",
+     "account",
+     "score",
+     "model"
+    ],
+    "rows": [
+     [
+      1,
+      "acct_103",
+      "0.93",
+      "1.00"
+     ],
+     [
+      2,
+      "acct_131",
+      "0.93",
+      "1.00"
+     ],
+     [
+      3,
+      "acct_201",
+      "0.93",
+      "1.00"
+     ],
+     [
+      4,
+      "acct_220",
+      "0.93",
+      "1.00"
+     ],
+     [
+      5,
+      "acct_228",
+      "0.93",
+      "1.00"
+     ],
+     [
+      6,
+      "acct_236",
+      "0.93",
+      "1.00"
+     ],
+     [
+      7,
+      "acct_410",
+      "0.93",
+      "1.00"
+     ],
+     [
+      8,
+      "acct_510",
+      "0.93",
+      "1.00"
+     ],
+     [
+      9,
+      "acct_626",
+      "0.93",
+      "1.00"
+     ],
+     [
+      10,
+      "acct_730",
+      "0.93",
+      "1.00"
+     ],
+     [
+      11,
+      "acct_843",
+      "0.93",
+      "1.00"
+     ],
+     [
+      12,
+      "acct_897",
+      "0.93",
+      "1.00"
+     ],
+     [
+      13,
+      "acct_166",
+      "0.85",
+      "1.00"
+     ],
+     [
+      14,
+      "acct_905",
+      "0.85",
+      "1.00"
+     ],
+     [
+      15,
+      "acct_931",
+      "0.85",
+      "1.00"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "Model column from complex.json scores when present.",
+   "source": "case/demo-deep-agents/spotter.json, case/demo-deep-agents/complex.json"
+  }
+ ]
+}

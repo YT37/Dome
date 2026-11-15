@@ -753,7 +753,7 @@ function setUrl(params) {
 async function refreshCases() {
   try {
     const cs = await getJSON("/cases"); const sel = $("#replaySel");
-    sel.innerHTML = '<option value="">Replay…</option>' + cs.filter((c) => c.complete && c.kind === "recorded").map((c) => `<option value="${esc(c.case)}">${esc(c.case === "demo-real-a" ? "Ring A (recorded run)" : c.case)}</option>`).join("");
+    sel.innerHTML = '<option value="">Replay…</option>' + cs.filter((c) => c.complete && c.kind === "recorded").map((c) => `<option value="${esc(c.case)}">${esc(c.case === "demo-real-a" ? "Ring A (recorded run)" : c.case === "demo-deep-agents" ? "Ring A (Deep Agents run)" : c.case)}</option>`).join("");
   } catch {}
 }
 $("#replaySel").addEventListener("change", (e) => { const v = e.target.value; e.target.value = ""; if (v) { setUrl({ replay: v }); replay(v); } });
@@ -781,6 +781,7 @@ $("#tour").addEventListener("change", (e) => { try { localStorage.setItem("dome-
 function intro() {
   let seen = false;
   try { seen = localStorage.getItem("dome-intro") === "1"; } catch {}
+  if (new URLSearchParams(location.search).get("still")) seen = true;   // clean captures
   const box = $("#intro"); if (seen) return;
   box.hidden = false; $("#introRun").focus();
   const close = () => { box.hidden = true; try { localStorage.setItem("dome-intro", "1"); } catch {} };

@@ -854,15 +854,18 @@ EXCLUDED_BUILTINS = frozenset({"execute", "write_file", "edit_file", "delete", "
 READ_ONLY_FILE_TOOLS = ("ls", "read_file", "glob", "grep")
 
 
-def _lock_down(model: Any) -> None:
-    """Register a harness profile: no shell, no file writes, no general-purpose subagent."""
+def _lock_down(model: Any, allow_task: bool = False) -> None:
+    """Register a harness profile: no shell, no file writes, no general-purpose subagent.
+    allow_task keeps deepagents' `task` tool so the supervisor can hand work to Dome's own
+    specialist sub-agents (never the general-purpose one)."""
     from deepagents import GeneralPurposeSubagentProfile, HarnessProfile, register_harness_profile
     from deepagents._models import get_model_provider
 
     key = model.split(":", 1)[0] if isinstance(model, str) else get_model_provider(model)
     if not key:
         raise RuntimeError("cannot resolve the model provider; refusing to build an unlocked agent")
-    profile = HarnessProfile(excluded_tools=EXCLUDED_BUILTINS,
+    excluded = EXCLUDED_BUILTINS - {"task"} if allow_task else EXCLUDED_BUILTINS
+    profile = HarnessProfile(excluded_tools=excluded,
                              general_purpose_subagent=GeneralPurposeSubagentProfile(enabled=False))
     register_harness_profile(key, profile)
     if key == "google_genai":   # deepagents may key Gemini models under either name
@@ -885,6 +888,57 @@ def _make_model(model: Any) -> Any:
     return init_chat_model(model, **kwargs)
 
 
+SUBAGENT_RULES = """Rules: call case_status() first. Before a step that follows from a data-driven \
+rule, call log_decision() with the decision, the evidence (numbers from case_status or the last \
+tool result) and a one-sentence reason. Never invent or adjust a number: every score, tier, P, W \
+and R comes from the tools. You can read the case files (ls, read_file, glob, grep) but never \
+write them. Finish with a short report to the supervisor: what you ran, the key numbers from the \
+tool results, and any decision you logged."""
+
+SUBAGENTS = [
+    {"name": "ring-analyst",
+     "description": "Finds the ring: runs the Linker (shared phones, scripts, photos, interactions, "
+                    "money) on the flagged accounts and reports the ring, its confidence R and why. "
+                    "Use it first, and again if a room-group re-run is required.",
+     "system_prompt": "You are Dome's ring analyst. Run run_linker (with room_groups=True only when "
+                      "case_status requires it), read rings.json, and report the ring: members, "
+                      "confidence R, the kinds of evidence that link it and its money block if any. "
+                      + SUBAGENT_RULES,
+     "tools": ("case_status", "run_linker", "log_decision")},
+    {"name": "place-analyst",
+     "description": "Finds the place: runs the Zoner (the dome), the Lister (buildings in it) and the "
+                    "Locator (room match, pin fix, window check) for the ring, and reports the best "
+                    "building with P and W. Use it after the ring is found.",
+     "system_prompt": "You are Dome's place analyst. Run run_zoner, then run_lister and run_locator for "
+                      "each zone case_status names (use fallback='logins' or scanned-only exactly when "
+                      "case_status requires it), and report the zone, candidate count, best building, "
+                      "P, W and floor range. " + SUBAGENT_RULES,
+     "tools": ("case_status", "run_zoner", "run_lister", "run_locator", "log_decision")},
+    {"name": "brief-writer",
+     "description": "Writes the report: runs the Briefer (tiers, scores and caps come from code), then "
+                    "writes the plain-language reasons, next checks and summary from brief.json. "
+                    "Use it last.",
+     "system_prompt": "You are Dome's brief writer. Run run_briefer, read brief.json, then call "
+                      "write_brief_text with the plain-language reasons, next checks and a case summary. "
+                      "Cite only numbers that are in brief.json; if the tool refuses your text, fix "
+                      "exactly what it names and call it again. " + SUBAGENT_RULES,
+     "tools": ("case_status", "run_briefer", "write_brief_text", "log_decision")},
+]
+
+SUBAGENT_PROMPT = """
+
+Specialist sub-agents (use the `task` tool; you do not run the pipeline tools yourself)
+- ring-analyst: the Linker. Delegate first.
+- place-analyst: Zoner, Lister and Locator. Delegate once the ring is found.
+- brief-writer: the Briefer and the report text. Delegate last.
+Give each a clear task with the case id and what case_status requires. After each, call
+case_status() to check `required_next` before delegating the next stage."""
+
+
+def subagents_enabled() -> bool:
+    return os.getenv("DOME_SUBAGENTS", "1") != "0"
+
+
 def build_agent(case: Case, model: Any = None, approver: Optional[Callable[[dict], Any]] = None):
     """The deepagents supervisor (a compiled LangGraph graph) bound to one case folder.
     approver: langgraph's interrupt() under `langgraph dev`; auto-approve otherwise."""
@@ -892,12 +946,22 @@ def build_agent(case: Case, model: Any = None, approver: Optional[Callable[[dict
     from deepagents.backends import FilesystemBackend
 
     model = _make_model(model or config.MODEL)
-    _lock_down(model)
+    use_sub = subagents_enabled()
+    _lock_down(model, allow_task=use_sub)
     backend = FilesystemBackend(root_dir=str(case.dir), virtual_mode=True)
+    tools = build_tools(Supervisor(case, actor="llm", llm_text=True, approver=approver))
+    subagents, prompt = None, SYSTEM_PROMPT
+    if use_sub:    # the supervisor plans and checks; the specialists run the pipeline tools
+        by_name = {t.name: t for t in tools}
+        subagents = [{**{k: v for k, v in sa.items() if k != "tools"},
+                      "tools": [by_name[n] for n in sa["tools"]]} for sa in SUBAGENTS]
+        tools = [by_name["case_status"], by_name["log_decision"]]
+        prompt = SYSTEM_PROMPT + SUBAGENT_PROMPT
     return create_deep_agent(
         model=model,
-        tools=build_tools(Supervisor(case, actor="llm", llm_text=True, approver=approver)),
-        system_prompt=SYSTEM_PROMPT,
+        tools=tools,
+        subagents=subagents,
+        system_prompt=prompt,
         backend=backend,
         # Three layers: (1) the file tools are replaced by a READ-ONLY set, so execute,
         # write_file, edit_file and delete are never registered; (2) every write is denied

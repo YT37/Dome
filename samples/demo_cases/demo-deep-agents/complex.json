@@ -1,0 +1,1564 @@
+{
+ "ranks": {
+  "0": [
+   {
+    "id": "W-1",
+    "kind": "wallet_cluster"
+   },
+   {
+    "id": "W-2",
+    "kind": "wallet_cluster"
+   },
+   {
+    "id": "W-3",
+    "kind": "wallet_cluster"
+   },
+   {
+    "id": "W-4",
+    "kind": "wallet_cluster"
+   },
+   {
+    "id": "acct_103",
+    "kind": "account"
+   },
+   {
+    "id": "acct_131",
+    "kind": "account"
+   },
+   {
+    "id": "acct_166",
+    "kind": "account"
+   },
+   {
+    "id": "acct_201",
+    "kind": "account"
+   },
+   {
+    "id": "acct_220",
+    "kind": "account"
+   },
+   {
+    "id": "acct_228",
+    "kind": "account"
+   },
+   {
+    "id": "acct_236",
+    "kind": "account"
+   },
+   {
+    "id": "acct_410",
+    "kind": "account"
+   },
+   {
+    "id": "acct_510",
+    "kind": "account"
+   },
+   {
+    "id": "acct_626",
+    "kind": "account"
+   },
+   {
+    "id": "acct_730",
+    "kind": "account"
+   },
+   {
+    "id": "acct_843",
+    "kind": "account"
+   },
+   {
+    "id": "acct_897",
+    "kind": "account"
+   },
+   {
+    "id": "acct_905",
+    "kind": "account"
+   },
+   {
+    "id": "acct_931",
+    "kind": "account"
+   },
+   {
+    "id": "room_LqCMcmmVH3d",
+    "kind": "room"
+   }
+  ],
+  "1": [
+   {
+    "id": "c_contact:555-\u202642#d273",
+    "kind": "contact",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared contact key contact:555-\u202642"
+   },
+   {
+    "id": "c_contact:555-\u202687#7483",
+    "kind": "contact",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared contact key contact:555-\u202687"
+   },
+   {
+    "id": "c_contact:555-\u202699#075f",
+    "kind": "contact",
+    "members": [
+     "acct_410",
+     "acct_510"
+    ],
+    "reason": "shared contact key contact:555-\u202699"
+   },
+   {
+    "id": "c_keyword:#tapin",
+    "kind": "keyword",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_166",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_843",
+     "acct_897",
+     "acct_905",
+     "acct_931"
+    ],
+    "reason": "shared keyword key keyword:"
+   },
+   {
+    "id": "c_keyword:\ud83c\udf39",
+    "kind": "keyword",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_166",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_843",
+     "acct_897",
+     "acct_905",
+     "acct_931"
+    ],
+    "reason": "shared keyword key keyword:\ud83c\udf39"
+   },
+   {
+    "id": "c_money:$sunny_rose5",
+    "kind": "money",
+    "members": [
+     "acct_103",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_730"
+    ],
+    "reason": "shared money key money:$sunny_rose5"
+   },
+   {
+    "id": "c_money:$velvet_k9",
+    "kind": "money",
+    "members": [
+     "acct_510",
+     "acct_626"
+    ],
+    "reason": "shared money key money:$velvet_k9"
+   },
+   {
+    "id": "c_photo:phash_890f1bc6",
+    "kind": "photo",
+    "members": [
+     "acct_103",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_410",
+     "acct_510",
+     "acct_730",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared photo key photo:phash_890f1bc6"
+   },
+   {
+    "id": "c_photo:phash_8cb261c5",
+    "kind": "photo",
+    "members": [
+     "acct_201",
+     "acct_228",
+     "acct_410",
+     "acct_626",
+     "acct_897"
+    ],
+    "reason": "shared photo key photo:phash_8cb261c5"
+   },
+   {
+    "id": "c_photo:phash_9eaf52a5",
+    "kind": "photo",
+    "members": [
+     "acct_103",
+     "acct_201",
+     "acct_510",
+     "acct_730",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared photo key photo:phash_9eaf52a5"
+   },
+   {
+    "id": "c_photo:phash_a55b2c54",
+    "kind": "photo",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_201",
+     "acct_220",
+     "acct_236",
+     "acct_510",
+     "acct_730"
+    ],
+    "reason": "shared photo key photo:phash_a55b2c54"
+   },
+   {
+    "id": "c_photo:phash_a59b32cd",
+    "kind": "photo",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_236",
+     "acct_626"
+    ],
+    "reason": "shared photo key photo:phash_a59b32cd"
+   },
+   {
+    "id": "c_photo:phash_ab544237",
+    "kind": "photo",
+    "members": [
+     "acct_201",
+     "acct_228",
+     "acct_236",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared photo key photo:phash_ab544237"
+   },
+   {
+    "id": "c_photo:phash_b3cc38d3",
+    "kind": "photo",
+    "members": [
+     "acct_131",
+     "acct_201",
+     "acct_220",
+     "acct_236",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared photo key photo:phash_b3cc38d3"
+   },
+   {
+    "id": "c_photo:phash_b4db5be6",
+    "kind": "photo",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_220",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_897"
+    ],
+    "reason": "shared photo key photo:phash_b4db5be6"
+   },
+   {
+    "id": "c_photo:phash_b7330c0c",
+    "kind": "photo",
+    "members": [
+     "acct_131",
+     "acct_220",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_730",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared photo key photo:phash_b7330c0c"
+   },
+   {
+    "id": "c_photo:phash_ba3c0547",
+    "kind": "photo",
+    "members": [
+     "acct_103",
+     "acct_201"
+    ],
+    "reason": "shared photo key photo:phash_ba3c0547"
+   },
+   {
+    "id": "c_photo:phash_bcc6f3e3",
+    "kind": "photo",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_201",
+     "acct_220",
+     "acct_236",
+     "acct_897"
+    ],
+    "reason": "shared photo key photo:phash_bcc6f3e3"
+   },
+   {
+    "id": "c_photo:phash_c29e5d23",
+    "kind": "photo",
+    "members": [
+     "acct_131",
+     "acct_201",
+     "acct_236",
+     "acct_510",
+     "acct_626",
+     "acct_897"
+    ],
+    "reason": "shared photo key photo:phash_c29e5d23"
+   },
+   {
+    "id": "c_photo:phash_d61c6177",
+    "kind": "photo",
+    "members": [
+     "acct_131",
+     "acct_201",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared photo key photo:phash_d61c6177"
+   },
+   {
+    "id": "c_photo:phash_e38c6aba",
+    "kind": "photo",
+    "members": [
+     "acct_201",
+     "acct_410",
+     "acct_510",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared photo key photo:phash_e38c6aba"
+   },
+   {
+    "id": "c_photo:phash_e51a196c",
+    "kind": "photo",
+    "members": [
+     "acct_131",
+     "acct_220",
+     "acct_236",
+     "acct_510",
+     "acct_626",
+     "acct_730"
+    ],
+    "reason": "shared photo key photo:phash_e51a196c"
+   },
+   {
+    "id": "c_photo:phash_e51a6d5c",
+    "kind": "photo",
+    "members": [
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_510",
+     "acct_626",
+     "acct_897"
+    ],
+    "reason": "shared photo key photo:phash_e51a6d5c"
+   },
+   {
+    "id": "c_photo:phash_eeb1419b",
+    "kind": "photo",
+    "members": [
+     "acct_131",
+     "acct_201",
+     "acct_228",
+     "acct_410",
+     "acct_730"
+    ],
+    "reason": "shared photo key photo:phash_eeb1419b"
+   },
+   {
+    "id": "c_photo:phash_f2920b65",
+    "kind": "photo",
+    "members": [
+     "acct_103",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_510",
+     "acct_730",
+     "acct_843"
+    ],
+    "reason": "shared photo key photo:phash_f2920b65"
+   },
+   {
+    "id": "c_photo:phash_f3b8536c",
+    "kind": "photo",
+    "members": [
+     "acct_103",
+     "acct_201",
+     "acct_228",
+     "acct_626",
+     "acct_730",
+     "acct_843"
+    ],
+    "reason": "shared photo key photo:phash_f3b8536c"
+   },
+   {
+    "id": "c_photo:phash_fbe19eb8",
+    "kind": "photo",
+    "members": [
+     "acct_131",
+     "acct_410",
+     "acct_626",
+     "acct_730"
+    ],
+    "reason": "shared photo key photo:phash_fbe19eb8"
+   },
+   {
+    "id": "c_place:ac_713",
+    "kind": "place",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared place key place:ac_713"
+   },
+   {
+    "id": "c_place:downtown",
+    "kind": "place",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared place key place:downtown"
+   },
+   {
+    "id": "c_place:lm_central_station",
+    "kind": "place",
+    "members": [
+     "acct_131",
+     "acct_201",
+     "acct_228",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_843"
+    ],
+    "reason": "shared place key place:lm_central_station"
+   },
+   {
+    "id": "c_place:lm_main_street_square",
+    "kind": "place",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_236",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared place key place:lm_main_street_square"
+   },
+   {
+    "id": "c_place:lm_midtown_park",
+    "kind": "place",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_410",
+     "acct_510",
+     "acct_730",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared place key place:lm_midtown_park"
+   },
+   {
+    "id": "c_place:midtown",
+    "kind": "place",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared place key place:midtown"
+   },
+   {
+    "id": "c_text:tmpl_35",
+    "kind": "text",
+    "members": [
+     "acct_905",
+     "acct_931"
+    ],
+    "reason": "shared text key text:tmpl_35"
+   },
+   {
+    "id": "c_text:tmpl_39",
+    "kind": "text",
+    "members": [
+     "acct_166",
+     "acct_931"
+    ],
+    "reason": "shared text key text:tmpl_39"
+   },
+   {
+    "id": "c_text:tmpl_40",
+    "kind": "text",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared text key text:tmpl_40"
+   },
+   {
+    "id": "c_text:tmpl_60",
+    "kind": "text",
+    "members": [
+     "acct_166",
+     "acct_905",
+     "acct_931"
+    ],
+    "reason": "shared text key text:tmpl_60"
+   },
+   {
+    "id": "c_text:tmpl_61",
+    "kind": "text",
+    "members": [
+     "acct_166",
+     "acct_905",
+     "acct_931"
+    ],
+    "reason": "shared text key text:tmpl_61"
+   },
+   {
+    "id": "c_time:created_202-\u202602#12a5",
+    "kind": "time",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "shared time key time:created_202-\u202602"
+   },
+   {
+    "id": "c_dm:acct_103~acct_201#acct_103~acct_201",
+    "kind": "dm",
+    "members": [
+     "acct_103",
+     "acct_201"
+    ],
+    "reason": "shared dm key dm:acct_103~acct_201"
+   },
+   {
+    "id": "c_money:direct_tx_5025#acct_103~acct_201",
+    "kind": "money",
+    "members": [
+     "acct_103",
+     "acct_201"
+    ],
+    "reason": "shared money key money:direct_tx_5025"
+   },
+   {
+    "id": "c_dm:acct_103~acct_220#acct_103~acct_220",
+    "kind": "dm",
+    "members": [
+     "acct_103",
+     "acct_220"
+    ],
+    "reason": "shared dm key dm:acct_103~acct_220"
+   },
+   {
+    "id": "c_money:direct_tx_5026#acct_103~acct_220",
+    "kind": "money",
+    "members": [
+     "acct_103",
+     "acct_220"
+    ],
+    "reason": "shared money key money:direct_tx_5026"
+   },
+   {
+    "id": "c_dm:acct_103~acct_228#acct_103~acct_228",
+    "kind": "dm",
+    "members": [
+     "acct_103",
+     "acct_228"
+    ],
+    "reason": "shared dm key dm:acct_103~acct_228"
+   },
+   {
+    "id": "c_money:direct_tx_5027#acct_103~acct_228",
+    "kind": "money",
+    "members": [
+     "acct_103",
+     "acct_228"
+    ],
+    "reason": "shared money key money:direct_tx_5027"
+   },
+   {
+    "id": "c_dm:acct_103~acct_236#acct_103~acct_236",
+    "kind": "dm",
+    "members": [
+     "acct_103",
+     "acct_236"
+    ],
+    "reason": "shared dm key dm:acct_103~acct_236"
+   },
+   {
+    "id": "c_money:direct_tx_5028#acct_103~acct_236",
+    "kind": "money",
+    "members": [
+     "acct_103",
+     "acct_236"
+    ],
+    "reason": "shared money key money:direct_tx_5028"
+   },
+   {
+    "id": "c_dm:acct_103~acct_410#acct_103~acct_410",
+    "kind": "dm",
+    "members": [
+     "acct_103",
+     "acct_410"
+    ],
+    "reason": "shared dm key dm:acct_103~acct_410"
+   },
+   {
+    "id": "c_money:direct_tx_5029#acct_103~acct_410",
+    "kind": "money",
+    "members": [
+     "acct_103",
+     "acct_410"
+    ],
+    "reason": "shared money key money:direct_tx_5029"
+   },
+   {
+    "id": "c_dm:acct_103~acct_510#acct_103~acct_510",
+    "kind": "dm",
+    "members": [
+     "acct_103",
+     "acct_510"
+    ],
+    "reason": "shared dm key dm:acct_103~acct_510"
+   },
+   {
+    "id": "c_money:direct_tx_5030#acct_103~acct_510",
+    "kind": "money",
+    "members": [
+     "acct_103",
+     "acct_510"
+    ],
+    "reason": "shared money key money:direct_tx_5030"
+   },
+   {
+    "id": "c_interaction:direct_x2#acct_103~acct_730",
+    "kind": "interaction",
+    "members": [
+     "acct_103",
+     "acct_730"
+    ],
+    "reason": "shared interaction key interaction:direct_x2"
+   },
+   {
+    "id": "c_dm:acct_131~acct_201#acct_131~acct_201",
+    "kind": "dm",
+    "members": [
+     "acct_131",
+     "acct_201"
+    ],
+    "reason": "shared dm key dm:acct_131~acct_201"
+   },
+   {
+    "id": "c_dm:acct_131~acct_228#acct_131~acct_228",
+    "kind": "dm",
+    "members": [
+     "acct_131",
+     "acct_228"
+    ],
+    "reason": "shared dm key dm:acct_131~acct_228"
+   },
+   {
+    "id": "c_dm:acct_131~acct_236#acct_131~acct_236",
+    "kind": "dm",
+    "members": [
+     "acct_131",
+     "acct_236"
+    ],
+    "reason": "shared dm key dm:acct_131~acct_236"
+   },
+   {
+    "id": "c_dm:acct_131~acct_410#acct_131~acct_410",
+    "kind": "dm",
+    "members": [
+     "acct_131",
+     "acct_410"
+    ],
+    "reason": "shared dm key dm:acct_131~acct_410"
+   },
+   {
+    "id": "c_dm:acct_131~acct_626#acct_131~acct_626",
+    "kind": "dm",
+    "members": [
+     "acct_131",
+     "acct_626"
+    ],
+    "reason": "shared dm key dm:acct_131~acct_626"
+   },
+   {
+    "id": "c_interaction:direct_x2#acct_131~acct_843",
+    "kind": "interaction",
+    "members": [
+     "acct_131",
+     "acct_843"
+    ],
+    "reason": "shared interaction key interaction:direct_x2"
+   },
+   {
+    "id": "c_interaction:direct_x2#acct_166~acct_201",
+    "kind": "interaction",
+    "members": [
+     "acct_166",
+     "acct_201"
+    ],
+    "reason": "shared interaction key interaction:direct_x2"
+   },
+   {
+    "id": "c_interaction:coamp_x2#acct_166~acct_931",
+    "kind": "interaction",
+    "members": [
+     "acct_166",
+     "acct_931"
+    ],
+    "reason": "shared interaction key interaction:coamp_x2"
+   },
+   {
+    "id": "c_dm:acct_201~acct_220#acct_201~acct_220",
+    "kind": "dm",
+    "members": [
+     "acct_201",
+     "acct_220"
+    ],
+    "reason": "shared dm key dm:acct_201~acct_220"
+   },
+   {
+    "id": "c_dm:acct_201~acct_228#acct_201~acct_228",
+    "kind": "dm",
+    "members": [
+     "acct_201",
+     "acct_228"
+    ],
+    "reason": "shared dm key dm:acct_201~acct_228"
+   },
+   {
+    "id": "c_dm:acct_201~acct_236#acct_201~acct_236",
+    "kind": "dm",
+    "members": [
+     "acct_201",
+     "acct_236"
+    ],
+    "reason": "shared dm key dm:acct_201~acct_236"
+   },
+   {
+    "id": "c_dm:acct_201~acct_410#acct_201~acct_410",
+    "kind": "dm",
+    "members": [
+     "acct_201",
+     "acct_410"
+    ],
+    "reason": "shared dm key dm:acct_201~acct_410"
+   },
+   {
+    "id": "c_dm:acct_201~acct_510#acct_201~acct_510",
+    "kind": "dm",
+    "members": [
+     "acct_201",
+     "acct_510"
+    ],
+    "reason": "shared dm key dm:acct_201~acct_510"
+   },
+   {
+    "id": "c_interaction:direct_x2#acct_201~acct_510",
+    "kind": "interaction",
+    "members": [
+     "acct_201",
+     "acct_510"
+    ],
+    "reason": "shared interaction key interaction:direct_x2"
+   },
+   {
+    "id": "c_dm:acct_201~acct_626#acct_201~acct_626",
+    "kind": "dm",
+    "members": [
+     "acct_201",
+     "acct_626"
+    ],
+    "reason": "shared dm key dm:acct_201~acct_626"
+   },
+   {
+    "id": "c_dm:acct_201~acct_730#acct_201~acct_730",
+    "kind": "dm",
+    "members": [
+     "acct_201",
+     "acct_730"
+    ],
+    "reason": "shared dm key dm:acct_201~acct_730"
+   },
+   {
+    "id": "c_dm:acct_201~acct_843#acct_201~acct_843",
+    "kind": "dm",
+    "members": [
+     "acct_201",
+     "acct_843"
+    ],
+    "reason": "shared dm key dm:acct_201~acct_843"
+   },
+   {
+    "id": "c_dm:acct_201~acct_897#acct_201~acct_897",
+    "kind": "dm",
+    "members": [
+     "acct_201",
+     "acct_897"
+    ],
+    "reason": "shared dm key dm:acct_201~acct_897"
+   },
+   {
+    "id": "c_heartbeat:acct_220~acct_228#acct_220~acct_228",
+    "kind": "heartbeat",
+    "members": [
+     "acct_220",
+     "acct_228"
+    ],
+    "reason": "shared heartbeat key heartbeat:acct_220~acct_228"
+   },
+   {
+    "id": "c_interaction:direct_x2#acct_220~acct_228",
+    "kind": "interaction",
+    "members": [
+     "acct_220",
+     "acct_228"
+    ],
+    "reason": "shared interaction key interaction:direct_x2"
+   },
+   {
+    "id": "c_heartbeat:acct_220~acct_236#acct_220~acct_236",
+    "kind": "heartbeat",
+    "members": [
+     "acct_220",
+     "acct_236"
+    ],
+    "reason": "shared heartbeat key heartbeat:acct_220~acct_236"
+   },
+   {
+    "id": "c_interaction:direct_x2#acct_220~acct_626",
+    "kind": "interaction",
+    "members": [
+     "acct_220",
+     "acct_626"
+    ],
+    "reason": "shared interaction key interaction:direct_x2"
+   },
+   {
+    "id": "c_interaction:direct_x2#acct_220~acct_931",
+    "kind": "interaction",
+    "members": [
+     "acct_220",
+     "acct_931"
+    ],
+    "reason": "shared interaction key interaction:direct_x2"
+   },
+   {
+    "id": "c_heartbeat:acct_228~acct_236#acct_228~acct_236",
+    "kind": "heartbeat",
+    "members": [
+     "acct_228",
+     "acct_236"
+    ],
+    "reason": "shared heartbeat key heartbeat:acct_228~acct_236"
+   },
+   {
+    "id": "c_interaction:direct_x2#acct_236~acct_626",
+    "kind": "interaction",
+    "members": [
+     "acct_236",
+     "acct_626"
+    ],
+    "reason": "shared interaction key interaction:direct_x2"
+   },
+   {
+    "id": "c_interaction:direct_x2#acct_410~acct_510",
+    "kind": "interaction",
+    "members": [
+     "acct_410",
+     "acct_510"
+    ],
+    "reason": "shared interaction key interaction:direct_x2"
+   },
+   {
+    "id": "c_interaction:direct_x2#acct_410~acct_626",
+    "kind": "interaction",
+    "members": [
+     "acct_410",
+     "acct_626"
+    ],
+    "reason": "shared interaction key interaction:direct_x2"
+   },
+   {
+    "id": "c_interaction:direct_x2#acct_410~acct_931",
+    "kind": "interaction",
+    "members": [
+     "acct_410",
+     "acct_931"
+    ],
+    "reason": "shared interaction key interaction:direct_x2"
+   },
+   {
+    "id": "c_interaction:direct_x2#acct_730~acct_897",
+    "kind": "interaction",
+    "members": [
+     "acct_730",
+     "acct_897"
+    ],
+    "reason": "shared interaction key interaction:direct_x2"
+   },
+   {
+    "id": "c_ptp_W-1_acct_103",
+    "kind": "payment_then_post",
+    "members": [
+     "W-1",
+     "acct_103"
+    ],
+    "reason": "W-1 paid the ad platform before acct_103 posted (1x listed)"
+   },
+   {
+    "id": "c_ptp_W-1_acct_228",
+    "kind": "payment_then_post",
+    "members": [
+     "W-1",
+     "acct_228"
+    ],
+    "reason": "W-1 paid the ad platform before acct_228 posted (1x listed)"
+   },
+   {
+    "id": "c_ptp_W-1_acct_236",
+    "kind": "payment_then_post",
+    "members": [
+     "W-1",
+     "acct_236"
+    ],
+    "reason": "W-1 paid the ad platform before acct_236 posted (1x listed)"
+   },
+   {
+    "id": "c_ptp_W-1_acct_410",
+    "kind": "payment_then_post",
+    "members": [
+     "W-1",
+     "acct_410"
+    ],
+    "reason": "W-1 paid the ad platform before acct_410 posted (1x listed)"
+   },
+   {
+    "id": "c_ptp_W-1_acct_626",
+    "kind": "payment_then_post",
+    "members": [
+     "W-1",
+     "acct_626"
+    ],
+    "reason": "W-1 paid the ad platform before acct_626 posted (1x listed)"
+   },
+   {
+    "id": "c_ptp_W-1_acct_730",
+    "kind": "payment_then_post",
+    "members": [
+     "W-1",
+     "acct_730"
+    ],
+    "reason": "W-1 paid the ad platform before acct_730 posted (2x listed)"
+   },
+   {
+    "id": "c_ptp_W-1_acct_843",
+    "kind": "payment_then_post",
+    "members": [
+     "W-1",
+     "acct_843"
+    ],
+    "reason": "W-1 paid the ad platform before acct_843 posted (3x listed)"
+   },
+   {
+    "id": "c_note_W-1_acct_626",
+    "kind": "wallet_note",
+    "members": [
+     "W-1",
+     "acct_626"
+    ],
+    "reason": "paid the ad platform 2-15 min before this account posted, 6 times (chance level 0.1)"
+   },
+   {
+    "id": "c_note_W-1_acct_897",
+    "kind": "wallet_note",
+    "members": [
+     "W-1",
+     "acct_897"
+    ],
+    "reason": "paid the ad platform 2-15 min before this account posted, 6 times (chance level 0.1)"
+   },
+   {
+    "id": "c_note_W-1_acct_131",
+    "kind": "wallet_note",
+    "members": [
+     "W-1",
+     "acct_131"
+    ],
+    "reason": "paid the ad platform 2-15 min before this account posted, 6 times (chance level 0.1)"
+   },
+   {
+    "id": "c_note_W-1_acct_410",
+    "kind": "wallet_note",
+    "members": [
+     "W-1",
+     "acct_410"
+    ],
+    "reason": "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.0)"
+   },
+   {
+    "id": "c_note_W-1_acct_843",
+    "kind": "wallet_note",
+    "members": [
+     "W-1",
+     "acct_843"
+    ],
+    "reason": "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.1)"
+   },
+   {
+    "id": "c_note_W-1_acct_510",
+    "kind": "wallet_note",
+    "members": [
+     "W-1",
+     "acct_510"
+    ],
+    "reason": "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.1)"
+   },
+   {
+    "id": "c_note_W-1_acct_201",
+    "kind": "wallet_note",
+    "members": [
+     "W-1",
+     "acct_201"
+    ],
+    "reason": "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.0)"
+   },
+   {
+    "id": "c_note_W-1_acct_236",
+    "kind": "wallet_note",
+    "members": [
+     "W-1",
+     "acct_236"
+    ],
+    "reason": "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.1)"
+   },
+   {
+    "id": "c_note_W-1_acct_103",
+    "kind": "wallet_note",
+    "members": [
+     "W-1",
+     "acct_103"
+    ],
+    "reason": "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.1)"
+   },
+   {
+    "id": "c_note_W-1_acct_228",
+    "kind": "wallet_note",
+    "members": [
+     "W-1",
+     "acct_228"
+    ],
+    "reason": "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.1)"
+   },
+   {
+    "id": "c_note_W-1_acct_220",
+    "kind": "wallet_note",
+    "members": [
+     "W-1",
+     "acct_220"
+    ],
+    "reason": "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.0)"
+   },
+   {
+    "id": "c_note_W-1_acct_730",
+    "kind": "wallet_note",
+    "members": [
+     "W-1",
+     "acct_730"
+    ],
+    "reason": "paid the ad platform 2-15 min before this account posted, 3 times (chance level 0.0)"
+   },
+   {
+    "id": "c_room_LqCMcmmVH3d",
+    "kind": "photo_in_room",
+    "members": [
+     "room_LqCMcmmVH3d",
+     "acct_103",
+     "acct_201",
+     "acct_228",
+     "acct_410",
+     "acct_510",
+     "acct_730",
+     "acct_843",
+     "acct_897"
+    ],
+    "reason": "ring photos match scan LqCMcmmVH3d (P 0.684, room_match.json)"
+   },
+   {
+    "id": "c_flow_W-2_W-3",
+    "kind": "wallet_flow",
+    "members": [
+     "W-2",
+     "W-3"
+    ],
+    "reason": "11 transactions, 0.5332 BTC"
+   },
+   {
+    "id": "c_flow_W-3_W-4",
+    "kind": "wallet_flow",
+    "members": [
+     "W-3",
+     "W-4"
+    ],
+    "reason": "4 transactions, 0.79 BTC"
+   }
+  ],
+  "2": [
+   {
+    "id": "c_E-1",
+    "kind": "echo_event",
+    "members": [
+     "acct_131",
+     "acct_410"
+    ],
+    "reason": "shared echo_event key E-1"
+   },
+   {
+    "id": "c_E-3",
+    "kind": "echo_event",
+    "members": [
+     "acct_131",
+     "acct_228"
+    ],
+    "reason": "shared echo_event key E-3"
+   },
+   {
+    "id": "c_E-6",
+    "kind": "echo_event",
+    "members": [
+     "acct_131",
+     "acct_626"
+    ],
+    "reason": "shared echo_event key E-6"
+   },
+   {
+    "id": "c_E-7",
+    "kind": "echo_event",
+    "members": [
+     "acct_131",
+     "acct_236"
+    ],
+    "reason": "shared echo_event key E-7"
+   }
+  ],
+  "3": [
+   {
+    "id": "R-1",
+    "kind": "ring",
+    "members": [
+     "acct_103",
+     "acct_131",
+     "acct_166",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_843",
+     "acct_897",
+     "acct_905",
+     "acct_931",
+     "W-1"
+    ],
+    "reason": "rules: money, contact, dm, photo, text, keyword, interaction, heartbeat, place, time agree (R 0.95)"
+   }
+  ]
+ },
+ "scores": {
+  "acct_103": 1.0,
+  "acct_131": 1.0,
+  "acct_166": 0.999,
+  "acct_201": 1.0,
+  "acct_220": 1.0,
+  "acct_228": 1.0,
+  "acct_236": 1.0,
+  "acct_410": 1.0,
+  "acct_510": 1.0,
+  "acct_626": 1.0,
+  "acct_730": 1.0,
+  "acct_843": 1.0,
+  "acct_897": 1.0,
+  "acct_905": 0.998,
+  "acct_931": 0.999
+ },
+ "model": "UniGCN (TopoModelX), structural model: accounts only (wallet, room and building nodes are in the complex but not scored)",
+ "score_model": {
+  "acct_103": "structural",
+  "acct_131": "structural",
+  "acct_166": "structural",
+  "acct_201": "structural",
+  "acct_220": "structural",
+  "acct_228": "structural",
+  "acct_236": "structural",
+  "acct_410": "structural",
+  "acct_510": "structural",
+  "acct_626": "structural",
+  "acct_730": "structural",
+  "acct_843": "structural",
+  "acct_897": "structural",
+  "acct_905": "structural",
+  "acct_931": "structural"
+ },
+ "unscored": [
+  "W-1",
+  "W-2",
+  "W-3",
+  "W-4",
+  "room_LqCMcmmVH3d"
+ ],
+ "threshold": 0.564,
+ "eval_structural": {
+  "protocol": "train on seeds 201-203, validate on 204 (early stopping + threshold), test once on the held-out ring (seed 101) and the original synth (seed 37)",
+  "features": [
+   "burst_posting",
+   "cells_contact",
+   "cells_dm",
+   "cells_echo",
+   "cells_echo_event",
+   "cells_heartbeat",
+   "cells_interaction",
+   "cells_keyword",
+   "cells_merchant",
+   "cells_money",
+   "cells_photo",
+   "cells_place",
+   "cells_text",
+   "cells_time",
+   "distinct_kinds",
+   "flagged_share",
+   "links_contact",
+   "links_dm",
+   "links_echo",
+   "links_echo_event",
+   "links_heartbeat",
+   "links_interaction",
+   "links_keyword",
+   "links_merchant",
+   "links_money",
+   "links_photo",
+   "links_place",
+   "links_text",
+   "links_time",
+   "neighbours",
+   "payment_then_post",
+   "posts"
+  ],
+  "epochs_trained": 600,
+  "val": {
+   "dataset": "data/synth_s204",
+   "threshold": 0.564,
+   "precision": 1.0,
+   "recall": 1.0,
+   "auc": 1.0,
+   "precision_at_15": 1.0,
+   "ring_found": "15/15",
+   "rules": {
+    "precision": 1.0,
+    "recall": 1.0
+   }
+  },
+  "val_f1": 1.0,
+  "test": [
+   {
+    "dataset": "data/synth_heldout",
+    "threshold": 0.564,
+    "precision": 1.0,
+    "recall": 1.0,
+    "auc": 1.0,
+    "precision_at_15": 1.0,
+    "ring_found": "15/15",
+    "rules": {
+     "precision": 1.0,
+     "recall": 1.0
+    }
+   },
+   {
+    "dataset": "synth",
+    "threshold": 0.564,
+    "precision": 1.0,
+    "recall": 1.0,
+    "auc": 1.0,
+    "precision_at_15": 1.0,
+    "ring_found": "15/15",
+    "rules": {
+     "precision": 1.0,
+     "recall": 1.0
+    }
+   }
+  ],
+  "fresh_test": {
+   "dataset": "data/synth_fresh_s3301",
+   "threshold": 0.564,
+   "precision": 1.0,
+   "recall": 1.0,
+   "auc": 1.0,
+   "precision_at_15": 1.0,
+   "ring_found": "15/15",
+   "rules": {
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "note": "fresh seed 3301 (private layers 4301), generated after the model was final; run once, model commit 2c0b059"
+  }
+ },
+ "disagreements": [
+  {
+   "id": "acct_376",
+   "rules": false,
+   "model": 0.975,
+   "note": "model says ring, rules found no link"
+  },
+  {
+   "id": "acct_421",
+   "rules": false,
+   "model": 0.969,
+   "note": "model says ring, rules found no link"
+  },
+  {
+   "id": "acct_516",
+   "rules": false,
+   "model": 0.948,
+   "note": "model says ring, rules found no link"
+  },
+  {
+   "id": "acct_112",
+   "rules": false,
+   "model": 0.91,
+   "note": "model says ring, rules found no link"
+  },
+  {
+   "id": "acct_573",
+   "rules": false,
+   "model": 0.883,
+   "note": "model says ring, rules found no link"
+  }
+ ],
+ "trained_on": "structural: rings from generator seeds 201-203 (val 204), never this case's dataset; account labels only",
+ "eval": {
+  "dataset": "synth",
+  "split": {
+   "train": 459,
+   "val": 153,
+   "test": 153,
+   "seed": 0,
+   "test_positives": 3
+  },
+  "ablation_test": {
+   "content": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "auc": 1.0,
+    "n": 153,
+    "positives": 3,
+    "val_auc": 1.0
+   },
+   "network": {
+    "precision": 1.0,
+    "recall": 0.667,
+    "auc": 0.779,
+    "n": 153,
+    "positives": 3,
+    "val_auc": 1.0
+   },
+   "money": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "auc": 0.689,
+    "n": 153,
+    "positives": 3,
+    "val_auc": 0.84
+   },
+   "all": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "auc": 1.0,
+    "n": 153,
+    "positives": 3,
+    "val_auc": 1.0
+   }
+  },
+  "rules_vs_model_test": {
+   "rules_test": {
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "model_test": {
+    "precision": 1.0,
+    "recall": 1.0
+   }
+  },
+  "heldout": {
+   "status": "run",
+   "dataset": "data/synth_heldout (generator unchanged, seed 101; never trained on)",
+   "model": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "auc": 0.137,
+    "n": 765,
+    "positives": 15,
+    "ring_found": "0/15"
+   },
+   "rules": {
+    "precision": 1.0,
+    "recall": 1.0
+   }
+  },
+  "sensitivity_fixed_300_epochs": {
+   "test": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "auc": 1.0,
+    "n": 153,
+    "positives": 3
+   },
+   "heldout": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "auc": 1.0,
+    "n": 765,
+    "positives": 15,
+    "ring_found": "15/15"
+   }
+  }
+ },
+ "sources": {
+  "rooms": [
+   "room_match.json"
+  ],
+  "money": true,
+  "wallet_notes": true
+ }
+}
