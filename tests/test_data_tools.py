@@ -153,3 +153,25 @@ def test_room_match_never_indexes_holdout_sweeps():
     _, hold = render.split_sweeps(RING_A_SCAN)
     idx = room_match.scan_index(RING_A_SCAN)
     assert hold and not set(map(str, idx["sweep_ids"])) & set(hold)
+
+
+def test_room_match_coarse_pass_keeps_only_top_scans(monkeypatch, tmp_path):
+    """Many candidates: only the coarse top COARSE_KEEP get the full check; the rest get P 0
+    with their rank recorded (never a made-up score)."""
+    import numpy as np
+    from dome.data_tools import room_match as rm
+    scans = [f"s{i:02d}" for i in range(20)]
+    checked = []
+    monkeypatch.setattr(rm, "_load_photo", lambda p: np.zeros((8, 8, 3), np.uint8))
+    monkeypatch.setattr(rm, "embed", lambda ims: np.ones((len(ims), 384), np.float32))
+    monkeypatch.setattr(rm, "coarse_rank", lambda e, s: [(x, 1.0 - i / 100) for i, x in enumerate(sorted(s, reverse=True))])
+
+    def fake_scores(paths, full):
+        checked.extend(full)
+        return {"names": ["p1"], "images": [None], "emb": None, "groups": [[0]],
+                "scores": {"p1": {s: {"inliers": 0, "view_id": None} for s in full}}}
+    monkeypatch.setattr(rm, "photo_scores", fake_scores)
+    out = {r["scan_id"]: r for r in rm.room_match(["x.jpg"], scans, save_images=False)}
+    assert checked == sorted(scans, reverse=True)[:rm.COARSE_KEEP]
+    assert len(out) == 20 and all(out[s]["P"] == 0.0 for s in scans)
+    assert out["s00"]["stage"] == "coarse" and "rank 20 of 20" in out["s00"]["note"]

@@ -50,7 +50,7 @@ RING_MIN_CONFIDENCE = 0.4   # R below this: stop after the Zoner
 MATCH_THRESHOLD = 0.4       # Locator: a scan needs P >= this to count as a match
 TIER_STRONG = 0.6           # High needs P, W and R all >= this
 WIDE_AREA_KM2 = 25.0        # zone is "wide" above this area
-MAX_CANDIDATES = 50
+MAX_CANDIDATES = 150         # the Locator's coarse photo pass handles many scanned candidates
 MAX_WINDOW_PHOTOS_TRIED = 3   # Locator: window photos tried, in photo-id order, for W
 
 # CoStar property types -> the three Dome compares against photo cues (others pass through)
