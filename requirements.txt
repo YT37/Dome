@@ -19,3 +19,5 @@ pyproj
 opencv-python-headless
 pillow
 transformers
+# demo UI (Ishaan)
+flask

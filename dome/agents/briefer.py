@@ -315,6 +315,8 @@ def render_html(b: dict, case: Optional[Case] = None) -> str:
             "links": [f"{k}: {n} link{'s' * (n != 1)}" for k, n in kinds.most_common()],
             "recruiters": [{"account": r.account, "reason": scrub(r.reason)} for r in ring.recruiters],
             "photos": len(ring.photos),
+            # Track 2 badge: the Linker ran without messages or payments
+            "public_only": not getattr(case.load("rings.json"), "private_layers", False),
         }
     zone_rows = [z.model_dump() for z in zones.zones] if zones else []
     return _env.get_template("summary.html.j2").render(

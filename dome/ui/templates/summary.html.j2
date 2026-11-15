@@ -33,7 +33,7 @@
 </style>
 </head>
 <body>
-<div class="banner">Synthetic data · leads for human verification only</div>
+<div class="banner">Synthetic data · leads for human verification only{% if ring and ring.public_only %} · Public data only{% endif %}</div>
 <main>
   <h1>Dome case {{ b.case_id }}</h1>
   <p class="meta">Ring {{ b.ring_id or "none" }}{% if ring %} ({{ ring.line }}){% endif %}
