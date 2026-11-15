@@ -44,7 +44,7 @@
       <a class="btn" href="/globe" id="globeTab" hidden title="Open the Globe view">Globe</a>
       <button class="btn" id="presentBtn" type="button" title="Presenter mode: larger text">Presenter</button>
       <details class="settings"><summary class="btn" title="Settings">Settings</summary><div class="settings-pop">
-      <label class="switch" title="Rule-based planner, no LLM. The offline fallback."><input type="checkbox" id="scripted" checked> Scripted (no LLM)</label>
+      <label class="switch" title="Who plans the order of the agents. On: a rule-based planner (offline, reproducible). Off: the Gemini supervisor plans the steps. Every number comes from the same code either way."><input type="checkbox" id="scripted" checked> Planner: rules (off = Gemini)</label>
       <label class="switch" title="Switch views as each step finishes: graph, then map, then the overview"><input type="checkbox" id="tour"> Auto tour</label></div></details>
       <label class="sr" for="replaySel">Replay a recorded case</label>
       <select class="ctl" id="replaySel" aria-label="Replay a recorded case"><option value="">Replay…</option></select>
