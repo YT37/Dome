@@ -1,0 +1,9 @@
+{"ranks": {
+  "0": [{"id": "acct_103", "kind": "account"}, {"id": "acct_233", "kind": "account"}, {"id": "W-1", "kind": "wallet_cluster"}, {"id": "room_A", "kind": "room"}, {"id": "bld_A", "kind": "building"}],
+  "1": [{"id": "c_ph_1", "kind": "shared_phone", "members": ["acct_103", "acct_233"], "reason": "same phone in 14 ads"},
+        {"id": "c_pay_1", "kind": "payment_then_post", "members": ["W-1", "acct_103"], "reason": "paid 7 min before posting, 11 times"},
+        {"id": "c_room_1", "kind": "room_in_building", "members": ["room_A", "bld_A"], "reason": "CoStar scan link"}],
+  "2": [{"id": "e_burst_1", "kind": "posting_burst", "members": ["acct_103", "acct_233"], "reason": "9 posts within 20 min"}],
+  "3": [{"id": "R-A", "kind": "ring", "members": ["acct_103", "acct_233", "W-1"], "reason": "content + network + money agree"}]},
+ "scores": {"acct_103": 0.97, "acct_233": 0.81, "W-1": 0.91},
+ "model": "UniGCN (TopoModelX)"}

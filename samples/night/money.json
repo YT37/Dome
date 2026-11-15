@@ -1,0 +1,9 @@
+{"wallet_clusters": [
+  {"cluster_id": "W-1", "role": "advertiser", "addresses": 2, "confidence": 0.91, "reasons": ["paid the ad platform 2-15 min before 11 ring posts (chance level: 0.4)"]},
+  {"cluster_id": "W-2", "role": "collector", "addresses": 3, "confidence": 0.82, "reasons": ["19 incoming payments match ad prices during the ring's active hours"]},
+  {"cluster_id": "W-9", "role": "aggregator", "addresses": 1, "confidence": 0.86, "reasons": ["receives consolidations from 3 collector clusters"]},
+  {"cluster_id": "W-12", "role": "cash_out", "addresses": 1, "confidence": 0.8, "reasons": ["sends to Exchange X deposit 4 times"]}],
+ "flows": [{"from": "W-2", "to": "W-9", "btc": 0.84, "txs": 12}, {"from": "W-9", "to": "W-12", "btc": 0.79, "txs": 4}],
+ "cash_out": [{"cluster_id": "W-12", "service": "Exchange X", "times": 4}],
+ "payment_then_post": [{"wallet": "W-1", "paid_at": "2026-11-03T21:04:00", "post_at": "2026-11-03T21:11:00", "account": "acct_103"}],
+ "attribution_confidence": 0.86}
