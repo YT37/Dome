@@ -1,0 +1,14 @@
+{"nodes": [
+  {"id": "acct_103", "type": "account", "label": "Account 103", "role": "advertiser", "layer": "content", "score": 0.97},
+  {"id": "acct_233", "type": "account", "label": "Account 233", "role": "recruiter", "layer": "network", "score": 0.81},
+  {"id": "ph_1", "type": "phone", "label": "555-…42", "role": null, "layer": "content", "score": null},
+  {"id": "W-1", "type": "wallet_cluster", "label": "bc1q…7f3a", "role": "advertiser", "layer": "money", "score": 0.91},
+  {"id": "svc_ad", "type": "service", "label": "AdPlatform", "role": null, "layer": "money", "score": null},
+  {"id": "room_A", "type": "room", "label": "Scan of Building A", "role": null, "layer": "place", "score": 0.68},
+  {"id": "bld_A", "type": "building", "label": "Building A (synthetic case)", "role": null, "layer": "place", "score": null}],
+ "edges": [
+  {"source": "acct_103", "target": "ph_1", "type": "shares_phone", "layer": "content", "reason": "same phone in 14 ads"},
+  {"source": "acct_233", "target": "acct_103", "type": "reposts", "layer": "network", "reason": "31 of 33 reposts go to ring accounts"},
+  {"source": "W-1", "target": "svc_ad", "type": "pays", "layer": "money", "reason": "11 payments 2-15 min before ring posts"},
+  {"source": "W-1", "target": "acct_103", "type": "payment_then_post", "layer": "money", "reason": "paid 7 min before this account posted, 11 times"},
+  {"source": "room_A", "target": "bld_A", "type": "room_in_building", "layer": "place", "reason": "CoStar links this scan to Building A"}]}

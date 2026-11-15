@@ -129,3 +129,40 @@ kbd { font: .9em "Geist Mono"; border: 1px solid var(--line); border-radius: 4px
 .pin-label { background: var(--panel); border: 1px solid var(--line); color: var(--text); padding: 3px 8px; border-radius: 6px; font: .76em "Geist Mono"; white-space: nowrap; }
 .pin { width: 18px; height: 18px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 4px rgba(239, 95, 95, .35); }
 .pin.rough { background: #888; } .pin.fixed { background: var(--red); }
+
+#mp { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.sample-tag { display: inline-block; margin-left: 8px; padding: 1px 7px; border-radius: 6px; background: rgba(242, 180, 90, .2);
+  color: var(--amber); font: 600 .72em "Geist Mono"; vertical-align: middle; }
+body.present .is-sample, body.present [data-sample="1"] { display: none !important; }
+.ticker div { cursor: pointer; } .ticker div:hover { border-color: var(--accent); }
+.ticker div.sample { opacity: .7; border-left-color: var(--amber); }
+.work { margin-left: 6px; font: 600 .72em "Geist Mono"; color: var(--accent); background: none; border: 1px solid var(--line);
+  border-radius: 6px; padding: 1px 6px; cursor: pointer; }
+.drawer { position: fixed; z-index: 45; right: 0; top: 34px; bottom: 0; width: min(760px, 100vw); background: #0b0c11;
+  border-left: 1px solid var(--line); display: flex; flex-direction: column; box-shadow: -30px 0 80px rgba(0, 0, 0, .5); }
+.drawer > header { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.drawer h2 { margin: 2px 0 0; font-size: 1.15em; }
+.drawer .eyebrow { color: var(--accent); font: 600 .72em "Geist Mono"; text-transform: uppercase; letter-spacing: .08em; }
+.drawer-tabs { display: flex; gap: 4px; flex-wrap: wrap; flex: 1; justify-content: flex-end; }
+.drawer-tabs button { background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 7px; padding: 3px 8px; font: .78em "Geist Mono"; cursor: pointer; }
+.drawer-tabs button.on { color: #fff; background: rgba(130, 143, 255, .2); border-color: var(--accent); }
+.drawer-body { flex: 1; overflow: auto; padding: 14px 18px; min-height: 0; }
+.drawer-body h3 { margin: 0 0 10px; font-size: 1.05em; }
+.step-view { min-height: 320px; position: relative; }
+.step-view canvas { max-height: 440px; }
+.step-view img { max-width: 100%; border-radius: 10px; border: 1px solid var(--line); display: block; margin-bottom: 8px; }
+.step-view .smap { height: 420px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+.step-view #scy { height: 440px; border: 1px solid var(--line); border-radius: 10px; }
+.step-view table { width: 100%; border-collapse: collapse; font-size: .86em; }
+.step-view th, .step-view td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+.step-view th { color: var(--muted); font-weight: 500; position: sticky; top: 0; background: #0b0c11; }
+.step-view td { font-family: "Geist Mono", monospace; }
+.step-view tr.hi td { background: rgba(239, 95, 95, .14); color: #fff; }
+.step-view .bigtext { font-size: 1.4em; font-weight: 600; margin: 8px 0; }
+.step-view .note { color: var(--amber); font: .8em "Geist Mono"; }
+.step-view .glist { columns: 2; font: .78em "Geist Mono"; color: var(--muted); margin-top: 8px; }
+.step-cap { color: #c9cdd6; line-height: 1.5; }
+.step-src { color: var(--muted); font-size: .78em; } .step-src code { font-family: "Geist Mono"; color: #c9cdd6; }
+.drawer > footer { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-top: 1px solid var(--line); }
+#stepCount { color: var(--muted); font: .85em "Geist Mono"; }
+body.present .drawer { width: min(1000px, 100vw); }

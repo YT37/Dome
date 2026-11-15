@@ -2,7 +2,7 @@
 
     python -m dome.ui.app            # http://127.0.0.1:5000
 
-The page starts the supervisor (a subprocess, Track 2: --no-private) and polls the case folder.
+The page starts the supervisor (a subprocess) and polls the case folder.
 It reads files the agents wrote; it never computes a tier or a score. It has no tool that
 contacts, dispatches or publishes anything, and no chat. Everything shown is synthetic.
 """
@@ -29,7 +29,7 @@ FILES = {"rings.json", "zones.json", "candidates.json", "matches.json", "brief.j
 CASE_ID = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
 PHONE = re.compile(r"(?:\d[\s\-.()]{0,3}){6,10}\d")
 
-# Two presets, both Track 2 (public data only).
+# Two presets.
 PRESETS = {
     "ring_a": {"label": "Ring A · one High lead", "case": "demo-a", "data": "synth", "seed": None,
                "note": "12 accounts, 90 ads. The dome shrinks to one building."},
@@ -103,7 +103,7 @@ def run():
         if running():
             return jsonify({"error": "a run is already going", "case": _run["case"]}), 409
         cmd = [sys.executable, "-m", "dome.supervisor", "--case", preset["case"],
-               "--data", preset["data"], "--no-private"]
+               "--data", preset["data"]]
         if preset["seed"]:
             cmd += ["--seed", preset["seed"]]
         if body.get("scripted"):
@@ -223,7 +223,7 @@ def graph():
 
 @app.get("/complex")
 def complex_():
-    """The Linker's combinatorial complex (Track 2, public keys only), for the topology view.
+    """The Linker's combinatorial complex, for the topology view.
 
     rank 0 = accounts, rank 1 = one cell per key shared by 2+ accounts. Per account: how many
     cells of each kind it sits in (the topological model's input), and the model's P(in a ring)
@@ -270,6 +270,19 @@ def _build_complex(name: str, key) -> None:
         }
     except Exception as exc:   # the view is optional; never break the page
         _cache[key] = {"status": "error", "error": f"{type(exc).__name__}: {exc}"[:300]}
+
+
+@app.get("/steps")
+def steps_view():
+    """"Show the work" for one agent (DOME_STEPS=1): {agent, title, steps: [{id, title, kind, data, caption,
+    source}]}, built by dome/ui/steps/ from files the code wrote. No address key ever leaves."""
+    if not globe.steps_enabled():
+        abort(404)
+    from . import steps
+    agent = request.args.get("agent", "")
+    if agent not in steps.AGENTS:
+        abort(404)
+    return jsonify(steps.build(case_dir(request.args.get("case", "")), agent))
 
 
 def main():

@@ -1,0 +1,8 @@
+{"t": 0.0, "agent": "supervisor", "phase": "start", "message": "Case started from flagged account acct_103", "refs": ["acct_103"]}
+{"t": 2.1, "agent": "linker", "phase": "result", "message": "12 accounts form Ring A: 2 phones, a reworded script, shared photos", "refs": ["acct_103", "ph_1"]}
+{"t": 3.4, "agent": "linker", "phase": "result", "message": "Money: advertiser wallet pays the ad platform minutes before posts; 4 clusters, cash-out at Exchange X", "refs": ["W-1"]}
+{"t": 4.0, "agent": "zoner", "phase": "result", "message": "Dome: 2.4 km2 around Downtown/Midtown", "refs": ["Z-A1"]}
+{"t": 5.2, "agent": "lister", "phase": "result", "message": "125 scanned buildings inside the dome", "refs": []}
+{"t": 7.8, "agent": "locator", "phase": "result", "message": "Ring A photos match Building A's scan (P 0.68); pin moved 22.8 m; floor 3", "refs": ["room_A", "bld_A"]}
+{"t": 9.0, "agent": "supervisor", "phase": "interrupt", "message": "Approve Building A as a High lead for the report?", "refs": ["bld_A"]}
+{"t": 12.0, "agent": "briefer", "phase": "result", "message": "Report: Building A High; decoy D below threshold", "refs": ["bld_A"]}

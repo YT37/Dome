@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="banner" role="note">
-  <b>Synthetic case.</b> Real buildings are used only as demo locations; no real activity is implied. Public data only.
+  <b>Synthetic case.</b> Real buildings are used only as demo locations; no real activity is implied.
 </div>
 
 <div id="map" aria-label="Globe"></div>
@@ -42,6 +42,7 @@
   <button type="button" data-panel="spotter" hidden>Spotter queue</button>
   <button type="button" data-panel="topology" hidden>Topology</button>
   <button type="button" data-panel="money" hidden>Money</button>
+  <button type="button" data-panel="steps" hidden>Show the work</button>
   <span class="keys"><kbd>←</kbd><kbd>→</kbd> step · <kbd>P</kbd> presenter · <kbd>R</kbd> replay</span>
 </nav>
 
@@ -52,8 +53,25 @@
   <div class="sheet-body" id="sheetBody"></div>
 </section>
 
+<section class="drawer" id="drawer" hidden aria-label="Show the work">
+  <header>
+    <div><div class="eyebrow">Show the work</div><h2 id="drawerTitle"></h2></div>
+    <div class="drawer-tabs" id="drawerTabs"></div>
+    <button class="btn ghost" id="drawerClose" type="button">Close</button>
+  </header>
+  <div class="drawer-body">
+    <h3 id="stepTitle"></h3>
+    <div class="step-view" id="stepView"></div>
+    <p class="step-cap" id="stepCap"></p>
+    <p class="step-src">read from: <code id="stepSrc"></code></p>
+  </div>
+  <footer><button class="btn" id="stepPrev" type="button">← Prev</button><span id="stepCount"></span>
+    <button class="btn primary" id="stepNext" type="button">Next →</button></footer>
+</section>
+
 <section class="inside" id="inside" hidden>
-  <div class="pano-wrap"><div id="pano"></div><div class="pano-tag" id="panoTag"></div></div>
+  <div class="pano-wrap"><div id="pano"></div><iframe id="mp" hidden allow="fullscreen; xr-spatial-tracking" referrerpolicy="no-referrer"></iframe>
+    <div class="pano-tag" id="panoTag"></div></div>
   <div class="inside-side">
     <figure class="match">
       <figcaption>Ad photo (left) · matched scan view (right)</figcaption>
@@ -69,6 +87,7 @@
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.30.4/dist/cytoscape.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/layout-base@2.0.1/layout-base.js"></script>
