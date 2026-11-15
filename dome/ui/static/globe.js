@@ -9,8 +9,9 @@
   let F = null, P = null, step = -1, timer = null, pano = null, cy = null;
   let roughMarker = null, fixedMarker = null;
   let FLAGS = {}, LIVE_RUN = null;
-  const STEP_AGENT = { globe: "linker", city: "zoner", zone: "zoner", cands: "lister", lead: "locator", ortho: "geo",
-    oblique: "geo", costar: "geo", pin: "geo", inside: "locator", brief: "briefer" };
+  const STEP_AGENT = { city: "locator", zone: "locator", cands: "locator", narrow: "locator", lead: "locator",
+    pin: "geo", oblique: "geo", window: "window", inside: "locator" };
+  const WORK_AGENTS = ["locator", "geo", "window"];     // the Globe tells the CoStar story; the rest is on the Homepage
   const cap = (a) => String(a || "").charAt(0).toUpperCase() + String(a || "").slice(1);
   const sampleTag = (on) => on ? `<span class="sample-tag" title="Shared sample from samples/night/, not from this case">sample · not this case</span>` : "";
   const HOUSTON = [-95.37, 29.76];
@@ -41,17 +42,15 @@
 
   // --------------------------------------------------------------- steps
   const STEPS = [
-    { id: "globe", t: "Case", run: sGlobe },
-    { id: "city", t: "City", run: sCity },
+    { id: "city", t: "Houston", run: sCity },
     { id: "zone", t: "The dome", run: sZone },
-    { id: "cands", t: "Candidates", run: sCands },
-    { id: "lead", t: "#1 building", run: sLead },
-    { id: "ortho", t: "Vexcel ortho", run: sOrtho },
-    { id: "oblique", t: "Oblique + floor", run: sOblique },
-    { id: "costar", t: "CoStar record", run: sCostar },
+    { id: "cands", t: "Buildings in it", run: sCands },
+    { id: "narrow", t: "Room match", run: sNarrow },
+    { id: "lead", t: "The building", run: sLead },
     { id: "pin", t: "Pin fix", run: sPin },
-    { id: "inside", t: "Inside", run: sInside },
-    { id: "brief", t: "Lead brief", run: sBrief },
+    { id: "oblique", t: "Floor band", run: sOblique },
+    { id: "window", t: "Window check", run: sWindow },
+    { id: "inside", t: "Inside the scan", run: sInside },
   ];
   $("#steps").innerHTML = STEPS.map((s, i) => `<li data-i="${i}"><span class="n">${i + 1}</span>${esc(s.t)}</li>`).join("");
   $("#steps").addEventListener("click", (e) => { const li = e.target.closest("li"); if (li) go(+li.dataset.i); });
@@ -136,13 +135,37 @@
       <p class="fine">Red pin: the building the Locator matched. Grey: scanned candidates. Dim: no scan.</p>`);
   }
 
+  function sNarrow() {
+    setVis("cands", true); setVis("zone-fill", true); setVis("zone-line", true);
+    const n = F.narrow, b = F.best || {};
+    if (!n) return card(`<div class="eyebrow">Locator</div><h2>Room match</h2><p>Best scan P ${pct(b.P)}.</p>`);
+    card(`<div class="eyebrow">Locator · room match</div><h2>${n.scans} → ${n.shortlist} → ${n.matched}</h2>
+      <div class="stats"><div class="stat"><b>${n.scans}</b><span>scans compared</span></div>
+        <div class="stat"><b>${n.shortlist}</b><span>kept for point matching</span></div>
+        <div class="stat"><b>${n.matched}</b><span>at P ≥ ${n.threshold}</span></div></div>
+      <p>The ring's ${n.photos} photos fall into ${n.groups} rooms. One building's scan matches P ${pct(b.P)} of them.</p>`);
+  }
+
+  function sWindow() {
+    const w = F.window;
+    if (!w) return card(`<div class="eyebrow">Window check</div><h2>Not run</h2><p>No window photo matched this building.</p>`);
+    const yn = (v) => v === true ? "✓" : v === false ? "✗" : "unclear";
+    card(`<div class="eyebrow">Window check</div><h2>W ${pct(w.W)}</h2>
+      <p>The view from the ad's window against the Vexcel oblique of this facade.</p>
+      <dl class="kv">${w.items.map((i) => `<dt>${esc(String(i.item).replace(/_/g, " "))}</dt><dd>${esc(i.ad)} / ${esc(i.oblique)} ${yn(i.agree)}</dd>`).join("")}</dl>
+      <p class="fine">ad photo / oblique · "unclear" is not counted.</p>`);
+  }
+
   function sLead() {
     setVis("cands", true); clearPins();
     const p = fixed(); if (!p) return card("<h2>No building matched</h2>");
     map.flyTo({ center: [p.lon, p.lat], zoom: 17.6, pitch: 55, bearing: -20, duration: 5000, essential: true });
     setVis("footprint-line", true);
     const L = lead(), b = F.best || {};
+    const c = ins().costar || {};
     card(`<div class="eyebrow">Locator · #1 building</div><h2>${esc(ins().display_name || L.display_name || b.property_id)}</h2>
+      <dl class="kv"><dt>Type</dt><dd>${esc(c.type || "—")}</dd><dt>Floors</dt><dd>${esc(c.floors ?? "—")}</dd>
+        <dt>Built</dt><dd>${esc(c.year_built ?? "—")}</dd><dt>Floor</dt><dd>${esc(ins().floor ?? "—")} (${esc(ins().floor_source || "—")})</dd></dl>
       <p><span class="tier ${esc(L.tier)}">${esc(L.tier || "—")}</span> &nbsp;score ${esc(L.score ?? "—")}</p>
       <div class="stats"><div class="stat"><b>${pct(b.P)}</b><span>room match P</span></div>
         <div class="stat"><b>${pct(b.W)}</b><span>window W</span></div>
@@ -185,7 +208,7 @@
     if (map.getSource("pinline")) map.getSource("pinline").setData({ type: "FeatureCollection", features: [] }); }
   function pinEl(cls) { const d = document.createElement("div"); d.className = "pin " + cls; return d; }
   function sPin() {
-    clearPins();
+    clearPins(); setVis("ortho", true); setVis("footprint-line", true);
     const r = ins().rough_pin, f = ins().fixed_pin;
     if (!r || !f) return card("<h2>No pin fix in this pack</h2>");
     map.easeTo({ center: [(r.lon + f.lon) / 2, (r.lat + f.lat) / 2], zoom: 19, pitch: 0, bearing: 0, duration: 1800 });
@@ -457,7 +480,7 @@
   });
 
   // --------------------------------------------------------------- replay, presenter, events
-  const DWELL = [5, 5, 5, 5, 7, 5, 6, 6, 6, 9, 8];
+  const DWELL = [5, 5, 5, 6, 7, 6, 6, 6, 9];
   function stopReplay() { clearTimeout(timer); timer = null; $("#replayBtn").classList.remove("on"); $("#replayBtn").textContent = "Replay"; }
   function replay() {
     if (timer) return stopReplay();
@@ -506,14 +529,15 @@
   $("#stepNext").addEventListener("click", () => showStep(W.i + 1));
   $("#drawerTabs").addEventListener("click", (e) => { const b = e.target.closest("[data-agent]"); if (b) openWork(b.dataset.agent); });
   async function openWork(agent) {
-    if (!FLAGS.steps || !FLAGS.steps[agent]) return;
+    if (!FLAGS.steps) return;
+    if (!WORK_AGENTS.includes(agent)) agent = "locator";
     closeSheet();
     const r = await fetch(`/steps?case=${encodeURIComponent(CASE)}&agent=${encodeURIComponent(agent)}`);
     if (!r.ok) return;
     const j = await r.json();
     W.agent = agent; W.steps = j.steps || [];
     $("#drawerTitle").textContent = j.title;
-    $("#drawerTabs").innerHTML = Object.entries(FLAGS.steps).map(([k, t]) => `<button data-agent="${esc(k)}" class="${k === agent ? "on" : ""}" title="${esc(t)}">${esc(k)}</button>`).join("");
+    $("#drawerTabs").innerHTML = Object.entries(FLAGS.steps).filter(([k]) => WORK_AGENTS.includes(k)).map(([k, t]) => `<button data-agent="${esc(k)}" class="${k === agent ? "on" : ""}" title="${esc(t)}">${esc(k)}</button>`).join("");
     $("#drawer").hidden = false;
     showStep(0);
   }
@@ -616,10 +640,11 @@
     F = await r.json();
     P = await (await fetch(`/panels?case=${encodeURIComponent(caseId)}`)).json();
     for (const k of ["spotter", "topology", "money"]) { const btn = document.querySelector(`[data-panel=${k}]`);
+      if (!btn) continue;
       btn.hidden = !P[k]; btn.dataset.sample = P[k] && P[k].sample ? "1" : "0";
       btn.title = P[k] && P[k].sample ? "Shared sample, not from this case (hidden in presenter mode)" : ""; }
     document.querySelector("[data-panel=steps]").hidden = !FLAGS.steps;
-    document.querySelector("[data-panel=ask]").hidden = !FLAGS.ask;
+
     const ready = async () => {
       addLayers(); go(toBrief ? STEPS.length - 1 : 0);      // a live run lands on the brief (approve there)
       // deep links for presenting: ?step=<1-11>&work=<agent>&wstep=<n>
