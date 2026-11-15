@@ -470,8 +470,11 @@ def build(case: Case) -> dict:
     accounts = set(ds["accounts"]) if ds else {m for r in (rings.rings if rings else []) for m in r.members}
     core = set(ring.members) | {x.account for x in ring.recruiters} if ring else set()
     near = [c for c in cells if set(c["members"]) & core]
-    nodes0 = sorted(core | {m for c in near if c["kind"] in EXTRA_KINDS for m in c["members"]})
+    wallets = {w.cluster_id for w in (ring.money.wallet_clusters if ring and ring.money else [])}
+    nodes0 = sorted(core | wallets | {m for c in near if c["kind"] in EXTRA_KINDS for m in c["members"]})
     keep = set(nodes0)
+    # money/room cells between kept non-account nodes (wallet flows, room -> building)
+    near += [c for c in cells if c not in near and c["kind"] in EXTRA_KINDS and set(c["members"]) <= keep]
     ranks: dict = {"0": [{"id": n, "kind": node_type(n, accounts)} for n in nodes0], "1": [], "2": [], "3": []}
     seen = set()
     for c in near:
@@ -515,7 +518,14 @@ def build(case: Case) -> dict:
                     out["scores"][n] = round(sp_prob[n], 3)
                     out["score_model"][n] = "structural"
             out.pop("score_split", None)
-            out["model"] = "UniGCN (TopoModelX): structural model for accounts, complex-v1 for wallets/rooms"
+            # wallet/room/building nodes: neither model saw such nodes with labels in training,
+            # so their outputs are extrapolation; they are not reported as scores
+            for n in [n for n in out["scores"] if n not in accounts]:
+                out["scores"].pop(n)
+                out["score_model"].pop(n, None)
+            out["unscored"] = sorted(n for n in nodes0 if n not in accounts)
+            out["model"] = ("UniGCN (TopoModelX), structural model: accounts only (wallet, room and "
+                            "building nodes are in the complex but not scored)")
             out["threshold"] = round(thr, 3)
             if STRUCT_EVAL.exists():
                 out["eval_structural"] = json.loads(STRUCT_EVAL.read_text(encoding="utf-8"))
@@ -526,7 +536,7 @@ def build(case: Case) -> dict:
                for a, p in prob.items() if a in accounts and ((p >= thr) != (a in rule_members))]
         out["disagreements"] = sorted(dis, key=lambda d: -abs(d["model"] - thr))[:20]
         out["trained_on"] = ("structural: rings from generator seeds 201-203 (val 204), never this case's "
-                             "dataset; complex-v1 (wallet/room nodes): synth train split, account labels only"
+                             "dataset; account labels only"
                              if sp_prob is not None else
                              "account labels of the synth train split only; wallet/room scores are model outputs")
         if EVAL_PATH.exists():
