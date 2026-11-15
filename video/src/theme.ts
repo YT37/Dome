@@ -29,29 +29,29 @@ export const F = {
 
 // ---------- timeline (seconds) ----------
 export const HOOK = [
-  {src: 'clips/us.mp4', from: 0, dur: 5.0, start: 0, credit: 'BBC News', title: "'Epidemic' of US children sold for sex"},
-  {src: 'clips/tz.mp4', from: 5.0, dur: 2.0, start: 0.5, credit: 'BBC Africa Eye', title: "Forced to beg: Tanzania's trafficked kids"},
-  {src: 'clips/fr_53.mp4', from: 7.0, dur: 3.8, start: 0.0, credit: 'France 24', title: 'Recruiting on TikTok: the code words'},
-  {src: 'clips/fr_63.5.mp4', from: 10.8, dur: 3.4, start: 0.1, credit: 'France 24', title: 'The lure: housed, fed, transport, safety'},
+  {src: 'clips/us.mp4', from: 0, dur: 10, start: 0, credit: 'BBC News', title: "'Epidemic' of US children sold for sex", vol: [[0, 0.9], [10, 0.9]]},
+  {src: 'clips/tz.mp4', from: 10, dur: 10, start: 0, credit: 'BBC Africa Eye', title: "Forced to beg: Tanzania's trafficked kids", vol: [[0, 0.85], [2.0, 0.85], [2.6, 0.22], [10, 0.22]]},
+  {src: 'clips/fr.mp4', from: 20, dur: 10, start: 0, credit: 'France 24', title: 'Recruiting on TikTok, in code', vol: [[0, 0.25], [10, 0.25]]},
 ];
-export const HOOK_END = 14.2;
-export const VO_FIRST = 15.4;
-const GAPS = [0, 0.33, 0.47, 0.35, 0.33, 0.35, 0.33, 0.35, 0.35, 0.35, 0.35, 0.5];
+export const HOOK_END = 30;
+export const REVEAL = [30, 33.2];
+// voiceover start times: the first two lines play over the Tanzania and France 24 footage
+const STARTS0 = [12.4, 18.2, 30.6];
+const GAP = 0.35;
 export const VO: {start: number; dur: number; text: string}[] = [];
 {
-  let t = VO_FIRST;
+  let t = 0;
   DATA.vo.forEach((d: number, i: number) => {
-    if (i > 0) t += GAPS[i];
-    VO.push({start: t, dur: d, text: DATA.lines[i]});
-    t += d;
+    const s = i < 3 ? STARTS0[i] : t + GAP;
+    VO.push({start: s, dur: d, text: DATA.lines[i]});
+    t = s + d;
   });
 }
 export const END = VO[11].start + VO[11].dur + 1.7;
 export const SCENES: [string, number, number][] = (() => {
   const s = (i: number) => VO[i].start - 0.15;
   return [
-    ['hook', 0, HOOK_END], ['cut', HOOK_END, 15.2], ['friend', 15.2, s(1)], ['problem', s(1), s(2)],
-    ['title', s(2), s(3)], ['pipeline', s(3), s(4)], ['linker', s(4), s(5)], ['zoner', s(5), s(6)],
+    ['hook', 0, HOOK_END], ['reveal', REVEAL[0], REVEAL[1]], ['title', REVEAL[1], s(3)], ['pipeline', s(3), s(4)], ['linker', s(4), s(5)], ['zoner', s(5), s(6)],
     ['lister', s(6), s(7)], ['locator', s(7), s(8)], ['briefer', s(8), s(9)], ['run', s(9), s(10)],
     ['guard', s(10), s(11)], ['close', s(11), END],
   ];
