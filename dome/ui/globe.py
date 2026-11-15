@@ -154,6 +154,8 @@ def ui_flags():
     if steps_enabled():
         from .steps import AGENTS
         out["steps"] = AGENTS
+    if ask_enabled():
+        out["ask"] = True
     if live_enabled():
         out["live"] = _graph_stream() is not None
         out["assistant"] = assistant_name()
@@ -244,7 +246,9 @@ KIND_TYPE = {"ring": "cell", "contact": "phone", "phone": "phone", "text": "scri
              "photo": "photo", "room": "room", "building": "building", "account": "account",
              "wallet": "wallet_cluster", "wallet_cluster": "wallet_cluster", "service": "service",
              "payment": "wallet_cluster"}
-KIND_LAYER = {"shared_phone": "content", "payment_then_post": "money", "room_in_building": "place",
+KIND_LAYER = {"dm": "network", "echo_event": "network", "heartbeat": "network", "wallet_note": "money",
+              "money": "money", "wallet_flow": "money", "photo_in_room": "place", "merchant": "money",
+              "shared_phone": "content", "payment_then_post": "money", "room_in_building": "place",
               "posting_burst": "network", "ring": "content", "contact": "content", "phone": "content", "text": "content", "keyword": "content",
               "script": "content", "photo": "content", "interaction": "network", "time": "network",
               "account": "network", "place": "place", "room": "place", "building": "place",
@@ -265,6 +269,7 @@ def _short(key: str) -> str:
 def graph_from_complex(cx: dict) -> dict:
     """Contract F: ranks {"0": [cells], ...}; rank 0 cells are nodes, higher cells join their members."""
     scores, reasons = cx.get("scores") or {}, cx.get("reasons") or {}
+    unscored = set(cx.get("unscored") or [])
     nodes, edges = {}, []
     ranks = cx.get("ranks") or {}
     for cell in ranks.get("0", []):
@@ -272,7 +277,8 @@ def graph_from_complex(cx: dict) -> dict:
         kind = cell.get("kind", "account")
         nodes[cid] = {"id": cid, "type": KIND_TYPE.get(kind, "account"), "label": cell.get("masked_label") or cell.get("label") or cid,
                       "role": cell.get("role") or "member", "layer": KIND_LAYER.get(kind, "network"),
-                      "score": scores.get(cid), "reason": cell.get("reason") or reasons.get(cid)}
+                      "score": None if cid in unscored else scores.get(cid),
+                      "reason": cell.get("reason") or reasons.get(cid) or ("in the complex, not scored" if cid in unscored else None)}
     for r in sorted(k for k in ranks if k != "0"):
         for cell in ranks[r]:
             kind = cell.get("kind", "")
@@ -285,7 +291,8 @@ def graph_from_complex(cx: dict) -> dict:
                 continue
             cid = cell.get("id")
             nodes[cid] = {"id": cid, "type": "cell" if r != "1" else KIND_TYPE.get(kind, "cell"),
-                          "label": cell.get("masked_label") or kind, "role": f"rank {r} cell", "layer": layer,
+                          "label": cell.get("masked_label") or cell.get("label") or f"{kind} ×{len(members)}",
+                          "role": f"rank {r} cell", "layer": layer,
                           "score": scores.get(cid), "reason": reason}
             edges += [{"source": m, "target": cid, "type": kind, "layer": layer, "reason": reason} for m in members]
     return {"source": "complex.json", "nodes": list(nodes.values()), "edges": edges}
@@ -446,10 +453,13 @@ def panels_for(d: Path) -> dict:
     if cx and cx.get("ranks"):
         topology = {"ranks": {r: [{"id": c.get("id"), "kind": c.get("kind"), "size": len(c.get("members", [])),
                                    "label": c.get("masked_label") or c.get("label") or c.get("id"),
-                                   "score": scores.get(c.get("id")),
+                                   "score": None if c.get("id") in set(cx.get("unscored") or []) else scores.get(c.get("id")),
                                    "reason": c.get("reason") or (cx.get("reasons") or {}).get(c.get("id"))}
                                   for c in cells] for r, cells in cx["ranks"].items()},
-                    "features": cx.get("features"), "model": cx.get("model"), "sample": cx_sample}
+                    "features": cx.get("features"), "model": cx.get("model"), "sample": cx_sample,
+                    "threshold": cx.get("threshold"), "unscored": cx.get("unscored") or [],
+                    "disagreements": cx.get("disagreements") or [],
+                    "fresh_test": (cx.get("eval_structural") or {}).get("fresh_test")}
 
     rings = _load(d, "rings.json") or {}
     money = next((r.get("money") for r in rings.get("rings", []) if r.get("money")), None) or rings.get("money")
@@ -496,7 +506,7 @@ _live: dict[str, dict] = {}
 
 def assistant_name() -> str | None:
     """Which LangGraph assistant live runs use. dome.graph_stream reads the same variable; we only show it."""
-    return os.getenv("DOME_GRAPH_ASSISTANT") or None
+    return os.getenv("DOME_GRAPH_ASSISTANT") or "dome_rules"      # graph_stream's default too; "dome" at merge
 
 
 def _graph_stream():
@@ -632,3 +642,85 @@ def events():
         yield "event: end\ndata: {}\n\n"
 
     return Response(stream(), mimetype="text/event-stream", headers={"Cache-Control": "no-cache"})
+
+
+# ---------------------------------------------------------------------- ask about this case (DOME_ASK=1)
+NOT_IN_CASE = "That isn't in this case's files."
+_PATH_TOKEN = re.compile(r"([A-Za-z_][\w-]*)|\[(\d+)\]")
+
+
+def ask_enabled() -> bool:
+    return os.getenv("DOME_ASK") == "1"
+
+
+def _ask_gate():
+    if not ask_enabled():
+        abort(404)
+
+
+def _recorded_ask(d: Path):
+    from . import app as ui
+    p = Path(ui.RECORDED) / d.name / "ask.json"
+    if p.exists():
+        try:
+            return {**json.loads(p.read_text(encoding="utf-8")), "recorded": True}
+        except json.JSONDecodeError:
+            return None
+    return None
+
+
+@bp.get("/ask")
+def ask_recorded():
+    """The recorded Q&A for a replayed case (samples/demo_cases/<case>/ask.json), if there is one."""
+    _ask_gate()
+    d = _case_dir(request.args.get("case", ""))
+    return jsonify(scrub(_recorded_ask(d) or {"recorded": False}))
+
+
+@bp.post("/ask")
+def ask():
+    """dome.ask.answer(case_id, question): answers only from the case files, with checked citations."""
+    _ask_gate()
+    body = request.get_json(silent=True) or {}
+    d = _case_dir(str(body.get("case", "")))
+    q = str(body.get("question", "")).strip()[:500]
+    if not q:
+        return jsonify({"answer": NOT_IN_CASE, "citations": [], "answerable": False})
+    try:
+        from .. import ask as ask_mod
+        out = ask_mod.answer(d.name, q, root=d.parent)
+    except Exception as exc:          # no model key, bad output, anything: say so plainly
+        return jsonify({"answer": NOT_IN_CASE, "citations": [], "answerable": False,
+                        "error": f"{type(exc).__name__}"[:80]})
+    if not isinstance(out, dict) or not out.get("answerable"):
+        return jsonify({"answer": NOT_IN_CASE, "citations": [], "answerable": False})
+    cites = [{"file": str(c.get("file", "")), "path": str(c.get("path", ""))} for c in out.get("citations") or []]
+    return jsonify(scrub({"answer": out.get("answer", ""), "citations": cites, "answerable": True}))
+
+
+def resolve_path(data, path: str):
+    """Walk a citation path like leads[0].reasons[1]. Raises KeyError/IndexError when it does not exist."""
+    cur = data
+    for name, idx in _PATH_TOKEN.findall(path):
+        cur = cur[name] if name else cur[int(idx)]
+    return cur
+
+
+@bp.get("/ask/cite")
+def ask_cite():
+    """Open a cited field: only *.json files in this case folder, only existing paths."""
+    _ask_gate()
+    d = _case_dir(request.args.get("case", ""))
+    name = Path(request.args.get("file", "")).name            # "case/real-a/brief.json" -> "brief.json"
+    if not re.match(r"^[A-Za-z0-9_-]{1,64}\.json$", name) or not (d / name).is_file():
+        abort(404)
+    data = _load(d, name)
+    path = request.args.get("path", "")[:200]
+    if any(name == "address" for name, _ in _PATH_TOKEN.findall(path)):
+        abort(404)                                             # addresses never leave the server
+    try:
+        value = resolve_path(data, path) if path else data
+    except (KeyError, IndexError, TypeError):
+        abort(404)
+    text = json.dumps(scrub(value), indent=1, ensure_ascii=False)
+    return jsonify({"file": name, "path": path, "value": scrub(value) if len(text) < 20000 else text[:20000] + " …"})

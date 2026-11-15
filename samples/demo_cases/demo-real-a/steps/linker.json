@@ -81,7 +81,7 @@
      ],
      [
       "text",
-      "tmpl_38",
+      "tmpl_40",
       12
      ],
      [
@@ -95,11 +95,6 @@
       12
      ],
      [
-      "merchant",
-      "lone_star_motel_synthetic",
-      12
-     ],
-     [
       "interaction",
       "direct_x3",
       10
@@ -110,9 +105,9 @@
       9
      ],
      [
-      "place",
-      "lm_main_street_square",
-      8
+      "merchant",
+      "lone_star_motel_synthetic",
+      7
      ],
      [
       "photo",
@@ -132,6 +127,11 @@
      [
       "photo",
       "phash_f3b8536c",
+      5
+     ],
+     [
+      "place",
+      "lm_main_street_square",
       5
      ]
     ],
@@ -172,6 +172,11 @@
       "group": 6
      },
      {
+      "id": "acct_056",
+      "label": "acct_056",
+      "group": 6
+     },
+     {
       "id": "acct_057",
       "label": "acct_057",
       "group": 6
@@ -187,28 +192,18 @@
       "group": 6
      },
      {
-      "id": "acct_114",
-      "label": "acct_114",
-      "group": 6
-     },
-     {
-      "id": "acct_123",
-      "label": "acct_123",
-      "group": 6
-     },
-     {
       "id": "acct_131",
       "label": "acct_131",
       "group": 0
      },
      {
-      "id": "acct_135",
-      "label": "acct_135",
+      "id": "acct_132",
+      "label": "acct_132",
       "group": 6
      },
      {
-      "id": "acct_147",
-      "label": "acct_147",
+      "id": "acct_135",
+      "label": "acct_135",
       "group": 6
      },
      {
@@ -217,19 +212,9 @@
       "group": 6
      },
      {
-      "id": "acct_162",
-      "label": "acct_162",
-      "group": 6
-     },
-     {
       "id": "acct_166",
       "label": "acct_166",
       "group": 0
-     },
-     {
-      "id": "acct_169",
-      "label": "acct_169",
-      "group": 6
      },
      {
       "id": "acct_183",
@@ -237,18 +222,8 @@
       "group": 6
      },
      {
-      "id": "acct_185",
-      "label": "acct_185",
-      "group": 6
-     },
-     {
       "id": "acct_193",
       "label": "acct_193",
-      "group": 6
-     },
-     {
-      "id": "acct_194",
-      "label": "acct_194",
       "group": 6
      },
      {
@@ -272,11 +247,6 @@
       "group": 6
      },
      {
-      "id": "acct_213",
-      "label": "acct_213",
-      "group": 6
-     },
-     {
       "id": "acct_218",
       "label": "acct_218",
       "group": 6
@@ -297,6 +267,11 @@
       "group": 0
      },
      {
+      "id": "acct_238",
+      "label": "acct_238",
+      "group": 6
+     },
+     {
       "id": "acct_252",
       "label": "acct_252",
       "group": 6
@@ -304,6 +279,11 @@
      {
       "id": "acct_376",
       "label": "acct_376",
+      "group": 6
+     },
+     {
+      "id": "acct_386",
+      "label": "acct_386",
       "group": 6
      },
      {
@@ -384,6 +364,11 @@
      {
       "id": "acct_786",
       "label": "acct_786",
+      "group": 6
+     },
+     {
+      "id": "acct_796",
+      "label": "acct_796",
       "group": 6
      },
      {
@@ -794,13 +779,13 @@
       "style": "strong"
      },
      {
-      "source": "acct_166",
-      "target": "acct_905",
+      "source": "acct_905",
+      "target": "acct_931",
       "style": "strong"
      },
      {
-      "source": "acct_905",
-      "target": "acct_931",
+      "source": "acct_166",
+      "target": "acct_905",
       "style": "strong"
      },
      {
@@ -1079,6 +1064,71 @@
       "style": "dashed"
      },
      {
+      "source": "acct_002",
+      "target": "acct_131",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_056",
+      "target": "acct_131",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_132",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_131",
+      "target": "acct_238",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_131",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_201",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_228",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_236",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_410",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_510",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_626",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_730",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_044",
+      "target": "acct_843",
+      "style": "dashed"
+     },
+     {
       "source": "acct_131",
       "target": "acct_135",
       "style": "dashed"
@@ -1089,96 +1139,6 @@
       "style": "dashed"
      },
      {
-      "source": "acct_002",
-      "target": "acct_131",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_131",
-      "target": "acct_185",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_131",
-      "target": "acct_213",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_114",
-      "target": "acct_131",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_131",
-      "target": "acct_147",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_131",
-      "target": "acct_162",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_131",
-      "target": "acct_194",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_123",
-      "target": "acct_131",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_131",
-      "target": "acct_169",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_044",
-      "target": "acct_131",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_044",
-      "target": "acct_201",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_044",
-      "target": "acct_228",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_044",
-      "target": "acct_236",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_044",
-      "target": "acct_410",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_044",
-      "target": "acct_510",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_044",
-      "target": "acct_626",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_044",
-      "target": "acct_730",
-      "style": "dashed"
-     },
-     {
-      "source": "acct_044",
-      "target": "acct_843",
-      "style": "dashed"
-     },
-     {
       "source": "acct_131",
       "target": "acct_252",
       "style": "dashed"
@@ -1566,6 +1526,31 @@
      {
       "source": "acct_497",
       "target": "acct_843",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_562",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_702",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_821",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_830",
+      "style": "dashed"
+     },
+     {
+      "source": "acct_510",
+      "target": "acct_869",
       "style": "dashed"
      }
     ]
@@ -1583,6 +1568,7 @@
      "1",
      "2",
      "3",
+     "4",
      "6",
      "7",
      "8",
@@ -1592,9 +1578,10 @@
      {
       "label": "pairs",
       "data": [
-       183,
-       21,
-       2,
+       190,
+       14,
+       1,
+       1,
        21,
        24,
        19,
@@ -1613,7 +1600,8 @@
      3,
      4,
      5,
-     6
+     6,
+     7
     ]
    },
    "caption": "Two accounts link only if they share at least two different kinds of key (highlighted).",
@@ -1713,14 +1701,79 @@
   },
   {
    "id": "money_pass",
-   "title": "Money second pass",
-   "kind": "text",
+   "title": "Money second pass: wallet notes",
+   "kind": "table",
    "data": {
-    "text": "money key used in 36 links",
-    "bullets": [],
-    "note": "in-between data not recorded"
+    "columns": [
+     "account",
+     "wallet cluster",
+     "reason"
+    ],
+    "rows": [
+     [
+      "acct_626",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 6 times (chance level 0.1)"
+     ],
+     [
+      "acct_897",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 6 times (chance level 0.1)"
+     ],
+     [
+      "acct_131",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 6 times (chance level 0.1)"
+     ],
+     [
+      "acct_410",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.0)"
+     ],
+     [
+      "acct_843",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.1)"
+     ],
+     [
+      "acct_510",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.1)"
+     ],
+     [
+      "acct_201",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.0)"
+     ],
+     [
+      "acct_236",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.1)"
+     ],
+     [
+      "acct_103",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.1)"
+     ],
+     [
+      "acct_228",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.1)"
+     ],
+     [
+      "acct_220",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.0)"
+     ],
+     [
+      "acct_730",
+      "W-1",
+      "paid the ad platform 2-15 min before this account posted, 3 times (chance level 0.0)"
+     ]
+    ],
+    "highlight": []
    },
-   "caption": "money key used in 36 links (in-between data not recorded)",
+   "caption": "Wallet notes add a money kind of key to accounts, then the two-kinds rule runs again.",
    "source": "case/demo-real-a/wallet_notes.json"
   }
  ]
