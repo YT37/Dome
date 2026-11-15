@@ -60,8 +60,22 @@ function setView(name, push = true) {
       m.map.invalidateSize();
       if (m.pending && m.map.getSize().x) { const [fn, args] = m.pending; m.pending = null; m.map[fn](...args); }
     });
-    [CY.mini, CY.big, CY.topo].forEach((c) => { if (c) { c.resize(); c.fit(undefined, 24); } });
+    // once the view has settled, frame the map on what matters now (lead pin, else the dome)
+    clearTimeout(S.refitT);
+    S.refitT = setTimeout(() => MAPS.forEach(refitMap), 380);
+    refitGraphs();
   });
+}
+function refitGraphs() {
+  // keep the ring in frame once it exists (unless the user asked for everything on the big graph)
+  if (CY.topo) { CY.topo.resize(); CY.topo.fit(undefined, 24); }
+  for (const [k, c] of [["mini", CY.mini], ["big", CY.big]]) {
+    if (!c) continue;
+    c.resize();
+    const wantAll = k === "big" && $("#focusBtn")?.textContent === "Focus Ring";
+    if (S.ring && !wantAll) { const a = ringArea(c); if (a.length) { c.fit(a, 36); continue; } }
+    c.fit(undefined, 24);
+  }
 }
 $$(".rail a").forEach((a) => a.addEventListener("click", (e) => {
   if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;   // let new-tab clicks through
@@ -146,10 +160,10 @@ $("#logSeg").addEventListener("click", (e) => {
 // ------------------------------------------------------------------------- graph (Cytoscape)
 const CY = { mini: null, big: null, topo: null, pos: null };
 const GRAPH_STYLE = [
-  { selector: "node", style: { "background-color": COLORS.node, width: 9, height: 9, "border-width": 0,
+  { selector: "node", style: { "background-color": COLORS.node, width: 11, height: 11, "border-width": 0,
       "transition-property": "background-color, width, height, border-width, opacity", "transition-duration": "450ms" } },
   { selector: "edge", style: { width: 0.7, "line-color": "#2b2f36", opacity: 0.55, "curve-style": "haystack" } },
-  { selector: "node.member", style: { "background-color": COLORS.ring, width: 17, height: 17,
+  { selector: "node.member", style: { "background-color": COLORS.ring, width: 20, height: 20,
       "underlay-color": COLORS.ring, "underlay-padding": 6, "underlay-opacity": 0.18, "underlay-shape": "ellipse" } },
   { selector: "node.recruiter", style: { "border-width": 3, "border-color": COLORS.rec, width: 14, height: 14, "background-color": "#1d1f24" } },
   { selector: "node.seed", style: { "border-width": 2, "border-color": "#ffffff" } },
@@ -205,6 +219,15 @@ function mountGraph(id, g) {
   });
   cy.on("mouseout", hideTip);
   cy.on("tap", "node, edge", (e) => inspect(e.target));
+  cy.on("tap", (e) => {
+    if (e.target !== cy) return;
+    const p = e.renderedPosition; let best = null, bd = 16;
+    cy.nodes(":visible").forEach((n) => {
+      const q = n.renderedPosition(); const d = Math.hypot(q.x - p.x, q.y - p.y) - n.renderedWidth() / 2;
+      if (d < bd) { bd = d; best = n; }
+    });
+    if (best) { cy.nodes().removeClass("hl"); best.addClass("hl"); inspect(best); }
+  });
   return cy;
 }
 function roleOf(id) {
@@ -265,7 +288,18 @@ function paintRing() {
     });
   }
   applyHide();
+  focusRing(CY.mini, 900); focusRing(CY.big, 900);
+  $("#focusBtn").textContent = "Show All";
 }
+function ringArea(cy) {
+  return cy.nodes(".member, .recruiter").closedNeighborhood().nodes().filter((n) => n.style("display") !== "none");
+}
+function focusRing(cy, ms = 600) {
+  if (!cy || !S.ring) return;
+  const area = ringArea(cy); if (!area.length) return;
+  cy.stop(); cy.animate({ fit: { eles: area, padding: 36 } }, { duration: ms, easing: "ease-in-out-cubic" });
+}
+function showAll(cy, ms = 600) { if (cy) { cy.stop(); cy.animate({ fit: { eles: cy.elements(), padding: 20 } }, { duration: ms, easing: "ease-in-out-cubic" }); } }
 function paintColorMode() {
   const cy = CY.big; if (!cy) return;
   const mode = S.colorBy; const leg = $("#bigLegend");
@@ -418,6 +452,14 @@ function makeMap(id) {
   const m = { map, zones: L.layerGroup().addTo(map), cands: L.layerGroup().addTo(map), pins: L.layerGroup().addTo(map), dots: {} };
   MAPS.push(m); return m;
 }
+function refitMap(m) {
+  m.map.invalidateSize();
+  if (!m.map.getSize().x) return;
+  const top = S.files.brief?.leads?.[0] && coordsOf(S.files.brief.leads[0].property_id);
+  if (top) { m.map.flyTo(top, 14, { duration: 0.9 }); return; }
+  const zs = S.files.zones?.zones || [];
+  if (zs.length) m.map.flyToBounds(zs.map((z) => L.latLngBounds(z.polygon)).reduce((x, y) => x.extend(y)), { padding: [24, 24], duration: 0.9 });
+}
 function caption(html) { $("#capMini").innerHTML = html; $("#capBig").innerHTML = html; }
 function drawZones(z) {
   for (const m of MAPS) {
@@ -567,6 +609,7 @@ async function onFile(name) {
   let data;
   try { data = await getJSON(`/case/${encodeURIComponent(S.caseId)}/file/${name}`); } catch { return; }
   const key = name.replace(".json", ""); S.files[key] = data;
+  if (S.mode !== "idle" && $("#tour").checked) tour(key);
   if (key === "rings") {
     const seed = S.presets[S.preset]?.seed;
     const rings = data.rings || [];
@@ -586,6 +629,13 @@ async function onFile(name) {
     renderLeads(data); drawPins(data); renderTable();
   }
 }
+let tourT;
+function tour(key) {
+  clearTimeout(tourT);
+  const go = { rings: "network", zones: "map", brief: "map" }[key];
+  if (go && S.view !== go) setView(go);
+  if (key === "brief") tourT = setTimeout(() => setView("overview"), 3200);   // end on the full story
+}
 function handleRow(row) {
   S.rows.push(row); appendLog(row); stepEvent(row);
   if (row.event === "tool_result" && FILES.includes(row.output_file)) onFile(row.output_file);
@@ -602,6 +652,7 @@ function resetCase(caseId) {
   $("#sumLink").hidden = true; $("#publicChip").hidden = true;
   const raw = $("#rawLog"); raw.href = `/case/${encodeURIComponent(caseId)}/log.jsonl`; raw.hidden = false;
   if (CY.mini) paintRing();
+  showAll(CY.mini, 400); showAll(CY.big, 400); if ($("#focusBtn")) $("#focusBtn").textContent = "Focus Ring";
   [CY.mini, CY.big].forEach((cy) => cy && cy.batch(() => { cy.elements(".ringlink, .hint").remove(); cy.nodes().removeClass("member recruiter"); }));
 }
 function busy(on, label) {
@@ -690,6 +741,13 @@ async function choosePreset(key, load = true) {
   if (load && S.mode === "idle") { if (!(await loadFinished(S.presets[key].case))) resetCase(S.presets[key].case); }
 }
 
+$("#focusBtn").addEventListener("click", () => {
+  const b = $("#focusBtn");
+  if (b.textContent === "Show All") { showAll(CY.big); b.textContent = "Focus Ring"; } else { focusRing(CY.big); b.textContent = "Show All"; }
+});
+try { $("#tour").checked = localStorage.getItem("dome-tour") === "1"; } catch {}
+$("#tour").addEventListener("change", (e) => { try { localStorage.setItem("dome-tour", e.target.checked ? "1" : "0"); } catch {} });
+
 // ------------------------------------------------------------------------- intro
 function intro() {
   let seen = false;
@@ -709,7 +767,7 @@ window.addEventListener("resize", () => {
   clearTimeout(resizeT);
   resizeT = setTimeout(() => {
     MAPS.forEach((m) => m.map.invalidateSize());
-    [CY.mini, CY.big, CY.topo].forEach((c) => { if (c) { c.resize(); c.fit(undefined, 24); } });
+    refitGraphs();
   }, 150);
 });
 
@@ -717,6 +775,13 @@ window.addEventListener("resize", () => {
 (async function boot() {
   makeMap("mapMini"); makeMap("mapBig");
   S.presets = await getJSON("/presets");
+  try {   // DOME_GLOBE=1: one click to the globe flight; the console stays the default
+    if ((await getJSON("/ui-flags")).globe) {
+      const a = document.createElement("a");
+      a.href = "/globe"; a.className = "btn"; a.textContent = "Globe view";
+      $(".controls").prepend(a);
+    }
+  } catch (e) { /* flag endpoint optional */ }
   $("#presetSeg").innerHTML = Object.entries(S.presets).map(([k, p]) => `<button type="button" data-preset="${esc(k)}" aria-pressed="false" title="${esc(p.note)}">${esc(p.label)}</button>`).join("");
   $("#presetSeg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b && S.mode === "idle") choosePreset(b.dataset.preset); });
   const q = new URLSearchParams(location.search);

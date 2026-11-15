@@ -2,6 +2,11 @@
 with every `address` field blanked: real runs carry CoStar street addresses internally.
 
 Usage: python scripts/record_demo_case.py <case_id> <demo_name>   e.g. real-a demo-real-a
+       python scripts/record_demo_case.py --steps <demo_name>        only (re)write steps/ for a recorded case
+
+It also writes samples/demo_cases/<name>/steps/<agent>.json ("Show the work", dome/ui/steps/) by
+running the UI's adapters on the recorded folder, and passes every steps file through the same
+address scrub and leak check (plus a street-text check).
 """
 import json
 import re
@@ -18,6 +23,33 @@ def scrub(x):
     if isinstance(x, list):
         return [scrub(v) for v in x]
     return x
+
+
+def write_steps(dst: Path, addresses: set) -> list:
+    """Run every Show-the-work adapter on the recorded folder; scrub and write steps/<agent>.json."""
+    sys.path.insert(0, str(ROOT))
+    from dome.ui import globe, steps   # noqa: PLC0415
+    out_dir = dst / "steps"
+    out_dir.mkdir(exist_ok=True)
+    written = []
+    for agent in steps.AGENTS:
+        text = json.dumps(scrub(steps.build(dst, agent)), indent=1) + "\n"
+        for a in addresses:
+            text = text.replace(a, "")
+        if globe.STREET_RE.search(text):
+            raise SystemExit(f"street text in steps/{agent}.json: {globe.STREET_RE.search(text).group()!r}")
+        (out_dir / f"{agent}.json").write_text(text)
+        written.append(agent)
+    return written
+
+
+def leak_check(dst: Path, addresses: set) -> None:
+    leaked = [str(f.relative_to(dst)) for f in dst.rglob("*") if f.is_file()
+              for a in addresses if a and a in f.read_text()]
+    leaked += [str(f.relative_to(dst)) for f in (dst / "steps").glob("*.json") if '"address": "' in f.read_text()
+               and re.search(r'"address":\s*"[^"]+"', f.read_text())]
+    if leaked:
+        raise SystemExit(f"address still present in {leaked}")
 
 
 def main(case_id: str, name: str) -> None:
@@ -37,11 +69,20 @@ def main(case_id: str, name: str) -> None:
             for a in addresses:
                 text = text.replace(a, "")
             (dst / f.name).write_text(text)
-    leaked = [f.name for f in dst.iterdir() for a in addresses if a and a in f.read_text()]
-    if leaked:
-        raise SystemExit(f"address still present in {leaked}")
-    print(f"recorded {src} -> {dst} ({len(addresses)} addresses removed)")
+    agents = write_steps(dst, addresses)
+    leak_check(dst, addresses)
+    print(f"recorded {src} -> {dst} ({len(addresses)} addresses removed; steps for {', '.join(agents)})")
+
+
+def steps_only(name: str) -> None:
+    dst = ROOT / "samples" / "demo_cases" / name
+    agents = write_steps(dst, set())
+    leak_check(dst, set())
+    print(f"steps for {', '.join(agents)} -> {dst / 'steps'}")
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:3])
+    if sys.argv[1] == "--steps":
+        steps_only(sys.argv[2])
+    else:
+        main(*sys.argv[1:3])
