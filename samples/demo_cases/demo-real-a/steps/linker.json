@@ -1608,6 +1608,283 @@
    "source": "case/demo-real-a/rings.json"
   },
   {
+   "id": "relay",
+   "title": "Relay: a phone or wallet handed from one account to the next",
+   "kind": "graph",
+   "data": {
+    "nodes": [
+     {
+      "id": "acct_410",
+      "label": "acct_410",
+      "group": 0
+     },
+     {
+      "id": "acct_510",
+      "label": "acct_510",
+      "group": 0
+     },
+     {
+      "id": "key:contact:555-\u202699",
+      "label": "contact:555-\u202699",
+      "group": 3
+     },
+     {
+      "id": "acct_626",
+      "label": "acct_626",
+      "group": 0
+     },
+     {
+      "id": "key:money:$velvet_k9",
+      "label": "money:$velvet_k9",
+      "group": 3
+     }
+    ],
+    "edges": [
+     {
+      "source": "acct_410",
+      "target": "key:contact:555-\u202699",
+      "label": "last seen 2026-10-10"
+     },
+     {
+      "source": "key:contact:555-\u202699",
+      "target": "acct_510",
+      "label": "first seen 2026-10-12"
+     },
+     {
+      "source": "acct_510",
+      "target": "key:money:$velvet_k9",
+      "label": "last seen 2026-10-24"
+     },
+     {
+      "source": "key:money:$velvet_k9",
+      "target": "acct_626",
+      "label": "first seen 2026-10-26"
+     }
+    ]
+   },
+   "caption": "555-\u202699 left acct_410 and appeared on acct_510 2 day(s) 0 h later; $velvet_k9 left acct_510 and appeared on acct_626 2 day(s) 0 h later",
+   "source": "case/demo-real-a/rings.json"
+  },
+  {
+   "id": "relay_table",
+   "title": "Relay dates",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "key",
+     "from",
+     "last seen there",
+     "to",
+     "first seen there"
+    ],
+    "rows": [
+     [
+      "contact:555-\u202699",
+      "acct_410",
+      "2026-10-10T18:00",
+      "acct_510",
+      "2026-10-12T18:00"
+     ],
+     [
+      "money:$velvet_k9",
+      "acct_510",
+      "2026-10-24T09:36",
+      "acct_626",
+      "2026-10-26T09:36"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "The key stops on one account and starts on the next a short time later.",
+   "source": "case/demo-real-a/rings.json"
+  },
+  {
+   "id": "heartbeat",
+   "title": "Heartbeat: acct_220 and acct_228 keep the same daily rhythm",
+   "kind": "chart",
+   "data": {
+    "type": "bar",
+    "labels": [
+     "00",
+     "01",
+     "02",
+     "03",
+     "04",
+     "05",
+     "06",
+     "07",
+     "08",
+     "09",
+     "10",
+     "11",
+     "12",
+     "13",
+     "14",
+     "15",
+     "16",
+     "17",
+     "18",
+     "19",
+     "20",
+     "21",
+     "22",
+     "23"
+    ],
+    "datasets": [
+     {
+      "label": "acct_220",
+      "data": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       2,
+       0,
+       0,
+       2,
+       0
+      ]
+     },
+     {
+      "label": "acct_228",
+      "data": [
+       0,
+       0,
+       0,
+       1,
+       1,
+       0,
+       0,
+       2,
+       1,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "threshold": null,
+    "x": "hour of day (UTC)",
+    "y": "posts",
+    "horizontal": false,
+    "stacked": false,
+    "highlight": []
+   },
+   "caption": "same daily rhythm (cosine 1.00) but active together in only 0% of 10-minute slots: takes turns. 3 heartbeat pairs in this ring. Posts per hour from data/synth/posts.json.",
+   "source": "case/demo-real-a/rings.json, data/synth/posts.json"
+  },
+  {
+   "id": "echo",
+   "title": "Echo event E-7: one booking seen four ways",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "what",
+     "record",
+     "time (UTC)",
+     "since the ad"
+    ],
+    "rows": [
+     [
+      "ad",
+      "post_1331",
+      "21:34",
+      "+0 min"
+     ],
+     [
+      "message",
+      "msg_4210",
+      "21:37",
+      "+3 min"
+     ],
+     [
+      "message",
+      "msg_4211",
+      "21:41",
+      "+7 min"
+     ],
+     [
+      "payment",
+      "tx_5066",
+      "22:00",
+      "+26 min"
+     ],
+     [
+      "message",
+      "msg_3477",
+      "22:07",
+      "+33 min"
+     ],
+     [
+      "message",
+      "msg_3478",
+      "22:09",
+      "+35 min"
+     ],
+     [
+      "message",
+      "msg_4212",
+      "22:09",
+      "+35 min"
+     ],
+     [
+      "message",
+      "msg_4023",
+      "22:13",
+      "+39 min"
+     ],
+     [
+      "payment",
+      "tx_5067",
+      "22:14",
+      "+40 min"
+     ],
+     [
+      "message",
+      "msg_4024",
+      "22:15",
+      "+41 min"
+     ],
+     [
+      "ride",
+      "tx_5068",
+      "22:49",
+      "+75 min"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "ad, message, payment, ride within 75 minutes, sharing 2 flagged account(s). Ties acct_131, acct_236; place hint: Downtown, Houston (an area, never an address). 9 echo events in this ring.",
+   "source": "case/demo-real-a/rings.json"
+  },
+  {
    "id": "clusters",
    "title": "R-1: the cluster",
    "kind": "table",

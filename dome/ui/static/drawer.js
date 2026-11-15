@@ -33,7 +33,7 @@
   function clear() { W.chart?.destroy(); W.chart = null; W.map?.remove(); W.map = null; W.cy?.destroy(); W.cy = null; q("view").innerHTML = ""; }
   function close() { clearTimeout(W.timer); if (el) { clear(); el.hidden = true; } }
 
-  async function open(caseId, agent) {
+  async function open(caseId, agent, startId) {
     mount();
     const r = await fetch(`/steps?case=${encodeURIComponent(caseId)}&agent=${encodeURIComponent(agent)}`);
     if (!r.ok) { el.hidden = false; q("title").textContent = "Show the work is off (DOME_STEPS)"; return; }
@@ -41,7 +41,7 @@
     Object.assign(W, { caseId, agent, steps: j.steps || [] });
     q("title").textContent = j.title;
     q("tabs").innerHTML = AGENTS.map((k) => `<button data-agent="${k}" class="${k === agent ? "on" : ""}">${k}</button>`).join("");
-    el.hidden = false; show(0);
+    el.hidden = false; show(Math.max(0, W.steps.findIndex((x) => x.id === startId)));
   }
 
   function show(i) {

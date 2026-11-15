@@ -117,6 +117,7 @@ function syncFlow() {
 }
 document.addEventListener("click", (e) => {
   const f = e.target.closest(".flowstage"); if (f && window.DomeDrawer && FLOW?.steps) DomeDrawer.open(S.caseId, f.dataset.work);
+  const w = e.target.closest("[data-why]"); if (w && window.DomeDrawer) DomeDrawer.open(S.caseId, "linker", w.dataset.why);
   const g = e.target.closest("[data-globe]"); if (g) location.href = `/globe?case=${encodeURIComponent(S.caseId)}&step=5`;
 });
 function stepEvent(row) {
