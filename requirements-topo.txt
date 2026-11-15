@@ -1,3 +1,4 @@
+# topomodelx 0.0.1 declares numpy<2; after installing this file run: pip install 'numpy>=2' (needed by OpenCV 5; both work on numpy 2.5.4)
 # Optional: topological ring scorer (dome/agents/topo.py)
 toponetx==0.4.0
 topomodelx==0.0.1
