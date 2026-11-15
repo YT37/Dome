@@ -40,6 +40,9 @@ def main() -> None:
             shutil.copytree(ROOT / rel, FN / rel, ignore=SKIP, symlinks=False)
     rec = ROOT / "samples" / "demo_cases" / "demo-real-a"
     shutil.copytree(rec, FN / "samples" / "demo_cases" / "demo-real-a")
+    dag = ROOT / "samples" / "demo_cases" / "demo-deep-agents"     # the Gemini-driven Deep Agents run
+    if dag.exists():
+        shutil.copytree(dag, FN / "samples" / "demo_cases" / "demo-deep-agents")
     shutil.copytree(rec, FN / "case" / "real-a")                 # the site's "last run" = the scrubbed recording
     gem = ROOT / "cache" / "gemini"
     (FN / "cache" / "gemini").mkdir(parents=True, exist_ok=True)
