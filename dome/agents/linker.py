@@ -34,6 +34,7 @@ from typing import Any, Iterable, Optional
 
 from .. import config
 from ..case import Case
+from ..schemas import load_optional
 from ..data_tools import _stub
 
 # identity-bearing content keys (v2 adds shared wallet, same room, writing style)
@@ -323,7 +324,7 @@ def _strength(kinds: dict) -> float:
 
 
 def link_accounts(ds: dict, layers: str = "both", private: bool = True,
-                  room_groups: Optional[list] = None) -> Linked:
+                  room_groups: Optional[list] = None, wallet_notes: Optional[list] = None) -> Linked:
     """layers: content | network | both. private=False is --no-private (Track 2, public only):
     money, dm, merchant and echo events are dropped. room_groups: the Locator's groups (note 4)."""
     from . import patterns
@@ -417,6 +418,16 @@ def link_accounts(ds: dict, layers: str = "both", private: bool = True,
                     for acct, ts in key_times.pop(key, {}).items():
                         key_times["money:" + h][acct].extend(ts)
 
+    # ---- night: wallet notes (contract G) from money.attach. Each note ties an account to a
+    # wallet cluster by payment-then-post timing; accounts tied to one cluster share a
+    # `money` key (weight 0.9), so a shared wallet counts toward the two-kinds rule.
+    wallet_why = {}
+    for n in wallet_notes or []:
+        if private and n.get("account") in accounts and n.get("cluster_id"):
+            k = "money:wallet_" + str(n["cluster_id"])
+            index[("money", k)].add(n["account"])
+            wallet_why[k] = n.get("reason", "")
+
     # ---- step 2: inverse-frequency down-weighting of shared keys
     for (kind, key), accts in sorted(index.items()):
         n = len(accts)
@@ -430,6 +441,9 @@ def link_accounts(ds: dict, layers: str = "both", private: bool = True,
                "keyword": f"both keep using {key.split(':', 1)[1]} in captions/comments",
                "place": f"same stated area ({key.split(':', 1)[1]})",
                "time": f"accounts created the same day ({key[-10:]})"}[kind]
+        if key in wallet_why:
+            why = (f"both tied to wallet cluster {key.split('wallet_', 1)[1]} by payment-then-post "
+                   "timing (wallet notes)")
         if n > config.RARE_KEY_SIZE:
             why += f" (shared by {n} accounts, down-weighted)"
         for a, b in combinations(sorted(accts), 2):
@@ -669,17 +683,46 @@ def room_groups_of(case: Case) -> list:
     return [g.model_dump() for z in (m.zones if m else []) for g in z.room_groups]
 
 
-def run(case: Case, room_groups: bool = False) -> dict:
+def wallet_notes_of(case: Case) -> list:
+    """Contract G notes: case/<id>/wallet_notes.json (written by money.attach)."""
+    w = load_optional(case.dir, "wallet_notes.json")
+    return [n.model_dump() for n in w.notes] if w else []
+
+
+def run(case: Case, room_groups: bool = False, wallet_notes: bool = False) -> dict:
     inp = case.input
+    notes = wallet_notes_of(case) if wallet_notes else None
     if not inp.dataset:
         out = copy.deepcopy(_stub.scenario()["rings"])
         if room_groups:   # stub: fold room-group accounts into the selected ring as `room` links
             out = _stub_room_rerun(out, room_groups_of(case))
+        if notes:
+            out = _stub_wallet_pass(out, notes)
         return {"case_id": case.case_id, **out}
     groups = room_groups_of(case) if room_groups else None
     return {"case_id": case.case_id,
             **link_accounts(load_dataset(inp.dataset), layers=inp.layers,
-                            private=inp.private_layers, room_groups=groups).rings_file}
+                            private=inp.private_layers, room_groups=groups,
+                            wallet_notes=notes).rings_file}
+
+
+def _stub_wallet_pass(rings: dict, notes: list) -> dict:
+    """Stub data has no dataset to relink, so wallet notes are added to a ring only as
+    `money` links between members already in it (never new members: nothing else agrees)."""
+    by_cluster: dict = defaultdict(list)
+    for n in notes:
+        by_cluster[n["cluster_id"]].append(n)
+    for r in rings.get("rings", []):
+        for cid, ns in sorted(by_cluster.items()):
+            inside = sorted({n["account"] for n in ns if n["account"] in r["members"]})
+            for a, b in combinations(inside, 2):
+                r.setdefault("links", []).append({
+                    "a": a, "b": b, "keys": [f"money:wallet_{cid}"], "kinds": ["money"],
+                    "strength": config.KEY_WEIGHTS["money"],
+                    "reason": f"both tied to wallet cluster {cid} by payment-then-post timing"})
+            if len(inside) >= 2 and "money" not in r.get("key_kinds", []):
+                r["key_kinds"] = r.get("key_kinds", []) + ["money"]
+    return rings
 
 
 def _stub_room_rerun(rings: dict, groups: list) -> dict:
