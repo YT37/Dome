@@ -89,32 +89,77 @@ def _photo_owner(ds: Optional[dict], rings: Any) -> dict:
             pid = ph.get("photo_id") if isinstance(ph, dict) else ph
             if pid:
                 own.setdefault(pid, p["account"])
+            path = ph.get("path") if isinstance(ph, dict) else None
+            if path:
+                own.setdefault(Path(path).stem, p["account"])
     for r in (rings.rings if rings else []):
         for ph in r.photos:
             own.setdefault(ph.photo_id, ph.account)
+            own.setdefault(Path(ph.path).stem, ph.account)
     return own
 
 
-def _room_results(case: Optional[Case]) -> dict:
-    """{scan_id: {"P", "property_id", "photos"}} from the Locator's matches.json, then
-    data/matches/summary.json (Yug's real room_match) for scans the case did not cover."""
+def _scan_to_property(case: Optional[Case]) -> dict:
+    """scan_id -> CoStar property_id: the Lister's candidates first, then the synth building
+    table (its scan/property link only; the `role` column is never read)."""
     out: dict = {}
+    c = case.load("candidates.json") if case else None
+    for z in (c.zones if c else []):
+        for x in z.candidates:
+            if x.scan_id:
+                out.setdefault(x.scan_id, x.property_id)
+    bp = config.ROOT / "dome" / "synth" / "buildings.json"
+    if bp.exists():
+        try:
+            for b in json.loads(bp.read_text(encoding="utf-8")):
+                if b.get("scan_id") and b.get("property_id"):
+                    out.setdefault(b["scan_id"], b["property_id"])
+        except Exception:
+            pass
+    return out
+
+
+def _summary_scans(path: Path) -> dict:
+    """Yug's room_match summary: {"scans": {scan: {P, evidence}}, "P": {scan: P}, ...}
+    (older files: {scan: {P, evidence}})."""
+    try:
+        d = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    if not isinstance(d, dict):
+        return {}
+    scans = dict(d.get("scans") or {k: v for k, v in d.items() if isinstance(v, dict) and "evidence" in v})
+    for sid, p in (d.get("P") or {}).items():
+        scans.setdefault(sid, {"P": p, "evidence": []})
+        if scans[sid].get("P") is None:
+            scans[sid]["P"] = p
+    return scans
+
+
+def _room_results(case: Optional[Case]) -> dict:
+    """{scan_id: {"P", "property_id", "photos", "source"}}: the case's room_match.json first,
+    then data/matches/summary.json (Yug's real room_match), then the Locator's matches.json."""
+    out: dict = {}
+    prop = _scan_to_property(case)
+    sources = ([(case.path("room_match.json"), "room_match.json")] if case else []) + [(SUMMARY, "data/matches/summary.json")]
+    for path, label in sources:
+        if not path.exists():
+            continue
+        for scan, s in _summary_scans(path).items():
+            if scan in out or not isinstance(s, dict) or s.get("P") is None:
+                continue
+            photos = set()
+            for e in s.get("evidence") or []:
+                ph = str(e.get("photo") or "")
+                if ph:
+                    photos |= {ph, Path(ph).stem}
+            out[scan] = {"P": s["P"], "property_id": prop.get(scan), "photos": sorted(photos), "source": label}
     m = case.load("matches.json") if case else None
     for z in (m.zones if m else []):
         for x in z.matches:
-            out[x.scan_id] = {"P": x.P, "property_id": x.property_id,
-                              "photos": sorted({e.photo for e in x.evidence}), "source": "matches.json"}
-    if SUMMARY.exists():
-        try:
-            summ = json.loads(SUMMARY.read_text(encoding="utf-8"))
-        except Exception:
-            summ = {}
-        for scan, s in (summ.items() if isinstance(summ, dict) else []):
-            if scan in out or not isinstance(s, dict):
-                continue
-            out[scan] = {"P": s.get("P"), "property_id": s.get("property_id"),
-                         "photos": sorted({str(e.get("photo")) for e in s.get("evidence") or []
-                                           if e.get("photo")}), "source": "data/matches/summary.json"}
+            if x.scan_id not in out:
+                out[x.scan_id] = {"P": x.P, "property_id": x.property_id,
+                                  "photos": sorted({e.photo for e in x.evidence}), "source": "matches.json"}
     return out
 
 
