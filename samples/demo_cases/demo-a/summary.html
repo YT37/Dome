@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dome case demo-a</title>
+<style>
+  :root { --bg:#f7f7f5; --card:#fff; --ink:#1d1d1b; --muted:#6b6b66; --line:#e2e1dc;
+          --high:#b42318; --medium:#b54708; --low:#475467; --banner:#1d2939; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#141413; --card:#1f1f1d; --ink:#ecebe6; --muted:#a3a29b; --line:#33332f;
+            --high:#f97066; --medium:#fdb022; --low:#98a2b3; --banner:#0c111d; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui, sans-serif; }
+  .banner { background:var(--banner); color:#fff; padding:8px 16px; font-size:13px; letter-spacing:.02em; }
+  main { max-width:1040px; margin:0 auto; padding:24px 16px 48px; }
+  h1 { font-size:24px; margin:0 0 4px; } h2 { font-size:17px; margin:28px 0 10px; }
+  .meta { color:var(--muted); margin:0 0 16px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+  .card h3 { margin:0 0 6px; font-size:15px; } .card ul { margin:6px 0 0; padding-left:18px; }
+  .muted { color:var(--muted); } .small { font-size:13px; }
+  .table-wrap { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line); border-radius:10px; }
+  th, td { text-align:left; vertical-align:top; padding:10px 12px; border-bottom:1px solid var(--line); }
+  th { font-size:13px; color:var(--muted); font-weight:600; }
+  td ul { margin:0; padding-left:18px; }
+  .tier { font-weight:700; } .tier.High { color:var(--high); } .tier.Medium { color:var(--medium); } .tier.Low { color:var(--low); }
+  .cap { color:var(--medium); }
+  .status { font-weight:600; }
+  footer { margin-top:32px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:13px; }
+  a { color:inherit; }
+</style>
+</head>
+<body>
+<div class="banner">Synthetic data · leads for human verification only · Public data only</div>
+<main>
+  <h1>Dome case demo-a</h1>
+  <p class="meta">Ring R-1 (12 accounts, R 0.95)    · status: <span class="status">complete</span>
+    · zones: Z-1-1</p>
+
+  <div class="cards">
+    <section class="card">
+      <h3>Ring</h3>
+      <div>12 accounts, R 0.95</div>
+      <div class="small muted">Key kinds: contact, photo, text, interaction, place, time · 20 ring photos</div>
+<ul class="small"><li>contact: 66 links</li><li>photo: 66 links</li><li>text: 66 links</li><li>place: 66 links</li><li>time: 66 links</li><li>interaction: 9 links</li></ul>      <h3 style="margin-top:10px">Likely recruiters</h3>
+<ul class="small"><li>acct_166: bio says &#39;modelling agency&#39;; 8 of 9 reposts/replies go to ring accounts</li><li>acct_905: bio says &#39;job offers&#39;; 8 of 9 reposts/replies go to ring accounts</li><li>acct_931: bio says &#39;modelling agency&#39;; 8 of 9 reposts/replies go to ring accounts</li></ul>
+    </section>
+    <section class="card">
+      <h3>Zone Z-1-1</h3>
+      <div>10.0 km² · 81% of place-clue weight · confidence 0.41</div>
+      <ul class="small"><li>72 ads name Downtown, Main Street Square or Market Square Park</li><li>area code 713 fits (71 ads, city-wide clue)</li><li>login layer off</li></ul>
+    </section>
+  </div>
+
+  <h2>Ranked buildings</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>#</th><th>Building</th><th>Tier</th><th>Score</th><th>Why</th><th>Verify next</th></tr>
+    <tr>
+      <td>1</td>
+      <td>Building A (synthetic case)<div class="small muted">Z-1-1</div></td>
+      <td class="tier High">High</td>
+      <td>66</td>
+      <td><ul class="small"><li>R 0.95: 12 accounts linked by contact (66 links), photo (66 links), text (66 links)</li><li>P 0.78: 2 of 20 room photos match the unit scan, 376 matched points</li><li>W 0.67: window view agrees on road front, parking front; not seen: building across</li><li>Z 0.41: inside Z-1-1 (10 km2, 81% of place-clue weight); 72 ads name Downtown, Main Street Square or Market Square Park</li><li>F 0.80: multifamily matches apartment photos; 6 floors fits a floor 3 to 5 view</li></ul></td>
+      <td><ul class="small"><li>Through legal process, request lease and short-term booking records for units on floors 3-5 for 2026-10-01 to 2026-11-09</li><li>Through legal process, request the payment records behind any such booking</li><li>Confirms: a lease or booking on those floors overlapping the ad dates, with a unit layout that matches the photos</li><li>Rules out: no occupancy in those dates, or unit layouts that differ from the matched rooms</li><li>A human reviewer compares each matched photo with its scan view side by side</li></ul></td>
+    </tr>
+  </table>
+  </div>
+  <ul class="small muted"><li>Z-1-1: 6 other buildings checked, none is a lead: 2 had room photos that did not match (best P 0.22); 4 had no reference photos</li>    <li>A building needs a photo match to become a lead. Place clues alone never do.</li></ul>
+
+  <h2>Supervisor decisions</h2>
+  <ul class="small"><li class="muted">none</li></ul>
+  <p class="small muted">Tiers and scores are computed by code; wording by fixed templates.
+    Full trail: <a href="log.jsonl">log.jsonl</a></p>
+
+  <footer>Leads for human verification. Place clues give areas, not addresses. Not evidence of anyone&#39;s presence. Generated from synthetic data.</footer>
+</main>
+</body>
+</html>

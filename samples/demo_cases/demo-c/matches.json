@@ -1,0 +1,99 @@
+{
+  "case_id": "demo-c",
+  "ring_id": "R-3",
+  "zones": [
+    {
+      "zone_id": "Z-3-1",
+      "attempt": 1,
+      "threshold": 0.4,
+      "best_P": 0.78,
+      "above_threshold": true,
+      "photos_used": 5,
+      "window_photos": 0,
+      "matches": [
+        {
+          "property_id": "CS-88412",
+          "scan_id": "mp_4471",
+          "P": 0.78,
+          "W": null,
+          "window_checked": false,
+          "floor_range": [
+            3,
+            5
+          ],
+          "geo": {
+            "lat": 29.7612,
+            "lon": -95.3671,
+            "heading_deg": 212.0,
+            "pin_moved_m": 139.0,
+            "error_estimate_m": 12.0
+          },
+          "evidence": [
+            {
+              "photo": "img_311",
+              "view": "mp_4471/sweep_12/az_135",
+              "inliers": 212,
+              "match_img": "data/matches/img_311_mp_4471.jpg"
+            },
+            {
+              "photo": "img_314",
+              "view": "mp_4471/sweep_7/az_270",
+              "inliers": 164,
+              "match_img": "data/matches/img_314_mp_4471.jpg"
+            }
+          ],
+          "window_checks": {},
+          "window_photo": null,
+          "window_skipped": null
+        },
+        {
+          "property_id": "CS-88107",
+          "scan_id": "mp_2210",
+          "P": 0.22,
+          "W": null,
+          "window_checked": false,
+          "floor_range": null,
+          "geo": null,
+          "evidence": [
+            {
+              "photo": "img_312",
+              "view": "mp_2210/sweep_3/az_90",
+              "inliers": 41,
+              "match_img": "data/matches/img_312_mp_2210.jpg"
+            }
+          ],
+          "window_checks": {},
+          "window_photo": null,
+          "window_skipped": null
+        },
+        {
+          "property_id": "CS-87990",
+          "scan_id": "mp_3302",
+          "P": 0.11,
+          "W": null,
+          "window_checked": false,
+          "floor_range": null,
+          "geo": null,
+          "evidence": [],
+          "window_checks": {},
+          "window_photo": null,
+          "window_skipped": null
+        },
+        {
+          "property_id": "CS-90001",
+          "scan_id": "mp_9001",
+          "P": 0.05,
+          "W": null,
+          "window_checked": false,
+          "floor_range": null,
+          "geo": null,
+          "evidence": [],
+          "window_checks": {},
+          "window_photo": null,
+          "window_skipped": null
+        }
+      ],
+      "room_groups": []
+    }
+  ]
+}
