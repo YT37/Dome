@@ -1,0 +1,11 @@
+{"t": 0.0, "agent": "supervisor", "phase": "start", "message": "Case started from flagged account acct_103", "refs": ["acct_103"], "_t0": 1794733670.1987257}
+{"t": 0.5, "agent": "spotter", "phase": "result", "message": "Spotter flagged 15 account(s) (rules: 3+ signal kinds agree)", "refs": ["acct_103", "acct_131", "acct_201"]}
+{"t": 5.7, "agent": "linker", "phase": "result", "message": "15 accounts form ring R-1 (R 0.95): money, contact, dm, photo", "refs": ["R-1", "acct_103", "acct_131", "acct_166"]}
+{"t": 5.7, "agent": "linker", "phase": "result", "message": "Money: 4 wallet clusters (advertiser, aggregator, cash_out, collector); cash-out: Exchange X", "refs": ["W-1", "W-2", "W-3"]}
+{"t": 5.7, "agent": "zoner", "phase": "result", "message": "Dome: Z-1-1 14.0 km2", "refs": ["Z-1-1"]}
+{"t": 5.8, "agent": "lister", "phase": "result", "message": "129 candidate buildings in Z-1-1 (128 scanned) of 129 in the zone", "refs": ["Z-1-1"]}
+{"t": 30.1, "agent": "locator", "phase": "result", "message": "Ring photos match RL-213304177's scan (P 0.68, W 0.6); pin moved 23 m; floor 3-3", "refs": ["Z-1-1", "RL-213304177", "LqCMcmmVH3d"]}
+{"t": 30.1, "agent": "supervisor", "phase": "decision", "message": "Report approved (auto (scripted))", "refs": ["RL-213304177"]}
+{"t": 32.0, "agent": "linker", "phase": "result", "message": "Case complex: 20 nodes, 103 shared notes, 4 events; 5 model-vs-rules disagreements to review", "refs": ["R-1"]}
+{"t": 32.0, "agent": "briefer", "phase": "result", "message": "Report: RL-213304177 High (59)", "refs": ["RL-213304177"]}
+{"t": 32.0, "agent": "supervisor", "phase": "end", "message": "Run finished", "refs": []}
