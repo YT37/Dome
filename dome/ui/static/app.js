@@ -15,7 +15,8 @@ const scrub = (s) => String(s ?? "")
   .replace(PHONE, (m) => (/^\d{4}-\d{2}-\d{2}$/.test(m.trim()) ? m : "[phone]"))
   .replace(SPELLED, "[phone]");
 
-const STEPS = ["linker", "zoner", "lister", "locator", "briefer"];
+const STEPS = ["spotter", "linker", "zoner", "lister", "locator", "briefer"];
+let UI_FLAGS = {};
 const FILES = ["rings.json", "zones.json", "candidates.json", "matches.json", "brief.json"];
 const KIND_LABEL = {
   contact: "Same phone in ads", text: "Same ad script", photo: "Same photo", interaction: "Reposts & replies",
@@ -94,7 +95,30 @@ function resetSteps() {
     s.classList.remove("active", "done", "failed");
     const sub = $(".t span", s); if (sub.dataset.orig) sub.textContent = sub.dataset.orig;
   });
+  syncFlow();
 }
+// ---- How it works: the six agents as a data flow; numbers come from /flow (read from the case files)
+let FLOW = null;
+async function renderFlow(caseId) {
+  try { FLOW = await getJSON(`/flow?case=${encodeURIComponent(caseId)}`); } catch { FLOW = null; $("#flowRow").innerHTML = ""; return; }
+  $("#flowRow").innerHTML = FLOW.stages.map((s, i) => `<button type="button" class="flowstage" data-step="${esc(s.step)}" data-work="${esc(s.work)}" title="Show the work">
+    <div class="ag"><i>${i + 1}</i>${esc(s.agent)}</div>
+    <div class="io">in: ${esc(s.input)}<br>did: ${esc(s.did || "")}<br>out: <code>${esc(s.output)}</code></div>
+    <div class="key" data-key="${esc(s.key || "")}">${esc(s.key || "–")}</div>${FLOW.steps ? `<div class="more">Show the work →</div>` : ""}</button>`).join("");
+  syncFlow();
+}
+function syncFlow() {
+  $$(".flowstage").forEach((f) => {
+    const st = $(`.step[data-step="${f.dataset.step}"]`);
+    const done = st?.classList.contains("done"), active = st?.classList.contains("active");
+    f.classList.toggle("done", !!done); f.classList.toggle("active", !!active);
+    const k = $(".key", f); k.textContent = done ? (k.dataset.key || "–") : (active ? "working…" : "–");
+  });
+}
+document.addEventListener("click", (e) => {
+  const f = e.target.closest(".flowstage"); if (f && window.DomeDrawer && FLOW?.steps) DomeDrawer.open(S.caseId, f.dataset.work);
+  const g = e.target.closest("[data-globe]"); if (g) location.href = `/globe?case=${encodeURIComponent(S.caseId)}&step=5`;
+});
 function stepEvent(row) {
   let base = (row.step || "").split(":")[0];
   if (base === "brief_text") base = "briefer";
@@ -113,6 +137,7 @@ function stepEvent(row) {
   } else if (row.event === "step_failed") {
     el.classList.remove("active"); el.classList.add("failed"); announce(`${base} failed`);
   }
+  syncFlow();
 }
 
 // ------------------------------------------------------------------------- log
@@ -553,7 +578,7 @@ function renderLeads(b) {
     }).join("");
     const el = document.createElement("article");
     el.className = `lead ${l.tier}`;
-    el.innerHTML = `<div class="lead-top"><span class="rank">#${l.rank}</span><h3>${esc(l.display_name)}</h3><span class="tier ${esc(l.tier)}">${esc(l.tier)}</span>`
+    el.innerHTML = `<div class="lead-top"><span class="rank">#${l.rank}</span><h3>${esc(l.display_name)}</h3>${UI_FLAGS.globe ? `<button class="btn" data-globe type="button" title="Open this building in the Globe">Open in Globe</button>` : ""}<span class="tier ${esc(l.tier)}">${esc(l.tier)}</span>`
       + `<span class="score num">${l.score}<small>/100</small></span></div><div class="factors">${fs}</div>`
       + `<ul class="reasons">${l.reasons.map((r) => `<li>${esc(scrub(r))}</li>`).join("")}${(l.caps || []).map((c) => `<li class="cap">${esc(scrub(c))}</li>`).join("")}</ul>`
       + `<details class="verify"><summary><b>Verify next</b> · ${(l.verify_next || []).length} checks for a human</summary><ul>${(l.verify_next || []).map((v) => `<li>${esc(scrub(v))}</li>`).join("")}</ul></details>`;
@@ -609,6 +634,7 @@ async function onFile(name) {
   let data;
   try { data = await getJSON(`/case/${encodeURIComponent(S.caseId)}/file/${name}`); } catch { return; }
   const key = name.replace(".json", ""); S.files[key] = data;
+  if (key === "brief" && FLOW) renderFlow(S.caseId);
   if (S.mode !== "idle" && $("#tour").checked) tour(key);
   if (key === "rings") {
     const seed = S.presets[S.preset]?.seed;
@@ -643,7 +669,7 @@ function handleRow(row) {
 
 // ------------------------------------------------------------------------- run / replay / load
 function resetCase(caseId) {
-  clearTimeout(S.timer); S.caseId = caseId; S.next = 0; S.rows = []; S.files = {}; S.ring = null;
+  clearTimeout(S.timer); S.caseId = caseId; renderFlow(caseId); S.next = 0; S.rows = []; S.files = {}; S.ring = null;
   resetSteps(); ["#logMini", "#logBig", "#leadsMini"].forEach((id) => { $(id).innerHTML = ""; });
   $("#logEmpty").hidden = false; $("#leadsEmpty").hidden = false;
   $("#leadsEmpty").innerHTML = "<div><b>No leads yet</b>A building needs a photo match to become a lead.</div>";
@@ -776,12 +802,9 @@ window.addEventListener("resize", () => {
 (async function boot() {
   makeMap("mapMini"); makeMap("mapBig");
   S.presets = await getJSON("/presets");
-  try {   // DOME_GLOBE=1: one click to the globe flight; the console stays the default
-    if ((await getJSON("/ui-flags")).globe) {
-      const a = document.createElement("a");
-      a.href = "/globe"; a.className = "btn"; a.textContent = "Globe view";
-      $(".controls").prepend(a);
-    }
+  try {   // DOME_GLOBE=1: the Globe tab
+    UI_FLAGS = await getJSON("/ui-flags");
+    $("#globeTab").hidden = !UI_FLAGS.globe;
   } catch (e) { /* flag endpoint optional */ }
   $("#presetSeg").innerHTML = Object.entries(S.presets).map(([k, p]) => `<button type="button" data-preset="${esc(k)}" aria-pressed="false" title="${esc(p.note)}">${esc(p.label)}</button>`).join("");
   $("#presetSeg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b && S.mode === "idle") choosePreset(b.dataset.preset); });
