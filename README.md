@@ -127,8 +127,9 @@ scan, the shortlist, inliers per photo and scan, room groups, P) are written to
 `data/matches/summary.json` and copied per case to `case/<id>/room_match.json`; the complex and
 the "Show the work" view read them from there.
 
-**LangSmith trace** of one run (Gemini supervisor on the stub data tools, Linker → Zoner → Lister →
-Locator, paused for report approval): https://smith.langchain.com/public/e1136b0e-1f00-4dbb-8d0b-a3cf1d447ec6/r
+**LangSmith trace** of the Deep Agents run on the real case (Gemini supervisor delegating to the
+ring-analyst, place-analyst and brief-writer sub-agents; reaches Building A, High 59): https://smith.langchain.com/public/ccdd3df0-49d8-4328-8a80-38f9b21f29d8/r/01a1df42-57b6-70a8-844c-21601db2bdde
+An earlier trace on the stub data tools: https://smith.langchain.com/public/e1136b0e-1f00-4dbb-8d0b-a3cf1d447ec6/r
 
 ## Linker on its own
 
@@ -289,7 +290,10 @@ One real Gemini-driven run of the case (`--case dag-a`, no `--scripted`) went su
 ring-analyst → place-analyst → brief-writer and reached the same lead as the scripted run
 (Building A, High 59, P 0.68, W 0.60). The brief-writer's first draft cited two numbers that are
 not in that lead's factors; `write_brief_text` refused it, named them, and the second draft
-passed. The run is recorded as the replay `demo-deep-agents`.
+passed. The run is recorded as the replay `demo-deep-agents`. A second run with LangSmith tracing
+reached the same lead in 4 minutes; its public trace shows the three `task` calls, each specialist's
+tools, the agents reading the case files (`read_file`, `glob`, `grep`; no writes) and the refused
+draft: https://smith.langchain.com/public/ccdd3df0-49d8-4328-8a80-38f9b21f29d8/r/01a1df42-57b6-70a8-844c-21601db2bdde
 
 The AI picks the next step, logs why, and writes the brief's words. **Numbers come from
 deterministic code**: same case folder in, same scores out. Every `run_*` tool hashes its
