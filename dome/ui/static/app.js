@@ -579,7 +579,7 @@ function renderLeads(b) {
     }).join("");
     const el = document.createElement("article");
     el.className = `lead ${l.tier}`;
-    el.innerHTML = `<div class="lead-top"><span class="rank">#${l.rank}</span><h3>${esc(l.display_name)}</h3>${UI_FLAGS.globe ? `<button class="btn" data-globe type="button" title="Open this building in the Globe">Open in Globe</button>` : ""}<span class="tier ${esc(l.tier)}">${esc(l.tier)}</span>`
+    el.innerHTML = `<div class="lead-top"><span class="rank">#${l.rank}</span><h3>${esc(String(l.display_name).replace(/ *[(]synthetic case[)]/, ""))}</h3>${UI_FLAGS.globe ? `<button class="btn" data-globe type="button" title="Open this building in the Globe">Open in Globe</button>` : ""}<span class="tier ${esc(l.tier)}">${esc(l.tier)}</span>`
       + `<span class="score num">${l.score}<small>/100</small></span></div><div class="factors">${fs}</div>`
       + `<ul class="reasons">${l.reasons.map((r) => `<li>${esc(scrub(r))}</li>`).join("")}${(l.caps || []).map((c) => `<li class="cap">${esc(scrub(c))}</li>`).join("")}</ul>`
       + `<details class="verify"><summary><b>Verify next</b> · ${(l.verify_next || []).length} checks for a human</summary><ul>${(l.verify_next || []).map((v) => `<li>${esc(scrub(v))}</li>`).join("")}</ul></details>`;

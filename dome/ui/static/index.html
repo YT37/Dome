@@ -163,7 +163,7 @@
     <section class="view" id="view-guide" aria-label="How to read Dome">
       <div class="guide">
         <nav class="toc" aria-label="Guide contents">
-          <a href="#g-start">Dome in 60 seconds</a><a href="#g-pipeline">The five agents</a><a href="#g-graph">Reading the graph</a>
+          <a href="#g-start">Dome in 60 seconds</a><a href="#g-pipeline">The six agents</a><a href="#g-graph">Reading the graph</a>
           <a href="#g-topology">Topology view</a><a href="#g-dome">The dome</a><a href="#g-factors">The five factors</a>
           <a href="#g-tiers">Tiers and caps</a><a href="#g-log">The decision log</a><a href="#g-verify">Verify next</a><a href="#g-not">What Dome is not</a>
         </nav>
@@ -171,8 +171,8 @@
           <h2 id="g-start">How to read Dome's results</h2>
           <p class="lede">Dome turns a set of already-flagged social accounts into a short, explained list of buildings where a group's photos were most likely taken. Every result is a <b>lead for a human to verify</b>, never a finding.</p>
 
-          <h3 id="g-pipeline"><span class="k">1</span>The five agents</h3>
-          <p>A supervisor runs five agents in order. Each writes one JSON file into the case folder and a line into the log. The supervisor decides the next step from the data, and every number comes from deterministic code.</p>
+          <h3 id="g-pipeline"><span class="k">1</span>The six agents</h3>
+          <p>A supervisor runs six agents in order (Spotter, Linker with money, Zoner, Lister, Locator, Briefer). Each writes one JSON file into the case folder and a line into the log. The supervisor decides the next step from the data, and every number comes from deterministic code.</p>
           <div class="flow"><div><b>Linker</b>Which accounts are one ring? → rings.json</div><div><b>Zoner</b>Where, as an area? → zones.json</div><div><b>Lister</b>Which buildings fit? → candidates.json</div><div><b>Locator</b>Which room and window view match? → matches.json</div><div><b>Briefer</b>How strong, and why? → brief.json</div></div>
 
           <h3 id="g-graph"><span class="k">2</span>Reading the graph</h3>
@@ -242,7 +242,7 @@
     <h2 id="introTitle">A dome over the search area that shrinks to one building</h2>
     <p>Dome helps trust and safety teams, anti-trafficking NGOs and police units turn a set of flagged accounts into a short list of buildings to verify.</p>
     <ul>
-      <li>Press <b>Run Case</b> and watch five agents work, step by step.</li>
+      <li>Press <b>Run Case</b> and watch six agents work, step by step.</li>
       <li>The ring lights up in the graph; look-alikes stay grey.</li>
       <li>The dome shrinks from an area to one building with its reasons.</li>
     </ul>
