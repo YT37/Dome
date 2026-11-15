@@ -189,6 +189,7 @@ def build_leads(case: Case, ring, zones, cands, matches, low_only: str = "") -> 
         for c in cz.candidates:
             cand_zone.setdefault(c.property_id, (c, cz.zone_id))
     dates = ad_dates(case, ring.members)
+    money_line = money_reason(case, ring.ring_id)
     medium_only = ("no location hints in the ring's messages or payments; the zone came from "
                    "login data" if any(d.decision == "no_location_hints_use_logins_cap_medium"
                                        for d in case.decisions()) else "")
@@ -200,7 +201,7 @@ def build_leads(case: Case, ring, zones, cands, matches, low_only: str = "") -> 
                 continue   # no photo match: not a lead (counted on the page instead)
             c, _ = cand_zone.get(m.property_id, (None, mz.zone_id))
             lead = make_lead(ring, zone_by_id.get(mz.zone_id), mz.zone_id, c, m, mz, dates, low_only,
-                             medium_only)
+                             medium_only, money_line)
             if m.property_id not in found or lead["score"] > found[m.property_id]["score"]:
                 found[m.property_id] = lead
 
@@ -212,7 +213,27 @@ def build_leads(case: Case, ring, zones, cands, matches, low_only: str = "") -> 
     return leads
 
 
-def make_lead(ring, zone, zone_id, cand, m, mz, dates, low_only, medium_only=""):
+def money_reason(case: Case, ring_id: str) -> str:
+    """One plain line from the money block (DOME_MONEY), read from rings.json; '' if there is none."""
+    import json
+    try:
+        rings = json.loads(case.path("rings.json").read_text(encoding="utf-8"))
+        block = next((r.get("money") for r in rings.get("rings", []) if r.get("ring_id") == ring_id), None)
+    except (OSError, ValueError):
+        return ""
+    if not block or not block.get("wallet_clusters"):
+        return ""
+    roles = {c["role"]: c for c in block["wallet_clusters"]}
+    parts = []
+    if "advertiser" in roles:
+        parts.append(f"an advertiser wallet {roles['advertiser']['reasons'][0]}")
+    cash = block.get("cash_out") or []
+    tail = f"; cash-out at {cash[0]['service']} {cash[0]['times']} times" if cash else ""
+    return (f"Money (attribution {block.get('attribution_confidence', 0):.2f}): "
+            f"{len(block['wallet_clusters'])} wallet clusters ({', '.join(roles)}); " + "; ".join(parts) + tail)
+
+
+def make_lead(ring, zone, zone_id, cand, m, mz, dates, low_only, medium_only="", money_line=""):
     P = m.P if m else 0.0
     W = m.W if m and P >= config.MATCH_THRESHOLD else None
     f = {"R": ring.confidence, "Z": zone.confidence if zone else 0.0,
@@ -229,7 +250,7 @@ def make_lead(ring, zone, zone_id, cand, m, mz, dates, low_only, medium_only="")
     if low_only and tier != "Low":
         tier = "Low"
         caps.append(f"capped at Low: {low_only}")
-    reasons = [ring_reason(ring), photo_reason(m, mz), window_reason(m), zone_reason(zone), fit_reason(cand)]
+    reasons = [ring_reason(ring), money_line, photo_reason(m, mz), window_reason(m), zone_reason(zone), fit_reason(cand)]
     return {"property_id": cand.property_id if cand else m.property_id,
             "address": cand.address if cand else "",          # internal only, never rendered
             "zone_id": zone_id, "tier": tier, "score": score_for(**f), "factors": f,

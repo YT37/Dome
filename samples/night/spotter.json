@@ -1,0 +1,5 @@
+{"queue": [{"account": "acct_103", "score": 0.93, "rank": 1, "signals": [
+  {"kind": "repeated_phone", "reason": "same phone (555-…42) in 14 ads across 6 accounts"},
+  {"kind": "lookalike_account", "reason": "no profile photo, created in a batch of 9, burst posting"},
+  {"kind": "payment_then_post", "reason": "posts 7 minutes after an ad-platform payment, 11 times"}]}],
+ "flag_rule": "flagged only when at least 3 different signal kinds agree"}

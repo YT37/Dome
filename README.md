@@ -87,8 +87,7 @@ Two more synthetic files, `messages.json` and `transactions.json`, sit next to t
 plants the patterns; `answer_key_private.json` scores them).
 
 ```bash
-python -m dome.eval --data synth --three-way              # Track 1: private layers on
-python -m dome.eval --data synth --no-private --three-way # Track 2: public data only
+python -m dome.eval --data synth --three-way              # all layers on (the demo setting)
 ```
 
 On `synth`, every planted pattern is found: shared wallet and DM links in Ring A, the relay
@@ -136,11 +135,11 @@ whose evidence looks different from A and B (no shared phone or script), every R
 still ranks above every non-ring account (AUC 1.00), but only 2 of 6 clear 0.5: with this little
 training data the model learns the shape of the rings it saw. `DOME_TOPO=0` turns it off.
 
-**Track 2 (public data only):** `--no-private` uses a second model,
-`dome/models/topo_unigcn_public.pt`, trained without messages or payments
-(`python -m dome.agents.topo --train --no-private`). On synth it still finds every ring account
-(precision 1.00, recall 1.00, AUC 0.90); on mini Ring C every account still ranks above every
-non-ring account (AUC 1.00) but none clears 0.5.
+**Public-only model (kept, not used in the demo):** Arlequin allows any synthetic data, so every
+demo runs with messages and payments on. A second model, `dome/models/topo_unigcn_public.pt`, was
+trained without messages or payments for the public-only setting; on synth it still finds every
+ring account (precision 1.00, recall 1.00, AUC 0.90); on mini Ring C every account still ranks
+above every non-ring account (AUC 1.00) but none clears 0.5.
 
 ## Connect to LangChain
 

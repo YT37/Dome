@@ -1,5 +1,7 @@
 # Ishaan → Yug: status of my parts, and what to check
 
+> **Superseded (Sun 2:50 AM):** Arlequin confirmed any synthetic data is allowed, private included. Every demo and replay now runs **without `--no-private`**; the flag stays in the code but is never passed. See `SPLIT_HANDOFF_2AM` for the current plan.
+
 Branch: `ishaan` (built on `avishek-topo`, i.e. PR 3 on top of `main`). Everything below is pushed.
 Scope is **Ring A + decoy D, Track 2 (public data only)**. All data is synthetic.
 
