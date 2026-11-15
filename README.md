@@ -340,6 +340,73 @@ members and roles changed). The Lister adds up to +0.15 fit for buildings within
 motel or echo place the ring paid; that reorders the list but never lifts a lead past Low.
 Tuning lives in `dome/config.py`.
 
+## What we built, what we used, and how
+
+All code in this repository was written during HackPrinceton (first commit Sat Nov 14, 4:27 AM ET).
+The libraries, models, data and services below are other people's work; we credit them here.
+
+### Our work
+
+- **The six agents and their contracts** (`dome/agents/`, `dome/schemas.py`, `dome/supervisor.py`):
+  Spotter's three-kinds rule, the Linker's sticky notes, two-kinds rule and down-weighting, money
+  discovery on a synthetic ledger (payment-then-post timing, shared-input clustering, roles), the
+  Zoner, Lister, Locator and Briefer, the supervisor's decisions and guards, and the case complex.
+- **Finding the room** (`dome/data_tools/room_match.py`, `render.py`): rendering ad photos from
+  held-out Matterport sweeps, a coarse DINOv2 pass over every candidate scan, DISK + LightGlue +
+  RANSAC verification, room groups, and the 50-inlier threshold (tuned on building A vs decoy D).
+- **Fixing the pin and the floor** (`geo.py`, `oblique_camera.py`, `floorplan.py`, `vexcel.py`,
+  `costar.py`): fitting the scan's floor-plan outline to Vexcel footprints, an oblique camera model
+  that draws the floor band on the facade, CoStar unit-to-floor, and a hand-checked answer key.
+- **Window check and Q&A**: the fixed checklist that Gemini answers for both sides and the code
+  that compares them (`gemini_vision.py`); answers only from case files, with checked citations
+  (`dome/ask.py`).
+- **Topological model**: the structural UniGCN setup, training splits and held-out evaluation
+  (`dome/complex.py`, `dome/agents/topo.py`).
+- **Synthetic data** (`dome/synth/`): accounts, posts, messages, payments, the ledger and the answer
+  keys, with hard negatives.
+- **UI and hosting** (`dome/ui/`, `deploy/firebase/`): the Homepage flow, the Globe, "Show the
+  work", the address scrubber for recorded runs, and the public deploy.
+
+Team: Yug Thapar (CoStar, Matterport, Vexcel data tools, room match, geo, renders, UI, deploy),
+Avishek Lodh (supervisor, schemas, Linker, topological model, LangGraph), Ishaan Arekar (synthetic
+data, Zoner, Briefer, money, Spotter, case Q&A, first UI).
+
+### How we built it: AI assistance
+
+We used AI coding assistants (Claude Code) throughout the event. The team chose the problem,
+the architecture and the contracts between agents, the data sources, the guardrails and every
+threshold; we reviewed and ran the code, hand-checked results (for example the building and window
+answer keys used to verify the geo fix), and rejected or rewrote what did not hold up. Much of the
+implementation was drafted by the assistants under that direction. Every number in this README
+comes from code run on the data. At runtime, an LLM (Gemini) is used only for photo cues, the window
+checklist answers, the optional supervisor planner and the case Q&A; it never computes a score.
+
+### Libraries and frameworks
+
+- **Agents and LLMs:** LangChain, LangGraph (+ LangGraph SDK and CLI), deepagents,
+  langchain-google-genai and langchain-anthropic, LangSmith (tracing).
+- **Data and science:** NumPy, pydantic, Shapely, pyproj, NetworkX, python-igraph, leidenalg
+  (Leiden clustering), datasketch (MinHash), imagehash, sentence-transformers, requests,
+  python-dotenv, Jinja2.
+- **Vision:** OpenCV, Pillow, Hugging Face Transformers, PyTorch, Kornia (DISK, LightGlue).
+- **Topological deep learning:** TopoNetX, TopoModelX (UniGCN).
+- **Web:** Flask; in the browser MapLibre GL JS, Cytoscape.js with cytoscape-fcose (cose-base,
+  layout-base), Chart.js, Pannellum, Leaflet; the Geist font.
+- **Video:** Remotion, three.js.
+- **Testing and hosting:** pytest; Firebase Hosting and Cloud Functions for Firebase.
+
+### Models
+
+DINOv2-small (Meta AI), DISK and LightGlue (via Kornia), CLIP ViT-B/32 (OpenAI) and OWL-ViT (Google)
+for window detection, all-MiniLM-L6-v2 (sentence-transformers), Gemini 3.5 Flash (Google).
+
+### Data and services
+
+CoStar hackathon kit (properties, listings and their Matterport links), Matterport API (scans,
+panorama images, floor plans), Vexcel API (building footprints, orthophotos and oblique imagery),
+Esri World Imagery (globe base map), Google Gemini API, LangSmith. Real buildings are used only as
+locations; all accounts, posts, messages and payments are synthetic.
+
 ## Status
 
 - **Real end to end:** Spotter, Linker (with money), Zoner, Lister, Locator (CoStar, Matterport,
