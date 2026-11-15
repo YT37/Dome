@@ -1,0 +1,195 @@
+{
+ "agent": "lister",
+ "title": "Lister \u00b7 buildings that fit",
+ "case": "demo-real-a",
+ "steps": [
+  {
+   "id": "funnel_Z-1-1",
+   "title": "Z-1-1: from every building to the list",
+   "kind": "chart",
+   "data": {
+    "type": "bar",
+    "labels": [
+     "in the zone",
+     "kept",
+     "with a scan"
+    ],
+    "datasets": [
+     {
+      "label": "buildings",
+      "data": [
+       129,
+       129,
+       128
+      ]
+     }
+    ],
+    "threshold": null,
+    "x": null,
+    "y": null,
+    "horizontal": false,
+    "stacked": false,
+    "highlight": []
+   },
+   "caption": "129 CoStar buildings in the zone; 129 kept; 128 have a scan.",
+   "source": "case/demo-real-a/candidates.json"
+  },
+  {
+   "id": "cues_Z-1-1",
+   "title": "What the photos say about the building",
+   "kind": "text",
+   "data": {
+    "text": "setting: apartment",
+    "bullets": [
+     "window floor estimate: [2, 3]",
+     "features: brick facade, courtyard, covered parking, high ceilings, large windows, balcony, hardwood floors",
+     "read by: gemini"
+    ]
+   },
+   "caption": "Photo cues are read once from the ring photos and drive the fit score.",
+   "source": "case/demo-real-a/candidates.json"
+  },
+  {
+   "id": "fit_Z-1-1",
+   "title": "Fit score distribution",
+   "kind": "chart",
+   "data": {
+    "type": "bar",
+    "labels": [
+     "0.0",
+     "0.3",
+     "0.4",
+     "0.5",
+     "0.6",
+     "0.8",
+     "0.9"
+    ],
+    "datasets": [
+     {
+      "label": "buildings",
+      "data": [
+       3,
+       38,
+       9,
+       7,
+       2,
+       65,
+       5
+      ]
+     }
+    ],
+    "threshold": null,
+    "x": "fit",
+    "y": "buildings",
+    "horizontal": false,
+    "stacked": false,
+    "highlight": []
+   },
+   "caption": "fit = 0.5 type match + 0.3 floors fit the window height + 0.2 other cues.",
+   "source": "case/demo-real-a/candidates.json"
+  },
+  {
+   "id": "top_Z-1-1",
+   "title": "Top of the list",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "building id",
+     "type",
+     "floors",
+     "fit",
+     "scan"
+    ],
+    "rows": [
+     [
+      "CS-11027423",
+      "multifamily",
+      46,
+      "0.94",
+      "yes"
+     ],
+     [
+      "CS-8147119",
+      "multifamily",
+      16,
+      "0.94",
+      "yes"
+     ],
+     [
+      "CS-857494",
+      "multifamily",
+      18,
+      "0.94",
+      "yes"
+     ],
+     [
+      "CS-9432215",
+      "multifamily",
+      32,
+      "0.94",
+      "yes"
+     ],
+     [
+      "CS-9395438",
+      "multifamily",
+      40,
+      "0.88",
+      "yes"
+     ],
+     [
+      "CS-10065813",
+      "multifamily",
+      30,
+      "0.80",
+      "yes"
+     ],
+     [
+      "CS-10079392",
+      "multifamily",
+      27,
+      "0.80",
+      "yes"
+     ],
+     [
+      "CS-10122224",
+      "multifamily",
+      5,
+      "0.80",
+      "yes"
+     ],
+     [
+      "CS-10960074",
+      "multifamily",
+      2,
+      "0.80",
+      "yes"
+     ],
+     [
+      "CS-11118122",
+      "multifamily",
+      43,
+      "0.80",
+      "yes"
+     ],
+     [
+      "CS-11309807",
+      "multifamily",
+      6,
+      "0.80",
+      "yes"
+     ],
+     [
+      "CS-11415679",
+      "multifamily",
+      3,
+      "0.80",
+      "yes"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "Building ids only; the address stays on the server.",
+   "source": "case/demo-real-a/candidates.json"
+  }
+ ]
+}

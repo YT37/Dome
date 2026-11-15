@@ -412,3 +412,21 @@ def test_missing_in_between_data_says_not_recorded(client, tmp_path):
     (d / "room_match.json").unlink()
     j = steps_pkg.build(d, "locator", root=tmp_path)      # no data/matches/summary.json under this root
     assert j["steps"][0]["data"]["note"] == "in-between data not recorded"
+
+
+def test_recorder_writes_scrubbed_steps(tmp_path):
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("record_demo_case", ui.ROOT / "scripts" / "record_demo_case.py")
+    rec = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(rec)
+    dst = tmp_path / "rec"
+    shutil.copytree(REAL, dst)
+    cands = json.loads((dst / "candidates.json").read_text())
+    cands["zones"][0]["candidates"][0]["address"] = "4100 Fannin Street"
+    (dst / "candidates.json").write_text(json.dumps(cands))
+    agents = rec.write_steps(dst, {"4100 Fannin Street"})
+    assert set(agents) == set(steps_pkg.AGENTS)
+    for f in (dst / "steps").glob("*.json"):
+        text = f.read_text()
+        assert "Fannin" not in text and '"address"' not in text
+        assert all(s["source"] for s in json.loads(text)["steps"])
