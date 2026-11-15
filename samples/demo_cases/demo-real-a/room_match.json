@@ -1616,6 +1616,41 @@
      "inliers": 356,
      "match_img": "data/matches/img_8800__LqCMcmmVH3d_qff535pp6geahis527yisnb6d_az_090.jpg",
      "heading_deg": 74.1
+    },
+    {
+     "photo": "img_8176",
+     "view_id": "LqCMcmmVH3d/6f6sxpn94hzh6yythsk3qsi8d/az_270",
+     "inliers": 353,
+     "match_img": "data/matches/img_8176__LqCMcmmVH3d_6f6sxpn94hzh6yythsk3qsi8d_az_270.jpg",
+     "heading_deg": 277.1
+    },
+    {
+     "photo": "img_3218",
+     "view_id": "LqCMcmmVH3d/6f6sxpn94hzh6yythsk3qsi8d/az_090",
+     "inliers": 329,
+     "match_img": "data/matches/img_3218__LqCMcmmVH3d_6f6sxpn94hzh6yythsk3qsi8d_az_090.jpg",
+     "heading_deg": 97.1
+    },
+    {
+     "photo": "img_0282",
+     "view_id": "LqCMcmmVH3d/hcgzd2shq4ke0u655kfxpedeb/az_180",
+     "inliers": 162,
+     "match_img": "data/matches/img_0282__LqCMcmmVH3d_hcgzd2shq4ke0u655kfxpedeb_az_180.jpg",
+     "heading_deg": 114.4
+    },
+    {
+     "photo": "img_9315",
+     "view_id": "LqCMcmmVH3d/c82x08r03cffwr78gybdei17c/az_135",
+     "inliers": 158,
+     "match_img": "data/matches/img_9315__LqCMcmmVH3d_c82x08r03cffwr78gybdei17c_az_135.jpg",
+     "heading_deg": 323.3
+    },
+    {
+     "photo": "img_4556",
+     "view_id": "LqCMcmmVH3d/e10qt89yx76xayuk5g3ap50ud/az_090",
+     "inliers": 85,
+     "match_img": "data/matches/img_4556__LqCMcmmVH3d_e10qt89yx76xayuk5g3ap50ud_az_090.jpg",
+     "heading_deg": 64.2
     }
    ]
   },

@@ -49,6 +49,7 @@ def make_case(tmp_path, name, extra=None, rings_patch=None):
 def test_everything_new_is_off_without_the_flag(tmp_path, monkeypatch):
     monkeypatch.delenv("DOME_GLOBE", raising=False)
     monkeypatch.delenv("DOME_STEPS", raising=False)
+    monkeypatch.delenv("DOME_ASK", raising=False)
     c = ui.app.test_client()
     for path in ("/globe", "/flight?case=demo-real-a", "/panels?case=demo-real-a", "/events?case=demo-real-a",
                  "/asset/data/demo_assets/LqCMcmmVH3d/ortho.jpg", "/steps?case=demo-real-a&agent=locator"):
@@ -486,7 +487,8 @@ def test_linker_uses_real_wallet_notes(client):
 
 
 # ---------------------------------------------------------------- ask (DOME_ASK=1)
-def test_ask_is_off_without_the_flag(client):
+def test_ask_is_off_without_the_flag(client, monkeypatch):
+    monkeypatch.delenv("DOME_ASK", raising=False)
     assert client.post("/ask", json={"case": "demo-real-a", "question": "x"}).status_code == 404
 
 

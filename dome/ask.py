@@ -37,6 +37,15 @@ SYSTEM = (
 )
 
 
+def _no_addresses(x: Any) -> Any:
+    """Real cases carry CoStar street addresses internally; they never go to the model."""
+    if isinstance(x, dict):
+        return {k: ("" if k == "address" else _no_addresses(v)) for k, v in x.items()}
+    if isinstance(x, list):
+        return [_no_addresses(v) for v in x]
+    return x
+
+
 def case_files(case_id: str, root: Optional[Path] = None) -> dict[str, Any]:
     """{'case/<id>/<name>.json': parsed JSON} for every JSON file in the case folder."""
     if not CASE_ID.match(case_id or ""):
@@ -45,7 +54,7 @@ def case_files(case_id: str, root: Optional[Path] = None) -> dict[str, Any]:
     out = {}
     for p in sorted(folder.glob("*.json")):
         try:
-            out[f"case/{case_id}/{p.name}"] = json.loads(p.read_text(encoding="utf-8"))
+            out[f"case/{case_id}/{p.name}"] = _no_addresses(json.loads(p.read_text(encoding="utf-8")))
         except (OSError, json.JSONDecodeError):
             continue
     return out
