@@ -823,25 +823,56 @@ window.addEventListener("resize", () => {
 
 
 // ---------------------------------------------------------------- Ask about this case (DOME_ASK)
-function askAnswerHtml(a) {
-  if (!a.answerable) return a.reason ? `<p>No answer: ${esc(a.reason)}.</p>` : `<p>That isn't in this case's files.</p>`;
-  return `<p class="askans">${esc(a.answer)}</p><div class="cells">${(a.citations || []).map((c) =>
-    `<button type="button" class="chip" data-cite-file="${esc(c.file)}" data-cite-path="${esc(c.path)}" title="Open this field">${esc(String(c.file).split("/").pop())} · ${esc(c.path)}</button>`).join("")}</div>`;
+// A chat thread per case, kept in this browser (localStorage) so it survives closing the box and
+// reloading the page. It starts with the question asked during the real run (saved with the case).
+const ASK = { thread: [], key: "" };
+const askKey = () => `dome.ask.${S.caseId || "case"}`;
+function askLoad() { try { return JSON.parse(localStorage.getItem(askKey()) || "null"); } catch { return null; } }
+function askSave() { try { localStorage.setItem(askKey(), JSON.stringify(ASK.thread.filter((m) => !m.pending))); } catch { /* private mode */ } }
+const askInline = (t) => esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+function askFormat(text) {
+  const lines = String(text || "").split("\n").map((l) => l.trim()).filter(Boolean);
+  let html = "", inList = false;
+  for (const l of lines) {
+    const m = l.match(/^[-•*]\s+(.*)$/);
+    if (m) { if (!inList) { html += "<ul>"; inList = true; } html += `<li>${askInline(m[1])}</li>`; }
+    else { if (inList) { html += "</ul>"; inList = false; } html += `<p>${askInline(l)}</p>`; }
+  }
+  return html + (inList ? "</ul>" : "");
 }
-async function openAsk() {
-  const dlg = $("#askDlg"); $("#askOut").innerHTML = ""; $("#citeView").hidden = true; dlg.showModal(); $("#askQ").focus();
-  for (const cid of [S.caseId, "demo-real-a"]) {            // the recorded Q&A of this run, if one was recorded
+function askRender() {
+  const el = $("#askThread");
+  el.innerHTML = ASK.thread.map((m) => m.role === "q"
+    ? `<div class="msg q"><div class="bubble">${esc(m.text)}</div></div>`
+    : `<div class="msg a"><div class="bubble">${m.pending ? `<p class="fine">Reading the case files…</p>`
+        : m.answerable ? askFormat(m.text) : `<p>${esc(m.text)}</p>`}
+        ${(m.citations || []).length ? `<div class="cells">${m.citations.map((c) => `<button type="button" class="chip" data-cite-file="${esc(c.file)}" data-cite-path="${esc(c.path)}" title="Show this field">${esc(String(c.file).split("/").pop())} · ${esc(c.path)}</button>`).join("")}</div>` : ""}
+        ${m.saved ? `<div class="fine savednote">Asked during the case run; answer saved with the case.</div>` : ""}</div></div>`).join("")
+    || `<p class="fine">No questions yet.</p>`;
+  el.scrollTop = el.scrollHeight;
+}
+async function askSeed() {
+  ASK.thread = [];
+  for (const cid of [S.caseId, "demo-real-a"]) {
     if (!cid) continue;
     try {
       const rec = await getJSON(`/ask?case=${encodeURIComponent(cid)}`);
-      if (rec.recorded) { $("#askRec").innerHTML = `<div class="why"><span class="sample-tag">recorded</span>${rec.question ? `<p><b>Q:</b> ${esc(rec.question)}</p>` : ""}${askAnswerHtml(rec)}</div>`; return; }
-    } catch { /* no recorded answer */ }
+      if (rec.recorded && rec.question) {
+        ASK.thread = [{ role: "q", text: rec.question },
+          { role: "a", text: rec.answer, citations: rec.citations || [], answerable: !!rec.answerable, saved: true }];
+        break;
+      }
+    } catch { /* nothing saved for this case */ }
   }
-  $("#askRec").innerHTML = "";
+}
+async function openAsk() {
+  if (ASK.key !== askKey()) { ASK.key = askKey(); ASK.thread = askLoad() || []; if (!ASK.thread.length) await askSeed(); }
+  $("#citeView").hidden = true; askRender(); $("#askDlg").showModal(); $("#askQ").focus();
 }
 document.addEventListener("click", async (e) => {
   if (e.target.closest("#askBtn")) return openAsk();
   if (e.target.closest("#askClose")) return $("#askDlg").close();
+  if (e.target.closest("#askClear")) { await askSeed(); askSave(); $("#citeView").hidden = true; return askRender(); }
   const c = e.target.closest("#askDlg [data-cite-file]");
   if (c) {
     const named = String(c.dataset.citeFile).split("/")[1];
@@ -858,9 +889,13 @@ document.addEventListener("submit", async (e) => {
   if (e.target.id !== "askForm") return;
   e.preventDefault();
   const q = $("#askQ").value.trim(); if (!q) return;
-  $("#askOut").innerHTML = `<p class="fine">Reading the case files…</p>`;
-  try {
-    const a = await getJSON("/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ case: S.caseId, question: q }) });
-    $("#askOut").innerHTML = `<div class="why"><p><b>Q:</b> ${esc(q)}</p>${askAnswerHtml(a)}</div>`;
-  } catch { $("#askOut").innerHTML = `<p>No answer: the request failed.</p>`; }
+  $("#askQ").value = "";
+  const pending = { role: "a", pending: true };
+  ASK.thread.push({ role: "q", text: q }, pending); askRender();
+  let a;
+  try { a = await getJSON("/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ case: S.caseId, question: q }) }); }
+  catch { a = { answerable: false, reason: "the request failed" }; }
+  Object.assign(pending, { pending: false, answerable: !!a.answerable, citations: a.citations || [],
+    text: a.answerable ? a.answer : (a.reason ? `No answer: ${a.reason}.` : "That isn't in this case's files.") });
+  askSave(); askRender();
 });

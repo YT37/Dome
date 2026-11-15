@@ -262,11 +262,12 @@
 <script src="/static/drawer.js"></script>
 <script src="/static/app.js"></script>
 <dialog id="askDlg" class="askdlg" aria-label="Ask about this case">
-  <div class="askhead"><b>Ask about this case</b><button class="btn" type="button" id="askClose">Close</button></div>
-  <form id="askForm" class="askrow"><input id="askQ" class="ctl" maxlength="500" placeholder="e.g. Why is Building A High?" autocomplete="off">
+  <div class="askhead"><div><b>Ask about this case</b><div class="fine">Answers come only from this case's files; every claim cites a file and field.</div></div>
+    <div class="askbtns"><button class="btn" type="button" id="askClear" title="Start a new conversation">New chat</button><button class="btn" type="button" id="askClose">Close</button></div></div>
+  <div id="askThread" class="askthread" aria-live="polite"></div>
+  <pre class="cite-view" id="citeView" hidden></pre>
+  <form id="askForm" class="askrow"><input id="askQ" class="ctl" maxlength="500" placeholder="Ask anything about this case, e.g. How was the building found?" autocomplete="off">
     <button class="btn primary" type="submit">Ask</button></form>
-  <p class="fine">Answers come only from this case's files; every claim cites a file and field.</p>
-  <div id="askOut"></div><div id="askRec"></div><pre class="cite-view" id="citeView" hidden></pre>
 </dialog>
 </body>
 </html>
