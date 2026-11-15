@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, useCurrentFrame, Img, staticFile} from 'remotion';
 import {C, F, FPS, ease, P, sketch, sketchEllipse, rng, eo} from './theme';
 
 export const useT = () => useCurrentFrame() / FPS;
@@ -8,13 +8,7 @@ export const Grain: React.FC<{o?: number}> = ({o = 0.09}) => {
   const f = useCurrentFrame();
   return (
     <AbsoluteFill style={{pointerEvents: 'none', mixBlendMode: 'overlay', opacity: o}}>
-      <svg width="100%" height="100%">
-        <filter id={`g${f}`}>
-          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves={2} seed={f % 97} />
-          <feColorMatrix type="saturate" values="0" />
-        </filter>
-        <rect width="100%" height="100%" filter={`url(#g${f})`} />
-      </svg>
+      <Img src={staticFile(`grain/g${Math.floor(f / 2) % 6}.png`)} style={{width: '100%', height: '100%'}} />
     </AbsoluteFill>
   );
 };

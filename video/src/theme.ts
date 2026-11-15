@@ -31,7 +31,7 @@ export const F = {
 export const HOOK = [
   {src: 'clips/us.mp4', from: 0, dur: 5.0, start: 0, credit: 'BBC News', title: "'Epidemic' of US children sold for sex"},
   {src: 'clips/tz.mp4', from: 5.0, dur: 2.0, start: 0.5, credit: 'BBC Africa Eye', title: "Forced to beg: Tanzania's trafficked kids"},
-  {src: 'clips/fr_53.mp4', from: 7.0, dur: 3.8, start: 0.6, credit: 'France 24', title: 'Recruiting on TikTok: the code words', blur: true},
+  {src: 'clips/fr_53.mp4', from: 7.0, dur: 3.8, start: 0.0, credit: 'France 24', title: 'Recruiting on TikTok: the code words'},
   {src: 'clips/fr_63.5.mp4', from: 10.8, dur: 3.4, start: 0.1, credit: 'France 24', title: 'The lure: housed, fed, transport, safety'},
 ];
 export const HOOK_END = 14.2;

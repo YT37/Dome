@@ -19,7 +19,7 @@ agent skills (best practices for compositions, captions and rendering).
 
 The hook uses short excerpts of BBC News, BBC Africa Eye and France 24 reports, credited on screen.
 They are not committed. Put the four cut clips in `public/clips/`:
-`us.mp4`, `tz.mp4`, `fr_53.mp4`, `fr_63.5.mp4` (copies are in the project files under `dome/video/clips/`).
+`us.mp4`, `tz.mp4`, `fr_53.mp4` (thumbnails pre-blurred), `fr_63.5.mp4` (copies are in the project files under `dome/video/clips/`).
 
 ## Where things are
 
