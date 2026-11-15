@@ -1,5 +1,7 @@
 # Dome
 
+<p align="center"><img src="dome/ui/static/logo.svg" width="420" alt="Dome: Find the ring. Find the room."></p>
+
 > A dome over the search area that shrinks to one building.
 
 Dome is an investigation tool for trust and safety teams, anti-trafficking NGOs and police

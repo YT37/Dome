@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 320" role="img" aria-label="Dome: Find the ring. Find the room.">
+  <rect width="440" height="320" rx="18" fill="#000"/>
+  <defs><clipPath id="top"><rect x="0" y="0" width="440" height="134"/></clipPath>
+        <clipPath id="ball"><circle cx="220" cy="130" r="92"/></clipPath></defs>
+  <g clip-path="url(#ball)"><rect x="120" y="150" width="200" height="90" fill="#151515"/></g>
+  <g fill="none" stroke="#d6d6da" stroke-width="2" clip-path="url(#top)" opacity=".9">
+    <ellipse cx="220" cy="130" rx="92" ry="92"/>
+    <ellipse cx="220" cy="130" rx="27" ry="92"/>
+    <ellipse cx="220" cy="130" rx="56" ry="92"/>
+    <ellipse cx="220" cy="130" rx="79" ry="92"/>
+    <line x1="220" y1="38" x2="220" y2="134"/>
+    <ellipse cx="220" cy="60" rx="50" ry="8"/>
+    <ellipse cx="220" cy="92" rx="81" ry="13"/>
+  </g>
+  <circle cx="220" cy="130" r="92" fill="none" stroke="#d6d6da" stroke-width="2.6"/>
+  <text x="220" y="156" text-anchor="middle" font-family="Montserrat, 'Arial Black', Arial, sans-serif"
+        font-weight="800" font-size="70" letter-spacing="6" fill="#f2f2f5">DOME</text>
+  <text x="220" y="282" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="500" font-size="26">
+    <tspan fill="#ececec">Find the ring.</tspan><tspan fill="#f5b53f" dx="10">Find the room</tspan><tspan fill="#f5b53f" font-weight="800">.</tspan>
+  </text>
+</svg>
