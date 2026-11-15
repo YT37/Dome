@@ -1,0 +1,14 @@
+[
+["public/vo/l01.wav","A friend of ours was taken in high school. For a whole year, nobody knew where she was."],
+["public/vo/l02.wav","Today, people are sold through social media ads, shot in rooms that look like any other apartment. Investigators get the photos. They almost never get the address."],
+["public/vo/l03.wav","So we built Dome. A dome over the search area, that shrinks to one building."],
+["public/vo/l04.wav","Five AI agents, under one LangChain deep agents supervisor, turn flagged accounts into a ranked list of buildings."],
+["public/vo/l05.wav","First, the Linker. Accounts that share sticky notes, the same phone, the same wallet, the same photos, the same reworded script, get joined into one ring. One shared clue is only a hint. It takes two different kinds to make a link."],
+["public/vo/l06.wav","The Zoner reads place clues, like landmarks and area codes, and draws the dome. An area, never a pin."],
+["public/vo/l07.wav","The Lister pulls every CoStar building inside the dome, and keeps the ones that fit the photos."],
+["public/vo/l08.wav","The Locator matches the ad photos to rooms inside Matterport 3D scans, then checks the window view against Vexcel aerial imagery. That also fixes the scan's location."],
+["public/vo/l09.wav","And the Briefer ranks every building, high, medium or low, with a score and plain reasons."],
+["public/vo/l10.wav","On our test case, twelve accounts became one ring. Ten square kilometers became seven buildings. And one building came back High, with a score of sixty six."],
+["public/vo/l11.wav","Every result is a lead for a human to verify. Dome can't contact or dispatch anyone, and every decision it makes is logged."],
+["public/vo/l12.wav","Synthetic accounts. Real building data. Dome helps task force analysts find the room, so they can find the person, faster."]
+]
