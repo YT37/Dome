@@ -364,6 +364,29 @@ class Supervisor:
         if _flag("DOME_LINK_MONEY") and c.path("wallet_notes.json").exists():
             self._linker_money_pass()
 
+    def _complex_hook(self) -> None:
+        """Case complex (contract F) + UniGCN scores -> complex.json. On by default for
+        dataset cases (DOME_COMPLEX=0 turns it off); a failure is logged, never fatal."""
+        c = self.case
+        if os.getenv("DOME_COMPLEX", "1") == "0" or not c.input.dataset:
+            return
+        try:
+            from . import complex as cx
+            out = cx.build(c)
+            c.log(actor="agent", event="tool_result", step="complex", output_file="complex.json",
+                  evidence={"ranks": {k: len(v) for k, v in out["ranks"].items()},
+                            "scores": len(out["scores"]), "disagreements": len(out.get("disagreements", [])),
+                            "model": out["model"]},
+                  message="case complex built")
+            emit(c, "linker", "result", f"Case complex: {len(out['ranks']['0'])} nodes, "
+                 f"{len(out['ranks']['1'])} shared notes, {len(out['ranks']['2'])} events; "
+                 f"{len(out.get('disagreements', []))} model-vs-rules disagreements to review",
+                 [x["id"] for x in out["ranks"].get("3", [])][:3])
+        except Exception as exc:
+            c.log(actor="guard", event="step_failed", step="complex",
+                  evidence={"error": f"{type(exc).__name__}: {exc}"[:300]},
+                  message="case complex failed; the brief is unaffected")
+
     def _linker_money_pass(self) -> None:
         """Second Linker pass with wallet notes as `money` keys. The money block is carried
         over to the ring that keeps the most of its members."""
@@ -568,6 +591,8 @@ class Supervisor:
                             ["rings.json", "zones.json", "candidates.json", "matches.json"],
                             {"stop_reason": stop_reason})
         b = c.load("brief.json")
+        if ok:
+            self._complex_hook()
         if b:
             emit(c, "briefer", "result", "Report: " + ("; ".join(
                 f"{l.property_id} {l.tier} ({l.score})" for l in b.leads) or f"no building leads ({b.status})"),
