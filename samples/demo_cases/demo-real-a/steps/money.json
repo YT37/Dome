@@ -1,0 +1,31 @@
+{
+ "agent": "money",
+ "title": "Linker \u00b7 money layer",
+ "case": "demo-real-a",
+ "steps": [
+  {
+   "id": "chain",
+   "title": "Payments on the public ledger",
+   "kind": "text",
+   "data": {
+    "text": "chain data not generated yet (data/synth/chain/txs.json, labels.json)",
+    "bullets": [],
+    "note": "in-between data not recorded"
+   },
+   "caption": "chain data not generated yet (data/synth/chain/txs.json, labels.json) (in-between data not recorded)",
+   "source": "data/synth/chain/"
+  },
+  {
+   "id": "roles",
+   "title": "Wallet clusters and roles",
+   "kind": "text",
+   "data": {
+    "text": "no money block in rings.json",
+    "bullets": [],
+    "note": "in-between data not recorded"
+   },
+   "caption": "no money block in rings.json (in-between data not recorded)",
+   "source": "case/demo-real-a/rings.json"
+  }
+ ]
+}

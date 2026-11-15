@@ -468,7 +468,7 @@
   $("#stepNext").addEventListener("click", () => showStep(W.i + 1));
   $("#drawerTabs").addEventListener("click", (e) => { const b = e.target.closest("[data-agent]"); if (b) openWork(b.dataset.agent); });
   async function openWork(agent) {
-    if (!FLAGS.steps) return;
+    if (!FLAGS.steps || !FLAGS.steps[agent]) return;
     closeSheet();
     const r = await fetch(`/steps?case=${encodeURIComponent(CASE)}&agent=${encodeURIComponent(agent)}`);
     if (!r.ok) return;
@@ -511,7 +511,7 @@
         data: (d.labels || []).map(() => d.threshold.value), borderColor: "#f2b45a", borderDash: [6, 4], pointRadius: 0, borderWidth: 2, fill: false });
       W.chart = new Chart($("#stepChart"), {
         type: d.type || "bar", data: { labels: d.labels, datasets: ds },
-        options: { indexAxis: d.horizontal ? "y" : "x", animation: { duration: 500 }, responsive: true, maintainAspectRatio: false,
+        options: { indexAxis: d.horizontal ? "y" : "x", animation: qs.get("still") ? false : { duration: 500 }, responsive: true, maintainAspectRatio: false,
           plugins: { legend: { labels: { color: "#c9cdd6" } } },
           scales: { x: { stacked: !!d.stacked, ticks: { color: "#9aa0ad", autoSkip: false, maxRotation: 70, font: { size: 10 } }, grid: { color: "rgba(255,255,255,.06)" }, title: { display: !!d.x, text: d.x || "", color: "#9aa0ad" } },
                     y: { stacked: !!d.stacked, ticks: { color: "#9aa0ad", font: { size: 10 } }, grid: { color: "rgba(255,255,255,.06)" }, title: { display: !!d.y, text: d.y || "", color: "#9aa0ad" } } } },
@@ -543,10 +543,10 @@
           W.map.addSource("img", { type: "image", url: d.image.src, coordinates: [[w, n], [e2, n], [e2, s2], [w, s2]] });
           W.map.addLayer({ id: "img", type: "raster", source: "img" }); }
         W.map.addSource("f", { type: "geojson", data: fc });
-        W.map.addLayer({ id: "poly", type: "fill", source: "f", filter: ["==", "$type", "Polygon"], paint: { "fill-color": ["case", ["boolean", ["get", "chosen"], false], "#ef5f5f", "#828fff"], "fill-opacity": 0.22 } });
-        W.map.addLayer({ id: "poly-l", type: "line", source: "f", filter: ["==", "$type", "Polygon"], paint: { "line-color": ["case", ["boolean", ["get", "chosen"], false], "#ef5f5f", "#aab3ff"], "line-width": 2 } });
-        W.map.addLayer({ id: "line", type: "line", source: "f", filter: ["==", "$type", "LineString"], paint: { "line-color": "#fff", "line-width": 2, "line-dasharray": [2, 2] } });
-        W.map.addLayer({ id: "pts", type: "circle", source: "f", filter: ["==", "$type", "Point"], paint: {
+        W.map.addLayer({ id: "poly", type: "fill", source: "f", filter: ["==", ["geometry-type"], "Polygon"], paint: { "fill-color": ["case", ["boolean", ["get", "chosen"], false], "#ef5f5f", "#828fff"], "fill-opacity": 0.22 } });
+        W.map.addLayer({ id: "poly-l", type: "line", source: "f", filter: ["==", ["geometry-type"], "Polygon"], paint: { "line-color": ["case", ["boolean", ["get", "chosen"], false], "#ef5f5f", "#aab3ff"], "line-width": 2 } });
+        W.map.addLayer({ id: "line", type: "line", source: "f", filter: ["==", ["geometry-type"], "LineString"], paint: { "line-color": "#fff", "line-width": 2, "line-dasharray": [2, 2] } });
+        W.map.addLayer({ id: "pts", type: "circle", source: "f", filter: ["==", ["geometry-type"], "Point"], paint: {
           "circle-radius": ["case", ["boolean", ["get", "top"], false], 9, 5],
           "circle-color": ["coalesce", ["get", "color"], ["case", ["boolean", ["get", "top"], false], "#ef5f5f", "#dfe2ea"]],
           "circle-stroke-color": "#0b0c10", "circle-stroke-width": 1.5 } });
@@ -579,7 +579,15 @@
       btn.hidden = !P[k]; btn.dataset.sample = P[k] && P[k].sample ? "1" : "0";
       btn.title = P[k] && P[k].sample ? "Shared sample, not from this case (hidden in presenter mode)" : ""; }
     document.querySelector("[data-panel=steps]").hidden = !FLAGS.steps;
-    const ready = () => { addLayers(); go(0); };
+    const ready = async () => {
+      addLayers(); go(0);
+      // deep links for presenting: ?step=<1-11>&work=<agent>&wstep=<n>
+      if (qs.get("step")) go(+qs.get("step") - 1);
+    };
+    if (qs.get("work") && !$("#drawer").dataset.linked) {      // does not wait for the map
+      $("#drawer").dataset.linked = "1";
+      await openWork(qs.get("work")); if (qs.get("wstep")) showStep(+qs.get("wstep") - 1);
+    }
     if (styleReady) ready(); else onReady = ready;
   }
   (async () => {

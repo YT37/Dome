@@ -1,0 +1,21 @@
+{
+ "agent": "spotter",
+ "title": "Spotter \u00b7 flagged accounts",
+ "case": "demo-real-a",
+ "steps": [
+  {
+   "id": "final",
+   "title": "Spotter",
+   "kind": "text",
+   "data": {
+    "text": "no spotter.json in this case",
+    "bullets": [
+     "770 synthetic accounts in data/synth/accounts.json"
+    ],
+    "note": "in-between data not recorded"
+   },
+   "caption": "no spotter.json in this case (in-between data not recorded)",
+   "source": "case/demo-real-a/spotter.json"
+  }
+ ]
+}

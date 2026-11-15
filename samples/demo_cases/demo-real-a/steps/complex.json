@@ -1,0 +1,19 @@
+{
+ "agent": "complex",
+ "title": "Topology \u00b7 combinatorial complex",
+ "case": "demo-real-a",
+ "steps": [
+  {
+   "id": "final",
+   "title": "Combinatorial complex",
+   "kind": "text",
+   "data": {
+    "text": "no complex.json in this case",
+    "bullets": [],
+    "note": "in-between data not recorded"
+   },
+   "caption": "no complex.json in this case (in-between data not recorded)",
+   "source": "case/demo-real-a/complex.json"
+  }
+ ]
+}
