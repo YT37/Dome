@@ -4,6 +4,9 @@
 
 > **Find the ring. Find the room.**
 
+**Live:** **[dome.surf](https://dome.surf)** (backup: [dome37.web.app](https://dome37.web.app)). It replays the recorded
+real case; the Ask box answers live from the case files.
+
 Dome is an investigation tool for trust and safety teams, anti-trafficking NGOs and police
 trafficking units. Six agents under one LangChain **deepagents** supervisor pick out suspicious
 social accounts, find the ring behind them, and narrow its photos down to the building, and the
