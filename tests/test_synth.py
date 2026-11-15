@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from dome.synth.check import run_checks
+from dome.synth.check import RING_CLUE_RADIUS_KM, run_checks
 from dome.synth.common import load_buildings, load_gazetteer, km_between, normalize_phone
 from dome.synth.generate import generate
 
@@ -62,7 +62,7 @@ def test_ring_a_clues_near_building_a(synth):
     for p in posts:
         for name in ([p["stated_area"]] if p["stated_area"] else []) + p["landmarks"]:
             g = gaz[name]
-            assert km_between(g["lat"], g["lon"], a["lat"], a["lon"]) < 1.2
+            assert km_between(g["lat"], g["lon"], a["lat"], a["lon"]) < RING_CLUE_RADIUS_KM
 
 
 def test_disguised_phones_normalize():

@@ -1,4 +1,4 @@
 [
-  {"label": "A", "role": "ring",  "unit": "4B", "property_id": "CS-88412", "scan_id": "mp_4471", "lat": 29.7603, "lon": -95.3681},
-  {"label": "D", "role": "decoy", "unit": "2A", "property_id": "CS-88107", "scan_id": "mp_2210", "lat": 29.7641, "lon": -95.3702}
+  {"label": "A", "role": "ring",  "unit": "307", "property_id": "RL-213304177", "scan_id": "LqCMcmmVH3d", "lat": 29.753766, "lon": -95.377337},
+  {"label": "D", "role": "decoy", "unit": null,  "property_id": "CS-4278693",   "scan_id": "FQZd6kTpht1", "lat": 29.750225, "lon": -95.37889}
 ]

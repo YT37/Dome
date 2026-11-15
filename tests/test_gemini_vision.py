@@ -24,6 +24,7 @@ STUB_CUES = {"setting": "apartment", "window_floor_est": [3, 5], "features": ["b
 def gem(tmp_path, monkeypatch):
     """A fake Gemini: answers[task] is the JSON it returns; calls records every call."""
     monkeypatch.setenv("GOOGLE_API_KEY", "fake")
+    monkeypatch.setenv("DOME_STUBS", "0")         # exercise the real Gemini path (oblique is faked per test)
     monkeypatch.setenv("DOME_VISION_CACHE", str(tmp_path / "cache"))
     calls, answers = [], {}
 

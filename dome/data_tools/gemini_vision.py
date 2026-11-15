@@ -282,9 +282,10 @@ def window_check(photo_path: str, lat: float, lon: float, heading_deg: float,
 
     Returns W = None (with `skipped`) whenever the check cannot run honestly.
     """
+    from ._common import use_stubs
     photo = resolve(photo_path)
-    if not photo.is_file():
-        return stub()                              # pure stub demo: no image files at all
+    if not photo.is_file() or use_stubs():
+        return stub()                              # stub data tools (DOME_STUBS=1) or no image files
     try:
         oblique = resolve(oblique_view(lat, lon, heading_deg))
     except Exception as exc:
