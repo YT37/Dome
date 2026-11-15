@@ -22,3 +22,7 @@ transformers
 # demo UI (Ishaan)
 flask
 kornia
+# LangGraph server + streaming client (Avishek): `langgraph dev`, dome/graph_stream.py
+langgraph
+langgraph-cli[inmem]
+langgraph-sdk

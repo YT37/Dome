@@ -160,6 +160,8 @@ class Ring(_Model):
     # topological model (UniGCN on the combinatorial complex): mean P(in a ring) over members.
     # A second opinion next to `confidence`; null when the optional model is not installed.
     topo_score: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+    # night: money block (contract B), written by money.attach(case) when DOME_MONEY=1
+    money: Optional["MoneyBlock"] = None
 
 
 class RingsFile(_Model):
@@ -169,6 +171,126 @@ class RingsFile(_Model):
     layers: Layers = "both"
     private_layers: bool = False
     room_links_used: bool = False       # v2: Linker re-ran with the Locator's room groups
+
+
+# ---------- night contracts (all optional files; old cases still validate) ----------
+class _Open(BaseModel):
+    """Files written by other modules tonight: known fields are typed, extra fields allowed."""
+    model_config = ConfigDict(extra="allow", populate_by_name=True)
+
+
+class WalletCluster(_Open):
+    cluster_id: str
+    role: Optional[str] = None          # advertiser | collector | aggregator | cash_out | ...
+    addresses: int = Field(default=0, ge=0)
+    confidence: float = Unit
+    reasons: list[str] = []
+
+
+class MoneyFlow(_Open):
+    from_: str = Field(alias="from")
+    to: str
+    btc: float = 0.0
+    txs: int = 0
+
+
+class CashOut(_Open):
+    cluster_id: str
+    service: str
+    times: int = 0
+
+
+class PaymentThenPost(_Open):
+    wallet: str
+    paid_at: str
+    post_at: str
+    account: str
+
+
+class MoneyBlock(_Open):
+    """Contract B: rings.json["rings"][i]["money"]."""
+    wallet_clusters: list[WalletCluster] = []
+    flows: list[MoneyFlow] = []
+    cash_out: list[CashOut] = []
+    payment_then_post: list[PaymentThenPost] = []
+    attribution_confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+
+
+class SpotterSignal(_Open):
+    kind: str
+    reason: str
+
+
+class SpotterItem(_Open):
+    account: str
+    score: float
+    rank: int
+    signals: list[SpotterSignal] = []
+
+
+class SpotterFile(_Open):
+    """case/<id>/spotter.json (Ishaan's Spotter, rules only)."""
+    queue: list[SpotterItem] = []
+    flag_rule: str = ""
+
+
+class WalletNote(_Open):
+    account: str
+    cluster_id: str
+    kind: Literal["money"] = "money"
+    reason: str
+
+
+class WalletNotesFile(_Open):
+    """Contract G: case/<id>/wallet_notes.json, read by the Linker's second pass."""
+    notes: list[WalletNote] = []
+
+
+class GraphNode(_Open):
+    id: str
+    type: str
+    label: str
+    role: Optional[str] = None
+    layer: str
+    score: Optional[float] = None
+
+
+class GraphEdge(_Open):
+    source: str
+    target: str
+    type: str
+    layer: str
+    reason: str = ""
+
+
+class GraphFile(_Open):
+    """Contract C: the link chart served at GET /graph?case=<id>."""
+    nodes: list[GraphNode] = []
+    edges: list[GraphEdge] = []
+
+
+class StreamEvent(_Open):
+    """Contract E: one line of case/<id>/events.jsonl, and what graph_stream yields."""
+    t: float = Field(ge=0)
+    agent: str
+    phase: str                          # start | result | decision | interrupt | failed | end
+    message: str
+    refs: list[str] = []
+
+
+class ComplexCell(_Open):
+    id: str
+    kind: str
+    members: list[str] = []
+    reason: str = ""
+
+
+class ComplexFile(_Open):
+    """Contract F: case/<id>/complex.json (dome/complex.py). ranks: "0".."3" -> cells.
+    `scores` are model outputs (UniGCN); rules still make every link."""
+    ranks: dict[str, list[ComplexCell]] = {}
+    scores: dict[str, float] = {}
+    model: str = ""
 
 
 # ---------- zones.json (Zoner) ----------
@@ -360,6 +482,27 @@ FILE_MODELS: dict[str, type[BaseModel]] = {
     "brief.json": Brief,
 }
 
+# night (optional files; a missing or invalid one is skipped). Use load_optional() to read them.
+NIGHT_FILE_MODELS: dict[str, type[BaseModel]] = {
+    "spotter.json": SpotterFile,
+    "wallet_notes.json": WalletNotesFile,
+    "complex.json": ComplexFile,
+}
+
+
+def load_optional(folder: Any, name: str) -> Optional[BaseModel]:
+    """A night file from a case folder, validated, or None if missing/invalid."""
+    from pathlib import Path
+    p = Path(folder) / name
+    if not p.exists():
+        return None
+    try:
+        return NIGHT_FILE_MODELS[name].model_validate_json(p.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+Ring.model_rebuild()
+
 __all__ = [n for n, v in list(globals().items())
            if isinstance(v, type) and issubclass(v, BaseModel) and not n.startswith("_")] + [
-    "FILE_MODELS", "KeyKind", "Tier"]
+    "FILE_MODELS", "NIGHT_FILE_MODELS", "load_optional", "KeyKind", "Tier"]
