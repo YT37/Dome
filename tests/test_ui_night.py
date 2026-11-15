@@ -81,8 +81,10 @@ def test_flight_payload_for_the_real_run(client):
 
 
 # ---------------------------------------------------------------- link chart
-def test_graph_from_rings_and_matches(client):
-    r = client.get("/graph?case=demo-real-a")
+def test_graph_from_rings_and_matches(client, tmp_path):
+    d = make_case(tmp_path, "rings-only")
+    (d / "complex.json").unlink()
+    r = client.get("/graph?case=rings-only")
     assert r.status_code == 200
     g = r.get_json()
     assert g["source"] == "rings.json"
@@ -126,7 +128,7 @@ def test_money_block_becomes_masked_wallet_and_service_nodes(client, tmp_path):
         money["wallet_clusters"][0]["reasons"].append(f"pays from {wallet} then posts")
         money["payment_then_post"][0]["account"] = members[0]
         rings["rings"][0]["money"] = money
-    make_case(tmp_path, "money-case", rings_patch=patch)
+    (make_case(tmp_path, "money-case", rings_patch=patch) / "complex.json").unlink()
     r = client.get("/graph?case=money-case")
     g = r.get_json()
     types = {n["type"] for n in g["nodes"]}
@@ -141,10 +143,37 @@ def test_money_block_becomes_masked_wallet_and_service_nodes(client, tmp_path):
 
 
 # ---------------------------------------------------------------- panels + recorded actions
-def test_panels_fall_back_to_marked_samples(client):
-    p = client.get("/panels?case=demo-real-a").get_json()
+def test_panels_fall_back_to_marked_samples(client, tmp_path):
+    d = make_case(tmp_path, "no-panels")
+    for f in ("spotter.json", "complex.json"):
+        (d / f).unlink()
+    rings = json.loads((d / "rings.json").read_text())
+    for r in rings["rings"]:
+        r.pop("money", None)
+    (d / "rings.json").write_text(json.dumps(rings))
+    p = client.get("/panels?case=no-panels").get_json()
     assert p["spotter"]["sample"] and p["topology"]["sample"] and p["money"]["sample"]
-    assert p["spotter"]["flag_rule"] and p["spotter"]["queue"][0]["model"] == 0.97      # complex.json scores
+    assert p["spotter"]["flag_rule"] and p["spotter"]["queue"][0]["model"] == 0.97      # sample complex scores
+
+
+def test_panels_use_the_real_case_files(client):
+    p = client.get("/panels?case=demo-real-a").get_json()
+    assert not p["spotter"]["sample"] and not p["topology"]["sample"] and not p["money"]["sample"]
+    assert len(p["spotter"]["queue"]) == 15 and all(q["model"] is not None for q in p["spotter"]["queue"])
+    roles = {w["cluster_id"]: w["role"] for w in p["money"]["wallet_clusters"]}
+    assert roles["W-1"] == "advertiser" and p["money"]["attribution_confidence"] == 0.94
+    t = p["topology"]
+    assert len(t["disagreements"]) == 5 and t["fresh_test"]["ring_found"] == "15/15"
+    wallets = [c for c in t["ranks"]["0"] if c["kind"] == "wallet_cluster"]
+    assert wallets and all(c["score"] is None for c in wallets)            # wallets are not scored
+
+
+def test_link_chart_from_real_complex_scores_no_wallets(client):
+    g = client.get("/graph?case=demo-real-a").get_json()
+    assert g["source"] == "complex.json"
+    w = [n for n in g["nodes"] if n["type"] == "wallet_cluster"]
+    assert w and all(n["score"] is None for n in w)
+    assert all(n["layer"] in LAYERS for n in g["nodes"])
 
 
 def test_spotter_and_approval_only_record(client, tmp_path):
@@ -169,8 +198,8 @@ def test_events_replay_log_as_contract_e(client):
     assert r.mimetype == "text/event-stream"
     evs = [json.loads(l[6:]) for l in r.get_data(as_text=True).splitlines() if l.startswith("data: {\"")]
     assert evs and all({"t", "agent", "phase", "message", "refs"} <= set(e) for e in evs)
-    assert {e["phase"] for e in evs} <= {"start", "result", "decision", "interrupt"}
-    assert all(e["source"] == "log.jsonl" and e["sample"] is False for e in evs)
+    assert {e["phase"] for e in evs} <= {"start", "result", "decision", "interrupt", "end"}
+    assert all(e["source"] == "events.jsonl" and e["sample"] is False for e in evs)   # recorded run has events.jsonl
 
 
 # ---------------------------------------------------------------- asset route
@@ -430,3 +459,83 @@ def test_recorder_writes_scrubbed_steps(tmp_path):
         text = f.read_text()
         assert "Fannin" not in text and '"address"' not in text
         assert all(s["source"] for s in json.loads(text)["steps"])
+
+
+# ---------------------------------------------------------------- real-data steps
+def test_complex_steps_show_held_out_and_no_wallet_scores(client):
+    j = client.get("/steps?case=demo-real-a&agent=complex").get_json()
+    by = {s["id"]: s for s in j["steps"]}
+    assert "15/15" in json.dumps(by["heldout"]["data"]) and "held-out" in by["heldout"]["caption"]
+    assert not any(l.startswith("W-") for l in by["scores"]["data"]["labels"])
+    assert len(by["disagreements"]["data"]["rows"]) == 5
+
+
+def test_money_steps_computed_from_the_chain(client):
+    j = client.get("/steps?case=demo-real-a&agent=money").get_json()
+    by = {s["id"]: s for s in j["steps"]}
+    assert {"timeline", "gaps", "clusters", "roles", "flows"} <= set(by)
+    real, shifted = by["gaps"]["data"]["datasets"][0]["data"][1], by["gaps"]["data"]["datasets"][1]["data"][1]
+    assert real > shifted
+    assert all(len(n["label"]) <= 12 for n in by["clusters"]["data"]["nodes"])     # addresses masked
+
+
+def test_linker_uses_real_wallet_notes(client):
+    j = client.get("/steps?case=demo-real-a&agent=linker").get_json()
+    mp = next(s for s in j["steps"] if s["id"] == "money_pass")
+    assert mp["kind"] == "table" and mp["source"].endswith("wallet_notes.json")
+
+
+# ---------------------------------------------------------------- ask (DOME_ASK=1)
+def test_ask_is_off_without_the_flag(client):
+    assert client.post("/ask", json={"case": "demo-real-a", "question": "x"}).status_code == 404
+
+
+def test_ask_answers_with_citations(client, monkeypatch):
+    monkeypatch.setenv("DOME_ASK", "1")
+    import dome.ask as ask_mod
+    seen = {}
+
+    def fake(case_id, question, root=None, model=None):
+        seen.update(case=case_id, root=root)
+        return {"answer": "High because P 0.68 and W 0.6.", "answerable": True,
+                "citations": [{"file": f"case/{case_id}/brief.json", "path": "leads[0].reasons[2]"}]}
+    monkeypatch.setattr(ask_mod, "answer", fake)
+    a = client.post("/ask", json={"case": "demo-real-a", "question": "Why High?"}).get_json()
+    assert a["answerable"] and a["citations"][0]["path"] == "leads[0].reasons[2]" and seen["case"] == "demo-real-a"
+    cite = client.get("/ask/cite?case=demo-real-a&file=case/demo-real-a/brief.json&path=leads[0].reasons[2]").get_json()
+    assert cite["value"].startswith("P 0.68")
+    assert client.get("/ask/cite?case=demo-real-a&file=../../.env&path=").status_code == 404
+    assert client.get("/ask/cite?case=demo-real-a&file=brief.json&path=leads[9]").status_code == 404
+    assert client.get("/ask/cite?case=demo-real-a&file=brief.json&path=leads[0].address").status_code == 404
+
+
+@pytest.mark.parametrize("behaviour", ["raise", "unanswerable"])
+def test_ask_falls_back_to_not_in_case(client, monkeypatch, behaviour):
+    monkeypatch.setenv("DOME_ASK", "1")
+    import dome.ask as ask_mod
+
+    def fake(case_id, question, root=None, model=None):
+        if behaviour == "raise":
+            raise RuntimeError("no key")
+        return {"answer": "guess", "citations": [], "answerable": False}
+    monkeypatch.setattr(ask_mod, "answer", fake)
+    a = client.post("/ask", json={"case": "demo-real-a", "question": "Who lives there?"}).get_json()
+    assert a == {"answer": "That isn't in this case's files.", "citations": [], "answerable": False} or \
+        (a["answer"] == "That isn't in this case's files." and not a["answerable"])
+
+
+def test_ask_recorded_label(client, monkeypatch, tmp_path):
+    monkeypatch.setenv("DOME_ASK", "1")
+    monkeypatch.setattr(ui, "RECORDED", tmp_path / "rec")
+    shutil.copytree(REAL, tmp_path / "rec" / "demo-real-a")
+    (tmp_path / "rec" / "demo-real-a" / "ask.json").write_text(json.dumps(
+        {"answer": "Because P 0.68.", "citations": [], "answerable": True}))
+    r = client.get("/ask?case=demo-real-a").get_json()
+    assert r["recorded"] is True and r["answer"] == "Because P 0.68."
+
+
+def test_assistant_defaults_to_dome_rules(monkeypatch):
+    monkeypatch.delenv("DOME_GRAPH_ASSISTANT", raising=False)
+    assert globe.assistant_name() == "dome_rules"
+    monkeypatch.setenv("DOME_GRAPH_ASSISTANT", "dome")
+    assert globe.assistant_name() == "dome"

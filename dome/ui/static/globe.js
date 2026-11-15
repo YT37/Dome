@@ -388,6 +388,9 @@
     openSheet("Topology · combinatorial complex", `<div class="list">${sampleTag(t.sample)}${t.model ? `<p class="fine">Model: ${esc(t.model)}</p>` : ""}
       ${FLAGS.steps ? `<button class="btn ghost" data-work="complex">Show the work · ${esc(FLAGS.steps.complex)}</button>` : ""}${Object.keys(t.ranks).sort().map((r) => `<b>${esc(names[r] || "Rank " + r)}</b> <span class="fine">${t.ranks[r].length} cells</span>
       <div class="cells">${t.ranks[r].slice(0, 120).map((c) => `<button data-cell data-label="${esc(c.label)}" data-reason="${esc(c.reason || "")}">${esc(c.label)}${c.score != null ? " · " + Number(c.score).toFixed(2) : ""}</button>`).join("")}</div>`).join("")}
+      ${(t.disagreements || []).length ? `<b>Model vs rules</b><div class="cells">${t.disagreements.map((d) => `<button data-cell data-label="${esc(d.id)}" data-reason="${esc(`${d.note || ""} (model ${d.model}, rules ${d.rules ? "link" : "no link"})`)}">${esc(d.id)} · ${esc(d.model)}</button>`).join("")}</div>` : ""}
+      ${t.fresh_test ? `<p class="fine">Held-out ring from our own generator (${esc(t.fresh_test.dataset)}): found ${esc(t.fresh_test.ring_found)}, precision ${esc(t.fresh_test.precision)}, recall ${esc(t.fresh_test.recall)}, AUC ${esc(t.fresh_test.auc)}.</p>` : ""}
+      ${(t.unscored || []).length ? `<p class="fine">In the complex but not scored: ${esc(t.unscored.join(", "))}.</p>` : ""}
       <div class="why" id="cellWhy">Click a cell for its reason.</div></div>`);
   }
 
@@ -410,10 +413,42 @@
       <p class="fine">Public ledger data, synthetic case. Wallet strings are masked.</p></div>`);
   }
 
+  async function showAsk() {
+    openSheet("Ask about this case", `<div class="list">
+      <form id="askForm" class="askrow"><input id="askQ" class="ctl" maxlength="500" placeholder="e.g. Why is Building A High?" autocomplete="off">
+        <button class="btn primary" type="submit">Ask</button></form>
+      <p class="fine">Answers come only from this case's files; every claim cites a file and field. Nothing leaves the case.</p>
+      <div id="askOut"></div><div id="askRec"></div><pre class="cite-view" id="citeView" hidden></pre></div>`);
+    const rec = await (await fetch(`/ask?case=${encodeURIComponent(CASE)}`)).json();
+    if (rec.recorded) $("#askRec").innerHTML = `<div class="why"><span class="sample-tag">recorded</span>${rec.question ? `<p><b>Q:</b> ${esc(rec.question)}</p>` : ""}${renderAnswer(rec)}</div>`;
+    $("#askQ").focus();
+  }
+  function renderAnswer(a) {
+    if (!a.answerable) return `<p>That isn't in this case's files.</p>`;
+    return `<p>${esc(a.answer)}</p><div class="cells">${(a.citations || []).map((c) => `<button data-cite-file="${esc(c.file)}" data-cite-path="${esc(c.path)}" title="Open this field">${esc(c.file.split("/").pop())} · ${esc(c.path)}</button>`).join("")}</div>`;
+  }
+  $("#sheetBody").addEventListener("submit", async (e) => {
+    if (e.target.id !== "askForm") return;
+    e.preventDefault();
+    const q = $("#askQ").value.trim(); if (!q) return;
+    $("#askOut").innerHTML = `<p class="fine">Reading the case files…</p>`;
+    try {
+      const a = await (await fetch("/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ case: CASE, question: q }) })).json();
+      $("#askOut").innerHTML = `<div class="why"><p><b>Q:</b> ${esc(q)}</p>${renderAnswer(a)}</div>`;
+    } catch (err) { $("#askOut").innerHTML = `<div class="why"><p>That isn't in this case's files.</p></div>`; }
+  });
+  $("#sheetBody").addEventListener("click", async (e) => {
+    const c = e.target.closest("[data-cite-file]"); if (!c) return;
+    const r = await fetch(`/ask/cite?case=${encodeURIComponent(CASE)}&file=${encodeURIComponent(c.dataset.citeFile)}&path=${encodeURIComponent(c.dataset.citePath)}`);
+    const v = $("#citeView"); v.hidden = false;
+    v.textContent = r.ok ? `${c.dataset.citeFile} → ${c.dataset.citePath}\n` + JSON.stringify((await r.json()).value, null, 1) : "That field is not in this case's files.";
+  });
+
   document.querySelector(".dock").addEventListener("click", (e) => {
     const b = e.target.closest("[data-panel]"); if (!b) return;
     const was = b.classList.contains("on"); closeSheet(); if (was) return;
     b.classList.add("on");
+    if (b.dataset.panel === "ask") return showAsk();
     if (b.dataset.panel === "steps") { b.classList.remove("on"); return openWork(STEPS[step] ? STEP_AGENT[STEPS[step].id] : "locator"); }
     ({ graph: showGraph, spotter: showSpotter, topology: showTopology, money: showMoney })[b.dataset.panel]();
   });
@@ -579,6 +614,7 @@
       btn.hidden = !P[k]; btn.dataset.sample = P[k] && P[k].sample ? "1" : "0";
       btn.title = P[k] && P[k].sample ? "Shared sample, not from this case (hidden in presenter mode)" : ""; }
     document.querySelector("[data-panel=steps]").hidden = !FLAGS.steps;
+    document.querySelector("[data-panel=ask]").hidden = !FLAGS.ask;
     const ready = async () => {
       addLayers(); go(toBrief ? STEPS.length - 1 : 0);      // a live run lands on the brief (approve there)
       // deep links for presenting: ?step=<1-11>&work=<agent>&wstep=<n>

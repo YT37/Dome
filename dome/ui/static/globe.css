@@ -166,3 +166,6 @@ body.present .is-sample, body.present [data-sample="1"] { display: none !importa
 .drawer > footer { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-top: 1px solid var(--line); }
 #stepCount { color: var(--muted); font: .85em "Geist Mono"; }
 body.present .drawer { width: min(1000px, 100vw); }
+
+.askrow { display: flex; gap: 8px; margin-bottom: 6px; } .askrow input { flex: 1; font-size: 1em; }
+.cite-view { background: #050608; border: 1px solid var(--line); border-radius: 10px; padding: 10px; font: .78em "Geist Mono"; color: #c9cdd6; white-space: pre-wrap; max-height: 260px; overflow: auto; }
