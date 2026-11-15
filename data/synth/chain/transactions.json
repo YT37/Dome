@@ -1,0 +1,5518 @@
+[
+  {
+    "txid": "syntx0001",
+    "time": "2026-09-29T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q7af9a9f880106869de0187d1cec950e1",
+        "btc": 0.05
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.02
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.02
+      }
+    ]
+  },
+  {
+    "txid": "syntx0002",
+    "time": "2026-09-29T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1qdc1ab5e3914f13e64a82bc06a6d1e936",
+        "btc": 0.03
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.03
+      }
+    ]
+  },
+  {
+    "txid": "syntx0003",
+    "time": "2026-09-29T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q7af9a9f880106869de0187d1cec950e1",
+        "btc": 0.03
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.03
+      }
+    ]
+  },
+  {
+    "txid": "syntx0004",
+    "time": "2026-09-29T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q7af9a9f880106869de0187d1cec950e1",
+        "btc": 0.03
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.03
+      }
+    ]
+  },
+  {
+    "txid": "syntx0005",
+    "time": "2026-09-29T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q7af9a9f880106869de0187d1cec950e1",
+        "btc": 0.03
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.03
+      }
+    ]
+  },
+  {
+    "txid": "syntx0006",
+    "time": "2026-09-29T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q7af9a9f880106869de0187d1cec950e1",
+        "btc": 0.03
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.03
+      }
+    ]
+  },
+  {
+    "txid": "syntx0007",
+    "time": "2026-09-29T13:59:59Z",
+    "inputs": [
+      {
+        "address": "syn1q47337c991849699041a60e5bcc936465",
+        "btc": 0.042937
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcc42227694d7ce772013d173b83faa8d",
+        "btc": 0.042837
+      }
+    ]
+  },
+  {
+    "txid": "syntx0008",
+    "time": "2026-09-29T15:04:40Z",
+    "inputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0009",
+    "time": "2026-09-29T17:53:14Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0010",
+    "time": "2026-09-30T19:51:54Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0011",
+    "time": "2026-10-01T03:20:00Z",
+    "inputs": [
+      {
+        "address": "syn1q612cd04411e1ce95b3f449783aebeee8",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1q612cd04411e1ce95b3f449783aebeee8",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0012",
+    "time": "2026-10-01T04:33:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0013",
+    "time": "2026-10-01T08:09:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0014",
+    "time": "2026-10-01T08:16:00Z",
+    "inputs": [
+      {
+        "address": "syn1qfd119d51da48bc41db65048678d279e6",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1qfd119d51da48bc41db65048678d279e6",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0015",
+    "time": "2026-10-01T12:14:29Z",
+    "inputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0016",
+    "time": "2026-10-01T14:28:01Z",
+    "inputs": [
+      {
+        "address": "syn1qaf87b99a8b20d38a648bcc72a5a1435a",
+        "btc": 0.029331
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.029231
+      }
+    ]
+  },
+  {
+    "txid": "syntx0017",
+    "time": "2026-10-01T16:15:53Z",
+    "inputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0018",
+    "time": "2026-10-01T21:07:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0019",
+    "time": "2026-10-01T22:46:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa54b4917b0155a5681e8a160ef7dcbcf",
+        "btc": 0.0062
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.006
+      },
+      {
+        "address": "syn1qa54b4917b0155a5681e8a160ef7dcbcf",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0020",
+    "time": "2026-10-02T14:45:52Z",
+    "inputs": [
+      {
+        "address": "syn1qc3dd63aed964f990661e49fb464990ba",
+        "btc": 0.002887
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q9800b58d7750585ca087db4a526d1603",
+        "btc": 0.002887
+      }
+    ]
+  },
+  {
+    "txid": "syntx0021",
+    "time": "2026-10-02T15:59:58Z",
+    "inputs": [
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0022",
+    "time": "2026-10-02T16:05:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0023",
+    "time": "2026-10-02T19:27:23Z",
+    "inputs": [
+      {
+        "address": "syn1q870c175af2816c6a3a08933d6392dd8a",
+        "btc": 0.032824
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.032724
+      }
+    ]
+  },
+  {
+    "txid": "syntx0024",
+    "time": "2026-10-02T19:43:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0025",
+    "time": "2026-10-02T20:42:00Z",
+    "inputs": [
+      {
+        "address": "syn1qfd119d51da48bc41db65048678d279e6",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1qfd119d51da48bc41db65048678d279e6",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0026",
+    "time": "2026-10-02T21:07:32Z",
+    "inputs": [
+      {
+        "address": "syn1qafa9d1d16e2a1101fc9d87def8dfe320",
+        "btc": 0.001356
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q921c47f979d1d2792e90b8669034719d",
+        "btc": 0.001356
+      }
+    ]
+  },
+  {
+    "txid": "syntx0027",
+    "time": "2026-10-02T23:17:34Z",
+    "inputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0028",
+    "time": "2026-10-02T23:18:15Z",
+    "inputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.047485
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3a21a747dc35006e5bb216e30f00caff",
+        "btc": 0.047485
+      }
+    ]
+  },
+  {
+    "txid": "syntx0029",
+    "time": "2026-10-03T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.028533
+      },
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.011376
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.039709
+      }
+    ]
+  },
+  {
+    "txid": "syntx0030",
+    "time": "2026-10-03T02:24:36Z",
+    "inputs": [
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0031",
+    "time": "2026-10-03T06:45:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0032",
+    "time": "2026-10-03T07:39:13Z",
+    "inputs": [
+      {
+        "address": "syn1qcc42227694d7ce772013d173b83faa8d",
+        "btc": 0.048435
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa9222af90c50afdd6adb3723527ce81e",
+        "btc": 0.048435
+      }
+    ]
+  },
+  {
+    "txid": "syntx0033",
+    "time": "2026-10-03T10:28:14Z",
+    "inputs": [
+      {
+        "address": "syn1qcc42227694d7ce772013d173b83faa8d",
+        "btc": 0.042439
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q11ff6a8ae5ed26d18606cf904dddbc63",
+        "btc": 0.042439
+      }
+    ]
+  },
+  {
+    "txid": "syntx0034",
+    "time": "2026-10-03T13:17:24Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0035",
+    "time": "2026-10-03T21:37:17Z",
+    "inputs": [
+      {
+        "address": "syn1qcc42227694d7ce772013d173b83faa8d",
+        "btc": 0.025968
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q47337c991849699041a60e5bcc936465",
+        "btc": 0.025968
+      }
+    ]
+  },
+  {
+    "txid": "syntx0036",
+    "time": "2026-10-04T06:43:59Z",
+    "inputs": [
+      {
+        "address": "syn1q3dae543995981ef297348535bbe7b12a",
+        "btc": 0.014957
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.014857
+      }
+    ]
+  },
+  {
+    "txid": "syntx0037",
+    "time": "2026-10-04T09:36:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0038",
+    "time": "2026-10-04T10:21:00Z",
+    "inputs": [
+      {
+        "address": "syn1q9f013463665bad32080eec1fa75e5017",
+        "btc": 0.0042
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.004
+      },
+      {
+        "address": "syn1q9f013463665bad32080eec1fa75e5017",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0039",
+    "time": "2026-10-04T13:11:10Z",
+    "inputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.033407
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3dae543995981ef297348535bbe7b12a",
+        "btc": 0.033407
+      }
+    ]
+  },
+  {
+    "txid": "syntx0040",
+    "time": "2026-10-04T17:46:25Z",
+    "inputs": [
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0041",
+    "time": "2026-10-05T02:17:13Z",
+    "inputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0042",
+    "time": "2026-10-05T04:14:20Z",
+    "inputs": [
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0043",
+    "time": "2026-10-05T07:33:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0044",
+    "time": "2026-10-05T09:24:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd4ccabdbe49d0b8d9b4161ad8317f208",
+        "btc": 0.0062
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.006
+      },
+      {
+        "address": "syn1qd4ccabdbe49d0b8d9b4161ad8317f208",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0045",
+    "time": "2026-10-05T09:46:02Z",
+    "inputs": [
+      {
+        "address": "syn1qdbd771430a51760b34ebc9de936ffd32",
+        "btc": 0.000857
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qda387fb8158851aa2d8d472cc6f149a9",
+        "btc": 0.000857
+      }
+    ]
+  },
+  {
+    "txid": "syntx0046",
+    "time": "2026-10-05T10:16:37Z",
+    "inputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.025174
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3dae543995981ef297348535bbe7b12a",
+        "btc": 0.025174
+      }
+    ]
+  },
+  {
+    "txid": "syntx0047",
+    "time": "2026-10-05T16:22:36Z",
+    "inputs": [
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0048",
+    "time": "2026-10-05T17:28:46Z",
+    "inputs": [
+      {
+        "address": "syn1q11ff6a8ae5ed26d18606cf904dddbc63",
+        "btc": 0.026489
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.026389
+      }
+    ]
+  },
+  {
+    "txid": "syntx0049",
+    "time": "2026-10-05T20:55:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0050",
+    "time": "2026-10-05T23:01:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa22d7eefb0e4d77006f80066d61e35dd",
+        "btc": 0.0062
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.006
+      },
+      {
+        "address": "syn1qa22d7eefb0e4d77006f80066d61e35dd",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0051",
+    "time": "2026-10-06T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.017822
+      },
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.019489
+      },
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.029778
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.066889
+      }
+    ]
+  },
+  {
+    "txid": "syntx0052",
+    "time": "2026-10-06T05:05:17Z",
+    "inputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.026634
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3956077d55ade6bea9b9738b0dbd1a15",
+        "btc": 0.026634
+      }
+    ]
+  },
+  {
+    "txid": "syntx0053",
+    "time": "2026-10-06T15:15:39Z",
+    "inputs": [
+      {
+        "address": "syn1qaf87b99a8b20d38a648bcc72a5a1435a",
+        "btc": 0.028968
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.028868
+      }
+    ]
+  },
+  {
+    "txid": "syntx0054",
+    "time": "2026-10-06T16:17:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0055",
+    "time": "2026-10-06T16:51:38Z",
+    "inputs": [
+      {
+        "address": "syn1q833ce23767854178e7c3bb48442affe6",
+        "btc": 0.016935
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.016835
+      }
+    ]
+  },
+  {
+    "txid": "syntx0056",
+    "time": "2026-10-07T02:11:34Z",
+    "inputs": [
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0057",
+    "time": "2026-10-08T02:00:32Z",
+    "inputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.026842
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3a21a747dc35006e5bb216e30f00caff",
+        "btc": 0.026842
+      }
+    ]
+  },
+  {
+    "txid": "syntx0058",
+    "time": "2026-10-08T05:35:41Z",
+    "inputs": [
+      {
+        "address": "syn1q2e6c956aa51a1ccec03c52f0f32c1d98",
+        "btc": 0.002605
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qda387fb8158851aa2d8d472cc6f149a9",
+        "btc": 0.002605
+      }
+    ]
+  },
+  {
+    "txid": "syntx0059",
+    "time": "2026-10-08T17:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.160655
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q952a48f0c80714f2de0ef5aff549c720",
+        "btc": 0.160455
+      }
+    ]
+  },
+  {
+    "txid": "syntx0060",
+    "time": "2026-10-08T19:24:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0061",
+    "time": "2026-10-08T20:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q952a48f0c80714f2de0ef5aff549c720",
+        "btc": 0.160455
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.160255
+      }
+    ]
+  },
+  {
+    "txid": "syntx0062",
+    "time": "2026-10-09T10:26:57Z",
+    "inputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.047466
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qb823060d79948af40bbed0619b73b5c4",
+        "btc": 0.047466
+      }
+    ]
+  },
+  {
+    "txid": "syntx0063",
+    "time": "2026-10-09T12:28:09Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0064",
+    "time": "2026-10-09T14:13:00Z",
+    "inputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0065",
+    "time": "2026-10-10T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q7af9a9f880106869de0187d1cec950e1",
+        "btc": 0.05
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.02
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.02
+      }
+    ]
+  },
+  {
+    "txid": "syntx0066",
+    "time": "2026-10-10T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.019814
+      },
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.027838
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.047452
+      }
+    ]
+  },
+  {
+    "txid": "syntx0067",
+    "time": "2026-10-10T06:16:18Z",
+    "inputs": [
+      {
+        "address": "syn1q870c175af2816c6a3a08933d6392dd8a",
+        "btc": 0.027586
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.027486
+      }
+    ]
+  },
+  {
+    "txid": "syntx0068",
+    "time": "2026-10-10T11:13:00Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0069",
+    "time": "2026-10-11T01:03:24Z",
+    "inputs": [
+      {
+        "address": "syn1q833ce23767854178e7c3bb48442affe6",
+        "btc": 0.012936
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcc42227694d7ce772013d173b83faa8d",
+        "btc": 0.012836
+      }
+    ]
+  },
+  {
+    "txid": "syntx0070",
+    "time": "2026-10-11T01:26:01Z",
+    "inputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.042217
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q11ff6a8ae5ed26d18606cf904dddbc63",
+        "btc": 0.042217
+      }
+    ]
+  },
+  {
+    "txid": "syntx0071",
+    "time": "2026-10-11T06:55:12Z",
+    "inputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.022914
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q870c175af2816c6a3a08933d6392dd8a",
+        "btc": 0.022914
+      }
+    ]
+  },
+  {
+    "txid": "syntx0072",
+    "time": "2026-10-11T07:41:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0073",
+    "time": "2026-10-11T11:30:28Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0074",
+    "time": "2026-10-12T04:16:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0075",
+    "time": "2026-10-12T08:07:04Z",
+    "inputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.004597
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q75c3a1af3648e6960db8ba498621b792",
+        "btc": 0.004597
+      }
+    ]
+  },
+  {
+    "txid": "syntx0076",
+    "time": "2026-10-12T09:09:09Z",
+    "inputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.031875
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q9a87c996b9c742c72cebf1ff80dae0b1",
+        "btc": 0.031875
+      }
+    ]
+  },
+  {
+    "txid": "syntx0077",
+    "time": "2026-10-12T12:04:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0078",
+    "time": "2026-10-12T12:40:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0079",
+    "time": "2026-10-12T14:56:00Z",
+    "inputs": [
+      {
+        "address": "syn1q66b3ecf63ba588f5e00e8a51b5ccc5c2",
+        "btc": 0.0062
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.006
+      },
+      {
+        "address": "syn1q66b3ecf63ba588f5e00e8a51b5ccc5c2",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0080",
+    "time": "2026-10-12T15:13:00Z",
+    "inputs": [
+      {
+        "address": "syn1q66b3ecf63ba588f5e00e8a51b5ccc5c2",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1q66b3ecf63ba588f5e00e8a51b5ccc5c2",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0081",
+    "time": "2026-10-12T17:59:11Z",
+    "inputs": [
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0082",
+    "time": "2026-10-12T20:54:03Z",
+    "inputs": [
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0083",
+    "time": "2026-10-13T01:43:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0084",
+    "time": "2026-10-13T03:48:09Z",
+    "inputs": [
+      {
+        "address": "syn1q6a61958e8718aa1f5cda37a8e1315e82",
+        "btc": 0.003426
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q9800b58d7750585ca087db4a526d1603",
+        "btc": 0.003426
+      }
+    ]
+  },
+  {
+    "txid": "syntx0085",
+    "time": "2026-10-13T04:28:00Z",
+    "inputs": [
+      {
+        "address": "syn1q9a7c516fdb7a891e0f7cf203fbbacc45",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1q9a7c516fdb7a891e0f7cf203fbbacc45",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0086",
+    "time": "2026-10-13T05:22:00Z",
+    "inputs": [
+      {
+        "address": "syn1q9a87c996b9c742c72cebf1ff80dae0b1",
+        "btc": 0.009099
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.008999
+      }
+    ]
+  },
+  {
+    "txid": "syntx0087",
+    "time": "2026-10-13T12:57:22Z",
+    "inputs": [
+      {
+        "address": "syn1qe38dd378b75023453e1b67f3f9189600",
+        "btc": 0.002688
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q9800b58d7750585ca087db4a526d1603",
+        "btc": 0.002688
+      }
+    ]
+  },
+  {
+    "txid": "syntx0088",
+    "time": "2026-10-13T14:31:00Z",
+    "inputs": [
+      {
+        "address": "syn1q9f013463665bad32080eec1fa75e5017",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1q9f013463665bad32080eec1fa75e5017",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0089",
+    "time": "2026-10-13T17:14:56Z",
+    "inputs": [
+      {
+        "address": "syn1q870c175af2816c6a3a08933d6392dd8a",
+        "btc": 0.039346
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcc42227694d7ce772013d173b83faa8d",
+        "btc": 0.039246
+      }
+    ]
+  },
+  {
+    "txid": "syntx0090",
+    "time": "2026-10-13T23:22:07Z",
+    "inputs": [
+      {
+        "address": "syn1q3dae543995981ef297348535bbe7b12a",
+        "btc": 0.021804
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.021704
+      }
+    ]
+  },
+  {
+    "txid": "syntx0091",
+    "time": "2026-10-14T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.01804
+      },
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.025764
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.043604
+      }
+    ]
+  },
+  {
+    "txid": "syntx0092",
+    "time": "2026-10-14T04:33:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa22d7eefb0e4d77006f80066d61e35dd",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1qa22d7eefb0e4d77006f80066d61e35dd",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0093",
+    "time": "2026-10-14T06:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0094",
+    "time": "2026-10-14T07:10:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa22d7eefb0e4d77006f80066d61e35dd",
+        "btc": 0.0042
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.004
+      },
+      {
+        "address": "syn1qa22d7eefb0e4d77006f80066d61e35dd",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0095",
+    "time": "2026-10-14T10:27:16Z",
+    "inputs": [
+      {
+        "address": "syn1q2e1d71f379d3034e31461561d23332fb",
+        "btc": 0.020348
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.020248
+      }
+    ]
+  },
+  {
+    "txid": "syntx0096",
+    "time": "2026-10-15T05:54:00Z",
+    "inputs": [
+      {
+        "address": "syn1q9f013463665bad32080eec1fa75e5017",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1q9f013463665bad32080eec1fa75e5017",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0097",
+    "time": "2026-10-15T12:09:39Z",
+    "inputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.012713
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcdb4bc9274872187b236719939bd1912",
+        "btc": 0.012713
+      }
+    ]
+  },
+  {
+    "txid": "syntx0098",
+    "time": "2026-10-15T12:20:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0099",
+    "time": "2026-10-15T13:34:21Z",
+    "inputs": [
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0100",
+    "time": "2026-10-15T19:11:21Z",
+    "inputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.017875
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q117b58ada45bbecea527335edb76a83f",
+        "btc": 0.017875
+      }
+    ]
+  },
+  {
+    "txid": "syntx0101",
+    "time": "2026-10-15T20:13:00Z",
+    "inputs": [
+      {
+        "address": "syn1qfd119d51da48bc41db65048678d279e6",
+        "btc": 0.0042
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.004
+      },
+      {
+        "address": "syn1qfd119d51da48bc41db65048678d279e6",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0102",
+    "time": "2026-10-15T21:56:05Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0103",
+    "time": "2026-10-15T23:50:35Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0104",
+    "time": "2026-10-16T04:13:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0105",
+    "time": "2026-10-16T06:50:26Z",
+    "inputs": [
+      {
+        "address": "syn1qcc42227694d7ce772013d173b83faa8d",
+        "btc": 0.032124
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q870c175af2816c6a3a08933d6392dd8a",
+        "btc": 0.032124
+      }
+    ]
+  },
+  {
+    "txid": "syntx0106",
+    "time": "2026-10-16T09:28:53Z",
+    "inputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.005017
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3a21a747dc35006e5bb216e30f00caff",
+        "btc": 0.005017
+      }
+    ]
+  },
+  {
+    "txid": "syntx0107",
+    "time": "2026-10-16T10:46:18Z",
+    "inputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.005083
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcdb4bc9274872187b236719939bd1912",
+        "btc": 0.005083
+      }
+    ]
+  },
+  {
+    "txid": "syntx0108",
+    "time": "2026-10-16T13:31:34Z",
+    "inputs": [
+      {
+        "address": "syn1q75c3a1af3648e6960db8ba498621b792",
+        "btc": 0.047247
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.047147
+      }
+    ]
+  },
+  {
+    "txid": "syntx0109",
+    "time": "2026-10-16T17:09:14Z",
+    "inputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0110",
+    "time": "2026-10-16T23:57:00Z",
+    "inputs": [
+      {
+        "address": "syn1q9f013463665bad32080eec1fa75e5017",
+        "btc": 0.0062
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.006
+      },
+      {
+        "address": "syn1q9f013463665bad32080eec1fa75e5017",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0111",
+    "time": "2026-10-17T02:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.211401
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q952a48f0c80714f2de0ef5aff549c720",
+        "btc": 0.211201
+      }
+    ]
+  },
+  {
+    "txid": "syntx0112",
+    "time": "2026-10-17T02:54:17Z",
+    "inputs": [
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0113",
+    "time": "2026-10-17T06:01:45Z",
+    "inputs": [
+      {
+        "address": "syn1qcc42227694d7ce772013d173b83faa8d",
+        "btc": 0.046729
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3a21a747dc35006e5bb216e30f00caff",
+        "btc": 0.046729
+      }
+    ]
+  },
+  {
+    "txid": "syntx0114",
+    "time": "2026-10-17T11:16:00Z",
+    "inputs": [
+      {
+        "address": "syn1q66b3ecf63ba588f5e00e8a51b5ccc5c2",
+        "btc": 0.0062
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.006
+      },
+      {
+        "address": "syn1q66b3ecf63ba588f5e00e8a51b5ccc5c2",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0115",
+    "time": "2026-10-17T11:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q952a48f0c80714f2de0ef5aff549c720",
+        "btc": 0.211201
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcc42227694d7ce772013d173b83faa8d",
+        "btc": 0.211001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0116",
+    "time": "2026-10-17T13:14:17Z",
+    "inputs": [
+      {
+        "address": "syn1qbefdd9995365ce34dd5038ced484c1d0",
+        "btc": 0.00387
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q9800b58d7750585ca087db4a526d1603",
+        "btc": 0.00387
+      }
+    ]
+  },
+  {
+    "txid": "syntx0117",
+    "time": "2026-10-17T16:03:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0118",
+    "time": "2026-10-17T16:35:37Z",
+    "inputs": [
+      {
+        "address": "syn1qcdb4bc9274872187b236719939bd1912",
+        "btc": 0.016091
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.015991
+      }
+    ]
+  },
+  {
+    "txid": "syntx0119",
+    "time": "2026-10-17T20:50:12Z",
+    "inputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.032294
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2e1d71f379d3034e31461561d23332fb",
+        "btc": 0.032294
+      }
+    ]
+  },
+  {
+    "txid": "syntx0120",
+    "time": "2026-10-18T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.022277
+      },
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.01503
+      },
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.014122
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.051229
+      }
+    ]
+  },
+  {
+    "txid": "syntx0121",
+    "time": "2026-10-18T01:56:45Z",
+    "inputs": [
+      {
+        "address": "syn1qaf87b99a8b20d38a648bcc72a5a1435a",
+        "btc": 0.02154
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.02144
+      }
+    ]
+  },
+  {
+    "txid": "syntx0122",
+    "time": "2026-10-18T08:48:07Z",
+    "inputs": [
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0123",
+    "time": "2026-10-18T11:24:08Z",
+    "inputs": [
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0124",
+    "time": "2026-10-18T14:40:13Z",
+    "inputs": [
+      {
+        "address": "syn1q8bccdd6fcb9d8c22156df760c126ddd2",
+        "btc": 0.00105
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q921c47f979d1d2792e90b8669034719d",
+        "btc": 0.00105
+      }
+    ]
+  },
+  {
+    "txid": "syntx0125",
+    "time": "2026-10-18T15:28:40Z",
+    "inputs": [
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0126",
+    "time": "2026-10-18T15:52:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0127",
+    "time": "2026-10-18T16:59:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0128",
+    "time": "2026-10-18T17:45:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd4ccabdbe49d0b8d9b4161ad8317f208",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1qd4ccabdbe49d0b8d9b4161ad8317f208",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0129",
+    "time": "2026-10-18T18:19:44Z",
+    "inputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.035285
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q75c3a1af3648e6960db8ba498621b792",
+        "btc": 0.035285
+      }
+    ]
+  },
+  {
+    "txid": "syntx0130",
+    "time": "2026-10-19T00:57:52Z",
+    "inputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0131",
+    "time": "2026-10-19T02:37:30Z",
+    "inputs": [
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0132",
+    "time": "2026-10-19T04:08:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0133",
+    "time": "2026-10-19T04:24:17Z",
+    "inputs": [
+      {
+        "address": "syn1q3a21a747dc35006e5bb216e30f00caff",
+        "btc": 0.03842
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcc42227694d7ce772013d173b83faa8d",
+        "btc": 0.03832
+      }
+    ]
+  },
+  {
+    "txid": "syntx0134",
+    "time": "2026-10-19T05:07:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa54b4917b0155a5681e8a160ef7dcbcf",
+        "btc": 0.0062
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.006
+      },
+      {
+        "address": "syn1qa54b4917b0155a5681e8a160ef7dcbcf",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0135",
+    "time": "2026-10-19T06:03:56Z",
+    "inputs": [
+      {
+        "address": "syn1q3956077d55ade6bea9b9738b0dbd1a15",
+        "btc": 0.016241
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.016141
+      }
+    ]
+  },
+  {
+    "txid": "syntx0136",
+    "time": "2026-10-19T08:01:01Z",
+    "inputs": [
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0137",
+    "time": "2026-10-19T12:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0138",
+    "time": "2026-10-20T01:04:57Z",
+    "inputs": [
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0139",
+    "time": "2026-10-20T08:25:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0140",
+    "time": "2026-10-20T10:17:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa85c96eed8628bc365e7a789d37626c1",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1qa85c96eed8628bc365e7a789d37626c1",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0141",
+    "time": "2026-10-20T17:10:30Z",
+    "inputs": [
+      {
+        "address": "syn1q117b58ada45bbecea527335edb76a83f",
+        "btc": 0.037946
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.037846
+      }
+    ]
+  },
+  {
+    "txid": "syntx0142",
+    "time": "2026-10-21T00:12:57Z",
+    "inputs": [
+      {
+        "address": "syn1q2e1d71f379d3034e31461561d23332fb",
+        "btc": 0.046263
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.046163
+      }
+    ]
+  },
+  {
+    "txid": "syntx0143",
+    "time": "2026-10-21T06:17:51Z",
+    "inputs": [
+      {
+        "address": "syn1q274e061fe284304803d4a9082018d3a4",
+        "btc": 0.002143
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q921c47f979d1d2792e90b8669034719d",
+        "btc": 0.002143
+      }
+    ]
+  },
+  {
+    "txid": "syntx0144",
+    "time": "2026-10-21T06:32:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0145",
+    "time": "2026-10-21T17:35:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0146",
+    "time": "2026-10-21T18:38:00Z",
+    "inputs": [
+      {
+        "address": "syn1q1a32ea4296165af971a34c33f94e2d03",
+        "btc": 0.0042
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.004
+      },
+      {
+        "address": "syn1q1a32ea4296165af971a34c33f94e2d03",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0147",
+    "time": "2026-10-21T19:11:53Z",
+    "inputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0148",
+    "time": "2026-10-21T19:53:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0149",
+    "time": "2026-10-21T22:13:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa4898ebd86908324c0e61ef0a7d30ef2",
+        "btc": 0.0042
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.004
+      },
+      {
+        "address": "syn1qa4898ebd86908324c0e61ef0a7d30ef2",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0150",
+    "time": "2026-10-21T22:56:32Z",
+    "inputs": [
+      {
+        "address": "syn1q9a87c996b9c742c72cebf1ff80dae0b1",
+        "btc": 0.011501
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.011401
+      }
+    ]
+  },
+  {
+    "txid": "syntx0151",
+    "time": "2026-10-22T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q7af9a9f880106869de0187d1cec950e1",
+        "btc": 0.05
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.02
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.02
+      }
+    ]
+  },
+  {
+    "txid": "syntx0152",
+    "time": "2026-10-22T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.027503
+      },
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.018073
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.045376
+      }
+    ]
+  },
+  {
+    "txid": "syntx0153",
+    "time": "2026-10-22T06:12:00Z",
+    "inputs": [
+      {
+        "address": "syn1q66b3ecf63ba588f5e00e8a51b5ccc5c2",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1q66b3ecf63ba588f5e00e8a51b5ccc5c2",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0154",
+    "time": "2026-10-22T07:24:09Z",
+    "inputs": [
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0155",
+    "time": "2026-10-22T14:05:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0156",
+    "time": "2026-10-22T18:46:37Z",
+    "inputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.0348
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q9a87c996b9c742c72cebf1ff80dae0b1",
+        "btc": 0.0348
+      }
+    ]
+  },
+  {
+    "txid": "syntx0157",
+    "time": "2026-10-23T00:48:34Z",
+    "inputs": [
+      {
+        "address": "syn1q833ce23767854178e7c3bb48442affe6",
+        "btc": 0.046033
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.045933
+      }
+    ]
+  },
+  {
+    "txid": "syntx0158",
+    "time": "2026-10-23T03:18:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0159",
+    "time": "2026-10-23T13:13:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0160",
+    "time": "2026-10-23T15:57:00Z",
+    "inputs": [
+      {
+        "address": "syn1q1a32ea4296165af971a34c33f94e2d03",
+        "btc": 0.0042
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.004
+      },
+      {
+        "address": "syn1q1a32ea4296165af971a34c33f94e2d03",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0161",
+    "time": "2026-10-24T11:30:23Z",
+    "inputs": [
+      {
+        "address": "syn1q794f0f683cca3ae29d3087ce83a9d2b8",
+        "btc": 0.024916
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.024816
+      }
+    ]
+  },
+  {
+    "txid": "syntx0162",
+    "time": "2026-10-24T12:26:01Z",
+    "inputs": [
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0163",
+    "time": "2026-10-24T16:11:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0164",
+    "time": "2026-10-24T18:37:39Z",
+    "inputs": [
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0165",
+    "time": "2026-10-24T21:39:15Z",
+    "inputs": [
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0166",
+    "time": "2026-10-25T00:12:45Z",
+    "inputs": [
+      {
+        "address": "syn1qbc43c30d5cb809ea562abfc26e3561cc",
+        "btc": 0.002204
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qda387fb8158851aa2d8d472cc6f149a9",
+        "btc": 0.002204
+      }
+    ]
+  },
+  {
+    "txid": "syntx0167",
+    "time": "2026-10-25T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.014853
+      },
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.028116
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.042769
+      }
+    ]
+  },
+  {
+    "txid": "syntx0168",
+    "time": "2026-10-25T02:13:16Z",
+    "inputs": [
+      {
+        "address": "syn1qaf87b99a8b20d38a648bcc72a5a1435a",
+        "btc": 0.009802
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.009702
+      }
+    ]
+  },
+  {
+    "txid": "syntx0169",
+    "time": "2026-10-25T02:18:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0170",
+    "time": "2026-10-25T12:10:22Z",
+    "inputs": [
+      {
+        "address": "syn1qbc4759ee758c49845797bae43f5fc9fd",
+        "btc": 0.003916
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q921c47f979d1d2792e90b8669034719d",
+        "btc": 0.003916
+      }
+    ]
+  },
+  {
+    "txid": "syntx0171",
+    "time": "2026-10-25T12:24:48Z",
+    "inputs": [
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0172",
+    "time": "2026-10-25T14:36:41Z",
+    "inputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.03281
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q7dd9da6cf0df7b7178bc27fc47b2673e",
+        "btc": 0.03281
+      }
+    ]
+  },
+  {
+    "txid": "syntx0173",
+    "time": "2026-10-25T16:02:51Z",
+    "inputs": [
+      {
+        "address": "syn1q7dd9da6cf0df7b7178bc27fc47b2673e",
+        "btc": 0.013622
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.013522
+      }
+    ]
+  },
+  {
+    "txid": "syntx0174",
+    "time": "2026-10-25T18:50:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0175",
+    "time": "2026-10-25T19:36:00Z",
+    "inputs": [
+      {
+        "address": "syn1q5c517a7e1ebf3e7b0d3bb8c12075a8a3",
+        "btc": 0.0062
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.006
+      },
+      {
+        "address": "syn1q5c517a7e1ebf3e7b0d3bb8c12075a8a3",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0176",
+    "time": "2026-10-25T21:36:12Z",
+    "inputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0177",
+    "time": "2026-10-25T23:05:40Z",
+    "inputs": [
+      {
+        "address": "syn1qa9222af90c50afdd6adb3723527ce81e",
+        "btc": 0.039017
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcc42227694d7ce772013d173b83faa8d",
+        "btc": 0.038917
+      }
+    ]
+  },
+  {
+    "txid": "syntx0178",
+    "time": "2026-10-25T23:24:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0179",
+    "time": "2026-10-26T01:23:00Z",
+    "inputs": [
+      {
+        "address": "syn1q612cd04411e1ce95b3f449783aebeee8",
+        "btc": 0.0042
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.004
+      },
+      {
+        "address": "syn1q612cd04411e1ce95b3f449783aebeee8",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0180",
+    "time": "2026-10-26T02:00:49Z",
+    "inputs": [
+      {
+        "address": "syn1qb823060d79948af40bbed0619b73b5c4",
+        "btc": 0.005232
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.005132
+      }
+    ]
+  },
+  {
+    "txid": "syntx0181",
+    "time": "2026-10-26T02:19:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0182",
+    "time": "2026-10-26T02:50:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0183",
+    "time": "2026-10-26T04:39:00Z",
+    "inputs": [
+      {
+        "address": "syn1q1a32ea4296165af971a34c33f94e2d03",
+        "btc": 0.0062
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.006
+      },
+      {
+        "address": "syn1q1a32ea4296165af971a34c33f94e2d03",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0184",
+    "time": "2026-10-26T04:44:00Z",
+    "inputs": [
+      {
+        "address": "syn1q612cd04411e1ce95b3f449783aebeee8",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1q612cd04411e1ce95b3f449783aebeee8",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0185",
+    "time": "2026-10-26T05:21:45Z",
+    "inputs": [
+      {
+        "address": "syn1qec1b7cb283a51cd318a4f26563e35df8",
+        "btc": 0.003408
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qda387fb8158851aa2d8d472cc6f149a9",
+        "btc": 0.003408
+      }
+    ]
+  },
+  {
+    "txid": "syntx0186",
+    "time": "2026-10-26T11:11:19Z",
+    "inputs": [
+      {
+        "address": "syn1q6e73eb03a36ee147d20882646494334f",
+        "btc": 0.001223
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q921c47f979d1d2792e90b8669034719d",
+        "btc": 0.001223
+      }
+    ]
+  },
+  {
+    "txid": "syntx0187",
+    "time": "2026-10-26T13:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.179047
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q952a48f0c80714f2de0ef5aff549c720",
+        "btc": 0.178847
+      }
+    ]
+  },
+  {
+    "txid": "syntx0188",
+    "time": "2026-10-26T15:28:38Z",
+    "inputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.021843
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q794f0f683cca3ae29d3087ce83a9d2b8",
+        "btc": 0.021843
+      }
+    ]
+  },
+  {
+    "txid": "syntx0189",
+    "time": "2026-10-26T16:42:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0190",
+    "time": "2026-10-26T16:49:12Z",
+    "inputs": [
+      {
+        "address": "syn1q75c3a1af3648e6960db8ba498621b792",
+        "btc": 0.025409
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.025309
+      }
+    ]
+  },
+  {
+    "txid": "syntx0191",
+    "time": "2026-10-26T18:03:10Z",
+    "inputs": [
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0192",
+    "time": "2026-10-26T20:37:02Z",
+    "inputs": [
+      {
+        "address": "syn1q3a21a747dc35006e5bb216e30f00caff",
+        "btc": 0.048552
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.048452
+      }
+    ]
+  },
+  {
+    "txid": "syntx0193",
+    "time": "2026-10-26T21:30:03Z",
+    "inputs": [
+      {
+        "address": "syn1qb639735125c74c1f893229c70fda7286",
+        "btc": 0.001049
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q9800b58d7750585ca087db4a526d1603",
+        "btc": 0.001049
+      }
+    ]
+  },
+  {
+    "txid": "syntx0194",
+    "time": "2026-10-26T22:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q952a48f0c80714f2de0ef5aff549c720",
+        "btc": 0.178847
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.178647
+      }
+    ]
+  },
+  {
+    "txid": "syntx0195",
+    "time": "2026-10-27T01:39:12Z",
+    "inputs": [
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0196",
+    "time": "2026-10-27T08:47:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0197",
+    "time": "2026-10-27T11:44:00Z",
+    "inputs": [
+      {
+        "address": "syn1qfd119d51da48bc41db65048678d279e6",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1qfd119d51da48bc41db65048678d279e6",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0198",
+    "time": "2026-10-27T12:43:00Z",
+    "inputs": [
+      {
+        "address": "syn1q66b3ecf63ba588f5e00e8a51b5ccc5c2",
+        "btc": 0.0062
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.006
+      },
+      {
+        "address": "syn1q66b3ecf63ba588f5e00e8a51b5ccc5c2",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0199",
+    "time": "2026-10-27T14:26:49Z",
+    "inputs": [
+      {
+        "address": "syn1qac3eec91722fabc5bfa27c3cd3b4555c",
+        "btc": 0.00205
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q9800b58d7750585ca087db4a526d1603",
+        "btc": 0.00205
+      }
+    ]
+  },
+  {
+    "txid": "syntx0200",
+    "time": "2026-10-27T16:59:02Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0201",
+    "time": "2026-10-27T18:25:50Z",
+    "inputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.012756
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2e1d71f379d3034e31461561d23332fb",
+        "btc": 0.012756
+      }
+    ]
+  },
+  {
+    "txid": "syntx0202",
+    "time": "2026-10-27T21:30:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0203",
+    "time": "2026-10-28T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.018711
+      },
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.027099
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.04561
+      }
+    ]
+  },
+  {
+    "txid": "syntx0204",
+    "time": "2026-10-28T06:32:16Z",
+    "inputs": [
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0205",
+    "time": "2026-10-28T06:36:12Z",
+    "inputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0206",
+    "time": "2026-10-28T12:32:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0207",
+    "time": "2026-10-28T14:51:00Z",
+    "inputs": [
+      {
+        "address": "syn1q1a32ea4296165af971a34c33f94e2d03",
+        "btc": 0.0062
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.006
+      },
+      {
+        "address": "syn1q1a32ea4296165af971a34c33f94e2d03",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0208",
+    "time": "2026-10-28T16:56:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0209",
+    "time": "2026-10-28T19:26:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0210",
+    "time": "2026-10-29T03:40:15Z",
+    "inputs": [
+      {
+        "address": "syn1qf71f4314773ca3e8b42a81baddaeee0d",
+        "btc": 0.046728
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.046628
+      }
+    ]
+  },
+  {
+    "txid": "syntx0211",
+    "time": "2026-10-29T06:47:13Z",
+    "inputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.017449
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3956077d55ade6bea9b9738b0dbd1a15",
+        "btc": 0.017449
+      }
+    ]
+  },
+  {
+    "txid": "syntx0212",
+    "time": "2026-10-29T10:03:06Z",
+    "inputs": [
+      {
+        "address": "syn1qd69025a1268dca42ebd8859936d2e2ae",
+        "btc": 0.000904
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q9800b58d7750585ca087db4a526d1603",
+        "btc": 0.000904
+      }
+    ]
+  },
+  {
+    "txid": "syntx0213",
+    "time": "2026-10-29T11:13:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0214",
+    "time": "2026-10-29T12:58:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0215",
+    "time": "2026-10-29T13:22:45Z",
+    "inputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.034287
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q7dd9da6cf0df7b7178bc27fc47b2673e",
+        "btc": 0.034287
+      }
+    ]
+  },
+  {
+    "txid": "syntx0216",
+    "time": "2026-10-29T14:07:00Z",
+    "inputs": [
+      {
+        "address": "syn1q1a32ea4296165af971a34c33f94e2d03",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1q1a32ea4296165af971a34c33f94e2d03",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0217",
+    "time": "2026-10-29T16:08:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa85c96eed8628bc365e7a789d37626c1",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1qa85c96eed8628bc365e7a789d37626c1",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0218",
+    "time": "2026-10-30T04:18:35Z",
+    "inputs": [
+      {
+        "address": "syn1q47337c991849699041a60e5bcc936465",
+        "btc": 0.027083
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcc42227694d7ce772013d173b83faa8d",
+        "btc": 0.026983
+      }
+    ]
+  },
+  {
+    "txid": "syntx0219",
+    "time": "2026-10-30T04:33:38Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0220",
+    "time": "2026-10-30T16:44:50Z",
+    "inputs": [
+      {
+        "address": "syn1qcc42227694d7ce772013d173b83faa8d",
+        "btc": 0.006159
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3956077d55ade6bea9b9738b0dbd1a15",
+        "btc": 0.006159
+      }
+    ]
+  },
+  {
+    "txid": "syntx0221",
+    "time": "2026-10-30T21:16:12Z",
+    "inputs": [
+      {
+        "address": "syn1q47337c991849699041a60e5bcc936465",
+        "btc": 0.017531
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.017431
+      }
+    ]
+  },
+  {
+    "txid": "syntx0222",
+    "time": "2026-10-31T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.017502
+      },
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.013038
+      },
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.023678
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.054018
+      }
+    ]
+  },
+  {
+    "txid": "syntx0223",
+    "time": "2026-10-31T05:46:21Z",
+    "inputs": [
+      {
+        "address": "syn1q476f857c905aa126ac29ec9725df52dc",
+        "btc": 0.00253
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q921c47f979d1d2792e90b8669034719d",
+        "btc": 0.00253
+      }
+    ]
+  },
+  {
+    "txid": "syntx0224",
+    "time": "2026-10-31T07:10:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0225",
+    "time": "2026-10-31T08:55:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa4898ebd86908324c0e61ef0a7d30ef2",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1qa4898ebd86908324c0e61ef0a7d30ef2",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0226",
+    "time": "2026-10-31T15:17:22Z",
+    "inputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0227",
+    "time": "2026-11-01T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q7af9a9f880106869de0187d1cec950e1",
+        "btc": 0.05
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.02
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.02
+      }
+    ]
+  },
+  {
+    "txid": "syntx0228",
+    "time": "2026-11-01T09:18:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa4898ebd86908324c0e61ef0a7d30ef2",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1qa4898ebd86908324c0e61ef0a7d30ef2",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0229",
+    "time": "2026-11-01T15:43:02Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0230",
+    "time": "2026-11-02T03:51:45Z",
+    "inputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.048046
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q794f0f683cca3ae29d3087ce83a9d2b8",
+        "btc": 0.048046
+      }
+    ]
+  },
+  {
+    "txid": "syntx0231",
+    "time": "2026-11-02T05:51:42Z",
+    "inputs": [
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0232",
+    "time": "2026-11-02T06:02:59Z",
+    "inputs": [
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0233",
+    "time": "2026-11-02T06:13:50Z",
+    "inputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.001944
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcdb4bc9274872187b236719939bd1912",
+        "btc": 0.001944
+      }
+    ]
+  },
+  {
+    "txid": "syntx0234",
+    "time": "2026-11-02T09:22:20Z",
+    "inputs": [
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0235",
+    "time": "2026-11-02T10:37:11Z",
+    "inputs": [
+      {
+        "address": "syn1q11ff6a8ae5ed26d18606cf904dddbc63",
+        "btc": 0.042736
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcc42227694d7ce772013d173b83faa8d",
+        "btc": 0.042636
+      }
+    ]
+  },
+  {
+    "txid": "syntx0236",
+    "time": "2026-11-02T15:25:50Z",
+    "inputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.018486
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q47337c991849699041a60e5bcc936465",
+        "btc": 0.018486
+      }
+    ]
+  },
+  {
+    "txid": "syntx0237",
+    "time": "2026-11-02T20:04:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0238",
+    "time": "2026-11-03T01:34:19Z",
+    "inputs": [
+      {
+        "address": "syn1q11ff6a8ae5ed26d18606cf904dddbc63",
+        "btc": 0.015437
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.015337
+      }
+    ]
+  },
+  {
+    "txid": "syntx0239",
+    "time": "2026-11-03T01:44:29Z",
+    "inputs": [
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0240",
+    "time": "2026-11-03T07:35:50Z",
+    "inputs": [
+      {
+        "address": "syn1q117b58ada45bbecea527335edb76a83f",
+        "btc": 0.026446
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.026346
+      }
+    ]
+  },
+  {
+    "txid": "syntx0241",
+    "time": "2026-11-03T16:51:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0242",
+    "time": "2026-11-03T18:12:38Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0243",
+    "time": "2026-11-03T19:13:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa4898ebd86908324c0e61ef0a7d30ef2",
+        "btc": 0.0042
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.004
+      },
+      {
+        "address": "syn1qa4898ebd86908324c0e61ef0a7d30ef2",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0244",
+    "time": "2026-11-04T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.019158
+      },
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.010545
+      },
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.028186
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.057689
+      }
+    ]
+  },
+  {
+    "txid": "syntx0245",
+    "time": "2026-11-04T02:07:05Z",
+    "inputs": [
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0246",
+    "time": "2026-11-04T14:52:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0247",
+    "time": "2026-11-04T15:47:00Z",
+    "inputs": [
+      {
+        "address": "syn1qcd1a2982d9cc613105687d1627d78ffc",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1qcd1a2982d9cc613105687d1627d78ffc",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0248",
+    "time": "2026-11-04T16:11:50Z",
+    "inputs": [
+      {
+        "address": "syn1qf71f4314773ca3e8b42a81baddaeee0d",
+        "btc": 0.005593
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.005493
+      }
+    ]
+  },
+  {
+    "txid": "syntx0249",
+    "time": "2026-11-04T18:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.239747
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q952a48f0c80714f2de0ef5aff549c720",
+        "btc": 0.239547
+      }
+    ]
+  },
+  {
+    "txid": "syntx0250",
+    "time": "2026-11-04T20:13:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0251",
+    "time": "2026-11-04T22:08:00Z",
+    "inputs": [
+      {
+        "address": "syn1q9f013463665bad32080eec1fa75e5017",
+        "btc": 0.0042
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.004
+      },
+      {
+        "address": "syn1q9f013463665bad32080eec1fa75e5017",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0252",
+    "time": "2026-11-04T22:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1q952a48f0c80714f2de0ef5aff549c720",
+        "btc": 0.239547
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.239347
+      }
+    ]
+  },
+  {
+    "txid": "syntx0253",
+    "time": "2026-11-04T22:50:00Z",
+    "inputs": [
+      {
+        "address": "syn1q612cd04411e1ce95b3f449783aebeee8",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1q612cd04411e1ce95b3f449783aebeee8",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0254",
+    "time": "2026-11-05T11:03:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0255",
+    "time": "2026-11-05T12:25:07Z",
+    "inputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.001252
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q794f0f683cca3ae29d3087ce83a9d2b8",
+        "btc": 0.001252
+      }
+    ]
+  },
+  {
+    "txid": "syntx0256",
+    "time": "2026-11-05T17:24:23Z",
+    "inputs": [
+      {
+        "address": "syn1qf71f4314773ca3e8b42a81baddaeee0d",
+        "btc": 0.008471
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.008371
+      }
+    ]
+  },
+  {
+    "txid": "syntx0257",
+    "time": "2026-11-05T18:06:18Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0258",
+    "time": "2026-11-06T01:20:11Z",
+    "inputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.038865
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3dae543995981ef297348535bbe7b12a",
+        "btc": 0.038865
+      }
+    ]
+  },
+  {
+    "txid": "syntx0259",
+    "time": "2026-11-06T02:45:51Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0260",
+    "time": "2026-11-06T04:04:27Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0261",
+    "time": "2026-11-06T06:21:28Z",
+    "inputs": [
+      {
+        "address": "syn1q117b58ada45bbecea527335edb76a83f",
+        "btc": 0.015603
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.015503
+      }
+    ]
+  },
+  {
+    "txid": "syntx0262",
+    "time": "2026-11-06T10:10:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0263",
+    "time": "2026-11-06T12:16:00Z",
+    "inputs": [
+      {
+        "address": "syn1qcd1a2982d9cc613105687d1627d78ffc",
+        "btc": 0.0042
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.004
+      },
+      {
+        "address": "syn1qcd1a2982d9cc613105687d1627d78ffc",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0264",
+    "time": "2026-11-06T18:27:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0265",
+    "time": "2026-11-06T21:31:21Z",
+    "inputs": [
+      {
+        "address": "syn1q7dd9da6cf0df7b7178bc27fc47b2673e",
+        "btc": 0.03543
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.03533
+      }
+    ]
+  },
+  {
+    "txid": "syntx0266",
+    "time": "2026-11-06T23:14:54Z",
+    "inputs": [
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0267",
+    "time": "2026-11-07T04:48:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0268",
+    "time": "2026-11-07T06:40:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd4ccabdbe49d0b8d9b4161ad8317f208",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1qd4ccabdbe49d0b8d9b4161ad8317f208",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0269",
+    "time": "2026-11-07T07:00:22Z",
+    "inputs": [
+      {
+        "address": "syn1q117b58ada45bbecea527335edb76a83f",
+        "btc": 0.007355
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.007255
+      }
+    ]
+  },
+  {
+    "txid": "syntx0270",
+    "time": "2026-11-07T11:08:51Z",
+    "inputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0271",
+    "time": "2026-11-07T12:17:56Z",
+    "inputs": [
+      {
+        "address": "syn1q117b58ada45bbecea527335edb76a83f",
+        "btc": 0.036819
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.036719
+      }
+    ]
+  },
+  {
+    "txid": "syntx0272",
+    "time": "2026-11-07T22:36:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0273",
+    "time": "2026-11-08T00:29:00Z",
+    "inputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.01624
+      },
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.022766
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa069527291b2d2ad0e2ee8be5c071150",
+        "btc": 0.038806
+      }
+    ]
+  },
+  {
+    "txid": "syntx0274",
+    "time": "2026-11-08T00:49:00Z",
+    "inputs": [
+      {
+        "address": "syn1q1a32ea4296165af971a34c33f94e2d03",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd347564a3020795a625cf3d342ad7624",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1q1a32ea4296165af971a34c33f94e2d03",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0275",
+    "time": "2026-11-08T07:31:03Z",
+    "inputs": [
+      {
+        "address": "syn1q870c175af2816c6a3a08933d6392dd8a",
+        "btc": 0.040711
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.040611
+      }
+    ]
+  },
+  {
+    "txid": "syntx0276",
+    "time": "2026-11-08T13:02:00Z",
+    "inputs": [
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0277",
+    "time": "2026-11-08T13:05:51Z",
+    "inputs": [
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qa08d2f7444cae026c8daa581244e0468",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0278",
+    "time": "2026-11-08T14:04:00Z",
+    "inputs": [
+      {
+        "address": "syn1qa4898ebd86908324c0e61ef0a7d30ef2",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qcafb96063e389b9f233903b61f0a0816",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1qa4898ebd86908324c0e61ef0a7d30ef2",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0279",
+    "time": "2026-11-08T14:13:20Z",
+    "inputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.003036
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3956077d55ade6bea9b9738b0dbd1a15",
+        "btc": 0.003036
+      }
+    ]
+  },
+  {
+    "txid": "syntx0280",
+    "time": "2026-11-08T15:13:58Z",
+    "inputs": [
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1q39de4fc5a1ca1dd46f4786371530a344",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0281",
+    "time": "2026-11-09T13:51:48Z",
+    "inputs": [
+      {
+        "address": "syn1q75c3a1af3648e6960db8ba498621b792",
+        "btc": 0.014056
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.013956
+      }
+    ]
+  },
+  {
+    "txid": "syntx0282",
+    "time": "2026-11-09T16:58:00Z",
+    "inputs": [
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1q498b5128b07e063fcc02232e78b7c67a",
+        "btc": 0.0005
+      }
+    ]
+  },
+  {
+    "txid": "syntx0283",
+    "time": "2026-11-09T19:40:00Z",
+    "inputs": [
+      {
+        "address": "syn1q612cd04411e1ce95b3f449783aebeee8",
+        "btc": 0.0027
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+        "btc": 0.0025
+      },
+      {
+        "address": "syn1q612cd04411e1ce95b3f449783aebeee8",
+        "btc": 0.0002
+      }
+    ]
+  },
+  {
+    "txid": "syntx0284",
+    "time": "2026-11-09T21:46:47Z",
+    "inputs": [
+      {
+        "address": "syn1q0546767de9a11a609b32e72628dbd1fe",
+        "btc": 0.000881
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qda387fb8158851aa2d8d472cc6f149a9",
+        "btc": 0.000881
+      }
+    ]
+  },
+  {
+    "txid": "syntx0285",
+    "time": "2026-11-10T03:46:01Z",
+    "inputs": [
+      {
+        "address": "syn1q2118ec5a87d9bda6fecafa91e76fe7d5",
+        "btc": 0.000557
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qda387fb8158851aa2d8d472cc6f149a9",
+        "btc": 0.000557
+      }
+    ]
+  },
+  {
+    "txid": "syntx0286",
+    "time": "2026-11-10T10:46:03Z",
+    "inputs": [
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0005
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0004
+      },
+      {
+        "address": "syn1qe21a97451271768353ccaaf8539fc37d",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0287",
+    "time": "2026-11-10T10:57:32Z",
+    "inputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.018937
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qb823060d79948af40bbed0619b73b5c4",
+        "btc": 0.018937
+      }
+    ]
+  },
+  {
+    "txid": "syntx0288",
+    "time": "2026-11-10T12:45:05Z",
+    "inputs": [
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0007
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0006
+      },
+      {
+        "address": "syn1q328418dc18889e403b6d3db5c51cd9db",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0289",
+    "time": "2026-11-10T19:30:53Z",
+    "inputs": [
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0009
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q2ef310b97404912ac1890cd75cb5a57d",
+        "btc": 0.0008
+      },
+      {
+        "address": "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+        "btc": 0.0001
+      }
+    ]
+  },
+  {
+    "txid": "syntx0290",
+    "time": "2026-11-10T21:34:17Z",
+    "inputs": [
+      {
+        "address": "syn1qa9222af90c50afdd6adb3723527ce81e",
+        "btc": 0.026554
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.026454
+      }
+    ]
+  },
+  {
+    "txid": "syntx0291",
+    "time": "2026-11-10T21:55:06Z",
+    "inputs": [
+      {
+        "address": "syn1q833ce23767854178e7c3bb48442affe6",
+        "btc": 0.04892
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q5839338141d422bb2352c9507a4fbca1",
+        "btc": 0.04882
+      }
+    ]
+  },
+  {
+    "txid": "syntx0292",
+    "time": "2026-11-10T22:46:25Z",
+    "inputs": [
+      {
+        "address": "syn1qb823060d79948af40bbed0619b73b5c4",
+        "btc": 0.044053
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1qdd518614171edff5feeda9bc16efecce",
+        "btc": 0.043953
+      }
+    ]
+  },
+  {
+    "txid": "syntx0293",
+    "time": "2026-11-11T07:49:33Z",
+    "inputs": [
+      {
+        "address": "syn1q925f8c6dc0ef086009a27dd61def7391",
+        "btc": 0.00314
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q9800b58d7750585ca087db4a526d1603",
+        "btc": 0.00314
+      }
+    ]
+  },
+  {
+    "txid": "syntx0294",
+    "time": "2026-11-11T09:46:06Z",
+    "inputs": [
+      {
+        "address": "syn1qd0192c4643e02d4d3ec635de8348fd23",
+        "btc": 0.025687
+      }
+    ],
+    "outputs": [
+      {
+        "address": "syn1q833ce23767854178e7c3bb48442affe6",
+        "btc": 0.025687
+      }
+    ]
+  }
+]

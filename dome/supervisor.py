@@ -16,8 +16,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
+import time
 from typing import Any, Callable, Optional
 
 from pydantic import BaseModel
@@ -25,6 +27,7 @@ from pydantic import BaseModel
 from . import config
 from .agents import briefer, linker, lister, locator, zoner
 from .case import Case
+from .schemas import load_optional
 
 MAX_STEPS = 40
 NO_HINTS = "no_location_hints_use_logins_cap_medium"
@@ -33,6 +36,58 @@ ROOM_RERUN = "room_groups_outside_ring_rerun_linker"
 
 _DECIMAL = re.compile(r"(?<![\d.])(?:\d+\.\d+|\.\d+)(?!\d)(?!\.\d)")
 _PHONE = re.compile(r"(?:\d[\s\-.()]{0,3}){6,10}\d")
+
+
+# ---------------------------------------------------------------------- night: events + hooks
+EVENTS = "events.jsonl"                     # contract E, one event per line, read by the UI
+NIGHT_FILES = (EVENTS, "spotter.json", "wallet_notes.json", "complex.json")
+APPROVE = "report_approved"
+REJECT = "report_rejected_by_analyst"
+
+
+def reset_night_files(case: Case) -> None:
+    """Fresh run: the night outputs are not in Case.OUTPUTS, so clear them here."""
+    for n in NIGHT_FILES:
+        case.path(n).unlink(missing_ok=True)
+
+
+def emit(case: Case, agent: str, phase: str, message: str, refs: Optional[list] = None,
+         **extra: Any) -> dict:
+    """Append one contract E event to case/<id>/events.jsonl and, inside a LangGraph run,
+    send it on the `custom` stream. `t` is seconds since the case's first event."""
+    p = case.path(EVENTS)
+    now = time.time()
+    t0 = now
+    if p.exists():
+        first = p.read_text(encoding="utf-8").split("\n", 1)[0]
+        try:
+            t0 = now - 0.0 if not first.strip() else float(json.loads(first).get("_t0", now))
+        except Exception:
+            t0 = now
+    ev = {"t": round(max(0.0, now - t0), 1), "agent": agent, "phase": phase, "message": message,
+          "refs": [str(r) for r in (refs or []) if r], **extra}
+    line = dict(ev)
+    if not p.exists() or not p.read_text(encoding="utf-8").strip():
+        line["_t0"] = now      # wall-clock anchor for `t`, kept only on the first line
+    case.dir.mkdir(parents=True, exist_ok=True)
+    with p.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(line, default=str) + "\n")
+    try:   # only inside a LangGraph run; elsewhere there is no stream to write to
+        from langgraph.config import get_stream_writer
+        get_stream_writer()({"event": ev, "case_id": case.case_id})
+    except Exception:
+        pass
+    return ev
+
+
+def auto_approve(preview: dict) -> dict:
+    """Scripted mode and the CLI: no human at the keyboard, so the report is approved
+    automatically and the log says so."""
+    return {"approved": True, "by": "auto (scripted)", "note": "no analyst in this run"}
+
+
+def _flag(name: str) -> bool:
+    return os.getenv(name) == "1"
 
 
 class LeadText(BaseModel):
@@ -45,11 +100,15 @@ class LeadText(BaseModel):
 class Supervisor:
     """Deterministic core: status facts, the next required step, guarded run_* steps."""
 
-    def __init__(self, case: Case, actor: str = "supervisor", llm_text: bool = False):
+    def __init__(self, case: Case, actor: str = "supervisor", llm_text: bool = False,
+                 approver: Optional[Callable[[dict], Any]] = None):
         self.case = case
         self.actor = actor   # who is driving: "llm" or "scripted"
         # True when an LLM drives: after the Briefer's numbers, it writes the brief's words
         self.llm_text = llm_text
+        # Human approval before the report. LangGraph runs pass langgraph's interrupt();
+        # scripted/CLI runs auto-approve and log it.
+        self.approver = approver or auto_approve
 
     # ------------------------------------------------------------------ facts
     def status(self) -> dict:
@@ -108,7 +167,7 @@ class Supervisor:
                 return act("write_brief_text", "the brief has its numbers; write its reasons, "
                            "next checks and summary in plain language")
             return None
-        if "briefer" in failed:
+        if "briefer" in failed or self._rejected():
             return None
         if c.load("rings.json") is None:
             if "linker" in failed:
@@ -218,14 +277,153 @@ class Supervisor:
             return self._run_linker_room()
         if c.load("rings.json") is not None:
             return self._refuse("linker", "rings.json already exists and is valid")
+        self._spotter_hook()
         ok = self._run_step("linker", "rings.json", lambda: linker.run(c),
                             ["flagged_accounts.json"], {})
         ring = c.selected_ring()
         if ok and ring is None:
             self._decide("linker", "no_ring_found", {"rings": 0},
                          "No group of accounts shares two kinds of key; weak hints only.")
+        if ok and ring is not None:
+            emit(c, "linker", "result",
+                 f"{len(ring.members)} accounts form ring {ring.ring_id} (R {ring.confidence}): "
+                 f"{', '.join(ring.key_kinds[:4])}", [ring.ring_id] + ring.members[:3])
+            self._money_hook()
+            ring = c.selected_ring() or ring
+        elif ok:
+            emit(c, "linker", "result", "No ring: no group shares two different kinds of key")
+        else:
+            emit(c, "linker", "failed", "Linker failed twice; the Briefer will report it")
         return self._result(ok, "linker", ring_id=ring and ring.ring_id, R=ring and ring.confidence,
                             photos=len(ring.photos) if ring else 0)
+
+    # ------------------------------------------------------------------ night hooks
+    def _spotter_hook(self) -> None:
+        """DOME_SPOTTER=1: Ishaan's rules-only Spotter writes case/<id>/spotter.json."""
+        c = self.case
+        if not _flag("DOME_SPOTTER") or c.path("spotter.json").exists():
+            return
+        try:
+            from .agents import spotter   # Ishaan's module; absent until it is merged
+        except ImportError:
+            self.log_decision("spotter_module_not_available", {"flag": "DOME_SPOTTER"},
+                              "spotter module not available")
+            return
+        try:
+            spotter.run(c)
+            q = load_optional(c.dir, "spotter.json")
+            n = len(q.queue) if q else 0
+            c.log(actor="agent", event="tool_result", step="spotter", output_file="spotter.json",
+                  evidence={"flagged": n, "valid": q is not None}, message="spotter wrote its queue")
+            emit(c, "spotter", "result", f"Spotter flagged {n} account(s) (rules: 3+ signal kinds agree)",
+                 [x.account for x in (q.queue[:3] if q else [])])
+        except Exception as exc:
+            c.log(actor="guard", event="step_failed", step="spotter",
+                  evidence={"error": f"{type(exc).__name__}: {exc}"[:300]},
+                  message="spotter failed; the case continues without it")
+
+    def _money_hook(self) -> None:
+        """DOME_MONEY=1: money.attach(case) adds the money block (contract B) to rings.json and
+        writes wallet_notes.json (contract G). DOME_LINK_MONEY=1: then the Linker runs a second
+        pass that counts each wallet note as a `money` key (weight 0.9)."""
+        c = self.case
+        if not _flag("DOME_MONEY"):
+            return
+        try:
+            from .agents import money   # Ishaan's module; absent until it is merged
+        except ImportError:
+            self.log_decision("money_module_not_available", {"flag": "DOME_MONEY"},
+                              "money module not available")
+            return
+        before = c.path("rings.json").read_text(encoding="utf-8")
+        try:
+            money.attach(c)
+        except Exception as exc:
+            c.path("rings.json").write_text(before, encoding="utf-8")
+            c.log(actor="guard", event="step_failed", step="money",
+                  evidence={"error": f"{type(exc).__name__}: {exc}"[:300]},
+                  message="money.attach failed; rings.json restored, the case continues without money")
+            return
+        if c.load("rings.json") is None:   # attach wrote something the schema rejects
+            c.path("rings.json").write_text(before, encoding="utf-8")
+            c.log(actor="guard", event="step_failed", step="money",
+                  message="money block failed schema validation; rings.json restored")
+            return
+        ring = c.selected_ring()
+        mb = ring.money if ring else None
+        c.log(actor="agent", event="tool_result", step="money", output_file="rings.json",
+              evidence={"clusters": len(mb.wallet_clusters) if mb else 0,
+                        "wallet_notes": c.path("wallet_notes.json").exists()},
+              message="money block attached")
+        if mb:
+            cash = ", ".join(sorted({x.service for x in mb.cash_out})) or "none found"
+            emit(c, "linker", "result",
+                 f"Money: {len(mb.wallet_clusters)} wallet clusters "
+                 f"({', '.join(sorted({w.role or '?' for w in mb.wallet_clusters}))}); cash-out: {cash}",
+                 [w.cluster_id for w in mb.wallet_clusters[:3]])
+        if _flag("DOME_LINK_MONEY") and c.path("wallet_notes.json").exists():
+            self._linker_money_pass()
+
+    def _complex_hook(self) -> None:
+        """Case complex (contract F) + UniGCN scores -> complex.json. On by default for
+        dataset cases (DOME_COMPLEX=0 turns it off); a failure is logged, never fatal."""
+        c = self.case
+        if os.getenv("DOME_COMPLEX", "1") == "0" or not c.input.dataset:
+            return
+        try:
+            from . import complex as cx
+            out = cx.build(c)
+            c.log(actor="agent", event="tool_result", step="complex", output_file="complex.json",
+                  evidence={"ranks": {k: len(v) for k, v in out["ranks"].items()},
+                            "scores": len(out["scores"]), "disagreements": len(out.get("disagreements", [])),
+                            "model": out["model"]},
+                  message="case complex built")
+            emit(c, "linker", "result", f"Case complex: {len(out['ranks']['0'])} nodes, "
+                 f"{len(out['ranks']['1'])} shared notes, {len(out['ranks']['2'])} events; "
+                 f"{len(out.get('disagreements', []))} model-vs-rules disagreements to review",
+                 [x["id"] for x in out["ranks"].get("3", [])][:3])
+        except Exception as exc:
+            c.log(actor="guard", event="step_failed", step="complex",
+                  evidence={"error": f"{type(exc).__name__}: {exc}"[:300]},
+                  message="case complex failed; the brief is unaffected")
+
+    def _linker_money_pass(self) -> None:
+        """Second Linker pass with wallet notes as `money` keys. The money block is carried
+        over to the ring that keeps the most of its members."""
+        c = self.case
+        before = c.selected_ring()
+        notes = load_optional(c.dir, "wallet_notes.json")
+        n = len(notes.notes) if notes else 0
+        self._decide("linker:money", "linker_second_pass_with_wallet_notes",
+                     {"wallet_notes": n, "ring_id": before.ring_id if before else None},
+                     "Wallet notes tie accounts to wallet clusters; re-running the Linker once so a "
+                     "shared wallet counts as a money key toward the two-kinds rule.")
+        old = c.load("rings.json")
+        ok = self._run_step("linker:money", "rings.json", lambda: linker.run(c, wallet_notes=True),
+                            ["rings.json", "wallet_notes.json"], {"wallet_notes": True})
+        if not ok:
+            c.save("rings.json", old)
+            return
+        new = c.load("rings.json")
+        data = new.model_dump(by_alias=True)
+        for r_old in old.rings:
+            if r_old.money is None:
+                continue
+            best = max(data["rings"], key=lambda r: len(set(r["members"]) & set(r_old.members)),
+                       default=None)
+            if best is not None and set(best["members"]) & set(r_old.members):
+                best["money"] = r_old.money.model_dump(by_alias=True)
+        c.save("rings.json", data)
+        after = c.selected_ring()
+        if before and after:
+            added = sorted(set(after.members) - set(before.members))
+            c.log(actor="guard", event="decision", step="linker:money",
+                  decision="ring_updated_by_wallet_notes",
+                  evidence={"added": added, "removed": sorted(set(before.members) - set(after.members)),
+                            "R_before": before.confidence, "R_after": after.confidence},
+                  message=f"Wallet notes added {len(added)} account(s) to the ring.")
+            emit(c, "linker", "result", f"Second pass with wallet notes: {len(added)} account(s) added; "
+                 f"R {before.confidence} -> {after.confidence}", [after.ring_id] + added[:3])
 
     def _run_linker_room(self) -> dict:
         """v2 decision: room groups hold photos from accounts outside the ring -> re-run the
@@ -281,6 +479,12 @@ class Supervisor:
                           "min_R": config.RING_MIN_CONFIDENCE},
                          "Ring confidence is below the minimum; stopping after the Zoner. "
                          "The brief reports the zone only, no buildings.")
+        if ok:
+            emit(c, "zoner", "result", "Dome: " + "; ".join(
+                f"{z.zone_id} {z.area_km2} km2{' (wide)' if z.wide else ''}" for z in zs),
+                [z.zone_id for z in zs])
+        else:
+            emit(c, "zoner", "failed", "Zoner failed twice; the Briefer will report it")
         return self._result(ok, "zoner", zones=[{"zone_id": z.zone_id, "wide": z.wide,
                                                  "area_km2": z.area_km2} for z in zs])
 
@@ -304,6 +508,12 @@ class Supervisor:
                             {"zone_id": zone_id, "scanned_only": scanned_only})
         cands = c.load("candidates.json")
         b = next((z for z in cands.zones if z.zone_id == zone_id), None) if cands else None
+        if b:
+            emit(c, "lister", "result", f"{len(b.candidates)} candidate buildings in {zone_id} "
+                 f"({sum(x.has_scan for x in b.candidates)} scanned) of {b.total_in_zone} in the zone",
+                 [zone_id])
+        else:
+            emit(c, "lister", "failed", f"Lister failed for {zone_id}", [zone_id])
         return self._result(ok, "lister", zone_id=zone_id, scanned_only=scanned_only,
                             total_in_zone=b.total_in_zone if b else None,
                             candidates=len(b.candidates) if b else None,
@@ -338,6 +548,19 @@ class Supervisor:
                 self._decide(f"locator:{zone_id}", "no_scan_above_threshold",
                              {"zone_id": zone_id, "best_P": m.best_P, "threshold": m.threshold},
                              "No scan matched above threshold; no building lead for this zone.")
+        if m:
+            top = max(m.matches, key=lambda x: x.P, default=None)
+            if top is not None and m.above_threshold:
+                extra = (f"; pin moved {top.geo.pin_moved_m:g} m" if top.geo else "") + \
+                        (f"; floor {top.floor_range[0]}-{top.floor_range[1]}" if top.floor_range else "")
+                emit(c, "locator", "result", f"Ring photos match {top.property_id}'s scan "
+                     f"(P {top.P}{', W ' + str(top.W) if top.W is not None else ''}){extra}",
+                     [zone_id, top.property_id, top.scan_id])
+            else:
+                emit(c, "locator", "result", f"No scan in {zone_id} matched above P {m.threshold} "
+                     f"(best {m.best_P})", [zone_id])
+        else:
+            emit(c, "locator", "failed", f"Locator failed for {zone_id}", [zone_id])
         return self._result(ok, "locator", zone_id=zone_id, best_P=m and m.best_P, above_threshold=m and m.above_threshold,
                             window_photos=m and m.window_photos)
 
@@ -348,13 +571,64 @@ class Supervisor:
         if nxt["tool"] != "run_briefer":
             return self._refuse("briefer", "not ready for the brief yet: " + nxt["why"])
         stop_reason = nxt["args"].get("stop_reason")   # the data decides, not the caller
+        if not self._approved():
+            preview = self.report_preview()
+            # LangGraph runs pause here (interrupt) until the analyst answers in the UI.
+            answer = self.approver(preview)
+            approved, by, note = _parse_approval(answer)
+            c.log(actor="guard", event="decision", step="briefer",
+                  decision=APPROVE if approved else REJECT,
+                  evidence={"by": by, "note": note, "preview": preview},
+                  message=("Report approved" if approved else "Analyst held the report") +
+                          f" ({by}).")
+            emit(c, "supervisor", "decision",
+                 ("Report approved" if approved else "Report held by the analyst") + f" ({by})",
+                 preview.get("refs", []))
+            if not approved:
+                return {"ok": False, "step": "briefer", "held": True,
+                        "reason": "the analyst did not approve the report", "required_next": None}
         ok = self._run_step("briefer", "brief.json", lambda: briefer.run(c, stop_reason),
                             ["rings.json", "zones.json", "candidates.json", "matches.json"],
                             {"stop_reason": stop_reason})
         b = c.load("brief.json")
+        if ok:
+            self._complex_hook()
+        if b:
+            emit(c, "briefer", "result", "Report: " + ("; ".join(
+                f"{l.property_id} {l.tier} ({l.score})" for l in b.leads) or f"no building leads ({b.status})"),
+                [l.property_id for l in b.leads[:3]])
+        else:
+            emit(c, "briefer", "failed", "Briefer failed twice")
         return self._result(ok, "briefer", status=b and b.status,
                             leads=[{"rank": l.rank, "property_id": l.property_id, "tier": l.tier,
                                     "score": l.score} for l in b.leads] if b else [])
+
+    # ------------------------------------------------------------------ approval
+    def _approved(self) -> bool:
+        return any(d.decision == APPROVE for d in self.case.decisions())
+
+    def _rejected(self) -> bool:
+        return any(d.decision == REJECT for d in self.case.decisions())
+
+    def report_preview(self) -> dict:
+        """What the analyst approves: the best match per zone, straight from matches.json.
+        No tier yet: the Briefer computes tiers only after approval."""
+        c = self.case
+        ring, m = c.selected_ring(), c.load("matches.json")
+        tops = []
+        for z in (m.zones if m else []):
+            top = max(z.matches, key=lambda x: x.P, default=None)
+            if top is not None:
+                tops.append({"zone_id": z.zone_id, "property_id": top.property_id,
+                             "scan_id": top.scan_id, "P": top.P, "W": top.W,
+                             "above_threshold": top.P >= z.threshold})
+        best = next((t for t in sorted(tops, key=lambda t: -t["P"]) if t["above_threshold"]), None)
+        q = (f"Approve {best['property_id']} (P {best['P']}"
+             f"{', W ' + str(best['W']) if best['W'] is not None else ''}) as a lead for the report?"
+             if best else "Approve the report (no building above threshold)?")
+        return {"question": q, "case_id": c.case_id, "ring_id": ring and ring.ring_id,
+                "R": ring and ring.confidence, "best_matches": tops,
+                "refs": [x for x in ([best["property_id"]] if best else [])]}
 
     def write_brief_text(self, summary: str, leads: list) -> dict:
         """The LLM's words go into brief.json; every number stays the Briefer's.
@@ -438,16 +712,33 @@ class Supervisor:
 
 
 # ---------------------------------------------------------------------- scripted mode
-def run_scripted(case: Case) -> Supervisor:
-    """Walk the same tools with the rule-based planner. No LLM (offline demo and tests)."""
-    sup = Supervisor(case, actor="scripted")
+def _parse_approval(answer: Any) -> tuple[bool, str, str]:
+    """The analyst's answer from the UI: True/False, "approve"/"reject", or
+    {"approved": bool, "by": ..., "note": ...}."""
+    if isinstance(answer, dict):
+        ok = answer.get("approved", answer.get("decision") in ("approve", "approved", "yes"))
+        return bool(ok), str(answer.get("by") or "analyst"), str(answer.get("note") or "")
+    if isinstance(answer, str):
+        return answer.strip().lower() in ("approve", "approved", "yes", "y", "ok"), "analyst", ""
+    return bool(answer), "analyst", ""
+
+
+def run_scripted(case: Case, approver: Optional[Callable[[dict], Any]] = None) -> Supervisor:
+    """Walk the same tools with the rule-based planner. No LLM (offline demo and tests).
+    The report is auto-approved (logged as such) unless an approver is passed."""
+    sup = Supervisor(case, actor="scripted", approver=approver)
     case.log(actor="scripted", event="run_start", message="scripted supervisor run")
+    inp = case.input
+    emit(case, "supervisor", "start", "Case started" + (
+        f" from flagged account {inp.seed_account}" if inp.seed_account else ""),
+        [inp.seed_account] if inp.seed_account else [])
     for _ in range(MAX_STEPS):
         action = sup.next_action()
         if action is None:
             break
         sup.dispatch(action)
     case.log(actor="scripted", event="run_end", evidence={"done": sup.next_action() is None})
+    emit(case, "supervisor", "end", "Run finished" if sup.next_action() is None else "Run stopped")
     return sup
 
 
@@ -594,8 +885,9 @@ def _make_model(model: Any) -> Any:
     return init_chat_model(model, **kwargs)
 
 
-def build_agent(case: Case, model: Any = None):
-    """The deepagents supervisor (a compiled LangGraph graph) bound to one case folder."""
+def build_agent(case: Case, model: Any = None, approver: Optional[Callable[[dict], Any]] = None):
+    """The deepagents supervisor (a compiled LangGraph graph) bound to one case folder.
+    approver: langgraph's interrupt() under `langgraph dev`; auto-approve otherwise."""
     from deepagents import FilesystemMiddleware, FilesystemPermission, create_deep_agent
     from deepagents.backends import FilesystemBackend
 
@@ -604,7 +896,7 @@ def build_agent(case: Case, model: Any = None):
     backend = FilesystemBackend(root_dir=str(case.dir), virtual_mode=True)
     return create_deep_agent(
         model=model,
-        tools=build_tools(Supervisor(case, actor="llm", llm_text=True)),
+        tools=build_tools(Supervisor(case, actor="llm", llm_text=True, approver=approver)),
         system_prompt=SYSTEM_PROMPT,
         backend=backend,
         # Three layers: (1) the file tools are replaced by a READ-ONLY set, so execute,
@@ -622,6 +914,8 @@ def run_llm(case: Case, model: Any = None) -> Supervisor:
     agent = build_agent(case, model)
     case.log(actor="llm", event="run_start", evidence={"model": str(model or config.MODEL)},
              message="deepagents supervisor run")
+    emit(case, "supervisor", "start", f"Case started ({model or config.MODEL})",
+         [case.input.seed_account] if case.input.seed_account else [])
     result: dict = {}
     try:
         result = agent.invoke(
@@ -650,6 +944,7 @@ def run_llm(case: Case, model: Any = None) -> Supervisor:
                  evidence={"text_source": "template"},
                  message="The LLM did not write the brief's words; the Briefer's fixed wording stays.")
     case.log(actor="llm", event="run_end", evidence={"done": sup.next_action() is None})
+    emit(case, "supervisor", "end", "Run finished" if sup.next_action() is None else "Run stopped")
     msgs = result.get("messages") or []
     sup.final_message = msgs[-1].text if msgs else ""
     return sup
@@ -661,10 +956,12 @@ def build_graph_from_config(config_: Optional[dict] = None):
     configurable: {"case_id": "demo-a", "scenario": "ring_a", "dataset": "synth",
                    "seed_account": "acct_103", "model": "google_genai:gemini-3.5-flash"}
     """
+    from langgraph.types import interrupt
     cfg = (config_ or {}).get("configurable", {}) or {}
     case = Case.open(cfg.get("case_id", "demo-a"), scenario=cfg.get("scenario", "ring_a"),
                      dataset=cfg.get("dataset"), seed_account=cfg.get("seed_account"))
-    return build_agent(case, cfg.get("model"))
+    approver = auto_approve if cfg.get("auto_approve") else interrupt   # one human approval
+    return build_agent(case, cfg.get("model"), approver=approver)
 
 
 async def make_graph(config):
@@ -705,7 +1002,8 @@ def main(argv: Optional[list[str]] = None) -> int:
     p.add_argument("--layers", default="both", choices=["content", "network", "both"],
                    help="Linker layers (three-way comparison)")
     p.add_argument("--no-private", action="store_true",
-                   help="drop messages and payments (Arlequin Track 2: public data only)")
+                   help="drop messages and payments (kept for tests; the demo never passes it: "
+                   "Arlequin allows synthetic private data)")
     a = p.parse_args(argv)
 
     if not a.scripted:
@@ -719,6 +1017,8 @@ def main(argv: Optional[list[str]] = None) -> int:
     case = Case.open(a.case, scenario=a.scenario, ring_id=a.ring, reset=not a.resume,
                      dataset=a.data, seed_account=seed, layers=a.layers,
                      private_layers=not a.no_private)
+    if not a.resume:
+        reset_night_files(case)
     sup = run_scripted(case) if a.scripted else run_llm(case, a.model)
 
     brief = case.load("brief.json")

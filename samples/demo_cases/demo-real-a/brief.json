@@ -20,6 +20,7 @@
    },
    "reasons": [
     "R 0.95: 15 accounts linked by keyword (72 links), text (69 links), contact (66 links)",
+    "Money (attribution 0.94): 4 wallet clusters (advertiser, collector, aggregator, cash_out); an advertiser wallet paid the ad platform 2-15 min before 57 ring posts (chance level: 1.3); cash-out at Exchange X 4 times",
     "P 0.68: 8 of 20 room photos match the unit scan, 4400 matched points",
     "W 0.60: window view agrees on building across, open sky, height above street; not seen: parking front, trees",
     "Z 0.34: inside Z-1-1 (14 km2, 81% of place-clue weight); 72 ads name Midtown, Downtown or Main Street Square",
@@ -39,7 +40,9 @@
   "Z-1-1"
  ],
  "failed_steps": [],
- "decisions": [],
+ "decisions": [
+  "report_approved: Report approved (auto (scripted))."
+ ],
  "summary": "",
  "text_source": "template",
  "footer": "Leads for human verification. Place clues give areas, not addresses. Not evidence of anyone's presence. Generated from synthetic data."

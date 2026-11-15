@@ -1,0 +1,487 @@
+{
+  "ring": "A",
+  "clusters": {
+    "advertiser": [
+      "syn1q498b5128b07e063fcc02232e78b7c67a",
+      "syn1qd653b4dc3fc03add25abbd21fe7b2f1e"
+    ],
+    "collector": [
+      "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+      "syn1qd347564a3020795a625cf3d342ad7624",
+      "syn1qcafb96063e389b9f233903b61f0a0816"
+    ],
+    "aggregator": [
+      "syn1qa069527291b2d2ad0e2ee8be5c071150"
+    ],
+    "cash_out": [
+      "syn1q952a48f0c80714f2de0ef5aff549c720"
+    ]
+  },
+  "roles": {
+    "syn1q2ef310b97404912ac1890cd75cb5a57d": "service:AdPlatform",
+    "syn1qdfee439aebc2757e6fba920d80f2f0fa": "service:AdPlatform",
+    "syn1qa08d2f7444cae026c8daa581244e0468": "service:AdPlatform",
+    "syn1q5839338141d422bb2352c9507a4fbca1": "service:Exchange X",
+    "syn1qd0192c4643e02d4d3ec635de8348fd23": "service:Exchange X",
+    "syn1qcc42227694d7ce772013d173b83faa8d": "service:Exchange X",
+    "syn1qdd518614171edff5feeda9bc16efecce": "service:Exchange X",
+    "syn1q7af9a9f880106869de0187d1cec950e1": "service:P2P Exchange",
+    "syn1qdc1ab5e3914f13e64a82bc06a6d1e936": "service:P2P Exchange",
+    "syn1q9800b58d7750585ca087db4a526d1603": "service:PayProcessor",
+    "syn1q921c47f979d1d2792e90b8669034719d": "service:PayProcessor",
+    "syn1qda387fb8158851aa2d8d472cc6f149a9": "service:Merchant",
+    "syn1q498b5128b07e063fcc02232e78b7c67a": "advertiser",
+    "syn1qd653b4dc3fc03add25abbd21fe7b2f1e": "advertiser",
+    "syn1q3d91e28e24b9443494e8ffe9d64e886f": "collector",
+    "syn1qd347564a3020795a625cf3d342ad7624": "collector",
+    "syn1qcafb96063e389b9f233903b61f0a0816": "collector",
+    "syn1qa069527291b2d2ad0e2ee8be5c071150": "aggregator",
+    "syn1q952a48f0c80714f2de0ef5aff549c720": "cash_out",
+    "syn1qa54b4917b0155a5681e8a160ef7dcbcf": "buyer",
+    "syn1qd4ccabdbe49d0b8d9b4161ad8317f208": "buyer",
+    "syn1q9a7c516fdb7a891e0f7cf203fbbacc45": "buyer",
+    "syn1qa4898ebd86908324c0e61ef0a7d30ef2": "buyer",
+    "syn1q1a32ea4296165af971a34c33f94e2d03": "buyer",
+    "syn1qa22d7eefb0e4d77006f80066d61e35dd": "buyer",
+    "syn1qfd119d51da48bc41db65048678d279e6": "buyer",
+    "syn1q612cd04411e1ce95b3f449783aebeee8": "buyer",
+    "syn1qa3b798910825ecb3a3d778acb2a50bb5": "buyer",
+    "syn1qcd1a2982d9cc613105687d1627d78ffc": "buyer",
+    "syn1q9f013463665bad32080eec1fa75e5017": "buyer",
+    "syn1q66b3ecf63ba588f5e00e8a51b5ccc5c2": "buyer",
+    "syn1q5c517a7e1ebf3e7b0d3bb8c12075a8a3": "buyer",
+    "syn1qa85c96eed8628bc365e7a789d37626c1": "buyer",
+    "syn1q39de4fc5a1ca1dd46f4786371530a344": "decoy_advertiser",
+    "syn1qe21a97451271768353ccaaf8539fc37d": "decoy_advertiser",
+    "syn1qba4701e7ef13dd8f3cc11d214d9ecb95": "decoy_advertiser",
+    "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5": "decoy_advertiser",
+    "syn1q328418dc18889e403b6d3db5c51cd9db": "decoy_advertiser",
+    "syn1qf71f4314773ca3e8b42a81baddaeee0d": "user",
+    "syn1q47337c991849699041a60e5bcc936465": "user",
+    "syn1q9a87c996b9c742c72cebf1ff80dae0b1": "user",
+    "syn1q3a21a747dc35006e5bb216e30f00caff": "user",
+    "syn1qa9222af90c50afdd6adb3723527ce81e": "user",
+    "syn1q2e1d71f379d3034e31461561d23332fb": "user",
+    "syn1qb823060d79948af40bbed0619b73b5c4": "user",
+    "syn1q3956077d55ade6bea9b9738b0dbd1a15": "user",
+    "syn1qaf87b99a8b20d38a648bcc72a5a1435a": "user",
+    "syn1q75c3a1af3648e6960db8ba498621b792": "user",
+    "syn1qcdb4bc9274872187b236719939bd1912": "user",
+    "syn1q3dae543995981ef297348535bbe7b12a": "user",
+    "syn1q11ff6a8ae5ed26d18606cf904dddbc63": "user",
+    "syn1q7dd9da6cf0df7b7178bc27fc47b2673e": "user",
+    "syn1q794f0f683cca3ae29d3087ce83a9d2b8": "user",
+    "syn1q870c175af2816c6a3a08933d6392dd8a": "user",
+    "syn1q117b58ada45bbecea527335edb76a83f": "user",
+    "syn1q833ce23767854178e7c3bb48442affe6": "user",
+    "syn1qbefdd9995365ce34dd5038ced484c1d0": "customer",
+    "syn1qbc4759ee758c49845797bae43f5fc9fd": "customer",
+    "syn1q8bccdd6fcb9d8c22156df760c126ddd2": "customer",
+    "syn1qdbd771430a51760b34ebc9de936ffd32": "customer",
+    "syn1q6a61958e8718aa1f5cda37a8e1315e82": "customer",
+    "syn1q925f8c6dc0ef086009a27dd61def7391": "customer",
+    "syn1qafa9d1d16e2a1101fc9d87def8dfe320": "customer",
+    "syn1qb639735125c74c1f893229c70fda7286": "customer",
+    "syn1q6e73eb03a36ee147d20882646494334f": "customer",
+    "syn1qc3dd63aed964f990661e49fb464990ba": "customer",
+    "syn1qac3eec91722fabc5bfa27c3cd3b4555c": "customer",
+    "syn1qec1b7cb283a51cd318a4f26563e35df8": "customer",
+    "syn1q274e061fe284304803d4a9082018d3a4": "customer",
+    "syn1q2118ec5a87d9bda6fecafa91e76fe7d5": "customer",
+    "syn1q2e6c956aa51a1ccec03c52f0f32c1d98": "customer",
+    "syn1qd69025a1268dca42ebd8859936d2e2ae": "customer",
+    "syn1q476f857c905aa126ac29ec9725df52dc": "customer",
+    "syn1qe38dd378b75023453e1b67f3f9189600": "customer",
+    "syn1qbc43c30d5cb809ea562abfc26e3561cc": "customer",
+    "syn1q0546767de9a11a609b32e72628dbd1fe": "customer"
+  },
+  "payment_then_post": [
+    {
+      "post_id": "post_0012",
+      "account": "acct_410",
+      "paid_at": "2026-10-01T04:33:00Z",
+      "post_at": "2026-10-01T04:48:00Z"
+    },
+    {
+      "post_id": "post_0022",
+      "account": "acct_730",
+      "paid_at": "2026-10-01T08:09:00Z",
+      "post_at": "2026-10-01T08:18:00Z"
+    },
+    {
+      "post_id": "post_0054",
+      "account": "acct_236",
+      "paid_at": "2026-10-01T21:07:00Z",
+      "post_at": "2026-10-01T21:16:00Z"
+    },
+    {
+      "post_id": "post_0084",
+      "account": "acct_843",
+      "paid_at": "2026-10-02T16:05:00Z",
+      "post_at": "2026-10-02T16:10:00Z"
+    },
+    {
+      "post_id": "post_0094",
+      "account": "acct_730",
+      "paid_at": "2026-10-02T19:43:00Z",
+      "post_at": "2026-10-02T19:58:00Z"
+    },
+    {
+      "post_id": "post_0114",
+      "account": "acct_843",
+      "paid_at": "2026-10-03T06:45:00Z",
+      "post_at": "2026-10-03T06:59:00Z"
+    },
+    {
+      "post_id": "post_0165",
+      "account": "acct_626",
+      "paid_at": "2026-10-04T09:36:00Z",
+      "post_at": "2026-10-04T09:50:00Z"
+    },
+    {
+      "post_id": "post_0216",
+      "account": "acct_228",
+      "paid_at": "2026-10-05T07:33:00Z",
+      "post_at": "2026-10-05T07:41:00Z"
+    },
+    {
+      "post_id": "post_0251",
+      "account": "acct_843",
+      "paid_at": "2026-10-05T20:55:00Z",
+      "post_at": "2026-10-05T21:09:00Z"
+    },
+    {
+      "post_id": "post_0294",
+      "account": "acct_103",
+      "paid_at": "2026-10-06T16:17:00Z",
+      "post_at": "2026-10-06T16:19:00Z"
+    },
+    {
+      "post_id": "post_0381",
+      "account": "acct_410",
+      "paid_at": "2026-10-08T19:24:00Z",
+      "post_at": "2026-10-08T19:33:00Z"
+    },
+    {
+      "post_id": "post_0490",
+      "account": "acct_897",
+      "paid_at": "2026-10-11T07:41:00Z",
+      "post_at": "2026-10-11T07:56:00Z"
+    },
+    {
+      "post_id": "post_0525",
+      "account": "acct_201",
+      "paid_at": "2026-10-12T04:16:00Z",
+      "post_at": "2026-10-12T04:29:00Z"
+    },
+    {
+      "post_id": "post_0537",
+      "account": "acct_103",
+      "paid_at": "2026-10-12T12:04:00Z",
+      "post_at": "2026-10-12T12:13:00Z"
+    },
+    {
+      "post_id": "post_0541",
+      "account": "acct_228",
+      "paid_at": "2026-10-12T12:40:00Z",
+      "post_at": "2026-10-12T12:52:00Z"
+    },
+    {
+      "post_id": "post_0572",
+      "account": "acct_201",
+      "paid_at": "2026-10-13T01:43:00Z",
+      "post_at": "2026-10-13T01:57:00Z"
+    },
+    {
+      "post_id": "post_0636",
+      "account": "acct_897",
+      "paid_at": "2026-10-14T06:29:00Z",
+      "post_at": "2026-10-14T06:40:00Z"
+    },
+    {
+      "post_id": "post_0698",
+      "account": "acct_236",
+      "paid_at": "2026-10-15T12:20:00Z",
+      "post_at": "2026-10-15T12:32:00Z"
+    },
+    {
+      "post_id": "post_0735",
+      "account": "acct_626",
+      "paid_at": "2026-10-16T04:13:00Z",
+      "post_at": "2026-10-16T04:24:00Z"
+    },
+    {
+      "post_id": "post_0799",
+      "account": "acct_131",
+      "paid_at": "2026-10-17T16:03:00Z",
+      "post_at": "2026-10-17T16:08:00Z"
+    },
+    {
+      "post_id": "post_0844",
+      "account": "acct_510",
+      "paid_at": "2026-10-18T15:52:00Z",
+      "post_at": "2026-10-18T16:01:00Z"
+    },
+    {
+      "post_id": "post_0845",
+      "account": "acct_220",
+      "paid_at": "2026-10-18T16:59:00Z",
+      "post_at": "2026-10-18T17:10:00Z"
+    },
+    {
+      "post_id": "post_0866",
+      "account": "acct_131",
+      "paid_at": "2026-10-19T04:08:00Z",
+      "post_at": "2026-10-19T04:18:00Z"
+    },
+    {
+      "post_id": "post_0889",
+      "account": "acct_510",
+      "paid_at": "2026-10-19T12:29:00Z",
+      "post_at": "2026-10-19T12:38:00Z"
+    },
+    {
+      "post_id": "post_0933",
+      "account": "acct_626",
+      "paid_at": "2026-10-20T08:25:00Z",
+      "post_at": "2026-10-20T08:27:00Z"
+    },
+    {
+      "post_id": "post_0962",
+      "account": "acct_897",
+      "paid_at": "2026-10-21T06:32:00Z",
+      "post_at": "2026-10-21T06:37:00Z"
+    },
+    {
+      "post_id": "post_0990",
+      "account": "acct_843",
+      "paid_at": "2026-10-21T17:35:00Z",
+      "post_at": "2026-10-21T17:41:00Z"
+    },
+    {
+      "post_id": "post_0991",
+      "account": "acct_220",
+      "paid_at": "2026-10-21T19:53:00Z",
+      "post_at": "2026-10-21T19:58:00Z"
+    },
+    {
+      "post_id": "post_1050",
+      "account": "acct_410",
+      "paid_at": "2026-10-22T14:05:00Z",
+      "post_at": "2026-10-22T14:14:00Z"
+    },
+    {
+      "post_id": "post_1081",
+      "account": "acct_410",
+      "paid_at": "2026-10-23T03:18:00Z",
+      "post_at": "2026-10-23T03:22:00Z"
+    },
+    {
+      "post_id": "post_1099",
+      "account": "acct_201",
+      "paid_at": "2026-10-23T13:13:00Z",
+      "post_at": "2026-10-23T13:26:00Z"
+    },
+    {
+      "post_id": "post_1153",
+      "account": "acct_626",
+      "paid_at": "2026-10-24T16:11:00Z",
+      "post_at": "2026-10-24T16:22:00Z"
+    },
+    {
+      "post_id": "post_1180",
+      "account": "acct_201",
+      "paid_at": "2026-10-25T02:18:00Z",
+      "post_at": "2026-10-25T02:22:00Z"
+    },
+    {
+      "post_id": "post_1216",
+      "account": "acct_201",
+      "paid_at": "2026-10-25T18:50:00Z",
+      "post_at": "2026-10-25T18:53:00Z"
+    },
+    {
+      "post_id": "post_1233",
+      "account": "acct_843",
+      "paid_at": "2026-10-25T23:24:00Z",
+      "post_at": "2026-10-25T23:38:00Z"
+    },
+    {
+      "post_id": "post_1239",
+      "account": "acct_626",
+      "paid_at": "2026-10-26T02:19:00Z",
+      "post_at": "2026-10-26T02:27:00Z"
+    },
+    {
+      "post_id": "post_1240",
+      "account": "acct_730",
+      "paid_at": "2026-10-26T02:50:00Z",
+      "post_at": "2026-10-26T02:54:00Z"
+    },
+    {
+      "post_id": "post_1269",
+      "account": "acct_510",
+      "paid_at": "2026-10-26T16:42:00Z",
+      "post_at": "2026-10-26T16:49:00Z"
+    },
+    {
+      "post_id": "post_1297",
+      "account": "acct_131",
+      "paid_at": "2026-10-27T08:47:00Z",
+      "post_at": "2026-10-27T08:56:00Z"
+    },
+    {
+      "post_id": "post_1331",
+      "account": "acct_236",
+      "paid_at": "2026-10-27T21:30:00Z",
+      "post_at": "2026-10-27T21:34:00Z"
+    },
+    {
+      "post_id": "post_1366",
+      "account": "acct_228",
+      "paid_at": "2026-10-28T12:32:00Z",
+      "post_at": "2026-10-28T12:38:00Z"
+    },
+    {
+      "post_id": "post_1374",
+      "account": "acct_236",
+      "paid_at": "2026-10-28T16:56:00Z",
+      "post_at": "2026-10-28T17:08:00Z"
+    },
+    {
+      "post_id": "post_1379",
+      "account": "acct_897",
+      "paid_at": "2026-10-28T19:26:00Z",
+      "post_at": "2026-10-28T19:31:00Z"
+    },
+    {
+      "post_id": "post_1405",
+      "account": "acct_626",
+      "paid_at": "2026-10-29T11:13:00Z",
+      "post_at": "2026-10-29T11:27:00Z"
+    },
+    {
+      "post_id": "post_1408",
+      "account": "acct_103",
+      "paid_at": "2026-10-29T12:58:00Z",
+      "post_at": "2026-10-29T13:11:00Z"
+    },
+    {
+      "post_id": "post_1475",
+      "account": "acct_510",
+      "paid_at": "2026-10-31T07:10:00Z",
+      "post_at": "2026-10-31T07:20:00Z"
+    },
+    {
+      "post_id": "post_1587",
+      "account": "acct_897",
+      "paid_at": "2026-11-02T20:04:00Z",
+      "post_at": "2026-11-02T20:07:00Z"
+    },
+    {
+      "post_id": "post_1646",
+      "account": "acct_410",
+      "paid_at": "2026-11-03T16:51:00Z",
+      "post_at": "2026-11-03T16:57:00Z"
+    },
+    {
+      "post_id": "post_1703",
+      "account": "acct_131",
+      "paid_at": "2026-11-04T14:52:00Z",
+      "post_at": "2026-11-04T14:59:00Z"
+    },
+    {
+      "post_id": "post_1716",
+      "account": "acct_131",
+      "paid_at": "2026-11-04T20:13:00Z",
+      "post_at": "2026-11-04T20:22:00Z"
+    },
+    {
+      "post_id": "post_1743",
+      "account": "acct_131",
+      "paid_at": "2026-11-05T11:03:00Z",
+      "post_at": "2026-11-05T11:15:00Z"
+    },
+    {
+      "post_id": "post_1793",
+      "account": "acct_220",
+      "paid_at": "2026-11-06T10:10:00Z",
+      "post_at": "2026-11-06T10:18:00Z"
+    },
+    {
+      "post_id": "post_1814",
+      "account": "acct_103",
+      "paid_at": "2026-11-06T18:27:00Z",
+      "post_at": "2026-11-06T18:40:00Z"
+    },
+    {
+      "post_id": "post_1835",
+      "account": "acct_228",
+      "paid_at": "2026-11-07T04:48:00Z",
+      "post_at": "2026-11-07T04:56:00Z"
+    },
+    {
+      "post_id": "post_1867",
+      "account": "acct_220",
+      "paid_at": "2026-11-07T22:36:00Z",
+      "post_at": "2026-11-07T22:50:00Z"
+    },
+    {
+      "post_id": "post_1896",
+      "account": "acct_510",
+      "paid_at": "2026-11-08T13:02:00Z",
+      "post_at": "2026-11-08T13:09:00Z"
+    },
+    {
+      "post_id": "post_1948",
+      "account": "acct_897",
+      "paid_at": "2026-11-09T16:58:00Z",
+      "post_at": "2026-11-09T17:12:00Z"
+    }
+  ],
+  "decoys": [
+    "syn1q0546767de9a11a609b32e72628dbd1fe",
+    "syn1q117b58ada45bbecea527335edb76a83f",
+    "syn1q11ff6a8ae5ed26d18606cf904dddbc63",
+    "syn1q2118ec5a87d9bda6fecafa91e76fe7d5",
+    "syn1q274e061fe284304803d4a9082018d3a4",
+    "syn1q2e1d71f379d3034e31461561d23332fb",
+    "syn1q2e6c956aa51a1ccec03c52f0f32c1d98",
+    "syn1q328418dc18889e403b6d3db5c51cd9db",
+    "syn1q3956077d55ade6bea9b9738b0dbd1a15",
+    "syn1q39de4fc5a1ca1dd46f4786371530a344",
+    "syn1q3a21a747dc35006e5bb216e30f00caff",
+    "syn1q3dae543995981ef297348535bbe7b12a",
+    "syn1q47337c991849699041a60e5bcc936465",
+    "syn1q476f857c905aa126ac29ec9725df52dc",
+    "syn1q6a61958e8718aa1f5cda37a8e1315e82",
+    "syn1q6e73eb03a36ee147d20882646494334f",
+    "syn1q75c3a1af3648e6960db8ba498621b792",
+    "syn1q794f0f683cca3ae29d3087ce83a9d2b8",
+    "syn1q7dd9da6cf0df7b7178bc27fc47b2673e",
+    "syn1q833ce23767854178e7c3bb48442affe6",
+    "syn1q870c175af2816c6a3a08933d6392dd8a",
+    "syn1q8bccdd6fcb9d8c22156df760c126ddd2",
+    "syn1q925f8c6dc0ef086009a27dd61def7391",
+    "syn1q9a87c996b9c742c72cebf1ff80dae0b1",
+    "syn1qa9222af90c50afdd6adb3723527ce81e",
+    "syn1qac3eec91722fabc5bfa27c3cd3b4555c",
+    "syn1qaf87b99a8b20d38a648bcc72a5a1435a",
+    "syn1qafa9d1d16e2a1101fc9d87def8dfe320",
+    "syn1qb639735125c74c1f893229c70fda7286",
+    "syn1qb823060d79948af40bbed0619b73b5c4",
+    "syn1qba4701e7ef13dd8f3cc11d214d9ecb95",
+    "syn1qbc43c30d5cb809ea562abfc26e3561cc",
+    "syn1qbc4759ee758c49845797bae43f5fc9fd",
+    "syn1qbefdd9995365ce34dd5038ced484c1d0",
+    "syn1qc3dd63aed964f990661e49fb464990ba",
+    "syn1qc4d4c0d8db1c0606fc71ff2a35416ce5",
+    "syn1qcdb4bc9274872187b236719939bd1912",
+    "syn1qd69025a1268dca42ebd8859936d2e2ae",
+    "syn1qdbd771430a51760b34ebc9de936ffd32",
+    "syn1qe21a97451271768353ccaaf8539fc37d",
+    "syn1qe38dd378b75023453e1b67f3f9189600",
+    "syn1qec1b7cb283a51cd318a4f26563e35df8",
+    "syn1qf71f4314773ca3e8b42a81baddaeee0d"
+  ]
+}

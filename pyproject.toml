@@ -21,11 +21,14 @@ dependencies = [
     "opencv-python-headless",
     "pillow",
     "transformers",
+    "langgraph",
+    "langgraph-sdk",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest"]
 studio = ["langgraph-cli[inmem]"]
+topo = ["toponetx==0.4.0", "topomodelx==0.0.1"]
 openai = ["langchain-openai"]
 
 [build-system]
