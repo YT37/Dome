@@ -9,30 +9,27 @@
    "display_name": "Building A (synthetic case)",
    "address": "",
    "zone_id": "Z-1-1",
-   "tier": "Medium",
-   "score": 50,
+   "tier": "High",
+   "score": 59,
    "factors": {
     "R": 0.95,
     "Z": 0.34,
-    "F": 0.15,
+    "F": 0.8,
     "P": 0.68,
-    "W": null
+    "W": 0.6
    },
    "reasons": [
     "R 0.95: 15 accounts linked by keyword (72 links), text (69 links), contact (66 links)",
     "P 0.68: 8 of 20 room photos match the unit scan, 4400 matched points",
-    "W missing: no window photo, so the window view was not checked",
+    "W 0.60: window view agrees on building across, open sky, height above street; not seen: parking front, trees",
     "Z 0.34: inside Z-1-1 (14 km2, 81% of place-clue weight); 72 ads name Midtown, Downtown or Main Street Square",
-    "F 0.15: no window height estimate; floor count not checked"
+    "F 0.80: multifamily matches apartment photos; 3 floors fits a floor 2 to 3 view"
    ],
-   "caps": [
-    "capped at Medium: window check could not run (window_box: no GOOGLE_API_KEY and no cached answer)"
-   ],
+   "caps": [],
    "verify_next": [
     "Through legal process, request lease and short-term booking records for units on floors 3-3 for 2026-10-01 to 2026-11-09",
     "Through legal process, request the payment records behind any such booking",
     "Confirms: a lease or booking on those floors overlapping the ad dates, with a unit layout that matches the photos",
-    "A window photo from the ads, if one turns up, would allow the window check",
     "Rules out: no occupancy in those dates, or unit layouts that differ from the matched rooms",
     "A human reviewer compares each matched photo with its scan view side by side"
    ]
@@ -42,9 +39,7 @@
   "Z-1-1"
  ],
  "failed_steps": [],
- "decisions": [
-  "window_check_not_run_cap_medium: Window photos exist but the window check could not run; W stays null and the lead is capped at Medium."
- ],
+ "decisions": [],
  "summary": "",
  "text_source": "template",
  "footer": "Leads for human verification. Place clues give areas, not addresses. Not evidence of anyone's presence. Generated from synthetic data."
