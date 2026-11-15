@@ -74,3 +74,12 @@ def test_room_results_read_case_room_match_first(tmp_path):
     a = rooms["LqCMcmmVH3d"]
     assert a["P"] == 0.68 and a["source"] == "room_match.json" and a["property_id"] == "RL-213304177"
     assert "img_a1" in a["photos"] and rooms["FQZd6kTpht1"]["P"] == 0.0
+
+
+def test_struct_features_are_within_dataset_percentiles():
+    ds = {"accounts": {"a": {"flags": ["x"]}, "b": {}, "c": {}}, "posts": [], "transactions": []}
+    cells = [{"rank": 1, "kind": "contact", "id": "k", "members": ["a", "b"]}]
+    accts, X, members, names = cx.struct_features(ds, cells)
+    assert accts == ["a", "b", "c"] and all(0.0 <= v <= 1.0 for row in X for v in row)
+    assert not any("acct" in n or "555" in n for n in names)          # no ids or keys as features
+    assert X[2] == [0.0] * len(names)                                  # c shares nothing

@@ -1,0 +1,80 @@
+{
+  "protocol": "train on seeds 201-203, validate on 204 (early stopping + threshold), test once on the held-out ring (seed 101) and the original synth (seed 37)",
+  "features": [
+    "burst_posting",
+    "cells_contact",
+    "cells_dm",
+    "cells_echo",
+    "cells_echo_event",
+    "cells_heartbeat",
+    "cells_interaction",
+    "cells_keyword",
+    "cells_merchant",
+    "cells_money",
+    "cells_photo",
+    "cells_place",
+    "cells_text",
+    "cells_time",
+    "distinct_kinds",
+    "flagged_share",
+    "links_contact",
+    "links_dm",
+    "links_echo",
+    "links_echo_event",
+    "links_heartbeat",
+    "links_interaction",
+    "links_keyword",
+    "links_merchant",
+    "links_money",
+    "links_photo",
+    "links_place",
+    "links_text",
+    "links_time",
+    "neighbours",
+    "payment_then_post",
+    "posts"
+  ],
+  "epochs_trained": 600,
+  "val": {
+    "dataset": "data/synth_s204",
+    "threshold": 0.564,
+    "precision": 1.0,
+    "recall": 1.0,
+    "auc": 1.0,
+    "precision_at_15": 1.0,
+    "ring_found": "15/15",
+    "rules": {
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  },
+  "val_f1": 1.0,
+  "test": [
+    {
+      "dataset": "data/synth_heldout",
+      "threshold": 0.564,
+      "precision": 1.0,
+      "recall": 1.0,
+      "auc": 1.0,
+      "precision_at_15": 1.0,
+      "ring_found": "15/15",
+      "rules": {
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    {
+      "dataset": "synth",
+      "threshold": 0.564,
+      "precision": 1.0,
+      "recall": 1.0,
+      "auc": 1.0,
+      "precision_at_15": 1.0,
+      "ring_found": "15/15",
+      "rules": {
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    }
+  ]
+}

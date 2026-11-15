@@ -502,13 +502,33 @@ def build(case: Case) -> dict:
             tr, va, te = (set(sp[k]) for k in ("train", "val", "test"))
             out["score_split"] = {n: ("train" if n in tr else "val" if n in va else "test" if n in te
                                       else "not in training data") for n in out["scores"] if n in accounts}
+        thr = 0.5
+        out["score_model"] = {n: "complex-v1" for n in out["scores"]}
+        # accounts: the structural model (held-out ring 15/15) replaces v1 when it is trained;
+        # it was never trained on the synth dataset, so no account score is in-sample
+        sp_prob, sp_thr = struct_predict(ds, cells)
+        if sp_prob is not None:
+            prob = {**prob, **sp_prob}
+            thr = sp_thr
+            for n in list(out["scores"]):
+                if n in sp_prob:
+                    out["scores"][n] = round(sp_prob[n], 3)
+                    out["score_model"][n] = "structural"
+            out.pop("score_split", None)
+            out["model"] = "UniGCN (TopoModelX): structural model for accounts, complex-v1 for wallets/rooms"
+            out["threshold"] = round(thr, 3)
+            if STRUCT_EVAL.exists():
+                out["eval_structural"] = json.loads(STRUCT_EVAL.read_text(encoding="utf-8"))
         rule_members = {m for r in rings.rings for m in r.members} if rings else set()
         dis = [{"id": a, "rules": a in rule_members, "model": round(p, 3),
                 "note": "model says ring, rules found no link" if a not in rule_members else
                         "rules link it, model doubts it"}
-               for a, p in prob.items() if a in accounts and ((p >= 0.5) != (a in rule_members))]
-        out["disagreements"] = sorted(dis, key=lambda d: -abs(d["model"] - 0.5))[:20]
-        out["trained_on"] = "account labels of the synth train split only; wallet/room scores are model outputs"
+               for a, p in prob.items() if a in accounts and ((p >= thr) != (a in rule_members))]
+        out["disagreements"] = sorted(dis, key=lambda d: -abs(d["model"] - thr))[:20]
+        out["trained_on"] = ("structural: rings from generator seeds 201-203 (val 204), never this case's "
+                             "dataset; complex-v1 (wallet/room nodes): synth train split, account labels only"
+                             if sp_prob is not None else
+                             "account labels of the synth train split only; wallet/room scores are model outputs")
         if EVAL_PATH.exists():
             out["eval"] = json.loads(EVAL_PATH.read_text(encoding="utf-8"))
     out["sources"] = {"rooms": sorted({s["source"] for s in rooms.values()}),
@@ -700,6 +720,25 @@ def _report(prob: dict, g: dict, thr: float) -> dict:
             f"precision_at_{k}": round(sum(a in g["pos"] for a in ranked[:k]) / max(1, k), 3),
             "ring_found": f"{sum(prob[a] >= thr for a in g['ring'] if a in prob)}/{len(g['ring'])}",
             "rules": topo._prf(g["rules"], g["pos"], uni)}
+
+
+def struct_predict(ds: dict, cells: list[dict]):
+    """({account: P}, threshold) from the structural model, or (None, None)."""
+    if not STRUCT_PATH.exists():
+        return None, None
+    try:
+        import torch
+        from .agents import topo
+        st = torch.load(STRUCT_PATH, map_location="cpu", weights_only=False)
+        accts, X, members, names = struct_features(ds, cells)
+        if names != st["features"]:
+            return None, None
+        net = _SNet(st["n_in"])
+        net.load(st["state"])
+        x, inc = topo._tensors(X, members, len(accts))
+        return _score(net, {"accts": accts, "x": x, "inc": inc}), st["threshold"]
+    except Exception:
+        return None, None
 
 
 def train_struct(verbose: bool = True) -> dict:
