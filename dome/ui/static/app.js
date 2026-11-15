@@ -717,6 +717,13 @@ window.addEventListener("resize", () => {
 (async function boot() {
   makeMap("mapMini"); makeMap("mapBig");
   S.presets = await getJSON("/presets");
+  try {   // DOME_GLOBE=1: one click to the globe flight; the console stays the default
+    if ((await getJSON("/ui-flags")).globe) {
+      const a = document.createElement("a");
+      a.href = "/globe"; a.className = "btn"; a.textContent = "Globe view";
+      $(".controls").prepend(a);
+    }
+  } catch (e) { /* flag endpoint optional */ }
   $("#presetSeg").innerHTML = Object.entries(S.presets).map(([k, p]) => `<button type="button" data-preset="${esc(k)}" aria-pressed="false" title="${esc(p.note)}">${esc(p.label)}</button>`).join("");
   $("#presetSeg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b && S.mode === "idle") choosePreset(b.dataset.preset); });
   const q = new URLSearchParams(location.search);

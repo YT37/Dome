@@ -39,6 +39,10 @@ PRESETS = {
 }
 
 app = Flask(__name__, static_folder=None)
+
+from . import globe  # noqa: E402  (globe flight, link chart, panels; all behind DOME_GLOBE=1)
+
+app.register_blueprint(globe.bp)
 _run = {"proc": None, "preset": None, "case": None, "started": None, "scripted": None}
 _lock = threading.Lock()
 _cache: dict = {}
@@ -189,7 +193,12 @@ def cases():
 # ---------------------------------------------------------------------- dataset views
 @app.get("/graph")
 def graph():
-    """Flagged accounts and the reposts/replies/follows between them. Handles only."""
+    """Flagged accounts and the reposts/replies/follows between them. Handles only.
+
+    With DOME_GLOBE=1 and ?case=<id>: the link chart for that case (see globe.build_graph).
+    """
+    if request.args.get("case") and globe.enabled():
+        return jsonify(globe.build_graph(request.args["case"]))
     name = request.args.get("data", "synth")
     key = ("graph", name)
     if key not in _cache:
