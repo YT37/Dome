@@ -21,3 +21,4 @@ pillow
 transformers
 # demo UI (Ishaan)
 flask
+kornia

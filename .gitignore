@@ -27,3 +27,5 @@ handcheck/*/verify.md
 handcheck/shortlist.json
 handcheck/shortlist_small.json
 handcheck/shortlist_near.json
+data/demo_assets/**/*.jpg
+data/demo_assets/**/*.png

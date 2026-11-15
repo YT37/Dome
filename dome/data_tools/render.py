@@ -13,9 +13,33 @@ grey person-shaped silhouettes only.
 from __future__ import annotations
 
 import math
+import zlib
 
 import cv2
 import numpy as np
+
+RENDER_SEED = 37   # fixed seed of the index / holdout sweep split (scripts/render_photos.py)
+
+
+def split_sweeps(scan_id: str, seed: int = RENDER_SEED) -> tuple[list[str], list[str]]:
+    """(INDEX, HOLDOUT) sweep ids. Ad photos are rendered only from HOLDOUT sweeps and
+    room_match searches only INDEX sweeps, so a photo is never matched to the pano it was cut
+    from. Alternates within each room (shuffled with the seed); a room with one sweep keeps it
+    in the index so the room stays searchable."""
+    from . import matterport as mp
+    rng = np.random.default_rng(seed + zlib.crc32(scan_id.encode()))
+    rooms: dict[str, list[str]] = {}
+    for loc in mp._panos(scan_id):
+        if not any(len(((p.get("skybox") or {}).get("children")) or []) >= 6 for p in loc.get("panos") or []):
+            continue
+        rooms.setdefault((loc.get("room") or {}).get("id") or "?", []).append(loc["id"])
+    index, hold = [], []
+    for rid in sorted(rooms):
+        ids = sorted(rooms[rid])
+        rng.shuffle(ids)
+        for i, s in enumerate(ids):
+            (index if (i % 2 == 0 or len(ids) == 1) else hold).append(s)
+    return sorted(index), sorted(hold)
 
 # (swap_xy, flip_x, flip_y) applied to (u, v) = projections on the up/down face's
 # (local +X, local +Y) axes; fitted by scripts/check_cube_faces.py
