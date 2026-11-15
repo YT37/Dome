@@ -1,6 +1,8 @@
-"""Globe flight, link chart and side panels for the demo UI. Everything here sits behind DOME_GLOBE=1.
+"""Globe flight, link chart and side panels for the demo UI. Everything here sits behind flags.
 
     DOME_GLOBE=1 python -m dome.ui.app --port 5001      # then open /globe
+    DOME_STEPS=1   adds "Show the work" (/steps, see dome/ui/steps/)
+    DOME_GRAPH=1   live runs through dome.graph_stream (falls back to replay when it is missing)
 
 Read only, like the rest of the UI: it reads files the agents wrote and the committed asset packs.
 It computes no tier and no score. "Start case" and "Approve for report" only append a line to
@@ -14,7 +16,9 @@ import hashlib
 import json
 import os
 import re
+import threading
 import time
+import uuid
 from pathlib import Path
 
 from flask import Blueprint, Response, abort, jsonify, request, send_file, send_from_directory
@@ -24,16 +28,27 @@ from .. import config
 bp = Blueprint("globe", __name__)
 
 ROOT = Path(config.ROOT)
+NIGHT = Path(config.ROOT) / "samples" / "night"           # shared fallbacks; marked "sample" on the page
 STATIC = Path(__file__).resolve().parent / "static"
 ASSET_ROOTS = ("data/demo_assets", "data/matches")          # the only folders /asset serves
 ASSET_TYPES = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp"}
 
+STREET_RE = re.compile(r"\b\d{1,6}\s+(?:[NSEW]\.?\s+)?(?:[A-Z][A-Za-z0-9'.-]*\s+){1,4}"
+                       r"(?:St|Street|Ave|Avenue|Rd|Road|Blvd|Boulevard|Dr|Drive|Ln|Lane|Way|Pkwy|Parkway|Ct|Court|Pl|Place|Hwy|Fwy)\b\.?")
 PHONE_RE = re.compile(r"(?:\(?\d{3}\)?[\s.-]?)?555[\s.-]?\d{4}")
 WALLET_RE = re.compile(r"\b(?:bc1|0x|[13])[A-Za-z0-9]{20,}\b")
 
 
 def enabled() -> bool:
-    return os.environ.get("DOME_GLOBE", "") == "1"
+    return os.getenv("DOME_GLOBE") == "1"
+
+
+def steps_enabled() -> bool:
+    return os.getenv("DOME_STEPS") == "1"
+
+
+def live_enabled() -> bool:
+    return os.getenv("DOME_GRAPH") == "1"
 
 
 def _gate():
@@ -41,8 +56,24 @@ def _gate():
         abort(404)
 
 
+def _asset_gate():
+    if not (enabled() or steps_enabled()):
+        abort(404)
+
+
+def night(name: str):
+    """A shared sample file from samples/night/ (fallback only; the page labels it as a sample)."""
+    p = NIGHT / name
+    if not p.exists():
+        return None
+    if name.endswith(".jsonl"):
+        return [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
+    return json.loads(p.read_text(encoding="utf-8"))
+
+
 # ---------------------------------------------------------------------- masking
 def mask_text(s: str) -> str:
+    s = STREET_RE.sub("[address removed]", s)
     s = PHONE_RE.sub(lambda m: "555-…" + re.sub(r"\D", "", m.group())[-2:], s)
     return WALLET_RE.sub(lambda m: m.group()[:4] + "…" + m.group()[-4:], s)
 
@@ -77,6 +108,26 @@ def _load(d: Path, name: str):
         return None
 
 
+MATTERPORT_REQUIRED = {"title": "0", "mls": "2", "brand": "0", "help": "0", "hr": "0", "dh": "0", "search": "0", "qs": "1"}
+
+
+def matterport_url(embed: dict | None) -> str | None:
+    """The showcase URL, always with the title and details hidden (the splash shows the street address)."""
+    if not embed or not re.match(r"^[A-Za-z0-9]{6,20}$", str(embed.get("model_id", ""))):
+        return None
+    params = {}
+    for part in str(embed.get("params", "")).split("&"):
+        k, _, v = part.partition("=")
+        if re.match(r"^[a-z]{1,12}$", k) and re.match(r"^[A-Za-z0-9._-]{0,20}$", v):
+            params[k] = v
+    params.update(MATTERPORT_REQUIRED)                   # never weaker than this, whatever the pack says
+    ss = embed.get("ss")
+    head = f"https://my.matterport.com/show/?m={embed['model_id']}"
+    if isinstance(ss, int):
+        head += f"&ss={ss}"
+    return head + "&" + "&".join(f"{k}={v}" for k, v in params.items())
+
+
 def asset_url(rel: str | None) -> str | None:
     return f"/asset/{rel}" if rel else None
 
@@ -99,13 +150,20 @@ def globe_page():
 
 @bp.get("/ui-flags")
 def ui_flags():
-    return jsonify({"globe": enabled()})
+    out = {"globe": enabled()}
+    if steps_enabled():
+        from .steps import AGENTS
+        out["steps"] = AGENTS
+    if live_enabled():
+        out["live"] = _graph_stream() is not None
+        out["assistant"] = assistant_name()
+    return jsonify(out)
 
 
 @bp.get("/asset/<path:rel>")
 def asset(rel):
     """Images under data/demo_assets/ and data/matches/ only. Resolved, then checked: no traversal."""
-    _gate()
+    _asset_gate()
     if "\x00" in rel or "\\" in rel:
         abort(404)
     target = (ROOT / rel).resolve()
@@ -150,6 +208,7 @@ def flight():
         faces = ms.get("faces") or []
         inside = {
             "display_name": pack.get("display_name"),
+            "matterport_url": matterport_url(pack.get("matterport_embed")),
             "costar": pack.get("costar"), "floor": pack.get("floor"), "floor_source": pack.get("floor_source"),
             "footprint": pack.get("footprint_geojson"),
             "rough_pin": pack.get("rough_pin"), "fixed_pin": pack.get("fixed_pin"),
@@ -181,11 +240,12 @@ def flight():
 
 
 # ---------------------------------------------------------------------- link chart
-KIND_TYPE = {"contact": "phone", "phone": "phone", "text": "script", "keyword": "script", "script": "script",
+KIND_TYPE = {"ring": "cell", "contact": "phone", "phone": "phone", "text": "script", "keyword": "script", "script": "script",
              "photo": "photo", "room": "room", "building": "building", "account": "account",
              "wallet": "wallet_cluster", "wallet_cluster": "wallet_cluster", "service": "service",
              "payment": "wallet_cluster"}
-KIND_LAYER = {"contact": "content", "phone": "content", "text": "content", "keyword": "content",
+KIND_LAYER = {"shared_phone": "content", "payment_then_post": "money", "room_in_building": "place",
+              "posting_burst": "network", "ring": "content", "contact": "content", "phone": "content", "text": "content", "keyword": "content",
               "script": "content", "photo": "content", "interaction": "network", "time": "network",
               "account": "network", "place": "place", "room": "place", "building": "place",
               "wallet": "money", "wallet_cluster": "money", "service": "money", "payment": "money"}
@@ -210,7 +270,7 @@ def graph_from_complex(cx: dict) -> dict:
     for cell in ranks.get("0", []):
         cid = cell.get("id")
         kind = cell.get("kind", "account")
-        nodes[cid] = {"id": cid, "type": KIND_TYPE.get(kind, "account"), "label": cell.get("masked_label") or cid,
+        nodes[cid] = {"id": cid, "type": KIND_TYPE.get(kind, "account"), "label": cell.get("masked_label") or cell.get("label") or cid,
                       "role": cell.get("role") or "member", "layer": KIND_LAYER.get(kind, "network"),
                       "score": scores.get(cid), "reason": cell.get("reason") or reasons.get(cid)}
     for r in sorted(k for k in ranks if k != "0"):
@@ -224,11 +284,47 @@ def graph_from_complex(cx: dict) -> dict:
                               "reason": reason})
                 continue
             cid = cell.get("id")
-            nodes[cid] = {"id": cid, "type": KIND_TYPE.get(kind, "script"),
+            nodes[cid] = {"id": cid, "type": "cell" if r != "1" else KIND_TYPE.get(kind, "cell"),
                           "label": cell.get("masked_label") or kind, "role": f"rank {r} cell", "layer": layer,
                           "score": scores.get(cid), "reason": reason}
             edges += [{"source": m, "target": cid, "type": kind, "layer": layer, "reason": reason} for m in members]
     return {"source": "complex.json", "nodes": list(nodes.values()), "edges": edges}
+
+
+def _cid(wc: dict) -> str:
+    return "w:" + str(wc.get("cluster_id") or wc.get("id"))
+
+
+def add_money(money: dict, nodes: dict, node, edge) -> None:
+    """Money block (contract: rings[i].money): wallet_clusters, flows, cash_out, payment_then_post."""
+    for wc in money.get("wallet_clusters", []):
+        wid = _cid(wc)
+        reasons = wc.get("reasons") or ([wc["reason"]] if wc.get("reason") else [])
+        node(wid, type="wallet_cluster", label=wc.get("masked_label") or wid[2:], layer="money",
+             role=wc.get("role") or "wallet cluster", score=wc.get("confidence"),
+             reason="; ".join(reasons) or None)
+        for a in wc.get("members", []) + wc.get("accounts", []):
+            if a in nodes:
+                edge(a, wid, "pays_into", "money", "; ".join(reasons) or "account linked to this cluster")
+    for pp in money.get("payment_then_post", []):
+        wid, acct = "w:" + str(pp.get("wallet")), pp.get("account")
+        if wid in nodes and acct in nodes:
+            edge(wid, acct, "payment_then_post", "money",
+                 f"paid {str(pp.get('paid_at', ''))[11:16]}, post {str(pp.get('post_at', ''))[11:16]}")
+    for fl in money.get("flows", []):
+        a, b = fl.get("from"), fl.get("to")
+        a = a if a in nodes else "w:" + str(a)
+        b = b if b in nodes else "w:" + str(b)
+        if a in nodes and b in nodes:
+            why = fl.get("reason") or (f"{fl.get('btc')} BTC in {fl.get('txs')} txs" if fl.get("btc") is not None else "funds moved")
+            edge(a, b, fl.get("kind", "flow"), "money", why)
+    for co in money.get("cash_out", []):
+        sid = "s:" + str(co.get("service") or co.get("id"))
+        node(sid, type="service", label=co.get("masked_label") or co.get("service") or sid, layer="money",
+             role="cash-out", reason=co.get("reason") or (f"{co.get('times')} deposits" if co.get("times") else None))
+        src = "w:" + str(co.get("cluster_id") or co.get("cluster") or co.get("from"))
+        if src in nodes:
+            edge(src, sid, "cash_out", "money", co.get("reason") or f"cash-out, {co.get('times', '?')} times")
 
 
 def graph_from_rings(rings: dict, matches: dict | None, brief: dict | None) -> dict:
@@ -268,26 +364,7 @@ def graph_from_rings(rings: dict, matches: dict | None, brief: dict | None) -> d
                         edge(acct, pid, "place", "place", "same stated area (down-weighted if common)")
         photo_owner = {p["photo_id"]: p.get("account") for p in ring.get("photos", [])}
         money = ring.get("money") or rings.get("money") or {}
-        for wc in money.get("wallet_clusters", []):
-            wid = "w:" + str(wc.get("id") or wc.get("cluster_id"))
-            node(wid, type="wallet_cluster", label=wc.get("masked_label") or wid, layer="money",
-                 role=wc.get("role") or "wallet cluster", reason=wc.get("reason"))
-            for a in wc.get("members", []) + wc.get("accounts", []):
-                if a in nodes:
-                    edge(a, wid, "pays_into", "money", wc.get("reason") or "account linked to this cluster")
-        for fl in money.get("flows", []):
-            a, b = fl.get("from"), fl.get("to")
-            a = a if a in nodes else "w:" + str(a)
-            b = b if b in nodes else "w:" + str(b)
-            if a in nodes and b in nodes:
-                edge(a, b, fl.get("kind", "flow"), "money", fl.get("reason") or "funds moved")
-        for co in money.get("cash_out", []):
-            sid = "s:" + str(co.get("service") or co.get("id"))
-            node(sid, type="service", label=co.get("masked_label") or co.get("service") or sid, layer="money",
-                 role="cash-out", reason=co.get("reason"))
-            src = "w:" + str(co.get("cluster") or co.get("from"))
-            if src in nodes:
-                edge(src, sid, "cash_out", "money", co.get("reason") or "cash-out")
+        add_money(money, nodes, node, edge)
         # photo -> room -> building, from the Locator
         for z in (matches or {}).get("zones", []):
             ranked = sorted(z.get("matches", []), key=lambda m: -(m.get("P") or 0))
@@ -316,15 +393,20 @@ def graph_from_rings(rings: dict, matches: dict | None, brief: dict | None) -> d
 
 
 def build_graph(case_id: str) -> dict:
+    """case graph.json, else complex.json, else rings.json (+ matches), else samples/night/graph.json."""
     d = _case_dir(case_id)
-    cx = _load(d, "complex.json")
-    if cx and cx.get("ranks"):
-        g = graph_from_complex(cx)
+    g = _load(d, "graph.json")
+    if g and g.get("nodes") is not None:
+        g = {"source": "graph.json", **g}
     else:
+        cx = _load(d, "complex.json")
         rings = _load(d, "rings.json")
-        if rings is None:
-            abort(404)
-        g = graph_from_rings(rings, _load(d, "matches.json"), _load(d, "brief.json"))
+        if cx and cx.get("ranks"):
+            g = graph_from_complex(cx)
+        elif rings is not None:
+            g = graph_from_rings(rings, _load(d, "matches.json"), _load(d, "brief.json"))
+        else:
+            g = {"source": "samples/night/graph.json", "sample": True, **(night("graph.json") or {"nodes": [], "edges": []})}
     g["case"] = d.name
     return scrub(g)
 
@@ -332,27 +414,51 @@ def build_graph(case_id: str) -> dict:
 # ---------------------------------------------------------------------- panels
 @bp.get("/panels")
 def panels():
-    """Spotter queue, topology, money. Each is null when its file is missing; the page hides it."""
+    """Spotter queue, topology, money: the case file first, else samples/night/ marked `sample: true`.
+
+    The page labels samples as "sample, not from this case" and hides them in presenter mode.
+    """
     _gate()
     d = _case_dir(request.args.get("case", ""))
-    spotter = _load(d, "spotter.json")
-    if isinstance(spotter, dict):
-        spotter = spotter.get("queue") or spotter.get("accounts")
-    cx = _load(d, "complex.json")
+    return jsonify(scrub(panels_for(d)))
+
+
+def _pick(d: Path, name: str):
+    data = _load(d, name)
+    if data is not None:
+        return data, False
+    return night(name), True
+
+
+def panels_for(d: Path) -> dict:
+    cx, cx_sample = _pick(d, "complex.json")
+    scores = (cx or {}).get("scores") or {}
+
+    spot, spot_sample = _pick(d, "spotter.json")
+    spotter = None
+    if spot is not None:
+        queue = spot.get("queue", []) if isinstance(spot, dict) else spot      # older drafts: a bare list
+        spotter = {"queue": [{**q, "model": scores.get(q.get("account"))} for q in queue],
+                   "flag_rule": spot.get("flag_rule") if isinstance(spot, dict) else None,
+                   "model_name": (cx or {}).get("model"), "sample": spot_sample}
+
     topology = None
     if cx and cx.get("ranks"):
         topology = {"ranks": {r: [{"id": c.get("id"), "kind": c.get("kind"), "size": len(c.get("members", [])),
-                                   "label": c.get("masked_label") or c.get("id"),
-                                   "score": (cx.get("scores") or {}).get(c.get("id")),
+                                   "label": c.get("masked_label") or c.get("label") or c.get("id"),
+                                   "score": scores.get(c.get("id")),
                                    "reason": c.get("reason") or (cx.get("reasons") or {}).get(c.get("id"))}
                                   for c in cells] for r, cells in cx["ranks"].items()},
-                    "features": cx.get("features")}
+                    "features": cx.get("features"), "model": cx.get("model"), "sample": cx_sample}
+
     rings = _load(d, "rings.json") or {}
-    money = rings.get("money")
-    if not money:
-        money = next((r.get("money") for r in rings.get("rings", []) if r.get("money")), None)
-    approvals = _actions(d.name)
-    return jsonify(scrub({"spotter": spotter, "topology": topology, "money": money, "actions": approvals}))
+    money = next((r.get("money") for r in rings.get("rings", []) if r.get("money")), None) or rings.get("money")
+    if money:
+        money = {**money, "sample": False}
+    elif night("money.json"):
+        money = {**night("money.json"), "sample": True}
+    return {"spotter": spotter, "topology": topology, "money": money, "actions": _actions(d.name),
+            "live": live_enabled() and _graph_stream() is not None, "assistant": assistant_name()}
 
 
 def _actions_path(case_id: str) -> Path:
@@ -370,7 +476,7 @@ def _actions(case_id: str) -> list:
     return [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
 
 
-def _record(kind: str):
+def _record(kind: str, extra: dict | None = None) -> dict:
     _gate()
     body = request.get_json(silent=True) or {}
     case_id = str(body.get("case", ""))
@@ -378,26 +484,84 @@ def _record(kind: str):
     row = {"ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "action": kind,
            "account": str(body.get("account", ""))[:64] or None,
            "property_id": str(body.get("property_id", ""))[:64] or None,
-           "note": "recorded only; Dome takes no action"}
+           "note": "recorded only; Dome contacts, dispatches and publishes nothing", **(extra or {})}
     with open(_actions_path(d.name), "a", encoding="utf-8") as f:
         f.write(json.dumps(row) + "\n")
-    return jsonify({"recorded": True, **row})
+    return {"recorded": True, **row}
+
+
+# ---------------------------------------------------------------------- live runs (DOME_GRAPH=1)
+_live: dict[str, dict] = {}
+
+
+def assistant_name() -> str | None:
+    """Which LangGraph assistant live runs use. dome.graph_stream reads the same variable; we only show it."""
+    return os.getenv("DOME_GRAPH_ASSISTANT") or None
+
+
+def _graph_stream():
+    """Avishek's dome.graph_stream (stream_run, resume) when DOME_GRAPH=1 and it imports; else None."""
+    if not live_enabled():
+        return None
+    try:
+        from .. import graph_stream   # noqa: PLC0415  (optional module)
+        if hasattr(graph_stream, "stream_run"):
+            return graph_stream
+    except Exception:
+        pass
+    return None
+
+
+def _pump(state: dict, produce) -> None:
+    """Run a graph_stream call in a thread and collect its contract E events."""
+    def run():
+        try:
+            out = produce()
+            if isinstance(out, dict):
+                state["thread_id"] = out.get("thread_id") or state["thread_id"]
+                out = out.get("events", [])
+            for ev in out or []:
+                if isinstance(ev, dict):
+                    state["thread_id"] = ev.get("thread_id") or state["thread_id"]
+                    state["events"].append(scrub(ev))
+        except Exception as exc:     # a live failure falls back to replay on the page
+            state["error"] = f"{type(exc).__name__}: {exc}"[:300]
+        finally:
+            state["done"] = True
+    state["done"] = False
+    threading.Thread(target=run, daemon=True).start()
 
 
 @bp.post("/spotter/choose")
 def spotter_choose():
-    return _record("start_case_from_account")
+    """Start a case from an account: live via stream_run when DOME_GRAPH=1, else the page replays."""
+    rec = _record("start_case_from_account")
+    gs = _graph_stream()
+    if gs is None:
+        return jsonify({**rec, "live": False})
+    key = uuid.uuid4().hex[:12]
+    state = {"events": [], "done": False, "error": None, "thread_id": key}
+    _live[key] = state
+    account = rec["account"] or ""
+    case_id = "live-" + re.sub(r"[^A-Za-z0-9_-]", "", account)[:40]
+    _pump(state, lambda: gs.stream_run({"case_id": case_id, "dataset": "synth", "seed_account": account,
+                                         "seed": account}))
+    return jsonify({**rec, "live": True, "run": key, "case_id": case_id, "assistant": assistant_name()})
 
 
 @bp.post("/approve")
 def approve():
-    return _record("approve_for_report")
+    """Approve for report: resume(thread_id, "approve") on a live run, else record the approval only."""
+    body = request.get_json(silent=True) or {}
+    state = _live.get(str(body.get("run", "")))
+    gs = _graph_stream()
+    rec = _record("approve_for_report", {"live": bool(state and gs)})
+    if state and gs is not None and hasattr(gs, "resume"):
+        _pump(state, lambda: gs.resume(state["thread_id"], "approve"))
+    return jsonify(rec)
 
 
 # ---------------------------------------------------------------------- events (contract E)
-AGENT = {"linker": "Linker", "zoner": "Zoner", "lister": "Lister", "locator": "Locator", "briefer": "Briefer"}
-
-
 def to_event(row: dict, t: float) -> dict | None:
     ev = row.get("event")
     step = (row.get("step") or "").split(":")[0]
@@ -410,25 +574,61 @@ def to_event(row: dict, t: float) -> dict | None:
     if zone:
         refs.append(zone)
     msg = row.get("message") or row.get("decision") or ev
-    return {"t": t, "agent": AGENT.get(step, step or "supervisor"), "phase": phase,
+    return {"t": t, "agent": step or "supervisor", "phase": phase,
             "message": mask_text(msg), "refs": refs, "decision": row.get("decision")}
+
+
+def case_events(d: Path, pace: float) -> tuple[list, str]:
+    """case events.jsonl (contract E), else log.jsonl converted, else samples/night/events.jsonl."""
+    p = d / "events.jsonl"
+    if p.exists():
+        return [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()], "events.jsonl"
+    p = d / "log.jsonl"
+    if p.exists():
+        rows = [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
+        evs = [e for e in (to_event(r, 0) for r in rows) if e]
+        for i, e in enumerate(evs):
+            e["t"] = round(i * pace, 2)
+        return evs, "log.jsonl"
+    return night("events.jsonl") or [], "samples/night/events.jsonl"
 
 
 @bp.get("/events")
 def events():
-    """Server-sent events: log.jsonl replayed as contract E events at a fixed pace."""
+    """Server-sent events in contract E: {t, agent, phase, message, refs}. Replays keep their `t` timing
+    (scaled by `speed`); `?run=<id>` streams a live DOME_GRAPH run instead."""
     _gate()
+    run = request.args.get("run")
+    if run:
+        state = _live.get(run) or abort(404)
+
+        def live_stream():
+            i, idle = 0, 0
+            while idle < 600:
+                while i < len(state["events"]):
+                    yield f"data: {json.dumps(state['events'][i])}\n\n"
+                    i += 1
+                if state["done"]:
+                    break
+                time.sleep(0.2)
+                idle += 1
+            yield f"event: end\ndata: {json.dumps({'error': state['error']})}\n\n"
+        return Response(live_stream(), mimetype="text/event-stream", headers={"Cache-Control": "no-cache"})
+
     d = _case_dir(request.args.get("case", ""))
     pace = min(max(request.args.get("pace", default=1.2, type=float), 0.0), 10.0)
-    p = d / "log.jsonl"
-    rows = [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()] if p.exists() else []
-    evs = [e for i, r in enumerate(rows) if (e := to_event(r, round(i * pace, 2)))]
+    speed = min(max(request.args.get("speed", default=1.0, type=float), 0.0), 20.0)
+    evs, source = case_events(d, pace)
+    evs = [scrub({**e, "source": source, "sample": source.startswith("samples/")}) for e in evs]
 
     def stream():
+        last = 0.0
         for e in evs:
+            wait = max(0.0, float(e.get("t") or 0) - last) / speed if speed else 0
+            last = float(e.get("t") or 0)
+            if wait:
+                time.sleep(min(wait, 10))
             yield f"data: {json.dumps(e)}\n\n"
-            if pace:
-                time.sleep(pace)
         yield "event: end\ndata: {}\n\n"
 
     return Response(stream(), mimetype="text/event-stream", headers={"Cache-Control": "no-cache"})
