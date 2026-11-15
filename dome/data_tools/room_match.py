@@ -48,7 +48,7 @@ RANSAC_PX = 2.0         # fundamental-matrix inlier threshold, pixels
 MIN_INLIERS = 50        # a photo matches a scan at or above this many inliers. Tuned on A vs D
                         # only: wrong-building photos reach at most 25, right-building ones 61-993
 GROUP_COS = 0.8         # photos in one room group: DINOv2 cosine at or above this
-MAX_EVIDENCE = 8
+MAX_EVIDENCE = 25         # every matching photo is evidence (the Briefer counts them)
 COARSE_KEEP = 6         # scans kept after the coarse DINOv2 pass for the LightGlue check
 COARSE_MIN_SCANS = 8    # with this many scans or fewer, skip the coarse pass
 INDEX_VERSION = "v3"

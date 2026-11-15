@@ -1,0 +1,23 @@
+{
+ "question": "Why is Building A a High lead?",
+ "answer": "Building A (property ID RL-213304177) is designated as a High tier lead with a score of 59 due to several combined factors:\n\n- Ring Confidence (R = 0.95): 15 accounts are linked by keywords, text, and contacts, backed by money attribution (0.94 confidence) showing an advertiser wallet paying the ad platform 2\u201315 minutes before 57 ring posts, with cash-out at Exchange X 4 times.\n- Property Photo Scan Match (P = 0.68): 13 out of 20 room photos match the unit scan, totaling 5,487 matched points.\n- Window View Check (W = 0.60): The window view agrees on building across, open sky, and height above street.\n- Property Fit (F = 0.80): The multifamily property type matches apartment photos, and its 3 floors fit a floor 2 to 3 view estimation.\n- Zone Location (Z = 0.34): The property is inside zone Z-1-1 (14 km\u00b2), matching 72 ads that mention Midtown, Downtown, or Main Street Square.",
+ "citations": [
+  {
+   "file": "case/real-a/brief.json",
+   "path": "leads[0].tier"
+  },
+  {
+   "file": "case/real-a/brief.json",
+   "path": "leads[0].score"
+  },
+  {
+   "file": "case/real-a/brief.json",
+   "path": "leads[0].factors"
+  },
+  {
+   "file": "case/real-a/brief.json",
+   "path": "leads[0].reasons"
+  }
+ ],
+ "answerable": true
+}
