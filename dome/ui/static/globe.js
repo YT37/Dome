@@ -426,7 +426,7 @@
     $("#askQ").focus();
   }
   function renderAnswer(a) {
-    if (!a.answerable) return `<p>That isn't in this case's files.</p>`;
+    if (!a.answerable) return a.reason ? `<p>No answer: ${esc(a.reason)}.</p>` : `<p>That isn't in this case's files.</p>`;
     return `<p>${esc(a.answer)}</p><div class="cells">${(a.citations || []).map((c) => `<button data-cite-file="${esc(c.file)}" data-cite-path="${esc(c.path)}" title="Open this field">${esc(c.file.split("/").pop())} · ${esc(c.path)}</button>`).join("")}</div>`;
   }
   $("#sheetBody").addEventListener("submit", async (e) => {

@@ -693,7 +693,9 @@ def ask():
         return jsonify({"answer": NOT_IN_CASE, "citations": [], "answerable": False,
                         "error": f"{type(exc).__name__}"[:80]})
     if not isinstance(out, dict) or not out.get("answerable"):
-        return jsonify({"answer": NOT_IN_CASE, "citations": [], "answerable": False})
+        reason = str((out or {}).get("reason") or "")[:120] if isinstance(out, dict) else ""
+        return jsonify({"answer": NOT_IN_CASE, "citations": [], "answerable": False,
+                        **({"reason": reason} if reason else {})})
     cites = [{"file": str(c.get("file", "")), "path": str(c.get("path", ""))} for c in out.get("citations") or []]
     return jsonify(scrub({"answer": out.get("answer", ""), "citations": cites, "answerable": True}))
 

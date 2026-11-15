@@ -113,6 +113,11 @@ Gemini answers (photo cues, window check, window fingerprint, Q&A) are cached un
 `cache/gemini/`, keyed by model + prompt + images, so reruns make no new calls; if the quota
 runs out and nothing is cached, W stays empty with "Gemini quota" as the reason.
 
+**For developers:** the room match's in-between results (coarse ranking of every candidate
+scan, the shortlist, inliers per photo and scan, room groups, P) are written to
+`data/matches/summary.json` and copied per case to `case/<id>/room_match.json`; the complex and
+the "Show the work" view read them from there.
+
 **LangSmith trace** of one run (Gemini supervisor, Linker → Zoner → Lister → Locator, paused for
 report approval): https://smith.langchain.com/public/e1136b0e-1f00-4dbb-8d0b-a3cf1d447ec6/r
 
