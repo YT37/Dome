@@ -449,7 +449,7 @@
     const cases = await (await fetch("/cases")).json();
     if (cases.some((c) => c.case === LIVE_CASE)) { const sel = $("#caseSel");
       if (![...sel.options].some((o) => o.value === LIVE_CASE)) sel.add(new Option(`${LIVE_CASE} (live)`, LIVE_CASE));
-      sel.value = LIVE_CASE; const keep = LIVE_RUN; await load(LIVE_CASE); LIVE_RUN = keep; }
+      sel.value = LIVE_CASE; const keep = LIVE_RUN; await load(LIVE_CASE, true); LIVE_RUN = keep; }
   }
   $("#ticker").addEventListener("click", (e) => {
     const d = e.target.closest("[data-agent]"); if (!d || !FLAGS.steps) return;
@@ -568,7 +568,7 @@
   });
 
   // --------------------------------------------------------------- load
-  async function load(caseId) {
+  async function load(caseId, toBrief) {
     CASE = caseId; stopReplay(); closeSheet(); closeInside(); clearPins();
     $("#caseLabel").textContent = caseId;
     const r = await fetch(`/flight?case=${encodeURIComponent(caseId)}`);
@@ -580,7 +580,7 @@
       btn.title = P[k] && P[k].sample ? "Shared sample, not from this case (hidden in presenter mode)" : ""; }
     document.querySelector("[data-panel=steps]").hidden = !FLAGS.steps;
     const ready = async () => {
-      addLayers(); go(0);
+      addLayers(); go(toBrief ? STEPS.length - 1 : 0);      // a live run lands on the brief (approve there)
       // deep links for presenting: ?step=<1-11>&work=<agent>&wstep=<n>
       if (qs.get("step")) go(+qs.get("step") - 1);
     };
