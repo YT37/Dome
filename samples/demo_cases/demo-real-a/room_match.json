@@ -1620,65 +1620,8 @@
    ]
   },
   "FQZd6kTpht1": {
-   "P": 1.0,
-   "evidence": [
-    {
-     "photo": "img_3169",
-     "view_id": "FQZd6kTpht1/5myfssq78uyd77x97qashfn1c/az_090",
-     "inliers": 871,
-     "match_img": "data/matches/img_3169__FQZd6kTpht1_5myfssq78uyd77x97qashfn1c_az_090.jpg",
-     "heading_deg": 271.7
-    },
-    {
-     "photo": "img_0623",
-     "view_id": "FQZd6kTpht1/8fsd91cwtiehn2izrb5w4ahrd/az_000",
-     "inliers": 580,
-     "match_img": "data/matches/img_0623__FQZd6kTpht1_8fsd91cwtiehn2izrb5w4ahrd_az_000.jpg",
-     "heading_deg": 131.0
-    },
-    {
-     "photo": "img_1115",
-     "view_id": "FQZd6kTpht1/c0is5uknh0nhaqfs043p2iw5b/az_090",
-     "inliers": 388,
-     "match_img": "data/matches/img_1115__FQZd6kTpht1_c0is5uknh0nhaqfs043p2iw5b_az_090.jpg",
-     "heading_deg": 99.5
-    },
-    {
-     "photo": "img_9839",
-     "view_id": "FQZd6kTpht1/rus4xupdr9s9zy594hcpfahtc/az_000",
-     "inliers": 238,
-     "match_img": "data/matches/img_9839__FQZd6kTpht1_rus4xupdr9s9zy594hcpfahtc_az_000.jpg",
-     "heading_deg": 359.2
-    },
-    {
-     "photo": "img_0450",
-     "view_id": "FQZd6kTpht1/r062uz1utgik52tewmtyr9k1c/az_225",
-     "inliers": 226,
-     "match_img": "data/matches/img_0450__FQZd6kTpht1_r062uz1utgik52tewmtyr9k1c_az_225.jpg",
-     "heading_deg": 101.0
-    },
-    {
-     "photo": "img_6758",
-     "view_id": "FQZd6kTpht1/fngcieg0n1dg049r0qsbnac6a/az_045",
-     "inliers": 201,
-     "match_img": "data/matches/img_6758__FQZd6kTpht1_fngcieg0n1dg049r0qsbnac6a_az_045.jpg",
-     "heading_deg": 257.1
-    },
-    {
-     "photo": "img_4677",
-     "view_id": "FQZd6kTpht1/1q1nmwgxuhs2d5qpzbcsht5zc/az_090",
-     "inliers": 167,
-     "match_img": "data/matches/img_4677__FQZd6kTpht1_1q1nmwgxuhs2d5qpzbcsht5zc_az_090.jpg",
-     "heading_deg": 178.8
-    },
-    {
-     "photo": "img_4059",
-     "view_id": "FQZd6kTpht1/a4yqnn1fc2rudr00i3q0dszqa/az_315",
-     "inliers": 163,
-     "match_img": "data/matches/img_4059__FQZd6kTpht1_a4yqnn1fc2rudr00i3q0dszqa_az_315.jpg",
-     "heading_deg": 162.0
-    }
-   ]
+   "P": 0.0,
+   "evidence": []
   },
   "3K5rnFt1P6B": {
    "P": 0.0,
