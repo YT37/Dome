@@ -1,0 +1,6 @@
+firebase-functions
+flask
+pydantic
+jinja2
+langchain
+langchain-google-genai

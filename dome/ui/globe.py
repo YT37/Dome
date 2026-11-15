@@ -156,6 +156,8 @@ def ui_flags():
         out["steps"] = AGENTS
     if ask_enabled():
         out["ask"] = True
+    if os.getenv("DOME_PUBLIC") == "1":
+        out["public"] = True
     if live_enabled():
         out["live"] = _graph_stream() is not None
         out["assistant"] = assistant_name()
@@ -690,10 +692,33 @@ def ask_recorded():
     return jsonify(scrub(_recorded_ask(d) or {"recorded": False}))
 
 
+_ASK_HITS: dict[str, list[float]] = {}
+ASK_PER_VISITOR, ASK_WINDOW_S, ASK_PER_DAY = 8, 600, 150
+
+
+def _ask_rate_ok() -> bool:
+    """Public site only: at most ASK_PER_VISITOR questions per visitor per 10 minutes and ASK_PER_DAY in
+    total per server instance (repeat questions are answered from the cache by dome.ask)."""
+    if os.getenv("DOME_PUBLIC") != "1":
+        return True
+    import time
+    now = time.time()
+    ip = (request.headers.get("X-Forwarded-For") or request.remote_addr or "?").split(",")[0].strip()
+    day = [t for t in _ASK_HITS.get("*", []) if now - t < 86400]
+    mine = [t for t in _ASK_HITS.get(ip, []) if now - t < ASK_WINDOW_S]
+    if len(day) >= ASK_PER_DAY or len(mine) >= ASK_PER_VISITOR:
+        return False
+    _ASK_HITS["*"], _ASK_HITS[ip] = day + [now], mine + [now]
+    return True
+
+
 @bp.post("/ask")
 def ask():
     """dome.ask.answer(case_id, question): answers only from the case files, with checked citations."""
     _ask_gate()
+    if not _ask_rate_ok():
+        return jsonify({"answer": NOT_IN_CASE, "citations": [], "answerable": False,
+                        "reason": "question limit reached for now; try again in a few minutes"})
     body = request.get_json(silent=True) or {}
     d = _case_dir(str(body.get("case", "")))
     q = str(body.get("question", "")).strip()[:500]

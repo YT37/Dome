@@ -9,6 +9,7 @@ contacts, dispatches or publishes anything, and no chat. Everything shown is syn
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 import sys
@@ -91,8 +92,15 @@ def presets():
 
 
 # ---------------------------------------------------------------------- run
+def public_mode() -> bool:
+    """DOME_PUBLIC=1 (the hosted site): no pipeline runs from the web; the page replays the recorded run."""
+    return os.getenv("DOME_PUBLIC") == "1"
+
+
 @app.post("/run")
 def run():
+    if public_mode():
+        return jsonify({"error": "runs happen on the team's machine; this site replays the recorded run"}), 403
     body = request.get_json(silent=True) or {}
     preset = PRESETS.get(body.get("preset", "ring_a"))
     if preset is None:

@@ -1,0 +1,6 @@
+{
+  "functions": [{"source": "functions", "codebase": "default", "runtime": "python313",
+                 "ignore": ["venv", "__pycache__", "*.pyc"]}],
+  "hosting": {"public": "public", "cleanUrls": false,
+              "rewrites": [{"source": "**", "function": {"functionId": "dome", "region": "us-central1"}}]}
+}

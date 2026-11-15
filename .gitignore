@@ -29,3 +29,8 @@ handcheck/shortlist_small.json
 handcheck/shortlist_near.json
 data/demo_assets/**/*.jpg
 data/demo_assets/**/*.png
+
+# Firebase deploy bundle (built by scripts/build_firebase.py)
+deploy/firebase/functions/
+deploy/firebase/public/
+deploy/firebase/.firebase/

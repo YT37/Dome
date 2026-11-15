@@ -686,7 +686,7 @@ function resetCase(caseId) {
 function busy(on, label) {
   $("#runBtn").disabled = on; $("#replaySel").disabled = on;
   $$("#presetSeg button").forEach((b) => { b.disabled = on; });
-  $("#runBtn span").textContent = on ? (label || "Running…") : "Run Case";
+  $("#runBtn span").textContent = on ? (label || "Running…") : (UI_FLAGS.public ? "Replay the run" : "Run Case");
 }
 async function runCase() {
   const scripted = $("#scripted").checked;
@@ -757,7 +757,7 @@ async function refreshCases() {
   } catch {}
 }
 $("#replaySel").addEventListener("change", (e) => { const v = e.target.value; e.target.value = ""; if (v) { setUrl({ replay: v }); replay(v); } });
-$("#runBtn").addEventListener("click", runCase);
+$("#runBtn").addEventListener("click", () => (UI_FLAGS.public ? replay("demo-real-a") : runCase()));
 
 async function choosePreset(key, load = true) {
   S.preset = key; setUrl({ preset: key });
@@ -808,6 +808,7 @@ window.addEventListener("resize", () => {
     UI_FLAGS = await getJSON("/ui-flags");
     $("#globeTab").hidden = !UI_FLAGS.globe;
     $("#askBtn").hidden = !UI_FLAGS.ask;
+    if (UI_FLAGS.public) { $("#runBtn span").textContent = "Replay the run"; $("#runBtn").title = "Pipeline runs happen on the team's machine; this replays the recorded run"; }
   } catch (e) { /* flag endpoint optional */ }
   $("#presetSeg").innerHTML = Object.entries(S.presets).map(([k, p]) => `<button type="button" data-preset="${esc(k)}" aria-pressed="false" title="${esc(p.note)}">${esc(p.label)}</button>`).join("");
   $("#presetSeg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b && S.mode === "idle") choosePreset(b.dataset.preset); });
