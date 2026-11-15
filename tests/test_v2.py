@@ -48,7 +48,9 @@ def synth():
 
 def test_shared_wallet_and_dms_link_ring_a(synth):
     r = synth["ring"]
-    assert set(r["members"]) == synth["members"]
+    # the ring is Ring A; its recruiters may join it (shared code words in comments)
+    assert synth["members"] <= set(r["members"])
+    assert set(r["members"]) - synth["members"] <= set(synth["key"]["A"].get("recruiters", []))
     assert r["kind_counts"].get("money", 0) > 0 and r["kind_counts"].get("dm", 0) > 0
     reasons = " ".join(l["reason"] for l in r["links"])
     assert "same wallet" in reasons and "direct messages" in reasons
@@ -144,3 +146,50 @@ def test_lister_hint_boost_ranks_true_building(tmp_path):
     assert "CS-88412" in ids
     true = next(c for c in zone.candidates if c.property_id == "CS-88412")
     assert any("hint" in r for r in true.fit_reasons)
+
+
+# ---------------------------------------------------------------- topological scorer (optional)
+def test_topological_scorer_is_optional_and_scores_ring_a(monkeypatch):
+    from dome.agents import topo
+    ds = linker.load_dataset("synth")
+    monkeypatch.setattr(config, "TOPO_SCORE", False)
+    off = linker.link_accounts(ds).rings_file
+    assert all(r["topo_score"] is None for r in off["rings"])
+    if not (topo.available() and topo.MODEL_PATH.exists()):
+        pytest.skip("topological model not installed")
+    monkeypatch.setattr(config, "TOPO_SCORE", True)
+    on = linker.link_accounts(ds).rings_file
+    # the rules are untouched: same rings, same confidence
+    assert [(r["members"], r["confidence"]) for r in on["rings"]] == \
+           [(r["members"], r["confidence"]) for r in off["rings"]]
+    key = json.loads((SYNTH_KEY / "answer_key.json").read_text(encoding="utf-8"))
+    ring_a = max(on["rings"], key=lambda r: len(set(key["A"]["members"]) & set(r["members"])))
+    assert ring_a["topo_score"] >= 0.9
+
+
+def test_track2_no_private_runs_to_a_high_lead_without_the_hints_cap(tmp_path):
+    """Arlequin Track 2: public data only. No messages/payments -> no 'no hints' cap."""
+    case = Case.open("t2", scenario="ring_a", root=tmp_path, reset=True, dataset="synth",
+                     seed_account="acct_103", private_layers=False)
+    run_scripted(case)
+    rings = case.load("rings.json")
+    assert rings.private_layers is False
+    assert not {"money", "dm", "merchant", "echo"} & set(case.selected_ring().key_kinds)
+    assert NO_HINTS not in [d.decision for d in case.decisions()]
+    lead = case.load("brief.json").leads[0]
+    assert (lead.property_id, lead.tier) == ("CS-88412", "High")
+
+
+def test_shared_keyword_links_ring_but_common_tags_and_one_offs_do_not():
+    """Public captions/comments: repeated rare code words link; #love and a single use don't."""
+    ds = linker.load_dataset("synth")
+    if not ds.get("comments"):
+        pytest.skip("no comments.json in data/synth")
+    kk = json.loads((SYNTH_KEY / "answer_key_keywords.json").read_text(encoding="utf-8"))
+    rf = linker.link_accounts(ds, private=False).rings_file
+    ring = max(rf["rings"], key=lambda r: len(set(kk["rings"]["A"]["accounts"]) & set(r["members"])))
+    assert "keyword" in ring["key_kinds"]
+    assert any("#tapin" in l["reason"] for l in ring["links"])
+    in_ring = {m for r in rf["rings"] for m in r["members"]}
+    assert not set(kk["one_off_tapin"]) & in_ring
+    assert not any(t in l["reason"] for r in rf["rings"] for l in r["links"] for t in kk["common_tags"])
