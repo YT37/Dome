@@ -385,13 +385,15 @@
   function showTopology() {
     const t = P.topology;
     const names = { 0: "Rank 0 · accounts and identifiers", 1: "Rank 1 · shared keys (pairs)", 2: "Rank 2 · groups", 3: "Rank 3 · the ring" };
+    const ft = t.fresh_test;
     openSheet("Topology · combinatorial complex", `<div class="list">${sampleTag(t.sample)}${t.model ? `<p class="fine">Model: ${esc(t.model)}</p>` : ""}
-      ${FLAGS.steps ? `<button class="btn ghost" data-work="complex">Show the work · ${esc(FLAGS.steps.complex)}</button>` : ""}${Object.keys(t.ranks).sort().map((r) => `<b>${esc(names[r] || "Rank " + r)}</b> <span class="fine">${t.ranks[r].length} cells</span>
-      <div class="cells">${t.ranks[r].slice(0, 120).map((c) => `<button data-cell data-label="${esc(c.label)}" data-reason="${esc(c.reason || "")}">${esc(c.label)}${c.score != null ? " · " + Number(c.score).toFixed(2) : ""}</button>`).join("")}</div>`).join("")}
-      ${(t.disagreements || []).length ? `<b>Model vs rules</b><div class="cells">${t.disagreements.map((d) => `<button data-cell data-label="${esc(d.id)}" data-reason="${esc(`${d.note || ""} (model ${d.model}, rules ${d.rules ? "link" : "no link"})`)}">${esc(d.id)} · ${esc(d.model)}</button>`).join("")}</div>` : ""}
-      ${t.fresh_test ? `<p class="fine">Held-out ring from our own generator (${esc(t.fresh_test.dataset)}): found ${esc(t.fresh_test.ring_found)}, precision ${esc(t.fresh_test.precision)}, recall ${esc(t.fresh_test.recall)}, AUC ${esc(t.fresh_test.auc)}.</p>` : ""}
+      ${ft ? `<div class="why"><b>Held-out result</b> (a ring from our own synthetic generator, ${esc(ft.dataset)}, scored once): found ${esc(ft.ring_found)}, precision ${esc(ft.precision)}, recall ${esc(ft.recall)}, AUC ${esc(ft.auc)}.</div>` : ""}
+      ${(t.disagreements || []).length ? `<p><b>Model vs rules</b> <span class="fine">${t.disagreements.length} disagreements; the rules decide the ring</span></p><div class="cells">${t.disagreements.map((d) => `<button data-cell data-label="${esc(d.id)}" data-reason="${esc(`${d.note || ""} (model ${d.model}, rules ${d.rules ? "link" : "no link"})`)}">${esc(d.id)} · ${esc(d.model)}</button>`).join("")}</div>` : ""}
       ${(t.unscored || []).length ? `<p class="fine">In the complex but not scored: ${esc(t.unscored.join(", "))}.</p>` : ""}
-      <div class="why" id="cellWhy">Click a cell for its reason.</div></div>`);
+      ${FLAGS.steps ? `<button class="btn ghost" data-work="complex">Show the work · ${esc(FLAGS.steps.complex)}</button>` : ""}
+      <div class="why" id="cellWhy">Click a cell for its reason.</div>
+      ${Object.keys(t.ranks).sort().map((r) => `<b>${esc(names[r] || "Rank " + r)}</b> <span class="fine">${t.ranks[r].length} cells</span>
+      <div class="cells">${t.ranks[r].slice(0, 120).map((c) => `<button data-cell data-label="${esc(c.label)}" data-reason="${esc(c.reason || "")}">${esc(c.label)}${c.score != null ? " · " + Number(c.score).toFixed(2) : ""}</button>`).join("")}</div>`).join("")}</div>`);
   }
 
   function showMoney() {
@@ -621,8 +623,11 @@
       addLayers(); go(toBrief ? STEPS.length - 1 : 0);      // a live run lands on the brief (approve there)
       // deep links for presenting: ?step=<1-11>&work=<agent>&wstep=<n>
       if (qs.get("step")) go(+qs.get("step") - 1);
-      if (qs.get("panel")) document.querySelector(`[data-panel="${CSS.escape(qs.get("panel"))}"]`)?.click();
     };
+    if (qs.get("panel") && !$("#sheet").dataset.linked) {       // does not wait for the map
+      $("#sheet").dataset.linked = "1";
+      document.querySelector(`[data-panel="${CSS.escape(qs.get("panel"))}"]`)?.click();
+    }
     if (qs.get("work") && !$("#drawer").dataset.linked) {      // does not wait for the map
       $("#drawer").dataset.linked = "1";
       await openWork(qs.get("work")); if (qs.get("wstep")) showStep(+qs.get("wstep") - 1);
