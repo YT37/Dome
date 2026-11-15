@@ -72,6 +72,9 @@ def test_missing_modules_are_logged_not_fatal(tmp_path, monkeypatch):
     monkeypatch.setenv("DOME_SPOTTER", "1")
     monkeypatch.setitem(sys.modules, "dome.agents.money", None)    # import fails
     monkeypatch.setitem(sys.modules, "dome.agents.spotter", None)
+    import dome.agents as pkg   # once the real modules are merged they may already be imported
+    monkeypatch.delattr(pkg, "money", raising=False)
+    monkeypatch.delattr(pkg, "spotter", raising=False)
     case = Case.open("miss", scenario="ring_a", root=tmp_path, reset=True)
     run_scripted(case)
     names = {d.decision for d in case.decisions()}
