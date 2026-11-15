@@ -4,8 +4,13 @@ Pipeline, all on CPU and deterministic:
 1. Index: for each candidate scan, perspective views of its INDEX sweeps only (the four side
    cube faces from `matterport.sweep_views` plus four views between them, 90 deg FOV).
    Holdout sweeps (render.split_sweeps) are left out, so a photo is never matched to the
-   pano it was cut from. DINOv2-small embeddings (L2-normalised) and SIFT features are cached
+   pano it was cut from. DINOv2-small embeddings (L2-normalised) and DISK keypoints are cached
    per scan under cache/vision/.
+   With more than COARSE_MIN_SCANS candidates (a real zone holds ~125 scanned buildings), a
+   coarse pass runs first: DINOv2 on the low-resolution side faces of every candidate's index
+   sweeps, scans ranked by the mean over photos of the best face cosine; only the top
+   COARSE_KEEP get the full check below, the rest get P = 0 with their coarse rank recorded.
+   (On the 125-scan Ring A zone, A's and D's own photos rank their scan #1.)
 2. Query: flat grey silhouette pixels are masked out of each photo (filled for the embedding,
    keypoints inside it dropped).
 3. Per scan, the top `TOP_K` views by cosine are re-ranked with DISK + LightGlue (kornia)
@@ -44,6 +49,8 @@ MIN_INLIERS = 50        # a photo matches a scan at or above this many inliers. 
                         # only: wrong-building photos reach at most 25, right-building ones 61-993
 GROUP_COS = 0.8         # photos in one room group: DINOv2 cosine at or above this
 MAX_EVIDENCE = 8
+COARSE_KEEP = 6         # scans kept after the coarse DINOv2 pass for the LightGlue check
+COARSE_MIN_SCANS = 8    # with this many scans or fewer, skip the coarse pass
 INDEX_VERSION = "v3"
 ROOT = Path(__file__).resolve().parents[2]
 MATCH_DIR = ROOT / "data" / "matches"
@@ -268,6 +275,53 @@ def _groups(emb: np.ndarray) -> list[list[int]]:
     return sorted(by.values(), key=lambda g: g[0])
 
 
+# --- coarse pass: DINOv2 on low-resolution cube faces, for many candidate scans -------------
+
+Q_LOW = """query p($id: ID!) { model(id: $id) { locations { id room { id }
+  panos { id skybox(resolution: "low") { status children } } } } }"""
+
+
+def coarse_index(scan_id: str) -> np.ndarray:
+    """DINOv2 embeddings of the four side faces (low resolution) of every INDEX sweep."""
+    p = cache_dir() / "vision" / f"{scan_id}_coarse_{INDEX_VERSION}.npy"
+    if p.exists():
+        return np.load(p)
+    from ._common import request_with_backoff
+    index, _ = render.split_sweeps(scan_id)
+    keep = set(index)
+    body = mp.graphql(Q_LOW, {"id": scan_id})
+    locs = ((body.get("data") or {}).get("model") or {}).get("locations") or []
+    imgs = []
+    for loc in sorted(locs, key=lambda l: l["id"]):
+        if loc["id"] not in keep:
+            continue
+        pano = next((x for x in loc.get("panos") or [] if len(((x.get("skybox") or {}).get("children")) or []) >= 6), None)
+        if pano is None:
+            continue
+        for face in (1, 2, 3, 4):
+            r = request_with_backoff("GET", pano["skybox"]["children"][face], timeout=60)
+            if r.ok:
+                im = cv2.imdecode(np.frombuffer(r.content, np.uint8), cv2.IMREAD_COLOR)
+                if im is not None:
+                    imgs.append(im)
+    emb = embed(imgs) if imgs else np.zeros((0, 384), np.float32)
+    np.save(p, emb)
+    return emb
+
+
+def coarse_rank(photo_emb: np.ndarray, scan_ids: list[str]) -> list[tuple[str, float]]:
+    """Scans ranked by the mean over photos of each photo's best face cosine."""
+    out = []
+    for sid in scan_ids:
+        try:
+            e = coarse_index(sid)
+        except Exception:                      # scan unavailable: rank it last, never invent
+            e = np.zeros((0, 384), np.float32)
+        sc = float(np.mean((photo_emb @ e.T).max(axis=1))) if len(e) and len(photo_emb) else -1.0
+        out.append((sid, round(sc, 4)))
+    return sorted(out, key=lambda x: (-x[1], x[0]))
+
+
 def _score_cache(photo_bytes: bytes, scan_id: str) -> Path:
     key = hashlib.sha1(photo_bytes + f"|{scan_id}|{INDEX_VERSION}|{TOP_K}|{N_KP}|{FEAT_PX}".encode()).hexdigest()[:20]
     d = cache_dir() / "vision" / "scores"
@@ -319,10 +373,27 @@ def photo_scores(photo_paths: list[str], scan_ids: list[str]) -> dict:
 def room_match(photo_paths: list[str], scan_ids: list[str], save_images: bool = True) -> list[dict]:
     """keys: scan_id, P (0-1), evidence: [{photo, view_id, inliers, match_img}], plus
     groups / groups_matched (how P was counted)."""
-    r = photo_scores(photo_paths, scan_ids)
+    full, coarse = list(scan_ids), {}
+    if len(scan_ids) > COARSE_MIN_SCANS:       # many candidates: coarse DINOv2 pass first
+        ims = []
+        for p in sorted(set(photo_paths)):
+            im = _load_photo(p)
+            if im is not None:
+                ims.append(_fill(im, silhouette_mask(im)))
+        ranked = coarse_rank(embed(ims), list(scan_ids))
+        coarse = {sid: (i + 1, v) for i, (sid, v) in enumerate(ranked)}
+        full = [sid for sid, _ in ranked[:COARSE_KEEP]]
+    r = photo_scores(photo_paths, full)
     names, groups = r["names"], r["groups"]
     out = []
     for sid in scan_ids:
+        if sid not in full:                    # not verified: P 0, and the record says why
+            rank, v = coarse[sid]
+            out.append({"scan_id": sid, "P": 0.0, "evidence": [], "groups": len(groups), "groups_matched": 0,
+                        "min_inliers": MIN_INLIERS, "stage": "coarse",
+                        "note": f"coarse DINOv2 rank {rank} of {len(scan_ids)} (score {v}); only the top "
+                                f"{COARSE_KEEP} get the LightGlue check"})
+            continue
         sc = {n: r["scores"][n][sid] for n in names}
         matched = [g for g in groups if max(sc[names[i]]["inliers"] for i in g) >= MIN_INLIERS]
         P = round(len(matched) / len(groups), 3) if groups else 0.0
@@ -338,7 +409,8 @@ def room_match(photo_paths: list[str], scan_ids: list[str], save_images: bool = 
             evidence.append({"photo": n, "view_id": s["view_id"], "inliers": s["inliers"], "match_img": img,
                              "heading_deg": s.get("heading_deg")})
         out.append({"scan_id": sid, "P": P, "evidence": evidence, "groups": len(groups),
-                    "groups_matched": len(matched), "min_inliers": MIN_INLIERS})
+                    "groups_matched": len(matched), "min_inliers": MIN_INLIERS, "stage": "lightglue",
+                    **({"note": f"coarse DINOv2 rank {coarse[sid][0]} of {len(scan_ids)}"} if sid in coarse else {})})
     return out
 
 
