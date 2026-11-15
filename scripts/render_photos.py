@@ -60,22 +60,7 @@ PHOTOS = ROOT / "data" / "photos"
 OUT = ROOT / "renders"
 
 
-def split_sweeps(scan_id: str, seed: int) -> tuple[list[str], list[str]]:
-    """INDEX / HOLDOUT sweeps: alternate within each room (shuffled with the seed);
-    a room with one sweep keeps it in the index so the room stays searchable."""
-    rng = np.random.default_rng(seed + zlib.crc32(scan_id.encode()))
-    rooms: dict[str, list[str]] = {}
-    for loc in mp._panos(scan_id):
-        if not any(len(((p.get("skybox") or {}).get("children")) or []) >= 6 for p in loc.get("panos") or []):
-            continue
-        rooms.setdefault((loc.get("room") or {}).get("id") or "?", []).append(loc["id"])
-    index, hold = [], []
-    for rid in sorted(rooms):
-        ids = sorted(rooms[rid])
-        rng.shuffle(ids)
-        for i, s in enumerate(ids):
-            (index if (i % 2 == 0 or len(ids) == 1) else hold).append(s)
-    return sorted(index), sorted(hold)
+split_sweeps = render.split_sweeps
 
 
 def load_faces(scan_id: str) -> dict[str, dict[int, np.ndarray]]:

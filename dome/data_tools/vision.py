@@ -14,8 +14,23 @@ def photo_cues(photo_paths: list[str]) -> dict:
     return gemini_vision.photo_cues(photo_paths, stub=lambda: dict(_stub.scenario()["photo_cues"]))
 
 
+def _real_photos(photo_paths: list[str]) -> bool:
+    """Real matching runs only with real data tools and at least one photo file on disk."""
+    from ._common import use_stubs
+    from .gemini_vision import resolve
+    return not use_stubs() and any(resolve(p).is_file() for p in photo_paths)
+
+
 def room_match(photo_paths: list[str], scan_ids: list[str]) -> list[dict]:
-    """keys: scan_id, P (0-1), evidence: [{photo, view_id, inliers, match_img}]"""
+    """keys: scan_id, P (0-1), evidence: [{photo, view_id, inliers, match_img}]
+
+    Real (Yug, `room_match.py`): DINOv2 retrieval over each scan's index sweeps, SIFT +
+    RANSAC re-rank, photos grouped by room, P = share of room groups that match the scan.
+    Stub: the scenario fixture (stub data tools, or no photo files on disk)."""
+    if _real_photos(photo_paths) and scan_ids:
+        from . import room_match as rm
+        from .gemini_vision import resolve
+        return rm.room_match([str(resolve(p)) for p in photo_paths], list(scan_ids))
     sc = _stub.scenario()
     out = []
     for sid in scan_ids:
@@ -32,6 +47,10 @@ def photo_groups(photo_paths: list[str], renders: dict | None = None) -> list[di
     each rendered photo came from). Only groups of 2+ photos are returned."""
     from collections import defaultdict
     from pathlib import Path
+    if _real_photos(photo_paths):
+        from . import room_match as rm
+        from .gemini_vision import resolve
+        return rm.photo_groups([str(resolve(p)) for p in photo_paths])
     ids = {Path(p).stem for p in photo_paths}
     sc = _stub.scenario()
     if "photo_groups" in sc:

@@ -1,0 +1,283 @@
+{
+ "display_name": "Decoy D building (multifamily, 3 floors)",
+ "costar": {
+  "type": "multifamily",
+  "floors": 3,
+  "units": 489,
+  "year_built": 1998
+ },
+ "footprint_geojson": {
+  "type": "Feature",
+  "properties": {
+   "building_id": "vx_fcad35cf55"
+  },
+  "geometry": {
+   "type": "Polygon",
+   "coordinates": [
+    [
+     [
+      -95.37909,
+      29.750438
+     ],
+     [
+      -95.379081,
+      29.750444
+     ],
+     [
+      -95.379054,
+      29.750442
+     ],
+     [
+      -95.378623,
+      29.750182
+     ],
+     [
+      -95.378595,
+      29.750149
+     ],
+     [
+      -95.378603,
+      29.75012
+     ],
+     [
+      -95.378627,
+      29.750089
+     ],
+     [
+      -95.378591,
+      29.750067
+     ],
+     [
+      -95.378538,
+      29.750134
+     ],
+     [
+      -95.378285,
+      29.749982
+     ],
+     [
+      -95.378264,
+      29.749976
+     ],
+     [
+      -95.378256,
+      29.749964
+     ],
+     [
+      -95.378261,
+      29.749938
+     ],
+     [
+      -95.378289,
+      29.749902
+     ],
+     [
+      -95.378284,
+      29.749899
+     ],
+     [
+      -95.378354,
+      29.749811
+     ],
+     [
+      -95.378372,
+      29.749804
+     ],
+     [
+      -95.378383,
+      29.749804
+     ],
+     [
+      -95.378507,
+      29.749879
+     ],
+     [
+      -95.37851,
+      29.749875
+     ],
+     [
+      -95.378549,
+      29.749899
+     ],
+     [
+      -95.378634,
+      29.749972
+     ],
+     [
+      -95.378634,
+      29.749992
+     ],
+     [
+      -95.378643,
+      29.74998
+     ],
+     [
+      -95.378651,
+      29.749982
+     ],
+     [
+      -95.37864,
+      29.750009
+     ],
+     [
+      -95.378618,
+      29.750037
+     ],
+     [
+      -95.378652,
+      29.750057
+     ],
+     [
+      -95.378684,
+      29.750017
+     ],
+     [
+      -95.378709,
+      29.750002
+     ],
+     [
+      -95.37872,
+      29.750002
+     ],
+     [
+      -95.378801,
+      29.750051
+     ],
+     [
+      -95.378799,
+      29.750054
+     ],
+     [
+      -95.378955,
+      29.750148
+     ],
+     [
+      -95.378959,
+      29.750144
+     ],
+     [
+      -95.379182,
+      29.75028
+     ],
+     [
+      -95.379191,
+      29.750295
+     ],
+     [
+      -95.379186,
+      29.750318
+     ],
+     [
+      -95.37909,
+      29.750438
+     ]
+    ]
+   ]
+  }
+ },
+ "rough_pin": {
+  "lat": 29.750225,
+  "lon": -95.37889,
+  "source": "CoStar listing coordinates"
+ },
+ "fixed_pin": {
+  "lat": 29.7499663,
+  "lon": -95.3783463,
+  "heading_deg": 215.2,
+  "error_estimate_m": 83.3,
+  "moved_m": 59.9
+ },
+ "ortho": {
+  "img": "data/demo_assets/FQZd6kTpht1/ortho.jpg",
+  "bounds": [
+   -95.3789671,
+   29.7494273,
+   -95.3777255,
+   29.7505053
+  ]
+ },
+ "obliques": [
+  {
+   "img": "data/demo_assets/FQZd6kTpht1/oblique_0.jpg",
+   "camera": {
+    "direction": "oblique-north",
+    "capture_date": 1767202307000
+   },
+   "floor_band": null
+  },
+  {
+   "img": "data/demo_assets/FQZd6kTpht1/oblique_1.jpg",
+   "camera": {
+    "direction": "oblique-south",
+    "capture_date": 1766174676000
+   },
+   "floor_band": null
+  }
+ ],
+ "floor": null,
+ "floor_source": null,
+ "matched_sweep": {
+  "sweep_id": "5myfssq78uyd77x97qashfn1c",
+  "heading_deg": 271.7,
+  "faces": [
+   "data/demo_assets/FQZd6kTpht1/sweep_f0.jpg",
+   "data/demo_assets/FQZd6kTpht1/sweep_f1.jpg",
+   "data/demo_assets/FQZd6kTpht1/sweep_f2.jpg",
+   "data/demo_assets/FQZd6kTpht1/sweep_f3.jpg",
+   "data/demo_assets/FQZd6kTpht1/sweep_f4.jpg",
+   "data/demo_assets/FQZd6kTpht1/sweep_f5.jpg"
+  ],
+  "floorplan_img": "data/demo_assets/FQZd6kTpht1/floorplan.png",
+  "xy": [
+   -6.109,
+   2.308
+  ]
+ },
+ "matches": [
+  {
+   "photo": "img_3169",
+   "match_img": "data/demo_assets/FQZd6kTpht1/match_0.jpg",
+   "inliers": 871
+  },
+  {
+   "photo": "img_0623",
+   "match_img": "data/demo_assets/FQZd6kTpht1/match_1.jpg",
+   "inliers": 580
+  },
+  {
+   "photo": "img_1115",
+   "match_img": "data/demo_assets/FQZd6kTpht1/match_2.jpg",
+   "inliers": 388
+  },
+  {
+   "photo": "img_9839",
+   "match_img": "data/demo_assets/FQZd6kTpht1/match_3.jpg",
+   "inliers": 238
+  },
+  {
+   "photo": "img_0450",
+   "match_img": "data/demo_assets/FQZd6kTpht1/match_4.jpg",
+   "inliers": 226
+  },
+  {
+   "photo": "img_6758",
+   "match_img": "data/demo_assets/FQZd6kTpht1/match_5.jpg",
+   "inliers": 201
+  },
+  {
+   "photo": "img_4677",
+   "match_img": "data/demo_assets/FQZd6kTpht1/match_6.jpg",
+   "inliers": 167
+  },
+  {
+   "photo": "img_4059",
+   "match_img": "data/demo_assets/FQZd6kTpht1/match_7.jpg",
+   "inliers": 163
+  }
+ ],
+ "matterport_embed": {
+  "model_id": "FQZd6kTpht1",
+  "ss": 13,
+  "sr": 271.7
+ }
+}

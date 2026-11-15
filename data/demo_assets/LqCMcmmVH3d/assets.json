@@ -1,0 +1,178 @@
+{
+ "display_name": "Ring A building (residential_condo, 3 floors)",
+ "costar": {
+  "type": "residential_condo",
+  "floors": 3,
+  "units": null,
+  "year_built": 2007
+ },
+ "footprint_geojson": {
+  "type": "Feature",
+  "properties": {
+   "building_id": "vx_8244d35c95"
+  },
+  "geometry": {
+   "type": "Polygon",
+   "coordinates": [
+    [
+     [
+      -95.37747,
+      29.753981
+     ],
+     [
+      -95.377291,
+      29.753981
+     ],
+     [
+      -95.377276,
+      29.753957
+     ],
+     [
+      -95.377154,
+      29.753927
+     ],
+     [
+      -95.37703,
+      29.753846
+     ],
+     [
+      -95.377302,
+      29.753525
+     ],
+     [
+      -95.377655,
+      29.753753
+     ],
+     [
+      -95.377564,
+      29.753857
+     ],
+     [
+      -95.377507,
+      29.75384
+     ],
+     [
+      -95.377493,
+      29.75389
+     ],
+     [
+      -95.377528,
+      29.753913
+     ],
+     [
+      -95.37747,
+      29.753981
+     ]
+    ]
+   ]
+  }
+ },
+ "rough_pin": {
+  "lat": 29.753766,
+  "lon": -95.377337,
+  "source": "CoStar listing coordinates"
+ },
+ "fixed_pin": {
+  "lat": 29.7537811,
+  "lon": -95.3775724,
+  "heading_deg": 122.7,
+  "error_estimate_m": 6.0,
+  "moved_m": 22.8
+ },
+ "ortho": {
+  "img": "data/demo_assets/LqCMcmmVH3d/ortho.jpg",
+  "bounds": [
+   -95.3781932,
+   29.7532421,
+   -95.3769516,
+   29.7543201
+  ]
+ },
+ "obliques": [
+  {
+   "img": "data/demo_assets/LqCMcmmVH3d/oblique_0.jpg",
+   "camera": {
+    "direction": "oblique-west",
+    "capture_date": 1767198912000
+   },
+   "floor_band": [
+    6.4,
+    9.6
+   ]
+  },
+  {
+   "img": "data/demo_assets/LqCMcmmVH3d/oblique_1.jpg",
+   "camera": {
+    "direction": "oblique-east",
+    "capture_date": 1767198949000
+   },
+   "floor_band": null
+  }
+ ],
+ "floor": 3,
+ "floor_source": "CoStar unit 307",
+ "matched_sweep": {
+  "sweep_id": "mex09fqzpbdy3qz39wycrd78c",
+  "heading_deg": 281.2,
+  "faces": [
+   "data/demo_assets/LqCMcmmVH3d/sweep_f0.jpg",
+   "data/demo_assets/LqCMcmmVH3d/sweep_f1.jpg",
+   "data/demo_assets/LqCMcmmVH3d/sweep_f2.jpg",
+   "data/demo_assets/LqCMcmmVH3d/sweep_f3.jpg",
+   "data/demo_assets/LqCMcmmVH3d/sweep_f4.jpg",
+   "data/demo_assets/LqCMcmmVH3d/sweep_f5.jpg"
+  ],
+  "floorplan_img": "data/demo_assets/LqCMcmmVH3d/floorplan.png",
+  "xy": [
+   -12.178,
+   0.0
+  ]
+ },
+ "matches": [
+  {
+   "photo": "img_2654",
+   "match_img": "data/demo_assets/LqCMcmmVH3d/match_0.jpg",
+   "inliers": 993
+  },
+  {
+   "photo": "img_2106",
+   "match_img": "data/demo_assets/LqCMcmmVH3d/match_1.jpg",
+   "inliers": 581
+  },
+  {
+   "photo": "img_4451",
+   "match_img": "data/demo_assets/LqCMcmmVH3d/match_2.jpg",
+   "inliers": 579
+  },
+  {
+   "photo": "img_1517",
+   "match_img": "data/demo_assets/LqCMcmmVH3d/match_3.jpg",
+   "inliers": 537
+  },
+  {
+   "photo": "img_2583",
+   "match_img": "data/demo_assets/LqCMcmmVH3d/match_4.jpg",
+   "inliers": 536
+  },
+  {
+   "photo": "img_6324",
+   "match_img": "data/demo_assets/LqCMcmmVH3d/match_5.jpg",
+   "inliers": 430
+  },
+  {
+   "photo": "img_1094",
+   "match_img": "data/demo_assets/LqCMcmmVH3d/match_6.jpg",
+   "inliers": 388
+  },
+  {
+   "photo": "img_8800",
+   "match_img": "data/demo_assets/LqCMcmmVH3d/match_7.jpg",
+   "inliers": 356
+  }
+ ],
+ "matterport_embed": {
+  "model_id": "LqCMcmmVH3d",
+  "ss": 9,
+  "sr": 281.2
+ }
+}

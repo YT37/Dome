@@ -116,3 +116,40 @@ def test_fix_scan_location_real_contract():
     assert r["floor_range"] == [5, 7]                   # CoStar unit numbers 5004/6004/7004
     notes = next(e for e in r["evidence"] if e.endswith("_notes.json"))
     assert "geocoordinates_patch" in json.loads(Path(notes).read_text())["result"]
+
+
+# --- real room match (renders + cached scan indexes required) ------------------------------------
+
+RING_A_SCAN, DECOY_D_SCAN = "LqCMcmmVH3d", "FQZd6kTpht1"
+
+
+def _ring_a_photos() -> list[str]:
+    root = Path(__file__).resolve().parents[1]
+    renders = json.loads((root / "data/synth/renders.json").read_text())
+    return [str(root / "data/photos" / f"{pid}.jpg") for pid, v in sorted(renders.items())
+            if v["scan_id"] == RING_A_SCAN and (root / "data/photos" / f"{pid}.jpg").exists()]
+
+
+needs_renders = pytest.mark.skipif(len(_ring_a_photos()) < 20, reason="ad photos not rendered (data/photos/)")
+
+
+@pytest.mark.real
+@needs_keys
+@needs_renders
+def test_room_match_ring_a_above_decoy_d_below():
+    from dome.data_tools import vision
+    res = {r["scan_id"]: r for r in vision.room_match(_ring_a_photos(), [RING_A_SCAN, DECOY_D_SCAN])}
+    assert res[RING_A_SCAN]["P"] >= 0.6
+    assert res[DECOY_D_SCAN]["P"] < 0.4
+    ev = res[RING_A_SCAN]["evidence"]
+    assert ev and all(e["view_id"].startswith(RING_A_SCAN + "/") and e["inliers"] > 0 for e in ev)
+    assert all(Path(e["match_img"]).name.startswith(e["photo"]) for e in ev)
+
+
+@pytest.mark.real
+@needs_keys
+def test_room_match_never_indexes_holdout_sweeps():
+    from dome.data_tools import render, room_match
+    _, hold = render.split_sweeps(RING_A_SCAN)
+    idx = room_match.scan_index(RING_A_SCAN)
+    assert hold and not set(map(str, idx["sweep_ids"])) & set(hold)
