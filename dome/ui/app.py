@@ -52,8 +52,8 @@ def case_dir(case_id: str) -> Path:
     if not CASE_ID.match(case_id or ""):
         abort(404)
     live = CASES / case_id
-    if live.exists():
-        return live
+    if live.exists() and ((live / "log.jsonl").exists() or (live / "brief.json").exists()):
+        return live                       # a real run; a folder holding only UI click records doesn't count
     rec = RECORDED / case_id
     if rec.exists():
         return rec
