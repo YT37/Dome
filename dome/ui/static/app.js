@@ -816,5 +816,6 @@ window.addEventListener("resize", () => {
   const rp = q.get("replay");
   const preset = S.presets[q.get("preset")] ? q.get("preset") : "ring_a";
   if (rp) { await choosePreset(preset, false); replay(rp); }
+  else if (q.get("work")) { await choosePreset(preset); if (window.DomeDrawer) DomeDrawer.open(S.caseId, q.get("work"), q.get("wstep")); }
   else { await choosePreset(preset); intro(); }
 })();
