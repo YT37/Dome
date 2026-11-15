@@ -147,7 +147,8 @@ def _summary(scan_id: str) -> dict | None:
     if not SUMMARY.exists():
         return None
     try:
-        return json.loads(SUMMARY.read_text()).get(scan_id)
+        s = json.loads(SUMMARY.read_text())
+        return (s.get("scans") or s).get(scan_id)
     except Exception:
         return None
 
@@ -234,6 +235,57 @@ def _embed(scan_id: str, sweep: dict | None):
 
 # --- main --------------------------------------------------------------------------------
 
+def _geo_steps(scan_id: str, row: dict, fix: dict, floor, floor_source, obliques, moved_m) -> dict:
+    """What geo.fix_scan_location did, step by step, from its own notes (no new numbers):
+    rough pin, nearby Vexcel footprints with the outline-fit scores geo computed (only its
+    top hypotheses carry a score), the chosen footprint, the fixed pin, CoStar unit -> floor,
+    and the oblique floor band. Heading is left out on purpose (Ring A's is unreliable)."""
+    from shapely import wkt as swkt
+    from shapely.geometry import mapping
+    from dome.data_tools import vexcel
+    try:
+        notes = json.loads((REPO_ROOT / "cache" / "geo" / f"{scan_id}_notes.json").read_text())
+    except Exception:
+        notes = {}
+    hyp = {h["building_id"]: h for h in notes.get("hypotheses") or []}
+    feats = []
+    for o in vexcel.building_outlines(row["lat"], row["lon"], 120):
+        h = hyp.get(o["building_id"])
+        feats.append({"building_id": o["building_id"],
+                      "geojson": {"type": "Feature", "properties": {"building_id": o["building_id"]},
+                                  "geometry": mapping(swkt.loads(o["outline"]))},
+                      "fit_score": round(h["final"], 3) if h else None,
+                      "outline_score": h.get("outline") if h else None,
+                      "pin_prior": h.get("prior") if h else None,
+                      "chosen": o["building_id"] == fix.get("building_id")})
+    unit = row.get("unit")
+    return {
+        "rough_pin": {"lat": row["lat"], "lon": row["lon"], "source": "CoStar listing coordinates"},
+        "footprints": feats,
+        "fit_note": "fit_score = outline fit (floor plan vs footprint) + pin prior; scored only for "
+                    "geo's top hypotheses, the rest are null (not scored, not zero)",
+        "fixed_pin": {"lat": fix["lat"], "lon": fix["lon"], "moved_m": moved_m,
+                      "error_estimate_m": fix["error_estimate_m"], "confidence": notes.get("confidence")},
+        "floor": {"unit": unit, "floor": floor, "source": floor_source},
+        "floor_band_img": next((o["img"] for o in obliques if o.get("floor_band")), None),
+    }
+
+
+def _fingerprint(scan_id: str, obliques: list[dict]) -> dict:
+    """Window-grid fingerprint (gemini_vision.window_fingerprint): the scan's first window ad
+    photo (sorted id, same order as the Locator) vs the facade floor band."""
+    from dome.data_tools import gemini_vision
+    band = next((o["img"] for o in obliques if o.get("floor_band")), None)
+    renders = json.loads((REPO_ROOT / "data" / "synth" / "renders.json").read_text())
+    wins = sorted(pid for pid, v in renders.items() if v.get("scan_id") == scan_id and v.get("view") == "window")
+    photo = next((REPO_ROOT / "data" / "photos" / f"{p}.jpg" for p in wins
+                  if (REPO_ROOT / "data" / "photos" / f"{p}.jpg").exists()), None)
+    if band is None or photo is None:
+        return {"skipped": "no floor band on the facade" if band is None else "no window ad photo for this scan"}
+    out = gemini_vision.window_fingerprint(str(photo), str(REPO_ROOT / band))
+    return {**out, "photo": photo.stem, "facade_img": band}
+
+
 def build(scan_id: str) -> Path:
     from PIL import Image
     from shapely.geometry import mapping
@@ -288,6 +340,7 @@ def build(scan_id: str) -> Path:
             print(f"  {scan_id}: oblique {i} skipped ({type(e).__name__})", file=sys.stderr)
 
     sweep, matches, _ = _matches_and_sweep(scan_id, out)
+    moved = round(_haversine(rough_lat, rough_lon, lat, lon), 1)
     pack = {
         "display_name": name,
         "costar": info,
@@ -295,7 +348,7 @@ def build(scan_id: str) -> Path:
         "rough_pin": {"lat": rough_lat, "lon": rough_lon, "source": "CoStar listing coordinates"},
         "fixed_pin": {"lat": lat, "lon": lon, "heading_deg": heading,
                       "error_estimate_m": fix["error_estimate_m"],
-                      "moved_m": round(_haversine(rough_lat, rough_lon, lat, lon), 1)},
+                      "moved_m": moved},
         "ortho": {"img": _rel(ortho), "bounds": [round(b, 7) for b in bounds]},
         "obliques": obliques,
         "floor": floor,
@@ -303,6 +356,8 @@ def build(scan_id: str) -> Path:
         "matched_sweep": sweep,
         "matches": matches,
         "matterport_embed": _embed(scan_id, sweep),
+        "geo_steps": _geo_steps(scan_id, row, fix, floor, floor_source, obliques, moved),
+        "fingerprint": _fingerprint(scan_id, obliques),
     }
     dst = out / "assets.json"
     dst.write_text(json.dumps(pack, indent=1, sort_keys=False) + "\n")

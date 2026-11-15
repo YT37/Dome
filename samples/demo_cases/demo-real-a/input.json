@@ -5,5 +5,5 @@
  "dataset": "synth",
  "seed_account": "acct_103",
  "layers": "both",
- "private_layers": false
+ "private_layers": true
 }

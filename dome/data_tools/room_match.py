@@ -411,7 +411,44 @@ def room_match(photo_paths: list[str], scan_ids: list[str], save_images: bool = 
         out.append({"scan_id": sid, "P": P, "evidence": evidence, "groups": len(groups),
                     "groups_matched": len(matched), "min_inliers": MIN_INLIERS, "stage": "lightglue",
                     **({"note": f"coarse DINOv2 rank {coarse[sid][0]} of {len(scan_ids)}"} if sid in coarse else {})})
+    if save_images:
+        write_summary(names, groups, r["scores"], coarse, full, out)
     return out
+
+
+SUMMARY = MATCH_DIR / "summary.json"
+
+
+def write_summary(names, groups, scores, coarse, full, out) -> Path:
+    """In-between results of the last real run, for the "show the work" view and the asset
+    pack: coarse ranking, shortlist, inliers per photo and scan, room groups, P per scan.
+    `scans` keeps earlier runs' entries for other scans (the asset pack reads D's from there)."""
+    prev = {}
+    if SUMMARY.exists():
+        try:
+            prev = json.loads(SUMMARY.read_text())
+        except ValueError:
+            prev = {}
+    scans = prev.get("scans") or {k: v for k, v in prev.items() if isinstance(v, dict) and "evidence" in v}
+    for o in out:
+        if o["stage"] == "lightglue":
+            scans[o["scan_id"]] = {"P": o["P"], "evidence": o["evidence"]}
+    summary = {
+        "min_inliers": MIN_INLIERS, "coarse_keep": COARSE_KEEP, "photos": names,
+        "coarse": [{"scan_id": sid, "score": v, "rank": rank}
+                   for sid, (rank, v) in sorted(coarse.items(), key=lambda kv: kv[1][0])],
+        "shortlist": list(full),
+        "full": {n: {sid: {"inliers": scores[n][sid]["inliers"], "view_id": scores[n][sid]["view_id"]}
+                     for sid in full} for n in names},
+        "groups": [{"photos": [names[i] for i in g],
+                    "matched": {sid: max(scores[names[i]][sid]["inliers"] for i in g) >= MIN_INLIERS
+                                for sid in full}} for g in groups],
+        "P": {o["scan_id"]: o["P"] for o in out},
+        "scans": scans,
+    }
+    SUMMARY.parent.mkdir(parents=True, exist_ok=True)
+    SUMMARY.write_text(json.dumps(summary, indent=1))
+    return SUMMARY
 
 
 def photo_groups(photo_paths: list[str]) -> list[dict]:
