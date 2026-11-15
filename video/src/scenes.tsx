@@ -13,7 +13,7 @@ export const Hook: React.FC<S & {i: number}> = ({t, d, i}) => {
   return (
     <AbsoluteFill style={{background: '#000'}}>
       <AbsoluteFill style={{transform: `scale(${push})`, filter: 'contrast(1.08) saturate(0.82) brightness(0.95)'}}>
-        <OffthreadVideo src={staticFile(h.src)} startFrom={Math.round(h.start * 30)} volume={(f) => Math.min(1, f / 6) * 0.9} />
+        <OffthreadVideo src={staticFile(h.src)} startFrom={Math.round(h.start * 30)} volume={(f) => {const s = f / 30; const v = (h as any).vol as number[][]; let out = v[0][1]; for (let j = 0; j < v.length - 1; j++) if (s >= v[j][0] && s <= v[j + 1][0]) out = lerp(v[j][1], v[j + 1][1], (s - v[j][0]) / (v[j + 1][0] - v[j][0])); return out * Math.min(1, f / 5) * Math.min(1, (h.dur * 30 - f) / 8);}} />
       </AbsoluteFill>
       {h.blur && (
         // soften the small thumbnails in the France 24 frame; keep the code words readable
@@ -105,14 +105,14 @@ export const Problem: React.FC<S> = ({t}) => {
 
 // ---------------- TITLE (3D) ----------------
 export const Title: React.FC<S & {close?: boolean}> = ({t, d, close}) => {
-  const z = eio(P(t, 0, close ? 4 : d));
+  const z = eio(P(t, 0, close ? 4 : d + 0.5));
   const ang = lerp(-0.75, -0.25, z) + (close ? 0.6 : 0);
   const dist = lerp(3200, 1250, z), hgt = lerp(2300, 820, z);
   const cam = {pos: [Math.sin(ang) * dist, hgt, Math.cos(ang) * dist] as [number, number, number], look: [0, 30, 0] as [number, number, number], fov: 34};
-  const k = eio(P(t, 0.4, close ? 3.4 : 3.9));
+  const k = eio(P(t, close ? 0.4 : 0.1, close ? 3.4 : d - 0.5));
   const r = lerp(1600, 60, k);
-  const glow = ease(t, close ? 3.0 : 3.4, close ? 3.8 : 4.4);
-  const ta = ease(t, 0.6, 1.6);
+  const glow = close ? ease(t, 3.0, 3.8) : ease(t, d - 0.8, d - 0.2);
+  const ta = 1;
   return (
     <AbsoluteFill>
       <City3D cam={cam}>
@@ -121,8 +121,7 @@ export const Title: React.FC<S & {close?: boolean}> = ({t, d, close}) => {
       </City3D>
       <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 55%, rgba(0,0,0,0) 40%, rgba(0,0,0,.65) 100%)'}} />
       {!close && <div style={{position: 'absolute', left: 0, right: 0, top: 120, textAlign: 'center', opacity: ta}}>
-        <div style={{fontFamily: F.serif, fontSize: 200, color: C.paper, lineHeight: 0.9, letterSpacing: 2}}>Dome</div>
-        <div style={{fontFamily: F.serif, fontStyle: 'italic', fontSize: 44, color: C.dim, marginTop: 16, opacity: ease(t, 1.4, 2.4)}}>a dome over the search area that shrinks to one building</div>
+        <div style={{fontFamily: F.serif, fontStyle: 'italic', fontSize: 52, color: C.paper, marginTop: 16, opacity: ease(t, 0.2, 0.9)}}>a dome over the search area that shrinks to one building</div>
       </div>}
     </AbsoluteFill>
   );
@@ -510,6 +509,36 @@ export const Close: React.FC<S> = ({t, d}) => {
         <div style={{fontFamily: F.sans, fontSize: 26, color: C.muted, marginTop: 40, opacity: ease(t, 4.6, 5.2)}}>HackPrinceton 2026 · Avishek · Ishaan · Yug</div>
       </div>
       <AbsoluteFill style={{background: '#000', opacity: P(t, d - 0.9, d)}} />
+    </AbsoluteFill>
+  );
+};
+
+// ---------------- REVEAL (cinematic title card in the spirit of a streaming intro) ----------------
+export const Reveal: React.FC<S> = ({t, d}) => {
+  const r = rng(5);
+  const ribbons = Array.from({length: 46}, (_, i) => ({x: 760 + r() * 400, w: 3 + r() * 16, hue: r(), delay: r() * 0.5, sp: 0.6 + r() * 0.8}));
+  const colors = ['#ff5b35', '#ffb36b', '#e94a2f', '#ffd7a8', '#c23a22', '#5cc2ad'];
+  // phase 1 (0-1.1s): letters build up from light; phase 2 (1.6-2.6s): ribbons rush out and the camera pushes through
+  const build = eo(P(t, 0.1, 1.2));
+  const push = eio(P(t, 1.7, d));
+  const scale = lerp(1.25, 1, build) * lerp(1, 7, push);
+  const glow = 1 - P(t, 0.9, 1.6);
+  return (
+    <AbsoluteFill style={{background: '#000', overflow: 'hidden'}}>
+      <AbsoluteFill style={{transform: `scale(${lerp(1, 4, push)})`, transformOrigin: '50% 50%', opacity: 1 - P(t, d - 0.35, d)}}>
+        {ribbons.map((b, i) => {
+          const p = P(t, 1.5 + b.delay * 0.6, 2.6 + b.delay * 0.6);
+          const x = lerp(b.x, b.x + (b.x - 960) * 5, eio(p));
+          const op = P(t, 1.4 + b.delay * 0.4, 1.7 + b.delay * 0.4) * (1 - P(t, 2.7, 3.1));
+          return <div key={i} style={{position: 'absolute', left: x, top: 0, width: b.w * lerp(1, 6, p), height: 1080, opacity: op,
+            background: `linear-gradient(180deg, transparent, ${colors[i % colors.length]} 30%, ${colors[(i + 2) % colors.length]} 70%, transparent)`, filter: 'blur(1.5px)'}} />;
+        })}
+      </AbsoluteFill>
+      <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center', opacity: P(t, 0.05, 0.4) * (1 - P(t, 2.0, 2.5))}}>
+        <div style={{fontFamily: F.serif, fontSize: 300, color: C.paper, letterSpacing: lerp(60, 8, build), transform: `scale(${scale})`,
+          textShadow: `0 0 ${40 + glow * 80}px rgba(255,120,70,${0.35 + glow * 0.5}), 0 0 ${10 + glow * 20}px rgba(255,200,160,${0.4 * glow})`}}>DOME</div>
+      </AbsoluteFill>
+      <AbsoluteFill style={{background: `radial-gradient(ellipse at 50% 50%, rgba(255,110,60,${0.25 * glow * build}) 0%, rgba(0,0,0,0) 45%)`}} />
     </AbsoluteFill>
   );
 };

@@ -5,14 +5,14 @@ import {Grain} from './ui';
 import * as Sc from './scenes';
 
 const sceneFor: Record<string, React.FC<any>> = {
-  cut: Sc.Cut, friend: Sc.Friend, problem: Sc.Problem, title: Sc.Title, pipeline: Sc.Pipeline, linker: Sc.Linker,
+  reveal: Sc.Reveal, title: Sc.Title, pipeline: Sc.Pipeline, linker: Sc.Linker,
   zoner: Sc.Zoner, lister: Sc.Lister, locator: Sc.Locator, briefer: Sc.Briefer, run: Sc.Run, guard: Sc.Guard, close: Sc.Close,
 };
 
 const Local: React.FC<{name: string; d: number; i?: number}> = ({name, d, i}) => {
   const t = useCurrentFrame() / FPS;
   const Comp = name === 'hook' ? Sc.Hook : sceneFor[name];
-  const fade = name === 'hook' || name === 'cut' || name === 'friend' ? 1 : Math.min(P(t, 0, 0.35), 1 - P(t, d - 0.25, d));
+  const fade = name === 'hook' || name === 'reveal' ? 1 : Math.min(P(t, 0, 0.35), 1 - P(t, d - 0.25, d));
   return <AbsoluteFill style={{opacity: fade, background: '#000'}}><Comp t={t} d={d} i={i} /></AbsoluteFill>;
 };
 
@@ -21,7 +21,6 @@ const Captions: React.FC = () => {
   const t = useCurrentFrame() / FPS;
   for (let li = 0; li < VO.length; li++) {
     const v = VO[li];
-    if (li === 0) continue; // the friend line is already on screen
     if (t < v.start || t > v.start + v.dur + 0.3) continue;
     const words = v.text.split(' ');
     const weights = words.map((w) => w.length + 2 + (/[.,]$/.test(w) ? 5 : 0));
@@ -35,7 +34,7 @@ const Captions: React.FC = () => {
     if (c.length) chunks.push(c);
     const ch = chunks.find((k) => k.includes(cur)) || chunks[chunks.length - 1];
     return (
-      <div style={{position: 'absolute', left: 0, right: 0, bottom: 70, display: 'flex', justifyContent: 'center'}}>
+      <div style={{position: 'absolute', left: 0, right: 0, bottom: t < 30 ? 240 : 70, display: 'flex', justifyContent: 'center'}}>
         <div style={{background: 'rgba(10,9,8,.72)', padding: '12px 26px', borderRadius: 12, fontFamily: F.sans, fontWeight: 600, fontSize: 40, color: C.paper, letterSpacing: -0.2}}>
           {ch.map((i) => (
             <span key={i} style={{color: i === cur ? C.accent : i < cur ? C.paper : 'rgba(239,231,218,.55)'}}>{words[i]} </span>
