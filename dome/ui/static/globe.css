@@ -14,7 +14,7 @@ body.present { --fs: 19px; }
   background: #191307; color: #f6d79b; border-bottom: 1px solid #4a3a16; font-size: .86em; }
 .banner b { color: #ffe2a6; }
 
-.top { position: fixed; top: 34px; left: 16px; right: 16px; z-index: 20; display: flex; justify-content: space-between;
+.top { position: fixed; top: 12px; left: 16px; right: 16px; z-index: 20; display: flex; justify-content: space-between;
   align-items: center; gap: 12px; pointer-events: none; }
 .top > * { pointer-events: auto; }
 .brand { display: flex; gap: 10px; align-items: center; background: var(--panel); border: 1px solid var(--line);
@@ -30,7 +30,7 @@ body.present { --fs: 19px; }
 .btn.ghost { background: transparent; }
 .btn:disabled { opacity: .5; cursor: default; }
 
-.steps { position: fixed; left: 16px; top: 96px; z-index: 20; list-style: none; margin: 0; padding: 8px;
+.steps { position: fixed; left: 16px; top: 76px; z-index: 20; list-style: none; margin: 0; padding: 8px;
   background: var(--panel); border: 1px solid var(--line); border-radius: 12px; backdrop-filter: blur(10px);
   max-height: calc(100vh - 170px); overflow: auto; width: 214px; }
 .steps li { display: flex; gap: 8px; align-items: center; padding: 6px 8px; border-radius: 8px; color: var(--muted);
@@ -42,7 +42,7 @@ body.present { --fs: 19px; }
 .steps li.cur { background: rgba(130, 143, 255, .16); color: #fff; }
 .steps li.cur .n { background: var(--accent); color: #0b0c10; }
 
-.card { position: fixed; right: 16px; top: 96px; z-index: 20; width: min(400px, calc(100vw - 32px));
+.card { position: fixed; right: 16px; top: 76px; z-index: 20; width: min(400px, calc(100vw - 32px));
   max-height: calc(100vh - 170px); overflow: auto; background: var(--panel); border: 1px solid var(--line);
   border-radius: 14px; padding: 16px 18px; backdrop-filter: blur(12px); box-shadow: 0 20px 60px rgba(0, 0, 0, .4); }
 body.present .card { width: min(520px, calc(100vw - 32px)); }
@@ -107,7 +107,7 @@ kbd { font: .9em "Geist Mono"; border: 1px solid var(--line); border-radius: 4px
 .cells button { background: rgba(255, 255, 255, .04); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 4px 8px; font: .8em "Geist Mono"; cursor: pointer; }
 .cells button:hover { border-color: var(--accent); }
 
-.inside { position: fixed; inset: 34px 0 0; z-index: 35; background: #050608; display: grid; grid-template-columns: 1fr 440px; }
+.inside { position: fixed; inset: 0; z-index: 35; background: #050608; display: grid; grid-template-columns: 1fr 440px; }
 .pano-wrap { position: relative; min-height: 0; }
 #pano { position: absolute; inset: 0; }
 .pano-tag { position: absolute; left: 16px; bottom: 16px; z-index: 3; background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
@@ -138,7 +138,7 @@ body.present .is-sample, body.present [data-sample="1"] { display: none !importa
 .ticker div.sample { opacity: .7; border-left-color: var(--amber); }
 .work { margin-left: 6px; font: 600 .72em "Geist Mono"; color: var(--accent); background: none; border: 1px solid var(--line);
   border-radius: 6px; padding: 1px 6px; cursor: pointer; }
-.drawer { position: fixed; z-index: 45; right: 0; top: 34px; bottom: 0; width: min(760px, 100vw); background: #0b0c11;
+.drawer { position: fixed; z-index: 45; right: 0; top: 0; bottom: 0; width: min(760px, 100vw); background: #0b0c11;
   border-left: 1px solid var(--line); display: flex; flex-direction: column; box-shadow: -30px 0 80px rgba(0, 0, 0, .5); }
 .drawer > header { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
 .drawer h2 { margin: 2px 0 0; font-size: 1.15em; }
@@ -169,3 +169,10 @@ body.present .drawer { width: min(1000px, 100vw); }
 
 .askrow { display: flex; gap: 8px; margin-bottom: 6px; } .askrow input { flex: 1; font-size: 1em; }
 .cite-view { background: #050608; border: 1px solid var(--line); border-radius: 10px; padding: 10px; font: .78em "Geist Mono"; color: #c9cdd6; white-space: pre-wrap; max-height: 260px; overflow: auto; }
+
+/* shared top bar (same look as the Homepage) */
+.apptabs { display: flex; gap: 2px; background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 9px; padding: 3px; margin-left: 6px; }
+.apptabs a { color: var(--muted); text-decoration: none; padding: 5px 12px; border-radius: 7px; font-size: .9em; font-weight: 500; }
+.apptabs a.on, .apptabs a:hover { color: #fff; background: rgba(130, 143, 255, .2); }
+.casename { color: var(--muted); font: .82em "Geist Mono", monospace; margin-left: 8px; }
+.ticker { display: none !important; }

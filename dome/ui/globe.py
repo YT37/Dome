@@ -226,7 +226,18 @@ def flight():
                          "inliers": m.get("inliers")} for m in pack.get("matches") or []],
         }
     ring = (rings.get("rings") or [None])[0] or {}
+    rm = _load(d, "room_match.json") or {}
+    thr = (best_zone or {}).get("threshold", 0.4)
+    narrow = None
+    if rm.get("P") or rm.get("coarse"):
+        P = rm.get("P") or {}
+        narrow = {"scans": len(rm.get("coarse") or P), "shortlist": len(rm.get("shortlist") or []),
+                  "matched": sum(1 for v in P.values() if (v or 0) >= thr), "threshold": thr,
+                  "groups": len(rm.get("groups") or []), "photos": len(rm.get("photos") or [])}
+    wc = (_load(d, "window_check.json") or {}).get((best or {}).get("scan_id") or "") or None
+    window = {"W": wc.get("W"), "photo": wc.get("photo"), "items": wc.get("items") or []} if wc else None
     out = {
+        "narrow": narrow, "window": window,
         "case": d.name,
         "zones": zones.get("zones", []),
         "candidates": pins,
