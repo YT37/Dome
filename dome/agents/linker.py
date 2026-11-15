@@ -597,7 +597,7 @@ def link_accounts(ds: dict, layers: str = "both", private: bool = True,
     if config.TOPO_SCORE:
         from . import topo
         try:
-            prob = topo.predict(ds, cells)
+            prob = topo.predict(ds, cells, private=private)
         except Exception:   # never let the optional model break the rules pipeline
             prob = None
     for r in out_rings:

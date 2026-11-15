@@ -39,7 +39,12 @@ from typing import Optional
 
 from .. import config
 
-MODEL_PATH = config.ROOT / "dome" / "models" / "topo_unigcn.pt"
+MODEL_PATH = config.ROOT / "dome" / "models" / "topo_unigcn.pt"            # Track 1: with messages + payments
+MODEL_PATH_PUBLIC = config.ROOT / "dome" / "models" / "topo_unigcn_public.pt"  # Track 2: public data only
+
+
+def model_path(private: bool = True) -> Path:
+    return MODEL_PATH if private else MODEL_PATH_PUBLIC
 CELL_KINDS = ("money", "contact", "dm", "room", "photo", "device", "text", "style", "route",
               "echo", "interaction", "heartbeat", "merchant", "place", "time", "echo_event")
 HIDDEN, LAYERS, EPOCHS, LR, SEED = 32, 2, 300, 0.01, 0
@@ -121,15 +126,19 @@ def _tensors(X, members, n):
     return torch.tensor(X, dtype=torch.float32), inc
 
 
-def predict(ds: dict, cells: list) -> Optional[dict[str, float]]:
-    """{account: P(in a ring)} with the saved model, or None if the model can't run."""
-    if not available() or not MODEL_PATH.exists():
+def predict(ds: dict, cells: list, private: bool = True) -> Optional[dict[str, float]]:
+    """{account: P(in a ring)} with the saved model, or None if the model can't run.
+    private=False uses the model trained on public data only (Track 2)."""
+    path = model_path(private)
+    if not available() or not path.exists():
         return None
     import torch
+    if not private:   # Track 2: never read message or payment counts
+        ds = {**ds, "messages": [], "transactions": []}
     nodes, X, members = features(ds, cells)
     if not members:
         return None
-    st = torch.load(MODEL_PATH, map_location="cpu", weights_only=False)
+    st = torch.load(path, map_location="cpu", weights_only=False)
     net = _Net(len(X[0]))
     net.load(st["state"])
     X = _scale(X, st["scale"])
@@ -168,12 +177,14 @@ def _auc(prob: dict, pos: set, universe: set) -> float:
     return round(sum((x > y) + 0.5 * (x == y) for x in p for y in n) / (len(p) * len(n)), 3)
 
 
-def train(verbose: bool = True) -> dict:
+def train(verbose: bool = True, private: bool = True) -> dict:
     import torch
     from .linker import link_accounts, load_dataset
     random.seed(SEED)
     ds = load_dataset("mini")
-    linked = link_accounts(ds)
+    if not private:   # Track 2: the model never sees messages or payments
+        ds = {**ds, "messages": [], "transactions": []}
+    linked = link_accounts(ds, private=private)
     nodes, X, members = features(ds, linked.cells)
     per, pos, ignore = _truth("mini")
     held_ring = per.get("C", set())
@@ -196,11 +207,12 @@ def train(verbose: bool = True) -> dict:
         loss = -(w_pos * y[ti] * torch.log(p) + (1 - y[ti]) * torch.log(1 - p)).mean()
         loss.backward()
         opt.step()
-    MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
+    model_path(private).parent.mkdir(parents=True, exist_ok=True)
     torch.save({"state": net.state(), "scale": scale, "features": list(CELL_KINDS) + ["posts", "messages_sent", "payments_sent",
                                                           "distinct_kinds", "cells"],
                 "trained_on": "mini rings A+B (+70% of other accounts); held out ring C and 30%",
-                "hidden": HIDDEN, "layers": LAYERS, "epochs": EPOCHS}, MODEL_PATH)
+                "private_layers": private,
+                "hidden": HIDDEN, "layers": LAYERS, "epochs": EPOCHS}, model_path(private))
     with torch.no_grad():
         prob = dict(zip(nodes, net(x, inc).tolist()))
     test_u = held_ring | test_neg
@@ -208,24 +220,26 @@ def train(verbose: bool = True) -> dict:
                             "auc": _auc(prob, pos, test_u)},
            "mini_ring_C_scores": {a: round(prob[a], 3) for a in sorted(held_ring)},
            "mini_ring_C_found": f"{sum(prob[a] >= 0.5 for a in held_ring)}/{len(held_ring)}",
-           "synth": evaluate("synth")}
+           "synth": evaluate("synth", private=private)}
     if verbose:
         print(json.dumps(res, indent=2))
     return res
 
 
-def evaluate(name: str) -> dict:
+def evaluate(name: str, private: bool = True) -> dict:
     """Account-level 'is this account in a ring?' for the four approaches on one dataset."""
     from .linker import link_accounts, load_dataset
     ds = load_dataset(name)
+    if not private:
+        ds = {**ds, "messages": [], "transactions": []}
     per, pos, ignore = _truth(name)
     universe = set(ds["accounts"]) - ignore
     out = {}
     for layers in ("content", "network", "both"):
-        rf = link_accounts(ds, layers=layers).rings_file
+        rf = link_accounts(ds, layers=layers, private=private).rings_file
         out[layers] = _prf({m for r in rf["rings"] for m in r["members"]}, pos, universe)
-    linked = link_accounts(ds)
-    prob = predict(ds, linked.cells)
+    linked = link_accounts(ds, private=private)
+    prob = predict(ds, linked.cells, private=private)
     if prob is not None:
         out["topological"] = {**_prf({a for a, p in prob.items() if p >= 0.5}, pos, universe),
                               "auc": _auc(prob, pos, universe)}
@@ -239,8 +253,9 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(prog="dome.agents.topo")
     ap.add_argument("--train", action="store_true")
     ap.add_argument("--eval", default=None, help="dataset name, e.g. synth")
+    ap.add_argument("--no-private", action="store_true", help="Track 2: public data only")
     a = ap.parse_args()
     if a.train:
-        train()
+        train(private=not a.no_private)
     if a.eval:
-        print(json.dumps(evaluate(a.eval), indent=2))
+        print(json.dumps(evaluate(a.eval, private=not a.no_private), indent=2))

@@ -125,6 +125,12 @@ whose evidence looks different from A and B (no shared phone or script), every R
 still ranks above every non-ring account (AUC 1.00), but only 2 of 6 clear 0.5: with this little
 training data the model learns the shape of the rings it saw. `DOME_TOPO=0` turns it off.
 
+**Track 2 (public data only):** `--no-private` uses a second model,
+`dome/models/topo_unigcn_public.pt`, trained without messages or payments
+(`python -m dome.agents.topo --train --no-private`). On synth it still finds every ring account
+(precision 1.00, recall 1.00, AUC 0.90); on mini Ring C every account still ranks above every
+non-ring account (AUC 1.00) but none clears 0.5.
+
 ## Connect to LangChain
 
 **LangSmith tracing.** Set these in `.env` and every supervisor step and tool call is traced
