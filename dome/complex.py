@@ -30,6 +30,7 @@ from __future__ import annotations
 import json
 import math
 import random
+import re
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any, Optional
@@ -59,6 +60,25 @@ EPOCHS, EVAL_EVERY, SEED = 300, 10, 0
 def _kinds() -> tuple:
     from .agents import topo
     return tuple(topo.CELL_KINDS) + EXTRA_KINDS
+
+
+# ---------------------------------------------------------------------- masking
+_DIGITS = re.compile(r"\+?\d[\d\s\-.()]{5,}\d")
+
+
+def mask(s: str) -> str:
+    """Data minimisation: phone-like digit runs become 555-…42 in ids and reasons."""
+    def one(m):
+        d = re.sub(r"\D", "", m.group(0))
+        return f"{d[:3]}-…{d[-2:]}" if len(d) >= 7 else m.group(0)
+    return _DIGITS.sub(one, str(s))
+
+
+def _mid(raw: str) -> str:
+    """Masked but unique cell id."""
+    import hashlib
+    m = mask(raw)
+    return m if m == raw else f"{m}#{hashlib.sha1(raw.encode()).hexdigest()[:4]}"
 
 
 # ---------------------------------------------------------------------- building the complex
@@ -104,8 +124,8 @@ def cells_from(linked_cells: list, rings: Any = None, wallet_notes: Any = None,
     cells: list[dict] = []
     for rank, kind, key, accts in linked_cells:
         if len(set(accts)) >= 2:
-            cells.append({"rank": rank, "kind": kind, "id": f"c_{key}", "members": sorted(set(accts)),
-                          "reason": f"shared {kind} key {key.split('#')[0]}"})
+            cells.append({"rank": rank, "kind": kind, "id": _mid(f"c_{key}"), "members": sorted(set(accts)),
+                          "reason": mask(f"shared {kind} key {key.split('#')[0]}")})
     # money block (contract B) of every ring: wallet cluster nodes join accounts and each other
     for r in (rings.rings if rings else []):
         mb = r.money
@@ -122,7 +142,7 @@ def cells_from(linked_cells: list, rings: Any = None, wallet_notes: Any = None,
                           "members": [f.from_, f.to], "reason": f"{f.txs} transactions, {f.btc} BTC"})
     for n in (wallet_notes.notes if wallet_notes else []):
         cells.append({"rank": 1, "kind": "wallet_note", "id": f"c_note_{n.cluster_id}_{n.account}",
-                      "members": [n.cluster_id, n.account], "reason": n.reason})
+                      "members": [n.cluster_id, n.account], "reason": mask(n.reason)})
     owner = photo_owner or {}
     for scan, s in sorted((rooms or {}).items()):
         if s.get("P") is None:
@@ -284,7 +304,9 @@ def train(verbose: bool = True, dataset: str = "synth") -> dict:
     MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
     torch.save({"state": net.state(), "scale": scale, "kinds": list(_kinds()), "node_types": list(NODE_TYPES),
                 "trained_on": f"{dataset}: train split (60% of labelled accounts, seed {SEED}); account labels only",
-                "epochs_max": EPOCHS}, MODEL_PATH)
+                "epochs_max": EPOCHS,
+                "split": {"dataset": dataset, "train": sorted(tr), "val": sorted(va), "test": sorted(te)}},
+               MODEL_PATH)
     res["rules_vs_model_test"] = _rules_vs_model(dataset, prob, pos, te)
     res["heldout"] = heldout(net, scale)
     # sensitivity: the same model trained a fixed 300 epochs (topo.py's protocol), no selection
@@ -331,6 +353,14 @@ def heldout(net=None, scale=None) -> dict:
     return {"status": "run", "dataset": HELDOUT + " (generator unchanged, seed 101; never trained on)",
             "model": _metrics(prob, pos, universe, ring),
             "rules": topo._prf(rules, pos, universe)}
+
+
+def _saved_split() -> Optional[dict]:
+    try:
+        import torch
+        return torch.load(MODEL_PATH, map_location="cpu", weights_only=False).get("split")
+    except Exception:
+        return None
 
 
 def load_model():
@@ -389,8 +419,8 @@ def build(case: Case) -> dict:
         for r in rings.rings:
             for l in r.links:
                 for k, kd in zip(l.keys, l.kinds):
-                    cells.append({"rank": 1, "kind": kd, "id": f"c_{k}~{l.a}~{l.b}",
-                                  "members": sorted([l.a, l.b]), "reason": l.reason})
+                    cells.append({"rank": 1, "kind": kd, "id": _mid(f"c_{k}~{l.a}~{l.b}"),
+                                  "members": sorted([l.a, l.b]), "reason": mask(l.reason)})
     accounts = set(ds["accounts"]) if ds else {m for r in (rings.rings if rings else []) for m in r.members}
     core = set(ring.members) | {x.account for x in ring.recruiters} if ring else set()
     near = [c for c in cells if set(c["members"]) & core]
@@ -415,7 +445,17 @@ def build(case: Case) -> dict:
     else:
         nodes, X, members = featurize(ds, cells, LAYER_SETS["all"])
         prob = _probs(net, scale, nodes, X, members)
-        out["scores"] = {n: round(prob[n], 3) for n in nodes0 if n in prob}
+        spot = load_optional(case.dir, "spotter.json")
+        queue = [x.account for x in spot.queue] if spot else []
+        out["scores"] = {n: round(prob[n], 3) for n in list(nodes0) + queue if n in prob}
+        # which split each scored account was in when the model was trained (honesty:
+        # train-split scores are in-sample)
+        # (read from the model file, never from the answer key)
+        sp = _saved_split()
+        if sp and sp.get("dataset") == case.input.dataset:
+            tr, va, te = (set(sp[k]) for k in ("train", "val", "test"))
+            out["score_split"] = {n: ("train" if n in tr else "val" if n in va else "test" if n in te
+                                      else "not in training data") for n in out["scores"] if n in accounts}
         rule_members = {m for r in rings.rings for m in r.members} if rings else set()
         dis = [{"id": a, "rules": a in rule_members, "model": round(p, 3),
                 "note": "model says ring, rules found no link" if a not in rule_members else
