@@ -1,0 +1,50 @@
+[
+  {
+    "service": "AdPlatform",
+    "address": "syn1q2ef310b97404912ac1890cd75cb5a57d"
+  },
+  {
+    "service": "AdPlatform",
+    "address": "syn1qdfee439aebc2757e6fba920d80f2f0fa"
+  },
+  {
+    "service": "AdPlatform",
+    "address": "syn1qa08d2f7444cae026c8daa581244e0468"
+  },
+  {
+    "service": "Exchange X",
+    "address": "syn1q5839338141d422bb2352c9507a4fbca1"
+  },
+  {
+    "service": "Exchange X",
+    "address": "syn1qd0192c4643e02d4d3ec635de8348fd23"
+  },
+  {
+    "service": "Exchange X",
+    "address": "syn1qcc42227694d7ce772013d173b83faa8d"
+  },
+  {
+    "service": "Exchange X",
+    "address": "syn1qdd518614171edff5feeda9bc16efecce"
+  },
+  {
+    "service": "P2P Exchange",
+    "address": "syn1q7af9a9f880106869de0187d1cec950e1"
+  },
+  {
+    "service": "P2P Exchange",
+    "address": "syn1qdc1ab5e3914f13e64a82bc06a6d1e936"
+  },
+  {
+    "service": "PayProcessor",
+    "address": "syn1q9800b58d7750585ca087db4a526d1603"
+  },
+  {
+    "service": "PayProcessor",
+    "address": "syn1q921c47f979d1d2792e90b8669034719d"
+  },
+  {
+    "service": "Merchant",
+    "address": "syn1qda387fb8158851aa2d8d472cc6f149a9"
+  }
+]

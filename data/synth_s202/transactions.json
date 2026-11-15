@@ -1,0 +1,2006 @@
+[
+ {
+  "tx_id": "tx_5139",
+  "from": "acct_126",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-01T11:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5081",
+  "from": "ext_711",
+  "to": "$stays_host2",
+  "amount": 60,
+  "time": "2026-10-01T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5031",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-01T19:29:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5032",
+  "from": "acct_133",
+  "to": "merch_quicktop",
+  "amount": 25.0,
+  "time": "2026-10-01T20:29:00Z",
+  "merchant": {
+   "name": "QuickTop Mobile (synthetic)",
+   "category": "telecom",
+   "area": "",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5097",
+  "from": "ext_724",
+  "to": "$stays_host5",
+  "amount": 60,
+  "time": "2026-10-02T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5135",
+  "from": "acct_242",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-02T18:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5057",
+  "from": "ext_697",
+  "to": "$sunny_rose5",
+  "amount": 150,
+  "time": "2026-10-02T21:39:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5058",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-02T21:53:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5059",
+  "from": "acct_133",
+  "to": "merch_ride",
+  "amount": 18.5,
+  "time": "2026-10-02T22:28:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5078",
+  "from": "acct_081",
+  "to": "merch_sparkle",
+  "amount": 45,
+  "time": "2026-10-03T00:00:00Z",
+  "merchant": {
+   "name": "SparkleClean Services (synthetic)",
+   "category": "other",
+   "area": "Houston",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5134",
+  "from": "acct_234",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-03T03:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5075",
+  "from": "ext_706",
+  "to": "$stays_host1",
+  "amount": 60,
+  "time": "2026-10-03T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5094",
+  "from": "ext_721",
+  "to": "$stays_host5",
+  "amount": 60,
+  "time": "2026-10-03T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5163",
+  "from": "acct_714",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-03T18:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5011",
+  "from": "ext_111",
+  "to": "$sunny_rose5",
+  "amount": 150,
+  "time": "2026-10-03T23:25:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5136",
+  "from": "acct_250",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-04T11:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5084",
+  "from": "ext_713",
+  "to": "$stays_host3",
+  "amount": 60,
+  "time": "2026-10-04T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5089",
+  "from": "ext_717",
+  "to": "$stays_host4",
+  "amount": 60,
+  "time": "2026-10-04T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5033",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-04T19:49:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5119",
+  "from": "acct_092",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-05T02:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5138",
+  "from": "acct_271",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-05T02:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5170",
+  "from": "acct_714",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-05T10:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5070",
+  "from": "ext_702",
+  "to": "$stays_host0",
+  "amount": 60,
+  "time": "2026-10-05T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5072",
+  "from": "ext_704",
+  "to": "$stays_host0",
+  "amount": 60,
+  "time": "2026-10-05T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5114",
+  "from": "acct_051",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-06T10:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5174",
+  "from": "acct_714",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-06T12:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5162",
+  "from": "acct_237",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-06T13:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5014",
+  "from": "ext_114",
+  "to": "$sunny_rose5",
+  "amount": 150,
+  "time": "2026-10-06T22:09:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5148",
+  "from": "acct_126",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-07T16:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5156",
+  "from": "acct_237",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-07T18:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5034",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-07T19:05:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5035",
+  "from": "acct_133",
+  "to": "merch_quicktop",
+  "amount": 25.0,
+  "time": "2026-10-07T20:05:00Z",
+  "merchant": {
+   "name": "QuickTop Mobile (synthetic)",
+   "category": "telecom",
+   "area": "",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5127",
+  "from": "acct_173",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-08T10:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5100",
+  "from": "ext_726",
+  "to": "$stays_host6",
+  "amount": 60,
+  "time": "2026-10-08T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5166",
+  "from": "acct_714",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-08T17:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5116",
+  "from": "acct_065",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-08T23:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5108",
+  "from": "acct_343",
+  "to": "merch_sparkle",
+  "amount": 45,
+  "time": "2026-10-09T00:00:00Z",
+  "merchant": {
+   "name": "SparkleClean Services (synthetic)",
+   "category": "other",
+   "area": "Houston",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5142",
+  "from": "acct_126",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-09T16:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5079",
+  "from": "ext_709",
+  "to": "$stays_host2",
+  "amount": 60,
+  "time": "2026-10-09T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5020",
+  "from": "ext_120",
+  "to": "$sunny_rose5",
+  "amount": 200,
+  "time": "2026-10-09T20:08:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5005",
+  "from": "ext_105",
+  "to": "$sunny_rose5",
+  "amount": 100,
+  "time": "2026-10-09T20:44:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5060",
+  "from": "ext_698",
+  "to": "$sunny_rose5",
+  "amount": 150,
+  "time": "2026-10-09T23:18:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5061",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-09T23:32:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5062",
+  "from": "acct_133",
+  "to": "merch_ride",
+  "amount": 18.5,
+  "time": "2026-10-10T00:07:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5091",
+  "from": "ext_719",
+  "to": "$stays_host4",
+  "amount": 60,
+  "time": "2026-10-10T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5036",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-10T19:08:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5013",
+  "from": "ext_113",
+  "to": "$sunny_rose5",
+  "amount": 100,
+  "time": "2026-10-10T20:47:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5010",
+  "from": "ext_110",
+  "to": "$sunny_rose5",
+  "amount": 150,
+  "time": "2026-10-10T21:16:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5021",
+  "from": "ext_121",
+  "to": "$sunny_rose5",
+  "amount": 150,
+  "time": "2026-10-10T23:56:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5026",
+  "from": "acct_424",
+  "to": "acct_112",
+  "amount": 40,
+  "time": "2026-10-11T03:42:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5113",
+  "from": "acct_044",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-12T13:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5122",
+  "from": "acct_125",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-13T00:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5006",
+  "from": "ext_106",
+  "to": "$sunny_rose5",
+  "amount": 200,
+  "time": "2026-10-13T00:09:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5051",
+  "from": "ext_139",
+  "to": "$velvet_k9",
+  "amount": 120,
+  "time": "2026-10-13T04:20:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5109",
+  "from": "acct_005",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-13T06:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5158",
+  "from": "acct_237",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-13T10:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5126",
+  "from": "acct_162",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-13T16:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5037",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-13T19:38:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5038",
+  "from": "acct_133",
+  "to": "merch_quicktop",
+  "amount": 25.0,
+  "time": "2026-10-13T20:38:00Z",
+  "merchant": {
+   "name": "QuickTop Mobile (synthetic)",
+   "category": "telecom",
+   "area": "",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5015",
+  "from": "ext_115",
+  "to": "$sunny_rose5",
+  "amount": 100,
+  "time": "2026-10-13T22:57:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5004",
+  "from": "ext_104",
+  "to": "$sunny_rose5",
+  "amount": 100,
+  "time": "2026-10-13T23:15:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5052",
+  "from": "ext_141",
+  "to": "$velvet_k9",
+  "amount": 120,
+  "time": "2026-10-14T10:20:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5172",
+  "from": "acct_714",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-14T14:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5071",
+  "from": "ext_703",
+  "to": "$stays_host0",
+  "amount": 60,
+  "time": "2026-10-14T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5080",
+  "from": "ext_710",
+  "to": "$stays_host2",
+  "amount": 60,
+  "time": "2026-10-14T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5106",
+  "from": "ext_731",
+  "to": "$stays_host7",
+  "amount": 60,
+  "time": "2026-10-14T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5007",
+  "from": "ext_107",
+  "to": "$sunny_rose5",
+  "amount": 100,
+  "time": "2026-10-14T19:02:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5117",
+  "from": "acct_076",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-15T14:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5053",
+  "from": "ext_143",
+  "to": "$velvet_k9",
+  "amount": 120,
+  "time": "2026-10-15T16:20:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5076",
+  "from": "ext_707",
+  "to": "$stays_host1",
+  "amount": 60,
+  "time": "2026-10-15T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5112",
+  "from": "acct_031",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-15T17:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5103",
+  "from": "acct_317",
+  "to": "merch_sparkle",
+  "amount": 45,
+  "time": "2026-10-16T00:00:00Z",
+  "merchant": {
+   "name": "SparkleClean Services (synthetic)",
+   "category": "other",
+   "area": "Houston",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5111",
+  "from": "acct_022",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-16T02:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5095",
+  "from": "ext_722",
+  "to": "$stays_host5",
+  "amount": 60,
+  "time": "2026-10-16T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5039",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-16T19:47:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5115",
+  "from": "acct_058",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-17T04:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5168",
+  "from": "acct_714",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-17T12:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5104",
+  "from": "ext_729",
+  "to": "$stays_host7",
+  "amount": 60,
+  "time": "2026-10-17T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5164",
+  "from": "acct_714",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-18T11:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5154",
+  "from": "acct_237",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-18T17:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5165",
+  "from": "acct_714",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-18T17:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5024",
+  "from": "ext_124",
+  "to": "$sunny_rose5",
+  "amount": 100,
+  "time": "2026-10-18T19:03:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5030",
+  "from": "acct_623",
+  "to": "acct_112",
+  "amount": 80,
+  "time": "2026-10-19T03:50:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5040",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-19T19:30:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5023",
+  "from": "ext_123",
+  "to": "$sunny_rose5",
+  "amount": 150,
+  "time": "2026-10-19T19:59:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5041",
+  "from": "acct_133",
+  "to": "merch_quicktop",
+  "amount": 25.0,
+  "time": "2026-10-19T20:30:00Z",
+  "merchant": {
+   "name": "QuickTop Mobile (synthetic)",
+   "category": "telecom",
+   "area": "",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5016",
+  "from": "ext_116",
+  "to": "$sunny_rose5",
+  "amount": 150,
+  "time": "2026-10-19T23:56:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5155",
+  "from": "acct_237",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-20T12:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5144",
+  "from": "acct_126",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-20T18:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5063",
+  "from": "ext_699",
+  "to": "$sunny_rose5",
+  "amount": 150,
+  "time": "2026-10-20T19:31:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5064",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-20T19:45:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5065",
+  "from": "acct_133",
+  "to": "merch_ride",
+  "amount": 18.5,
+  "time": "2026-10-20T20:20:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5028",
+  "from": "acct_520",
+  "to": "acct_112",
+  "amount": 80,
+  "time": "2026-10-21T03:54:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5118",
+  "from": "acct_085",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-21T12:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5143",
+  "from": "acct_126",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-21T12:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5099",
+  "from": "ext_725",
+  "to": "$stays_host6",
+  "amount": 60,
+  "time": "2026-10-21T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5001",
+  "from": "ext_101",
+  "to": "$sunny_rose5",
+  "amount": 100,
+  "time": "2026-10-21T21:51:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5110",
+  "from": "acct_015",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-22T01:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5029",
+  "from": "acct_607",
+  "to": "acct_112",
+  "amount": 80,
+  "time": "2026-10-22T03:35:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5150",
+  "from": "acct_126",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-22T11:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5145",
+  "from": "acct_126",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-22T14:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5042",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-22T19:31:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5083",
+  "from": "acct_204",
+  "to": "merch_sparkle",
+  "amount": 45,
+  "time": "2026-10-23T00:00:00Z",
+  "merchant": {
+   "name": "SparkleClean Services (synthetic)",
+   "category": "other",
+   "area": "Houston",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5157",
+  "from": "acct_237",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-23T13:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5131",
+  "from": "acct_209",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-23T14:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5120",
+  "from": "acct_103",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-23T16:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5074",
+  "from": "ext_705",
+  "to": "$stays_host1",
+  "amount": 60,
+  "time": "2026-10-23T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5096",
+  "from": "ext_723",
+  "to": "$stays_host5",
+  "amount": 60,
+  "time": "2026-10-23T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5012",
+  "from": "ext_112",
+  "to": "$sunny_rose5",
+  "amount": 100,
+  "time": "2026-10-23T19:49:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5093",
+  "from": "acct_277",
+  "to": "merch_sparkle",
+  "amount": 45,
+  "time": "2026-10-24T00:00:00Z",
+  "merchant": {
+   "name": "SparkleClean Services (synthetic)",
+   "category": "other",
+   "area": "Houston",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5121",
+  "from": "acct_115",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-24T03:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5151",
+  "from": "acct_237",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-24T11:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5090",
+  "from": "ext_718",
+  "to": "$stays_host4",
+  "amount": 60,
+  "time": "2026-10-24T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5105",
+  "from": "ext_730",
+  "to": "$stays_host7",
+  "amount": 60,
+  "time": "2026-10-24T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5123",
+  "from": "acct_135",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-24T17:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5017",
+  "from": "ext_117",
+  "to": "$sunny_rose5",
+  "amount": 150,
+  "time": "2026-10-24T23:09:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5022",
+  "from": "ext_122",
+  "to": "$sunny_rose5",
+  "amount": 100,
+  "time": "2026-10-24T23:09:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5102",
+  "from": "ext_728",
+  "to": "$stays_host6",
+  "amount": 60,
+  "time": "2026-10-25T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5043",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-25T19:25:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5044",
+  "from": "acct_133",
+  "to": "merch_quicktop",
+  "amount": 25.0,
+  "time": "2026-10-25T20:25:00Z",
+  "merchant": {
+   "name": "QuickTop Mobile (synthetic)",
+   "category": "telecom",
+   "area": "",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5027",
+  "from": "acct_464",
+  "to": "acct_112",
+  "amount": 80,
+  "time": "2026-10-26T03:06:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5129",
+  "from": "acct_195",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-26T09:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5054",
+  "from": "ext_146",
+  "to": "$velvet_k9",
+  "amount": 120,
+  "time": "2026-10-26T09:51:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5173",
+  "from": "acct_714",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-26T16:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5167",
+  "from": "acct_714",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-26T18:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5025",
+  "from": "acct_220",
+  "to": "acct_112",
+  "amount": 60,
+  "time": "2026-10-27T03:12:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5137",
+  "from": "acct_261",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-27T10:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5055",
+  "from": "ext_148",
+  "to": "$velvet_k9",
+  "amount": 120,
+  "time": "2026-10-27T11:51:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5153",
+  "from": "acct_237",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-27T16:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5056",
+  "from": "ext_150",
+  "to": "$velvet_k9",
+  "amount": 120,
+  "time": "2026-10-28T13:51:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5160",
+  "from": "acct_237",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-28T16:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5169",
+  "from": "acct_714",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-28T18:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5045",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-28T19:46:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5008",
+  "from": "ext_108",
+  "to": "$sunny_rose5",
+  "amount": 150,
+  "time": "2026-10-29T20:20:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5002",
+  "from": "ext_102",
+  "to": "$sunny_rose5",
+  "amount": 100,
+  "time": "2026-10-29T20:43:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5147",
+  "from": "acct_126",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-30T10:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5152",
+  "from": "acct_237",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-30T10:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5146",
+  "from": "acct_126",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-30T13:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5171",
+  "from": "acct_714",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-10-31T09:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5077",
+  "from": "ext_708",
+  "to": "$stays_host1",
+  "amount": 60,
+  "time": "2026-10-31T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5046",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-10-31T19:27:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5047",
+  "from": "acct_133",
+  "to": "merch_quicktop",
+  "amount": 25.0,
+  "time": "2026-10-31T20:27:00Z",
+  "merchant": {
+   "name": "QuickTop Mobile (synthetic)",
+   "category": "telecom",
+   "area": "",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5066",
+  "from": "ext_700",
+  "to": "$sunny_rose5",
+  "amount": 150,
+  "time": "2026-11-01T15:21:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5067",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-11-01T15:35:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5141",
+  "from": "acct_126",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-11-01T16:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5068",
+  "from": "acct_133",
+  "to": "merch_ride",
+  "amount": 18.5,
+  "time": "2026-11-01T16:10:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5107",
+  "from": "ext_732",
+  "to": "$stays_host7",
+  "amount": 60,
+  "time": "2026-11-01T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5082",
+  "from": "ext_712",
+  "to": "$stays_host2",
+  "amount": 60,
+  "time": "2026-11-02T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5085",
+  "from": "ext_714",
+  "to": "$stays_host3",
+  "amount": 60,
+  "time": "2026-11-02T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5086",
+  "from": "ext_715",
+  "to": "$stays_host3",
+  "amount": 60,
+  "time": "2026-11-02T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5132",
+  "from": "acct_216",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-11-03T05:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5133",
+  "from": "acct_224",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-11-03T06:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5130",
+  "from": "acct_202",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-11-03T18:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5048",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-11-03T19:17:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5019",
+  "from": "ext_119",
+  "to": "$sunny_rose5",
+  "amount": 200,
+  "time": "2026-11-03T22:26:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5149",
+  "from": "acct_126",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-11-04T10:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5159",
+  "from": "acct_237",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-11-04T12:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5092",
+  "from": "ext_720",
+  "to": "$stays_host4",
+  "amount": 60,
+  "time": "2026-11-04T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5003",
+  "from": "ext_103",
+  "to": "$sunny_rose5",
+  "amount": 150,
+  "time": "2026-11-04T19:53:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5009",
+  "from": "ext_109",
+  "to": "$sunny_rose5",
+  "amount": 150,
+  "time": "2026-11-04T19:54:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5018",
+  "from": "ext_118",
+  "to": "$sunny_rose5",
+  "amount": 200,
+  "time": "2026-11-04T21:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5140",
+  "from": "acct_126",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-11-05T16:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ },
+ {
+  "tx_id": "tx_5088",
+  "from": "acct_224",
+  "to": "merch_sparkle",
+  "amount": 45,
+  "time": "2026-11-06T00:00:00Z",
+  "merchant": {
+   "name": "SparkleClean Services (synthetic)",
+   "category": "other",
+   "area": "Houston",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5098",
+  "from": "acct_307",
+  "to": "merch_sparkle",
+  "amount": 45,
+  "time": "2026-11-06T00:00:00Z",
+  "merchant": {
+   "name": "SparkleClean Services (synthetic)",
+   "category": "other",
+   "area": "Houston",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5125",
+  "from": "acct_153",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-11-06T06:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5069",
+  "from": "ext_701",
+  "to": "$stays_host0",
+  "amount": 60,
+  "time": "2026-11-06T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5101",
+  "from": "ext_727",
+  "to": "$stays_host6",
+  "amount": 60,
+  "time": "2026-11-06T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5128",
+  "from": "acct_182",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-11-06T19:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5049",
+  "from": "acct_133",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-11-06T19:15:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5050",
+  "from": "acct_133",
+  "to": "merch_quicktop",
+  "amount": 25.0,
+  "time": "2026-11-06T20:15:00Z",
+  "merchant": {
+   "name": "QuickTop Mobile (synthetic)",
+   "category": "telecom",
+   "area": "",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5087",
+  "from": "ext_716",
+  "to": "$stays_host3",
+  "amount": 60,
+  "time": "2026-11-07T16:30:00Z",
+  "merchant": null
+ },
+ {
+  "tx_id": "tx_5073",
+  "from": "acct_049",
+  "to": "merch_sparkle",
+  "amount": 45,
+  "time": "2026-11-08T00:00:00Z",
+  "merchant": {
+   "name": "SparkleClean Services (synthetic)",
+   "category": "other",
+   "area": "Houston",
+   "lat": null,
+   "lon": null
+  }
+ },
+ {
+  "tx_id": "tx_5124",
+  "from": "acct_143",
+  "to": "merch_lonestar",
+  "amount": 89.0,
+  "time": "2026-11-08T11:00:00Z",
+  "merchant": {
+   "name": "Lone Star Motel (synthetic)",
+   "category": "lodging",
+   "area": "Downtown, Houston",
+   "lat": 29.759,
+   "lon": -95.366
+  }
+ },
+ {
+  "tx_id": "tx_5161",
+  "from": "acct_237",
+  "to": "merch_ride",
+  "amount": 12.0,
+  "time": "2026-11-08T16:02:00Z",
+  "merchant": {
+   "name": "Rideshare",
+   "category": "rideshare",
+   "area": "Downtown, Houston",
+   "lat": 29.7596,
+   "lon": -95.3652
+  }
+ }
+]

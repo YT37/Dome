@@ -1,0 +1,338 @@
+{
+ "queue": [
+  {
+   "account": "acct_103",
+   "score": 0.93,
+   "rank": 1,
+   "signals": [
+    {
+     "kind": "lookalike_account",
+     "reason": "no profile photo, created within 6 hours of 11 other accounts with no photo"
+    },
+    {
+     "kind": "repeated_phone",
+     "reason": "same phone (555-\u202642) in 43 ads across 12 accounts"
+    },
+    {
+     "kind": "repeated_photo",
+     "reason": "8 photo(s) also posted by 2+ other accounts"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 10 other accounts (phones and places masked)"
+    }
+   ]
+  },
+  {
+   "account": "acct_131",
+   "score": 0.93,
+   "rank": 2,
+   "signals": [
+    {
+     "kind": "lookalike_account",
+     "reason": "no profile photo, created within 6 hours of 11 other accounts with no photo"
+    },
+    {
+     "kind": "repeated_phone",
+     "reason": "same phone (555-\u202642) in 43 ads across 12 accounts"
+    },
+    {
+     "kind": "repeated_photo",
+     "reason": "11 photo(s) also posted by 2+ other accounts"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 10 other accounts (phones and places masked)"
+    }
+   ]
+  },
+  {
+   "account": "acct_201",
+   "score": 0.93,
+   "rank": 3,
+   "signals": [
+    {
+     "kind": "lookalike_account",
+     "reason": "no profile photo, created within 6 hours of 11 other accounts with no photo"
+    },
+    {
+     "kind": "repeated_phone",
+     "reason": "same phone (555-\u202642) in 43 ads across 12 accounts"
+    },
+    {
+     "kind": "repeated_photo",
+     "reason": "15 photo(s) also posted by 2+ other accounts"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 10 other accounts (phones and places masked)"
+    }
+   ]
+  },
+  {
+   "account": "acct_220",
+   "score": 0.93,
+   "rank": 4,
+   "signals": [
+    {
+     "kind": "lookalike_account",
+     "reason": "no profile photo, created within 6 hours of 11 other accounts with no photo"
+    },
+    {
+     "kind": "repeated_phone",
+     "reason": "same phone (555-\u202642) in 43 ads across 12 accounts"
+    },
+    {
+     "kind": "repeated_photo",
+     "reason": "10 photo(s) also posted by 2+ other accounts"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 10 other accounts (phones and places masked)"
+    }
+   ]
+  },
+  {
+   "account": "acct_228",
+   "score": 0.93,
+   "rank": 5,
+   "signals": [
+    {
+     "kind": "lookalike_account",
+     "reason": "no profile photo, created within 6 hours of 11 other accounts with no photo"
+    },
+    {
+     "kind": "repeated_phone",
+     "reason": "same phone (555-\u202642) in 43 ads across 12 accounts"
+    },
+    {
+     "kind": "repeated_photo",
+     "reason": "8 photo(s) also posted by 2+ other accounts"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 10 other accounts (phones and places masked)"
+    }
+   ]
+  },
+  {
+   "account": "acct_236",
+   "score": 0.93,
+   "rank": 6,
+   "signals": [
+    {
+     "kind": "lookalike_account",
+     "reason": "no profile photo, created within 6 hours of 11 other accounts with no photo"
+    },
+    {
+     "kind": "repeated_phone",
+     "reason": "same phone (555-\u202642) in 43 ads across 12 accounts"
+    },
+    {
+     "kind": "repeated_photo",
+     "reason": "10 photo(s) also posted by 2+ other accounts"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 10 other accounts (phones and places masked)"
+    }
+   ]
+  },
+  {
+   "account": "acct_410",
+   "score": 0.93,
+   "rank": 7,
+   "signals": [
+    {
+     "kind": "lookalike_account",
+     "reason": "no profile photo, created within 6 hours of 11 other accounts with no photo"
+    },
+    {
+     "kind": "repeated_phone",
+     "reason": "same phone (555-\u202642) in 43 ads across 12 accounts"
+    },
+    {
+     "kind": "repeated_photo",
+     "reason": "8 photo(s) also posted by 2+ other accounts"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 9 other accounts (phones and places masked)"
+    }
+   ]
+  },
+  {
+   "account": "acct_510",
+   "score": 0.93,
+   "rank": 8,
+   "signals": [
+    {
+     "kind": "lookalike_account",
+     "reason": "no profile photo, created within 6 hours of 11 other accounts with no photo"
+    },
+    {
+     "kind": "repeated_phone",
+     "reason": "same phone (555-\u202642) in 43 ads across 12 accounts"
+    },
+    {
+     "kind": "repeated_photo",
+     "reason": "12 photo(s) also posted by 2+ other accounts"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 10 other accounts (phones and places masked)"
+    }
+   ]
+  },
+  {
+   "account": "acct_626",
+   "score": 0.93,
+   "rank": 9,
+   "signals": [
+    {
+     "kind": "lookalike_account",
+     "reason": "no profile photo, created within 6 hours of 11 other accounts with no photo"
+    },
+    {
+     "kind": "repeated_phone",
+     "reason": "same phone (555-\u202642) in 43 ads across 12 accounts"
+    },
+    {
+     "kind": "repeated_photo",
+     "reason": "10 photo(s) also posted by 2+ other accounts"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 10 other accounts (phones and places masked)"
+    }
+   ]
+  },
+  {
+   "account": "acct_730",
+   "score": 0.93,
+   "rank": 10,
+   "signals": [
+    {
+     "kind": "lookalike_account",
+     "reason": "no profile photo, created within 6 hours of 11 other accounts with no photo"
+    },
+    {
+     "kind": "repeated_phone",
+     "reason": "same phone (555-\u202642) in 43 ads across 12 accounts"
+    },
+    {
+     "kind": "repeated_photo",
+     "reason": "11 photo(s) also posted by 2+ other accounts"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 10 other accounts (phones and places masked)"
+    }
+   ]
+  },
+  {
+   "account": "acct_843",
+   "score": 0.93,
+   "rank": 11,
+   "signals": [
+    {
+     "kind": "lookalike_account",
+     "reason": "no profile photo, created within 6 hours of 11 other accounts with no photo"
+    },
+    {
+     "kind": "repeated_phone",
+     "reason": "same phone (555-\u202642) in 43 ads across 12 accounts"
+    },
+    {
+     "kind": "repeated_photo",
+     "reason": "9 photo(s) also posted by 2+ other accounts"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 10 other accounts (phones and places masked)"
+    }
+   ]
+  },
+  {
+   "account": "acct_897",
+   "score": 0.93,
+   "rank": 12,
+   "signals": [
+    {
+     "kind": "lookalike_account",
+     "reason": "no profile photo, created within 6 hours of 11 other accounts with no photo"
+    },
+    {
+     "kind": "repeated_phone",
+     "reason": "same phone (555-\u202642) in 43 ads across 12 accounts"
+    },
+    {
+     "kind": "repeated_photo",
+     "reason": "12 photo(s) also posted by 2+ other accounts"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 10 other accounts (phones and places masked)"
+    }
+   ]
+  },
+  {
+   "account": "acct_166",
+   "score": 0.85,
+   "rank": 13,
+   "signals": [
+    {
+     "kind": "lure_offer",
+     "reason": "2 vague, over-paid offer(s) asking people to message them"
+    },
+    {
+     "kind": "recruiter_pattern",
+     "reason": "bio reads like an agency or job offer; 8 of 9 reposts and replies go to accounts sharing a phone or script"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 2 other accounts (phones and places masked)"
+    }
+   ]
+  },
+  {
+   "account": "acct_905",
+   "score": 0.85,
+   "rank": 14,
+   "signals": [
+    {
+     "kind": "lure_offer",
+     "reason": "2 vague, over-paid offer(s) asking people to message them"
+    },
+    {
+     "kind": "recruiter_pattern",
+     "reason": "bio reads like an agency or job offer; 8 of 9 reposts and replies go to accounts sharing a phone or script"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 2 other accounts (phones and places masked)"
+    }
+   ]
+  },
+  {
+   "account": "acct_931",
+   "score": 0.85,
+   "rank": 15,
+   "signals": [
+    {
+     "kind": "lure_offer",
+     "reason": "2 vague, over-paid offer(s) asking people to message them"
+    },
+    {
+     "kind": "recruiter_pattern",
+     "reason": "bio reads like an agency or job offer; 8 of 9 reposts and replies go to accounts sharing a phone or script"
+    },
+    {
+     "kind": "repeated_script",
+     "reason": "same ad wording as 2 other accounts (phones and places masked)"
+    }
+   ]
+  }
+ ],
+ "flag_rule": "flagged only when at least 3 different signal kinds agree"
+}

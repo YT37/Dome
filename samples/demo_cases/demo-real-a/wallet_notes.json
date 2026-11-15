@@ -1,0 +1,76 @@
+{
+ "notes": [
+  {
+   "account": "acct_626",
+   "cluster_id": "W-1",
+   "kind": "money",
+   "reason": "paid the ad platform 2-15 min before this account posted, 6 times (chance level 0.1)"
+  },
+  {
+   "account": "acct_897",
+   "cluster_id": "W-1",
+   "kind": "money",
+   "reason": "paid the ad platform 2-15 min before this account posted, 6 times (chance level 0.1)"
+  },
+  {
+   "account": "acct_131",
+   "cluster_id": "W-1",
+   "kind": "money",
+   "reason": "paid the ad platform 2-15 min before this account posted, 6 times (chance level 0.1)"
+  },
+  {
+   "account": "acct_410",
+   "cluster_id": "W-1",
+   "kind": "money",
+   "reason": "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.0)"
+  },
+  {
+   "account": "acct_843",
+   "cluster_id": "W-1",
+   "kind": "money",
+   "reason": "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.1)"
+  },
+  {
+   "account": "acct_510",
+   "cluster_id": "W-1",
+   "kind": "money",
+   "reason": "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.1)"
+  },
+  {
+   "account": "acct_201",
+   "cluster_id": "W-1",
+   "kind": "money",
+   "reason": "paid the ad platform 2-15 min before this account posted, 5 times (chance level 0.0)"
+  },
+  {
+   "account": "acct_236",
+   "cluster_id": "W-1",
+   "kind": "money",
+   "reason": "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.1)"
+  },
+  {
+   "account": "acct_103",
+   "cluster_id": "W-1",
+   "kind": "money",
+   "reason": "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.1)"
+  },
+  {
+   "account": "acct_228",
+   "cluster_id": "W-1",
+   "kind": "money",
+   "reason": "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.1)"
+  },
+  {
+   "account": "acct_220",
+   "cluster_id": "W-1",
+   "kind": "money",
+   "reason": "paid the ad platform 2-15 min before this account posted, 4 times (chance level 0.0)"
+  },
+  {
+   "account": "acct_730",
+   "cluster_id": "W-1",
+   "kind": "money",
+   "reason": "paid the ad platform 2-15 min before this account posted, 3 times (chance level 0.0)"
+  }
+ ]
+}
