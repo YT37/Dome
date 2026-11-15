@@ -33,9 +33,9 @@
     "buildings": [
       {
         "label": "A",
-        "property_id": "CS-88412",
-        "scan_id": "mp_4471",
-        "unit": "4B"
+        "property_id": "RL-213304177",
+        "scan_id": "LqCMcmmVH3d",
+        "unit": "307"
       }
     ]
   },
@@ -204,8 +204,8 @@
   "decoy_buildings": [
     {
       "label": "D",
-      "property_id": "CS-88107",
-      "scan_id": "mp_2210"
+      "property_id": "CS-4278693",
+      "scan_id": "FQZd6kTpht1"
     }
   ]
 }
