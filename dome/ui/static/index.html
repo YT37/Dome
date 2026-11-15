@@ -47,6 +47,7 @@
     <div class="controls">
       <div class="seg" role="group" aria-label="Preset" id="presetSeg"></div>
       <label class="switch" title="Rule-based planner, no LLM. The offline fallback."><input type="checkbox" id="scripted" checked> Scripted (no LLM)</label>
+      <label class="switch" title="Switch views as each step finishes: graph, then map, then the overview"><input type="checkbox" id="tour"> Auto tour</label>
       <label class="sr" for="replaySel">Replay a recorded case</label>
       <select class="ctl" id="replaySel" aria-label="Replay a recorded case"><option value="">Replay…</option></select>
       <button class="btn primary" id="runBtn" type="button">
@@ -95,6 +96,7 @@
               <button type="button" data-color="cells" aria-pressed="false">Shared keys</button>
               <button type="button" data-color="topo" aria-pressed="false">Topo P</button></div>
             <label class="switch"><input type="checkbox" id="hideLonely"> Hide unlinked</label>
+            <button class="btn" type="button" id="focusBtn" style="padding:5px 11px;font-size:12px">Focus Ring</button>
             <button class="help" data-guide="graph" aria-label="How to read the graph">?</button></div>
           <div class="pb"><div class="cy" id="cyBig"></div><div class="legend" id="bigLegend"></div></div></div>
         <aside class="side">

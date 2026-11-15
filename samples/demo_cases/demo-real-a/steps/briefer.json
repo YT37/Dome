@@ -1,0 +1,128 @@
+{
+ "agent": "briefer",
+ "title": "Briefer \u00b7 score and tier",
+ "case": "demo-real-a",
+ "steps": [
+  {
+   "id": "parts",
+   "title": "Score parts per lead",
+   "kind": "chart",
+   "data": {
+    "type": "bar",
+    "labels": [
+     "Building A (synthetic case)"
+    ],
+    "datasets": [
+     {
+      "label": "Z (0.15 \u00b7 R)",
+      "data": [
+       4.8
+      ]
+     },
+     {
+      "label": "F (0.10 \u00b7 R)",
+      "data": [
+       7.6
+      ]
+     },
+     {
+      "label": "P (0.45 \u00b7 R)",
+      "data": [
+       29.1
+      ]
+     },
+     {
+      "label": "W (0.30 \u00b7 R)",
+      "data": [
+       17.1
+      ]
+     }
+    ],
+    "threshold": null,
+    "x": null,
+    "y": "score points",
+    "horizontal": false,
+    "stacked": true,
+    "highlight": []
+   },
+   "caption": "Each bar is 100 \u00b7 R \u00b7 (0.15 Z + 0.10 F + 0.45 P + 0.30 W); a missing W is dropped and the rest rescaled. Recorded scores: Building A (synthetic case) 59.",
+   "source": "case/demo-real-a/brief.json"
+  },
+  {
+   "id": "rules",
+   "title": "Tier rules",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "lead",
+     "P",
+     "W",
+     "R",
+     "P \u2265 0.6",
+     "W \u2265 0.6",
+     "R \u2265 0.6",
+     "rule says",
+     "brief says"
+    ],
+    "rows": [
+     [
+      "Building A (synthetic case)",
+      "0.68",
+      "0.60",
+      "0.95",
+      "\u2713",
+      "\u2713",
+      "\u2713",
+      "High",
+      "High"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "High needs P \u2265 0.6, W \u2265 0.6 and R \u2265 0.6. The score never promotes past a rule. No caps.",
+   "source": "case/demo-real-a/brief.json"
+  },
+  {
+   "id": "decoy",
+   "title": "Other buildings stay below the threshold",
+   "kind": "chart",
+   "data": {
+    "type": "bar",
+    "labels": [
+     "LqCMcmmVH3d",
+     "11oGjc3fJwA",
+     "169F7nENMza",
+     "1KtXn2oexdP",
+     "1TgjNvW2h2o",
+     "1ifTN4d1GBd"
+    ],
+    "datasets": [
+     {
+      "label": "P",
+      "data": [
+       0.68,
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "threshold": {
+     "value": 0.4,
+     "label": "threshold 0.4"
+    },
+    "x": null,
+    "y": "P",
+    "horizontal": false,
+    "stacked": false,
+    "highlight": [
+     0
+    ]
+   },
+   "caption": "The lead's scan against the next 5 scans by P; anything under 0.4 cannot beat Low.",
+   "source": "case/demo-real-a/room_match.json, case/demo-real-a/matches.json"
+  }
+ ]
+}

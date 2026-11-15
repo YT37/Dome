@@ -1,0 +1,639 @@
+{
+ "agent": "complex",
+ "title": "Topology \u00b7 combinatorial complex",
+ "case": "demo-real-a",
+ "steps": [
+  {
+   "id": "ranks",
+   "title": "Cells by rank",
+   "kind": "chart",
+   "data": {
+    "type": "bar",
+    "labels": [
+     "rank 0",
+     "rank 1",
+     "rank 2",
+     "rank 3"
+    ],
+    "datasets": [
+     {
+      "label": "cells",
+      "data": [
+       20,
+       103,
+       4,
+       1
+      ]
+     }
+    ],
+    "threshold": null,
+    "x": null,
+    "y": null,
+    "horizontal": false,
+    "stacked": false,
+    "highlight": []
+   },
+   "caption": "rank 0: 15 account, 4 wallet_cluster, 1 room; rank 1: 20 photo, 20 dm, 13 interaction, 12 wallet_note, 8 money, 7 payment_then_post; rank 2: 4 echo_event; rank 3: 1 ring.",
+   "source": "case/demo-real-a/complex.json"
+  },
+  {
+   "id": "cells",
+   "title": "Higher cells and why they exist",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "cell",
+     "rank",
+     "kind",
+     "members",
+     "reason"
+    ],
+    "rows": [
+     [
+      "R-1",
+      "3",
+      "ring",
+      16,
+      "rules: money, contact, dm, photo, text, keyword, interaction, heartbeat, place, time agree (R 0.95)"
+     ],
+     [
+      "c_E-1",
+      "2",
+      "echo_event",
+      2,
+      "shared echo_event key E-1"
+     ],
+     [
+      "c_E-3",
+      "2",
+      "echo_event",
+      2,
+      "shared echo_event key E-3"
+     ],
+     [
+      "c_E-6",
+      "2",
+      "echo_event",
+      2,
+      "shared echo_event key E-6"
+     ],
+     [
+      "c_E-7",
+      "2",
+      "echo_event",
+      2,
+      "shared echo_event key E-7"
+     ],
+     [
+      "c_keyword:#tapin",
+      "1",
+      "keyword",
+      15,
+      "shared keyword key keyword:"
+     ],
+     [
+      "c_keyword:\ud83c\udf39",
+      "1",
+      "keyword",
+      15,
+      "shared keyword key keyword:\ud83c\udf39"
+     ],
+     [
+      "c_contact:555-\u202642#d273",
+      "1",
+      "contact",
+      12,
+      "shared contact key contact:555-\u202642"
+     ],
+     [
+      "c_contact:555-\u202687#7483",
+      "1",
+      "contact",
+      12,
+      "shared contact key contact:555-\u202687"
+     ],
+     [
+      "c_place:ac_713",
+      "1",
+      "place",
+      12,
+      "shared place key place:ac_713"
+     ],
+     [
+      "c_place:downtown",
+      "1",
+      "place",
+      12,
+      "shared place key place:downtown"
+     ],
+     [
+      "c_place:midtown",
+      "1",
+      "place",
+      12,
+      "shared place key place:midtown"
+     ],
+     [
+      "c_text:tmpl_40",
+      "1",
+      "text",
+      12,
+      "shared text key text:tmpl_40"
+     ],
+     [
+      "c_time:created_202-\u202602#12a5",
+      "1",
+      "time",
+      12,
+      "shared time key time:created_202-\u202602"
+     ],
+     [
+      "c_place:lm_main_street_square",
+      "1",
+      "place",
+      11,
+      "shared place key place:lm_main_street_square"
+     ],
+     [
+      "c_place:lm_midtown_park",
+      "1",
+      "place",
+      10,
+      "shared place key place:lm_midtown_park"
+     ],
+     [
+      "c_money:$sunny_rose5",
+      "1",
+      "money",
+      9,
+      "shared money key money:$sunny_rose5"
+     ],
+     [
+      "c_photo:phash_890f1bc6",
+      "1",
+      "photo",
+      9,
+      "shared photo key photo:phash_890f1bc6"
+     ],
+     [
+      "c_photo:phash_b4db5be6",
+      "1",
+      "photo",
+      9,
+      "shared photo key photo:phash_b4db5be6"
+     ],
+     [
+      "c_place:lm_central_station",
+      "1",
+      "place",
+      9,
+      "shared place key place:lm_central_station"
+     ],
+     [
+      "c_photo:phash_ab544237",
+      "1",
+      "photo",
+      8,
+      "shared photo key photo:phash_ab544237"
+     ],
+     [
+      "c_photo:phash_b7330c0c",
+      "1",
+      "photo",
+      8,
+      "shared photo key photo:phash_b7330c0c"
+     ],
+     [
+      "c_photo:phash_d61c6177",
+      "1",
+      "photo",
+      8,
+      "shared photo key photo:phash_d61c6177"
+     ],
+     [
+      "c_photo:phash_a55b2c54",
+      "1",
+      "photo",
+      7,
+      "shared photo key photo:phash_a55b2c54"
+     ],
+     [
+      "c_photo:phash_a59b32cd",
+      "1",
+      "photo",
+      7,
+      "shared photo key photo:phash_a59b32cd"
+     ],
+     [
+      "c_photo:phash_f2920b65",
+      "1",
+      "photo",
+      7,
+      "shared photo key photo:phash_f2920b65"
+     ],
+     [
+      "c_room_LqCMcmmVH3d",
+      "1",
+      "photo_in_room",
+      7,
+      "ring photos match scan LqCMcmmVH3d (P 0.684, room_match.json)"
+     ],
+     [
+      "c_photo:phash_9eaf52a5",
+      "1",
+      "photo",
+      6,
+      "shared photo key photo:phash_9eaf52a5"
+     ],
+     [
+      "c_photo:phash_b3cc38d3",
+      "1",
+      "photo",
+      6,
+      "shared photo key photo:phash_b3cc38d3"
+     ],
+     [
+      "c_photo:phash_bcc6f3e3",
+      "1",
+      "photo",
+      6,
+      "shared photo key photo:phash_bcc6f3e3"
+     ],
+     [
+      "c_photo:phash_c29e5d23",
+      "1",
+      "photo",
+      6,
+      "shared photo key photo:phash_c29e5d23"
+     ],
+     [
+      "c_photo:phash_e51a196c",
+      "1",
+      "photo",
+      6,
+      "shared photo key photo:phash_e51a196c"
+     ],
+     [
+      "c_photo:phash_e51a6d5c",
+      "1",
+      "photo",
+      6,
+      "shared photo key photo:phash_e51a6d5c"
+     ],
+     [
+      "c_photo:phash_f3b8536c",
+      "1",
+      "photo",
+      6,
+      "shared photo key photo:phash_f3b8536c"
+     ],
+     [
+      "c_photo:phash_8cb261c5",
+      "1",
+      "photo",
+      5,
+      "shared photo key photo:phash_8cb261c5"
+     ],
+     [
+      "c_photo:phash_e38c6aba",
+      "1",
+      "photo",
+      5,
+      "shared photo key photo:phash_e38c6aba"
+     ],
+     [
+      "c_photo:phash_eeb1419b",
+      "1",
+      "photo",
+      5,
+      "shared photo key photo:phash_eeb1419b"
+     ],
+     [
+      "c_photo:phash_fbe19eb8",
+      "1",
+      "photo",
+      4,
+      "shared photo key photo:phash_fbe19eb8"
+     ],
+     [
+      "c_text:tmpl_60",
+      "1",
+      "text",
+      3,
+      "shared text key text:tmpl_60"
+     ],
+     [
+      "c_text:tmpl_61",
+      "1",
+      "text",
+      3,
+      "shared text key text:tmpl_61"
+     ],
+     [
+      "c_contact:555-\u202699#075f",
+      "1",
+      "contact",
+      2,
+      "shared contact key contact:555-\u202699"
+     ],
+     [
+      "c_money:$velvet_k9",
+      "1",
+      "money",
+      2,
+      "shared money key money:$velvet_k9"
+     ],
+     [
+      "c_photo:phash_ba3c0547",
+      "1",
+      "photo",
+      2,
+      "shared photo key photo:phash_ba3c0547"
+     ],
+     [
+      "c_text:tmpl_35",
+      "1",
+      "text",
+      2,
+      "shared text key text:tmpl_35"
+     ],
+     [
+      "c_text:tmpl_39",
+      "1",
+      "text",
+      2,
+      "shared text key text:tmpl_39"
+     ],
+     [
+      "c_dm:acct_103~acct_201#acct_103~acct_201",
+      "1",
+      "dm",
+      2,
+      "shared dm key dm:acct_103~acct_201"
+     ],
+     [
+      "c_money:direct_tx_5025#acct_103~acct_201",
+      "1",
+      "money",
+      2,
+      "shared money key money:direct_tx_5025"
+     ],
+     [
+      "c_dm:acct_103~acct_220#acct_103~acct_220",
+      "1",
+      "dm",
+      2,
+      "shared dm key dm:acct_103~acct_220"
+     ],
+     [
+      "c_money:direct_tx_5026#acct_103~acct_220",
+      "1",
+      "money",
+      2,
+      "shared money key money:direct_tx_5026"
+     ],
+     [
+      "c_dm:acct_103~acct_228#acct_103~acct_228",
+      "1",
+      "dm",
+      2,
+      "shared dm key dm:acct_103~acct_228"
+     ],
+     [
+      "c_money:direct_tx_5027#acct_103~acct_228",
+      "1",
+      "money",
+      2,
+      "shared money key money:direct_tx_5027"
+     ],
+     [
+      "c_dm:acct_103~acct_236#acct_103~acct_236",
+      "1",
+      "dm",
+      2,
+      "shared dm key dm:acct_103~acct_236"
+     ],
+     [
+      "c_money:direct_tx_5028#acct_103~acct_236",
+      "1",
+      "money",
+      2,
+      "shared money key money:direct_tx_5028"
+     ],
+     [
+      "c_dm:acct_103~acct_410#acct_103~acct_410",
+      "1",
+      "dm",
+      2,
+      "shared dm key dm:acct_103~acct_410"
+     ],
+     [
+      "c_money:direct_tx_5029#acct_103~acct_410",
+      "1",
+      "money",
+      2,
+      "shared money key money:direct_tx_5029"
+     ],
+     [
+      "c_dm:acct_103~acct_510#acct_103~acct_510",
+      "1",
+      "dm",
+      2,
+      "shared dm key dm:acct_103~acct_510"
+     ],
+     [
+      "c_money:direct_tx_5030#acct_103~acct_510",
+      "1",
+      "money",
+      2,
+      "shared money key money:direct_tx_5030"
+     ],
+     [
+      "c_interaction:direct_x2#acct_103~acct_730",
+      "1",
+      "interaction",
+      2,
+      "shared interaction key interaction:direct_x2"
+     ],
+     [
+      "c_dm:acct_131~acct_201#acct_131~acct_201",
+      "1",
+      "dm",
+      2,
+      "shared dm key dm:acct_131~acct_201"
+     ],
+     [
+      "c_dm:acct_131~acct_228#acct_131~acct_228",
+      "1",
+      "dm",
+      2,
+      "shared dm key dm:acct_131~acct_228"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "108 higher cells; each reason as the complex builder wrote it.",
+   "source": "case/demo-real-a/complex.json"
+  },
+  {
+   "id": "scores",
+   "title": "Model scores: accounts only",
+   "kind": "chart",
+   "data": {
+    "type": "bar",
+    "labels": [
+     "acct_103",
+     "acct_131",
+     "acct_201",
+     "acct_220",
+     "acct_228",
+     "acct_236",
+     "acct_410",
+     "acct_510",
+     "acct_626",
+     "acct_730",
+     "acct_843",
+     "acct_897",
+     "acct_166",
+     "acct_931",
+     "acct_905"
+    ],
+    "datasets": [
+     {
+      "label": "P(in a ring)",
+      "data": [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       0.999,
+       0.999,
+       0.998
+      ]
+     }
+    ],
+    "threshold": {
+     "value": 0.564,
+     "label": "threshold 0.564"
+    },
+    "x": null,
+    "y": null,
+    "horizontal": true,
+    "stacked": false,
+    "highlight": []
+   },
+   "caption": "UniGCN (TopoModelX), structural model: accounts only (wallet, room and building nodes are in the complex but not scored). Not scored: W-1, W-2, W-3, W-4, room_LqCMcmmVH3d. Trained on: structural: rings from generator seeds 201-203 (val 204), never this case's dataset; account labels only.",
+   "source": "case/demo-real-a/complex.json"
+  },
+  {
+   "id": "disagreements",
+   "title": "Model vs rules: 5 disagreements",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "account",
+     "rules link it",
+     "model score",
+     "note"
+    ],
+    "rows": [
+     [
+      "acct_376",
+      "no",
+      "0.975",
+      "model says ring, rules found no link"
+     ],
+     [
+      "acct_421",
+      "no",
+      "0.968",
+      "model says ring, rules found no link"
+     ],
+     [
+      "acct_516",
+      "no",
+      "0.948",
+      "model says ring, rules found no link"
+     ],
+     [
+      "acct_112",
+      "no",
+      "0.909",
+      "model says ring, rules found no link"
+     ],
+     [
+      "acct_573",
+      "no",
+      "0.882",
+      "model says ring, rules found no link"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "Where the model and the two-kinds rule disagree. The rules decide the ring; these are for an analyst to look at.",
+   "source": "case/demo-real-a/complex.json"
+  },
+  {
+   "id": "heldout",
+   "title": "Held-out result (structural model)",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "split",
+     "dataset",
+     "ring found",
+     "precision",
+     "recall",
+     "AUC"
+    ],
+    "rows": [
+     [
+      "fresh held-out ring",
+      "data/synth_fresh_s3301",
+      "15/15",
+      "1.00",
+      "1.00",
+      "1.00"
+     ],
+     [
+      "test",
+      "data/synth_heldout",
+      "15/15",
+      "1.00",
+      "1.00",
+      "1.00"
+     ],
+     [
+      "test",
+      "synth",
+      "15/15",
+      "1.00",
+      "1.00",
+      "1.00"
+     ],
+     [
+      "validation",
+      "data/synth_s204",
+      "15/15",
+      "1.00",
+      "1.00",
+      "1.00"
+     ]
+    ],
+    "highlight": [
+     0
+    ]
+   },
+   "caption": "Computed on held-out rings from our own synthetic generator, not on real data. fresh seed 3301 (private layers 4301), generated after the model was final; run once, model commit 2c0b059 train on seeds 201-203, validate on 204 (early stopping + threshold), test once on the held-out ring (seed 101) and the original synth (seed 37)",
+   "source": "case/demo-real-a/complex.json (eval_structural)"
+  }
+ ]
+}

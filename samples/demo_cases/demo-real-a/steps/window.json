@@ -1,0 +1,152 @@
+{
+ "agent": "window",
+ "title": "Locator \u00b7 window check",
+ "case": "demo-real-a",
+ "steps": [
+  {
+   "id": "photo",
+   "title": "The ad photo with a window",
+   "kind": "text",
+   "data": {
+    "text": "Window photo: img_0870",
+    "note": "the ad photo itself is not served to the page"
+   },
+   "caption": "img_0870 is the ring photo with a window; the checklist below reads it.",
+   "source": "case/demo-real-a/window_check.json"
+  },
+  {
+   "id": "facade",
+   "title": "Oblique facade at floor 3",
+   "kind": "image",
+   "data": {
+    "images": [
+     {
+      "src": "/asset/data/demo_assets/LqCMcmmVH3d/oblique_0.jpg",
+      "label": "oblique-west"
+     }
+    ],
+    "box": [
+     0,
+     0,
+     836,
+     616
+    ]
+   },
+   "caption": "The Vexcel oblique of the matched facade; floor band 6.4\u20139.6 m. Crop box used: [0, 0, 836, 616].",
+   "source": "case/demo-real-a/window_check.json, data/demo_assets/LqCMcmmVH3d/assets.json"
+  },
+  {
+   "id": "checklist",
+   "title": "What the window sees vs. what the oblique shows",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "item",
+     "ad photo says",
+     "oblique says",
+     "agree"
+    ],
+    "rows": [
+     [
+      "road front",
+      "unclear",
+      "no",
+      "unclear (not counted)"
+     ],
+     [
+      "parking front",
+      "no",
+      "yes",
+      "\u2717 differ"
+     ],
+     [
+      "building across",
+      "yes",
+      "yes",
+      "\u2713 agree"
+     ],
+     [
+      "trees",
+      "no",
+      "yes",
+      "\u2717 differ"
+     ],
+     [
+      "open sky",
+      "yes",
+      "yes",
+      "\u2713 agree"
+     ],
+     [
+      "height above street",
+      "low",
+      "3 floors",
+      "\u2713 agree"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "3 of 5 counted items agree; 'unclear' is not counted.",
+   "source": "case/demo-real-a/window_check.json"
+  },
+  {
+   "id": "W",
+   "title": "W = 0.60",
+   "kind": "text",
+   "data": {
+    "text": "W 0.60",
+    "bullets": [
+     "parking front: window no, oblique yes",
+     "building across: window yes, oblique yes",
+     "trees: window no, oblique yes",
+     "open sky: window yes, oblique yes",
+     "height: window looks low (floor 2+), building has 3 floors"
+    ]
+   },
+   "caption": "W is the window-view agreement the Briefer uses; High needs W \u2265 0.6.",
+   "source": "case/demo-real-a/window_check.json"
+  },
+  {
+   "id": "fingerprint",
+   "title": "Window fingerprint: for analyst review",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "item",
+     "ad photo",
+     "facade",
+     "agree"
+    ],
+    "rows": [
+     [
+      "pane count",
+      "2",
+      "4+",
+      "\u2717 differ"
+     ],
+     [
+      "mullions",
+      "none",
+      "grid",
+      "\u2717 differ"
+     ],
+     [
+      "shape",
+      "tall",
+      "tall",
+      "\u2713 agree"
+     ],
+     [
+      "spacing",
+      "ribbon",
+      "evenly_spaced",
+      "\u2717 differ"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "1 of 4 items agree \u2192 for analyst review. Pane count, mullions, shape and spacing compared with the facade grid.",
+   "source": "data/demo_assets/LqCMcmmVH3d/assets.json"
+  }
+ ]
+}

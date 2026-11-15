@@ -1,0 +1,454 @@
+{
+ "agent": "money",
+ "title": "Linker \u00b7 money layer",
+ "case": "demo-real-a",
+ "steps": [
+  {
+   "id": "timeline",
+   "title": "Ad-platform payments and ring posts per day",
+   "kind": "chart",
+   "data": {
+    "type": "line",
+    "labels": [
+     "2026-09-29",
+     "2026-09-30",
+     "2026-10-01",
+     "2026-10-02",
+     "2026-10-03",
+     "2026-10-04",
+     "2026-10-05",
+     "2026-10-06",
+     "2026-10-07",
+     "2026-10-08",
+     "2026-10-09",
+     "2026-10-10",
+     "2026-10-11",
+     "2026-10-12",
+     "2026-10-13",
+     "2026-10-14",
+     "2026-10-15",
+     "2026-10-16",
+     "2026-10-17",
+     "2026-10-18",
+     "2026-10-19",
+     "2026-10-20",
+     "2026-10-21",
+     "2026-10-22",
+     "2026-10-23",
+     "2026-10-24",
+     "2026-10-25",
+     "2026-10-26",
+     "2026-10-27",
+     "2026-10-28",
+     "2026-10-29",
+     "2026-10-30",
+     "2026-10-31",
+     "2026-11-01",
+     "2026-11-02",
+     "2026-11-03",
+     "2026-11-04",
+     "2026-11-05",
+     "2026-11-06",
+     "2026-11-07",
+     "2026-11-08",
+     "2026-11-09",
+     "2026-11-10"
+    ],
+    "datasets": [
+     {
+      "label": "payments to the ad platform",
+      "data": [
+       2,
+       1,
+       5,
+       4,
+       3,
+       2,
+       5,
+       1,
+       1,
+       1,
+       2,
+       1,
+       2,
+       5,
+       1,
+       1,
+       4,
+       2,
+       2,
+       5,
+       5,
+       2,
+       4,
+       2,
+       2,
+       4,
+       5,
+       4,
+       4,
+       5,
+       2,
+       1,
+       2,
+       1,
+       4,
+       3,
+       3,
+       2,
+       5,
+       3,
+       3,
+       1,
+       3
+      ]
+     },
+     {
+      "label": "ring posts",
+      "data": [
+       0,
+       0,
+       6,
+       4,
+       4,
+       2,
+       3,
+       2,
+       1,
+       1,
+       0,
+       0,
+       2,
+       3,
+       3,
+       5,
+       3,
+       2,
+       2,
+       3,
+       3,
+       1,
+       4,
+       4,
+       2,
+       2,
+       4,
+       4,
+       3,
+       3,
+       3,
+       1,
+       1,
+       2,
+       2,
+       2,
+       3,
+       2,
+       6,
+       3,
+       2,
+       2,
+       0
+      ]
+     }
+    ],
+    "threshold": null,
+    "x": null,
+    "y": null,
+    "horizontal": false,
+    "stacked": false,
+    "highlight": []
+   },
+   "caption": "120 ledger payments to the 3 ad-platform addresses; 105 posts by the 15 ring accounts.",
+   "source": "data/synth/chain/transactions.json, data/synth/chain/services.json, data/synth/posts.json, case/demo-real-a/rings.json"
+  },
+  {
+   "id": "gaps",
+   "title": "Minutes from each ad payment to the next ring post",
+   "kind": "chart",
+   "data": {
+    "type": "bar",
+    "labels": [
+     "0-2 min",
+     "2-15 min",
+     "15-30 min",
+     "30-60 min",
+     "1-2 h",
+     "2-4 h",
+     "later / none"
+    ],
+    "datasets": [
+     {
+      "label": "real ring post times",
+      "data": [
+       0,
+       56,
+       4,
+       3,
+       3,
+       5,
+       49
+      ]
+     },
+     {
+      "label": "ring posts shifted at random (seed 37)",
+      "data": [
+       0,
+       1,
+       1,
+       2,
+       9,
+       24,
+       83
+      ]
+     }
+    ],
+    "threshold": null,
+    "x": null,
+    "y": null,
+    "horizontal": false,
+    "stacked": false,
+    "highlight": [
+     1
+    ]
+   },
+   "caption": "56 payments are followed by a ring post within 2-15 minutes, against 1 when the same posts are shifted at random.",
+   "source": "data/synth/chain/transactions.json, data/synth/chain/services.json, data/synth/posts.json, case/demo-real-a/rings.json"
+  },
+  {
+   "id": "clusters",
+   "title": "Clusters from shared inputs",
+   "kind": "graph",
+   "data": {
+    "nodes": [
+     {
+      "id": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+      "label": "syn1q\u2026886f",
+      "group": 0
+     },
+     {
+      "id": "syn1qcafb96063e389b9f233903b61f0a0816",
+      "label": "syn1q\u20260816",
+      "group": 0
+     },
+     {
+      "id": "syn1qd347564a3020795a625cf3d342ad7624",
+      "label": "syn1q\u20267624",
+      "group": 0
+     },
+     {
+      "id": "syn1q498b5128b07e063fcc02232e78b7c67a",
+      "label": "syn1q\u2026c67a",
+      "group": 1
+     },
+     {
+      "id": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e",
+      "label": "syn1q\u20262f1e",
+      "group": 1
+     }
+    ],
+    "edges": [
+     {
+      "source": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+      "target": "syn1qcafb96063e389b9f233903b61f0a0816"
+     },
+     {
+      "source": "syn1q3d91e28e24b9443494e8ffe9d64e886f",
+      "target": "syn1qd347564a3020795a625cf3d342ad7624"
+     },
+     {
+      "source": "syn1q498b5128b07e063fcc02232e78b7c67a",
+      "target": "syn1qd653b4dc3fc03add25abbd21fe7b2f1e"
+     }
+    ]
+   },
+   "caption": "Addresses spent together in one transaction belong to one owner: 60 clusters, 2 with more than one address (largest 8 shown). Service addresses never join a cluster.",
+   "source": "data/synth/chain/transactions.json, data/synth/chain/services.json"
+  },
+  {
+   "id": "decoys",
+   "title": "Busy wallets that do not line up stay unattributed",
+   "kind": "text",
+   "data": {
+    "text": "6 clusters pay the ad platform; 1 line up with ring posts 3+ times; 5 stay unattributed"
+   },
+   "caption": "Paying the ad platform is normal; only repeated payment-then-post timing ties a wallet to the ring.",
+   "source": "data/synth/chain/transactions.json, data/synth/chain/services.json, data/synth/posts.json, case/demo-real-a/rings.json"
+  },
+  {
+   "id": "roles",
+   "title": "Wallet clusters and roles",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "cluster",
+     "role",
+     "addresses",
+     "confidence",
+     "why"
+    ],
+    "rows": [
+     [
+      "W-1",
+      "advertiser",
+      2,
+      0.98,
+      "paid the ad platform 2-15 min before 57 ring posts (chance level: 1.3)"
+     ],
+     [
+      "W-2",
+      "collector",
+      3,
+      0.79,
+      "44 of 44 incoming payments arrive during the ring's active hours (chance level 9.2), at 3 repeated amounts"
+     ],
+     [
+      "W-3",
+      "aggregator",
+      1,
+      0.99,
+      "receives 11 consolidations from 1 collector cluster(s)"
+     ],
+     [
+      "W-4",
+      "cash_out",
+      1,
+      0.99,
+      "receives from the aggregator 4 times and sends to Exchange X deposit 4 times"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "Roles from the shape of the money; attribution confidence 0.94. A cluster counts only at confidence \u2265 0.7.",
+   "source": "case/demo-real-a/rings.json (ring money block)"
+  },
+  {
+   "id": "flows",
+   "title": "Consolidation and cash-out",
+   "kind": "graph",
+   "data": {
+    "nodes": [
+     {
+      "id": "W-1",
+      "label": "W-1 \u00b7 advertiser",
+      "group": 0
+     },
+     {
+      "id": "W-2",
+      "label": "W-2 \u00b7 collector",
+      "group": 1
+     },
+     {
+      "id": "W-3",
+      "label": "W-3 \u00b7 aggregator",
+      "group": 2
+     },
+     {
+      "id": "W-4",
+      "label": "W-4 \u00b7 cash_out",
+      "group": 3
+     },
+     {
+      "id": "svc:Exchange X",
+      "label": "Exchange X",
+      "group": 5
+     }
+    ],
+    "edges": [
+     {
+      "source": "W-2",
+      "target": "W-3"
+     },
+     {
+      "source": "W-3",
+      "target": "W-4"
+     },
+     {
+      "source": "W-4",
+      "target": "svc:Exchange X"
+     }
+    ]
+   },
+   "caption": "W-2 \u2192 W-3: 0.5332 BTC in 11 txs; W-3 \u2192 W-4: 0.79 BTC in 4 txs; W-4 \u2192 Exchange X 4 times",
+   "source": "case/demo-real-a/rings.json (ring money block)"
+  },
+  {
+   "id": "ptp",
+   "title": "Payment, then post",
+   "kind": "table",
+   "data": {
+    "columns": [
+     "wallet",
+     "paid at",
+     "posted at",
+     "account"
+    ],
+    "rows": [
+     [
+      "W-1",
+      "2026-10-01T04:33:00",
+      "2026-10-01T04:48:00",
+      "acct_410"
+     ],
+     [
+      "W-1",
+      "2026-10-01T08:09:00",
+      "2026-10-01T08:18:00",
+      "acct_730"
+     ],
+     [
+      "W-1",
+      "2026-10-01T21:07:00",
+      "2026-10-01T21:16:00",
+      "acct_236"
+     ],
+     [
+      "W-1",
+      "2026-10-02T16:05:00",
+      "2026-10-02T16:10:00",
+      "acct_843"
+     ],
+     [
+      "W-1",
+      "2026-10-02T19:43:00",
+      "2026-10-02T19:58:00",
+      "acct_730"
+     ],
+     [
+      "W-1",
+      "2026-10-03T06:45:00",
+      "2026-10-03T06:59:00",
+      "acct_843"
+     ],
+     [
+      "W-1",
+      "2026-10-04T09:36:00",
+      "2026-10-04T09:50:00",
+      "acct_626"
+     ],
+     [
+      "W-1",
+      "2026-10-05T07:33:00",
+      "2026-10-05T07:41:00",
+      "acct_228"
+     ],
+     [
+      "W-1",
+      "2026-10-05T20:55:00",
+      "2026-10-05T21:09:00",
+      "acct_843"
+     ],
+     [
+      "W-1",
+      "2026-10-06T16:17:00",
+      "2026-10-06T16:19:00",
+      "acct_103"
+     ]
+    ],
+    "highlight": []
+   },
+   "caption": "10 payment-then-post pairs recorded.",
+   "source": "case/demo-real-a/rings.json (ring money block)"
+  }
+ ]
+}
