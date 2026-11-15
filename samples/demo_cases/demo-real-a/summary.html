@@ -61,17 +61,17 @@
     <tr>
       <td>1</td>
       <td>Building A (synthetic case)<div class="small muted">Z-1-1</div></td>
-      <td class="tier Medium">Medium</td>
-      <td>50</td>
-      <td><ul class="small"><li>R 0.95: 15 accounts linked by keyword (72 links), text (69 links), contact (66 links)</li><li>P 0.68: 8 of 20 room photos match the unit scan, 4400 matched points</li><li>W missing: no window photo, so the window view was not checked</li><li>Z 0.34: inside Z-1-1 (14 km2, 81% of place-clue weight); 72 ads name Midtown, Downtown or Main Street Square</li><li>F 0.15: no window height estimate; floor count not checked</li><li class="cap">capped at Medium: window check could not run (window_box: no GOOGLE_API_KEY and no cached answer)</li></ul></td>
-      <td><ul class="small"><li>Through legal process, request lease and short-term booking records for units on floors 3-3 for 2026-10-01 to 2026-11-09</li><li>Through legal process, request the payment records behind any such booking</li><li>Confirms: a lease or booking on those floors overlapping the ad dates, with a unit layout that matches the photos</li><li>A window photo from the ads, if one turns up, would allow the window check</li><li>Rules out: no occupancy in those dates, or unit layouts that differ from the matched rooms</li><li>A human reviewer compares each matched photo with its scan view side by side</li></ul></td>
+      <td class="tier High">High</td>
+      <td>59</td>
+      <td><ul class="small"><li>R 0.95: 15 accounts linked by keyword (72 links), text (69 links), contact (66 links)</li><li>P 0.68: 8 of 20 room photos match the unit scan, 4400 matched points</li><li>W 0.60: window view agrees on building across, open sky, height above street; not seen: parking front, trees</li><li>Z 0.34: inside Z-1-1 (14 km2, 81% of place-clue weight); 72 ads name Midtown, Downtown or Main Street Square</li><li>F 0.80: multifamily matches apartment photos; 3 floors fits a floor 2 to 3 view</li></ul></td>
+      <td><ul class="small"><li>Through legal process, request lease and short-term booking records for units on floors 3-3 for 2026-10-01 to 2026-11-09</li><li>Through legal process, request the payment records behind any such booking</li><li>Confirms: a lease or booking on those floors overlapping the ad dates, with a unit layout that matches the photos</li><li>Rules out: no occupancy in those dates, or unit layouts that differ from the matched rooms</li><li>A human reviewer compares each matched photo with its scan view side by side</li></ul></td>
     </tr>
   </table>
   </div>
   <ul class="small muted"><li>Z-1-1: 128 other buildings checked, none is a lead: 124 had room photos that did not match (best P 0.00); 1 had no reference photos; 3 were not photo-checked</li>    <li>A building needs a photo match to become a lead. Place clues alone never do.</li></ul>
 
   <h2>Supervisor decisions</h2>
-  <ul class="small"><li>window_check_not_run_cap_medium: Window photos exist but the window check could not run; W stays null and the lead is capped at Medium.</li></ul>
+  <ul class="small"><li class="muted">none</li></ul>
   <p class="small muted">Tiers and scores are computed by code; wording by fixed templates.
     Full trail: <a href="log.jsonl">log.jsonl</a></p>
 
