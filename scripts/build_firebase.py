@@ -26,7 +26,12 @@ def main() -> None:
         if keep:
             shutil.move(str(DEP / ".venv_keep"), str(venv))
     FN.mkdir(exist_ok=True)
-    (DEP / "public").mkdir(exist_ok=True)
+    pub = DEP / "public"
+    if pub.exists():
+        shutil.rmtree(pub)
+    # static files go straight to Firebase Hosting's CDN: the function runtime's own Flask server
+    # claims every /static/... URL before the app sees it
+    shutil.copytree(ROOT / "dome" / "ui" / "static", pub / "static", ignore=SKIP)
     shutil.copy(DEP / "main.py", FN / "main.py")
     shutil.copy(DEP / "requirements.txt", FN / "requirements.txt")
     shutil.copytree(ROOT / "dome", FN / "dome", ignore=SKIP)
