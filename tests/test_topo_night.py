@@ -63,3 +63,14 @@ def test_synth_case_gets_model_scores(tmp_path):
 def test_phone_like_keys_are_masked():
     cells = cx.cells_from([(1, "contact", "contact:555-0142", ["a", "b"])])
     assert "0142" not in cells[0]["id"] and "555-…42" in cells[0]["reason"]
+
+
+def test_room_results_read_case_room_match_first(tmp_path):
+    case = Case.open("rm", scenario="ring_a", root=tmp_path, reset=True)
+    case.path("room_match.json").write_text(json.dumps({
+        "P": {"LqCMcmmVH3d": 0.68, "FQZd6kTpht1": 0.0},
+        "scans": {"LqCMcmmVH3d": {"P": 0.68, "evidence": [{"photo": "img_a1", "inliers": 212}]}}}))
+    rooms = cx._room_results(case)
+    a = rooms["LqCMcmmVH3d"]
+    assert a["P"] == 0.68 and a["source"] == "room_match.json" and a["property_id"] == "RL-213304177"
+    assert "img_a1" in a["photos"] and rooms["FQZd6kTpht1"]["P"] == 0.0
