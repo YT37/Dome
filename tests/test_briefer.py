@@ -136,3 +136,16 @@ def test_false_positive_count(tmp_path):
 @pytest.mark.parametrize("i,name", [(1, "A"), (26, "Z"), (27, "AA")])
 def test_display_names(i, name):
     assert briefer.display_name(i) == f"Building {name} (synthetic case)"
+
+
+def test_money_block_adds_one_reason_line(tmp_path):
+    import json as _json
+    case = make_case(tmp_path)
+    ring, zones, cands, matches = (case.selected_ring(), case.load("zones.json"), case.load("candidates.json"),
+                                   case.load("matches.json"))   # read before the block: the schema field lands with Avishek's hooks
+    rings = _json.loads(case.path("rings.json").read_text())
+    rings["rings"][0]["money"] = _json.loads(open("samples/night/money.json").read())
+    case.path("rings.json").write_text(_json.dumps(rings))
+    reasons = briefer.build_leads(case, ring, zones, cands, matches)[0]["reasons"]
+    assert reasons[1].startswith("Money (attribution 0.86): 4 wallet clusters")
+    assert "Exchange X 4 times" in reasons[1]

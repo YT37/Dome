@@ -1,5 +1,7 @@
 # Dome: handoff to Yug, checking Avishek's work (Sat night, Nov 14)
 
+> **Superseded (Sun 2:50 AM):** Arlequin confirmed any synthetic data is allowed, private included. Every demo and replay now runs **without `--no-private`**; the flag stays in the code but is never passed. See `SPLIT_HANDOFF_2AM` for the current plan.
+
 Paste this file into Claude Code in your clone of `YT37/Dome`, or just read it. It lists what Avishek's side built, what changed from the plan, what is waiting on you, and the exact commands to check it all. All times are Eastern. **Code freeze 7 AM, submit by 7:30 AM, hard deadline 8 AM Sun.**
 
 **Decision: Arlequin Track 2 (public data only).** The demo runs the Linker with `--no-private`, so no messages and no payments.
