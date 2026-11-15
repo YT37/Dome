@@ -1,7 +1,8 @@
 {
   "dependencies": ["."],
   "graphs": {
-    "dome": "dome.supervisor:make_graph"
+    "dome": "dome.supervisor:make_graph",
+    "dome_rules": "dome.graph_stream:make_rules_graph"
   },
   "env": ".env"
 }
