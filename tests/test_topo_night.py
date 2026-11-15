@@ -58,3 +58,8 @@ def test_synth_case_gets_model_scores(tmp_path):
     ring = case.selected_ring()
     assert set(out["scores"]) >= set(ring.members)
     assert "eval" in out and out["eval"]["split"]["seed"] == 0
+
+
+def test_phone_like_keys_are_masked():
+    cells = cx.cells_from([(1, "contact", "contact:555-0142", ["a", "b"])])
+    assert "0142" not in cells[0]["id"] and "555-…42" in cells[0]["reason"]
