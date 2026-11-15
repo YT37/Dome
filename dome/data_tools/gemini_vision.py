@@ -118,6 +118,56 @@ facade (between the building and the camera). Answer ONLY with JSON, values "yes
 Say "unclear" whenever you are not sure."""
 
 
+class GridAnswer(BaseModel):
+    pane_count: Literal["1", "2", "3", "4+", "unclear"]
+    mullions: Literal["none", "vertical", "horizontal", "grid", "unclear"]
+    shape: Literal["tall", "square", "wide", "unclear"]
+    spacing: Literal["single", "pairs", "evenly_spaced", "ribbon", "unclear"]
+
+
+FINGERPRINT_ITEMS = ("pane_count", "mullions", "shape", "spacing")
+
+WINDOW_GRID_PROMPT = """This synthetic interior photo shows a window from inside. Describe ONLY
+the window frame itself (not the view). Answer ONLY with JSON:
+{"pane_count": panes in one window unit: "1" | "2" | "3" | "4+" | "unclear",
+ "mullions": dividing bars: "none" | "vertical" | "horizontal" | "grid" | "unclear",
+ "shape": one window unit is "tall" (higher than wide) | "square" | "wide" | "unclear",
+ "spacing": "single" (one window on this wall) | "pairs" | "evenly_spaced" (separate windows
+   with wall between) | "ribbon" (windows side by side in a band) | "unclear"}
+Say "unclear" whenever you are not sure."""
+
+FACADE_GRID_PROMPT = """This is an aerial oblique image of a building. A translucent red band
+marks one floor on one facade. Describe ONLY the windows inside the red band. Answer ONLY with
+JSON:
+{"pane_count": panes in one window unit: "1" | "2" | "3" | "4+" | "unclear",
+ "mullions": dividing bars: "none" | "vertical" | "horizontal" | "grid" | "unclear",
+ "shape": one window unit is "tall" (higher than wide) | "square" | "wide" | "unclear",
+ "spacing": "single" | "pairs" | "evenly_spaced" (separate windows with wall between) |
+   "ribbon" (windows side by side in a band) | "unclear"}
+Say "unclear" whenever you are not sure."""
+
+
+def window_fingerprint(photo_path: str, band_image_path: str, crop: Optional[list[int]] = None) -> dict:
+    """Window-grid fingerprint: the same four frame items read from the ad's window and from
+    the facade floor band. Pure-code comparison; >= 3 of 4 agreeing = "agrees", otherwise
+    "for analyst review" (no claim). Returns {items, agree, of, verdict} or {skipped}."""
+    photo, band = resolve(photo_path), resolve(band_image_path)
+    if not photo.is_file() or not band.is_file():
+        return {"skipped": "window photo or facade band image missing"}
+    try:
+        a = ask_json("window_grid", WINDOW_GRID_PROMPT, [_image_bytes(photo, crop)], GridAnswer)
+        b = ask_json("facade_grid", FACADE_GRID_PROMPT, [_image_bytes(band)], GridAnswer)
+    except GeminiUnavailable as exc:
+        return {"skipped": str(exc)}
+    items = []
+    for k in FINGERPRINT_ITEMS:
+        va, vb = getattr(a, k), getattr(b, k)
+        items.append({"item": k, "ad": va, "facade": vb, "agree": None if "unclear" in (va, vb) else va == vb})
+    agree = sum(1 for i in items if i["agree"])
+    return {"items": items, "agree": agree, "of": len(FINGERPRINT_ITEMS),
+            "verdict": f"fingerprint agrees ({agree} of 4)" if agree >= 3 else "for analyst review"}
+
+
 # ------------------------------------------------------------------ plumbing
 def _key() -> Optional[str]:
     return os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
@@ -255,8 +305,10 @@ def compare(view: ViewAnswer, oblique: ObliqueAnswer) -> dict:
     """Pure code: which fixed items agree, W, and a floor range. No model involved."""
     checks: dict[str, bool] = {}
     reasons: list[str] = []
+    items: list[dict] = []
     for item in WINDOW_ITEMS:
         v, o = getattr(view, item), getattr(oblique, item)
+        items.append({"item": item, "ad": v, "oblique": o, "agree": None if "unclear" in (v, o) else v == o})
         if "unclear" in (v, o):
             continue
         checks[item] = v == o
@@ -266,6 +318,8 @@ def compare(view: ViewAnswer, oblique: ObliqueAnswer) -> dict:
         lo, hi = HEIGHT_FLOORS[view.height_above_street]
         if oblique.facade_floors:
             checks["height_above_street"] = lo <= oblique.facade_floors
+            items.append({"item": "height_above_street", "ad": view.height_above_street,
+                          "oblique": f"{oblique.facade_floors} floors", "agree": lo <= oblique.facade_floors})
             reasons.append(f"height: window looks {view.height_above_street} "
                            f"(floor {lo}+), building has {oblique.facade_floors} floors")
             hi = min(hi, oblique.facade_floors)
@@ -273,7 +327,7 @@ def compare(view: ViewAnswer, oblique: ObliqueAnswer) -> dict:
     decided = len(checks)
     W = round(sum(checks.values()) / decided, 2) if decided >= MIN_DECIDED_ITEMS else None
     return {"W": W, "checks": checks, "floor_range": floor_range, "reasons": reasons,
-            "decided": decided}
+            "decided": decided, "items": items}
 
 
 def window_check(photo_path: str, lat: float, lon: float, heading_deg: float,
@@ -308,4 +362,5 @@ def window_check(photo_path: str, lat: float, lon: float, heading_deg: float,
     if out["W"] is None:
         out["skipped"] = f"only {out['decided']} items could be compared (need {MIN_DECIDED_ITEMS})"
     out["cropped"] = crop is not None
+    out["photo"], out["oblique"], out["crop_box"] = str(photo), str(oblique), crop
     return out

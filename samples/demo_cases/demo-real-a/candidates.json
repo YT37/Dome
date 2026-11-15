@@ -25,6 +25,86 @@
    },
    "candidates": [
     {
+     "property_id": "CS-11027423",
+     "address": "",
+     "lat": 29.7623418,
+     "lon": -95.3635642,
+     "type": "multifamily",
+     "floors": 46,
+     "fit": 0.94,
+     "has_scan": true,
+     "scan_id": "F2ZjqNCQnB5",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "46 floors fits a floor 2 to 3 view",
+      "439 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-8147119",
+     "address": "",
+     "lat": 29.7579704,
+     "lon": -95.3624985,
+     "type": "multifamily",
+     "floors": 16,
+     "fit": 0.94,
+     "has_scan": true,
+     "scan_id": "4qnJbU6GaWK",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "16 floors fits a floor 2 to 3 view",
+      "356 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-857494",
+     "address": "",
+     "lat": 29.7605552,
+     "lon": -95.3627626,
+     "type": "multifamily",
+     "floors": 18,
+     "fit": 0.94,
+     "has_scan": true,
+     "scan_id": "8aV1fUtaK7X",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "18 floors fits a floor 2 to 3 view",
+      "357 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-9432215",
+     "address": "",
+     "lat": 29.7615504,
+     "lon": -95.3622374,
+     "type": "multifamily",
+     "floors": 32,
+     "fit": 0.94,
+     "has_scan": true,
+     "scan_id": "CrcMCXX83Ng",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "32 floors fits a floor 2 to 3 view",
+      "460 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-9395438",
+     "address": "",
+     "lat": 29.7631079,
+     "lon": -95.3634127,
+     "type": "multifamily",
+     "floors": 40,
+     "fit": 0.88,
+     "has_scan": true,
+     "scan_id": "4QzunX6Hxjz",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "40 floors fits a floor 2 to 3 view",
+      "426 m from Rideshare, Downtown, Houston (merchant hint, +0.07)"
+     ]
+    },
+    {
      "property_id": "CS-10065813",
      "address": "",
      "lat": 29.7411194,
@@ -82,21 +162,6 @@
      "fit_reasons": [
       "multifamily matches apartment photos",
       "2 floors fits a floor 2 to 3 view"
-     ]
-    },
-    {
-     "property_id": "CS-11027423",
-     "address": "",
-     "lat": 29.7623418,
-     "lon": -95.3635642,
-     "type": "multifamily",
-     "floors": 46,
-     "fit": 0.8,
-     "has_scan": true,
-     "scan_id": "F2ZjqNCQnB5",
-     "fit_reasons": [
-      "multifamily matches apartment photos",
-      "46 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -475,21 +540,6 @@
      ]
     },
     {
-     "property_id": "CS-8147119",
-     "address": "",
-     "lat": 29.7579704,
-     "lon": -95.3624985,
-     "type": "multifamily",
-     "floors": 16,
-     "fit": 0.8,
-     "has_scan": true,
-     "scan_id": "4qnJbU6GaWK",
-     "fit_reasons": [
-      "multifamily matches apartment photos",
-      "16 floors fits a floor 2 to 3 view"
-     ]
-    },
-    {
      "property_id": "CS-8279047",
      "address": "",
      "lat": 29.7343447,
@@ -517,21 +567,6 @@
      "fit_reasons": [
       "multifamily matches apartment photos",
       "8 floors fits a floor 2 to 3 view"
-     ]
-    },
-    {
-     "property_id": "CS-857494",
-     "address": "",
-     "lat": 29.7605552,
-     "lon": -95.3627626,
-     "type": "multifamily",
-     "floors": 18,
-     "fit": 0.8,
-     "has_scan": true,
-     "scan_id": "8aV1fUtaK7X",
-     "fit_reasons": [
-      "multifamily matches apartment photos",
-      "18 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -700,21 +735,6 @@
      ]
     },
     {
-     "property_id": "CS-9395438",
-     "address": "",
-     "lat": 29.7631079,
-     "lon": -95.3634127,
-     "type": "multifamily",
-     "floors": 40,
-     "fit": 0.8,
-     "has_scan": true,
-     "scan_id": "4QzunX6Hxjz",
-     "fit_reasons": [
-      "multifamily matches apartment photos",
-      "40 floors fits a floor 2 to 3 view"
-     ]
-    },
-    {
      "property_id": "CS-9401379",
      "address": "",
      "lat": 29.7495665,
@@ -772,21 +792,6 @@
      "fit_reasons": [
       "multifamily matches apartment photos",
       "13 floors fits a floor 2 to 3 view"
-     ]
-    },
-    {
-     "property_id": "CS-9432215",
-     "address": "",
-     "lat": 29.7615504,
-     "lon": -95.3622374,
-     "type": "multifamily",
-     "floors": 32,
-     "fit": 0.8,
-     "has_scan": true,
-     "scan_id": "CrcMCXX83Ng",
-     "fit_reasons": [
-      "multifamily matches apartment photos",
-      "32 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1075,6 +1080,36 @@
      ]
     },
     {
+     "property_id": "RL-228533580",
+     "address": "",
+     "lat": 29.757746,
+     "lon": -95.36496,
+     "type": "multifamily",
+     "floors": null,
+     "fit": 0.64,
+     "has_scan": true,
+     "scan_id": "aCskEAXA8QN",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "171 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "RL-236298672",
+     "address": "",
+     "lat": 29.757112,
+     "lon": -95.364426,
+     "type": "multifamily",
+     "floors": null,
+     "fit": 0.64,
+     "has_scan": true,
+     "scan_id": "169F7nENMza",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "259 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
      "property_id": "CS-9284106",
      "address": "",
      "lat": 29.7393846,
@@ -1131,20 +1166,6 @@
      ]
     },
     {
-     "property_id": "RL-228533580",
-     "address": "",
-     "lat": 29.757746,
-     "lon": -95.36496,
-     "type": "multifamily",
-     "floors": null,
-     "fit": 0.5,
-     "has_scan": true,
-     "scan_id": "aCskEAXA8QN",
-     "fit_reasons": [
-      "multifamily matches apartment photos"
-     ]
-    },
-    {
      "property_id": "RL-230334846",
      "address": "",
      "lat": 29.753296,
@@ -1154,20 +1175,6 @@
      "fit": 0.5,
      "has_scan": true,
      "scan_id": "PmUgz1kP1xu",
-     "fit_reasons": [
-      "multifamily matches apartment photos"
-     ]
-    },
-    {
-     "property_id": "RL-236298672",
-     "address": "",
-     "lat": 29.757112,
-     "lon": -95.364426,
-     "type": "multifamily",
-     "floors": null,
-     "fit": 0.5,
-     "has_scan": true,
-     "scan_id": "169F7nENMza",
      "fit_reasons": [
       "multifamily matches apartment photos"
      ]
@@ -1201,6 +1208,141 @@
      ]
     },
     {
+     "property_id": "CS-10819844",
+     "address": "",
+     "lat": 29.7614291,
+     "lon": -95.3634563,
+     "type": "office",
+     "floors": 47,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "5ih8y3c7LGE",
+     "fit_reasons": [
+      "47 floors fits a floor 2 to 3 view",
+      "365 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-233899",
+     "address": "",
+     "lat": 29.7584604,
+     "lon": -95.3682126,
+     "type": "office",
+     "floors": 71,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "3K5rnFt1P6B",
+     "fit_reasons": [
+      "71 floors fits a floor 2 to 3 view",
+      "221 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-233905",
+     "address": "",
+     "lat": 29.7607687,
+     "lon": -95.366467,
+     "type": "office",
+     "floors": 56,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "gGm7vFc9YgS",
+     "fit_reasons": [
+      "56 floors fits a floor 2 to 3 view",
+      "201 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-233935",
+     "address": "",
+     "lat": 29.7578497,
+     "lon": -95.3705243,
+     "type": "office",
+     "floors": 34,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "P2N8mt8BdAE",
+     "fit_reasons": [
+      "34 floors fits a floor 2 to 3 view",
+      "455 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-233953",
+     "address": "",
+     "lat": 29.7588018,
+     "lon": -95.3650891,
+     "type": "office",
+     "floors": 27,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "Wtxv2Mp8uQE",
+     "fit_reasons": [
+      "27 floors fits a floor 2 to 3 view",
+      "90 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-233964",
+     "address": "",
+     "lat": 29.7627459,
+     "lon": -95.3646999,
+     "type": "office",
+     "floors": 26,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "HJjccDZmmYp",
+     "fit_reasons": [
+      "26 floors fits a floor 2 to 3 view",
+      "435 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-233985",
+     "address": "",
+     "lat": 29.7568529,
+     "lon": -95.3642499,
+     "type": "office",
+     "floors": 23,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "2UoFVxb6xh7",
+     "fit_reasons": [
+      "23 floors fits a floor 2 to 3 view",
+      "292 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-519027",
+     "address": "",
+     "lat": 29.761614,
+     "lon": -95.364271,
+     "type": "office",
+     "floors": 33,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "WAeBuPU2HLw",
+     "fit_reasons": [
+      "33 floors fits a floor 2 to 3 view",
+      "335 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-1473413",
+     "address": "",
+     "lat": 29.7603258,
+     "lon": -95.3606864,
+     "type": "office",
+     "floors": 2,
+     "fit": 0.38,
+     "has_scan": true,
+     "scan_id": "LpFT2yfZfnU",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view",
+      "443 m from Rideshare, Downtown, Houston (merchant hint, +0.07)"
+     ]
+    },
+    {
      "property_id": "CS-1018657",
      "address": "",
      "lat": 29.74587,
@@ -1212,20 +1354,6 @@
      "scan_id": "4H2JSnQ3wSj",
      "fit_reasons": [
       "2 floors fits a floor 2 to 3 view"
-     ]
-    },
-    {
-     "property_id": "CS-10819844",
-     "address": "",
-     "lat": 29.7614291,
-     "lon": -95.3634563,
-     "type": "office",
-     "floors": 47,
-     "fit": 0.3,
-     "has_scan": true,
-     "scan_id": "5ih8y3c7LGE",
-     "fit_reasons": [
-      "47 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1254,48 +1382,6 @@
      "scan_id": "gjMWcj8oz4B",
      "fit_reasons": [
       "2 floors fits a floor 2 to 3 view"
-     ]
-    },
-    {
-     "property_id": "CS-1473413",
-     "address": "",
-     "lat": 29.7603258,
-     "lon": -95.3606864,
-     "type": "office",
-     "floors": 2,
-     "fit": 0.3,
-     "has_scan": true,
-     "scan_id": "LpFT2yfZfnU",
-     "fit_reasons": [
-      "2 floors fits a floor 2 to 3 view"
-     ]
-    },
-    {
-     "property_id": "CS-233899",
-     "address": "",
-     "lat": 29.7584604,
-     "lon": -95.3682126,
-     "type": "office",
-     "floors": 71,
-     "fit": 0.3,
-     "has_scan": true,
-     "scan_id": "3K5rnFt1P6B",
-     "fit_reasons": [
-      "71 floors fits a floor 2 to 3 view"
-     ]
-    },
-    {
-     "property_id": "CS-233905",
-     "address": "",
-     "lat": 29.7607687,
-     "lon": -95.366467,
-     "type": "office",
-     "floors": 56,
-     "fit": 0.3,
-     "has_scan": true,
-     "scan_id": "gGm7vFc9YgS",
-     "fit_reasons": [
-      "56 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1341,48 +1427,6 @@
      ]
     },
     {
-     "property_id": "CS-233935",
-     "address": "",
-     "lat": 29.7578497,
-     "lon": -95.3705243,
-     "type": "office",
-     "floors": 34,
-     "fit": 0.3,
-     "has_scan": true,
-     "scan_id": "P2N8mt8BdAE",
-     "fit_reasons": [
-      "34 floors fits a floor 2 to 3 view"
-     ]
-    },
-    {
-     "property_id": "CS-233953",
-     "address": "",
-     "lat": 29.7588018,
-     "lon": -95.3650891,
-     "type": "office",
-     "floors": 27,
-     "fit": 0.3,
-     "has_scan": true,
-     "scan_id": "Wtxv2Mp8uQE",
-     "fit_reasons": [
-      "27 floors fits a floor 2 to 3 view"
-     ]
-    },
-    {
-     "property_id": "CS-233964",
-     "address": "",
-     "lat": 29.7627459,
-     "lon": -95.3646999,
-     "type": "office",
-     "floors": 26,
-     "fit": 0.3,
-     "has_scan": true,
-     "scan_id": "HJjccDZmmYp",
-     "fit_reasons": [
-      "26 floors fits a floor 2 to 3 view"
-     ]
-    },
-    {
      "property_id": "CS-233968",
      "address": "",
      "lat": 29.7535228,
@@ -1394,20 +1438,6 @@
      "scan_id": "RW7cKwVEpiJ",
      "fit_reasons": [
       "24 floors fits a floor 2 to 3 view"
-     ]
-    },
-    {
-     "property_id": "CS-233985",
-     "address": "",
-     "lat": 29.7568529,
-     "lon": -95.3642499,
-     "type": "office",
-     "floors": 23,
-     "fit": 0.3,
-     "has_scan": true,
-     "scan_id": "2UoFVxb6xh7",
-     "fit_reasons": [
-      "23 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1478,20 +1508,6 @@
      "scan_id": "WtWUAcMUa4x",
      "fit_reasons": [
       "2 floors fits a floor 2 to 3 view"
-     ]
-    },
-    {
-     "property_id": "CS-519027",
-     "address": "",
-     "lat": 29.761614,
-     "lon": -95.364271,
-     "type": "office",
-     "floors": 33,
-     "fit": 0.3,
-     "has_scan": true,
-     "scan_id": "WAeBuPU2HLw",
-     "fit_reasons": [
-      "33 floors fits a floor 2 to 3 view"
      ]
     },
     {
