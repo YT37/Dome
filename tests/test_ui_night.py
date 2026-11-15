@@ -122,7 +122,7 @@ def test_graph_uses_complex_json_when_present(client, tmp_path):
 
 
 def test_money_block_becomes_masked_wallet_and_service_nodes(client, tmp_path):
-    wallet = "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh"
+    wallet = "bc1qfakefakefakefakefakefakefakefake0wlh"
 
     def patch(rings):
         members = rings["rings"][0]["members"]
@@ -272,7 +272,7 @@ def test_no_response_contains_an_address_key(client, tmp_path):
 
 def test_mask_text():
     assert globe.mask_text("call 555-0142 or (713) 555-0199") == "call 555-…42 or 555-…99"
-    assert globe.mask_text("send to bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh") == "send to bc1q…0wlh"
+    assert globe.mask_text("send to bc1qfakefakefakefakefakefakefakefake0wlh") == "send to bc1q…0wlh"
     assert globe.mask_text("created 2026-09-02") == "created 2026-09-02"
 
 
