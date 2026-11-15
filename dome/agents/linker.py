@@ -37,10 +37,10 @@ from ..case import Case
 from ..data_tools import _stub
 
 # identity-bearing content keys (v2 adds shared wallet, same room, writing style)
-CONTENT = ("contact", "photo", "text", "device", "money", "room", "style")
+CONTENT = ("contact", "photo", "text", "device", "money", "room", "style", "keyword")
 # connectivity layer (v2 adds direct messages, heartbeat, echo, same route)
 CONNECT = ("interaction", "time", "dm", "heartbeat", "echo", "route")
-KIND_ORDER = ("money", "contact", "dm", "room", "photo", "device", "text", "style", "route",
+KIND_ORDER = ("money", "contact", "dm", "room", "photo", "device", "text", "keyword", "style", "route",
               "echo", "interaction", "heartbeat", "merchant", "place", "time")
 PRIVATE_KINDS = ("money", "dm", "merchant")   # only exist because of messages + payments
 
@@ -84,9 +84,24 @@ def load_dataset(name_or_path: str) -> dict:
                     for it in raw.get("interactions") or []]
     from .patterns import load_private
     messages, transactions = load_private(d)   # v2, synthetic; empty lists when absent
+    comments = []                              # PUBLIC comments on posts (Track 2 safe)
+    if (d / "comments.json").exists():
+        comments = json.loads((d / "comments.json").read_text(encoding="utf-8"))
     return {"accounts": {a.get("account_id") or a["handle"]: a for a in raw["accounts"]},
-            "posts": posts, "interactions": interactions,
+            "posts": posts, "interactions": interactions, "comments": comments,
             "messages": messages, "transactions": transactions}
+
+
+_EMOJI = re.compile("[\U0001F300-\U0001FAFF\u2600-\u27BF]")
+
+
+def keywords(text: str) -> list[str]:
+    """Hashtags, emoji and known code words in a caption or comment (lower-case)."""
+    low = text.lower()
+    out = ["#" + h for h in re.findall(r"#(\w{2,})", low)]
+    out += _EMOJI.findall(text)
+    out += [w for w in re.findall(r"[a-z]+", low) if w in config.CODE_WORDS and "#" + w not in out]
+    return out
 
 
 def _photo(x: Any, renders: Optional[dict] = None) -> dict:
@@ -297,6 +312,10 @@ class Linked:
     embedding_catches: list = field(default_factory=list)
     embed_backend: str = "none"
     stats: dict = field(default_factory=dict)
+    # the combinatorial complex for the topological model (dome/agents/topo.py):
+    # cells = [(rank, kind, key, accounts)]; rank 1 = a sticky note shared by 2+ accounts,
+    # rank 2 = an echo event (ad + message + payment + ride) joining several notes
+    cells: list = field(default_factory=list)
 
 
 def _strength(kinds: dict) -> float:
@@ -358,6 +377,21 @@ def link_accounts(ds: dict, layers: str = "both", private: bool = True,
                 index[("place", "place:lm_" + re.sub(r"\W+", "_", lm.lower()))].add(a)
             if p.get("area_code"):
                 index[("place", f"place:ac_{p['area_code']}")].add(a)
+    # ---- shared keyword (public): the same hashtag / emoji / code word used repeatedly
+    kw_uses: dict = defaultdict(Counter)
+    for p in posts:
+        if p["account"] in accounts:
+            kw_uses[p["account"]].update(keywords(p.get("text", "")))
+    for c in ds.get("comments") or []:
+        if c.get("account") in accounts:
+            kw_uses[c["account"]].update(keywords(c.get("text", "")))
+    users_any = Counter(w for uses in kw_uses.values() for w in uses)   # document frequency
+    for a, uses in kw_uses.items():
+        for w, n in uses.items():
+            # a tag half the platform uses (#love, #houston) identifies nobody
+            if n >= config.KEYWORD_MIN_USES and users_any[w] <= config.KEYWORD_MAX_USERS:
+                index[("keyword", "keyword:" + w)].add(a)
+
     for a, acct in accounts.items():
         if acct.get("created"):
             index[("time", "time:created_" + str(acct["created"])[:10])].add(a)
@@ -393,6 +427,7 @@ def link_accounts(ds: dict, layers: str = "both", private: bool = True,
                "money": f"same wallet {key.split(':', 1)[1]} receives their money",
                "merchant": f"pay the same business ({key.split(':', 1)[1]})",
                "photo": "same photo reposted", "text": "same ad script",
+               "keyword": f"both keep using {key.split(':', 1)[1]} in captions/comments",
                "place": f"same stated area ({key.split(':', 1)[1]})",
                "time": f"accounts created the same day ({key[-10:]})"}[kind]
         if n > config.RARE_KEY_SIZE:
@@ -520,6 +555,14 @@ def link_accounts(ds: dict, layers: str = "both", private: bool = True,
                       "key_kinds": [k for k in KIND_ORDER if k in shared], "_inner": inner})
 
     rings.sort(key=lambda r: (-r["confidence"], r["members"][0]))
+    cells = [(1, kind, key, sorted(accts)) for (kind, key), accts in sorted(index.items())
+             if 2 <= len(accts) <= config.MAX_KEY_FANOUT]
+    seen_keys = {c[2] for c in cells}
+    for (a, b), kinds in sorted(pair.items()):
+        for kd, v in sorted(kinds.items()):
+            if v["key"] not in seen_keys and v["w"] >= config.MIN_KEY_WEIGHT:
+                cells.append((1, kd, v["key"] + f"#{a}~{b}", [a, b]))
+    cells += [(2, "echo_event", e["event_id"], e["members"]) for e in events if len(e["members"]) >= 2]
     in_ring = {m: i for i, r in enumerate(rings) for m in r["members"]}
     out_degree = defaultdict(list)
     for it in ds["interactions"]:
@@ -580,11 +623,22 @@ def link_accounts(ds: dict, layers: str = "both", private: bool = True,
     weak = [link_json(k, v, "; one key kind is a hint, not a link") for k, v in hints.items()]
     weak += [link_json(k, v, extra) for k, (v, extra) in demoted.items()]
     weak.sort(key=lambda h: (not (h["a"] in in_ring or h["b"] in in_ring), -h["strength"], h["a"], h["b"]))
+    # topological second opinion (optional): mean P(in a ring) over the members
+    prob = None
+    if config.TOPO_SCORE:
+        from . import topo
+        try:
+            prob = topo.predict(ds, cells, private=private)
+        except Exception:   # never let the optional model break the rules pipeline
+            prob = None
+    for r in out_rings:
+        r["topo_score"] = round(statistics.mean(prob.get(m, 0.0) for m in r["members"]), 2) if prob else None
     return Linked(
         rings_file={"rings": out_rings, "weak_hints": weak[:config.MAX_WEAK_HINTS],
                     "layers": layers, "private_layers": private,
                     "room_links_used": bool(room_groups)},
         pair=dict(pair), strength=strength, embedding_catches=catches, embed_backend=backend,
+        cells=cells,
         stats={"accounts": len(accounts), "posts": len(posts), "pairs_with_any_key": len(strength),
                "links": len(links), "hints": len(hints), "rings": len(out_rings),
                "heartbeat_pairs": hb, "events": len(events)})

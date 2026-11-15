@@ -69,6 +69,17 @@ MinHash missed (Jaccard 0.00) and sentence embeddings caught (cosine 0.77 on `sy
 
 The answer key (`data/answer_key/`) is read only by `dome/eval.py`. No agent opens it.
 
+### Shared keyword (public, Track 2)
+
+The same hashtag, emoji or code word (`#tapin`, the rose emoji for "roses" = money) used
+again and again in captions and public comments (`comments.json`) is a sticky note (`keyword`,
+weight 0.5, content layer). An account must use it at least twice, and a tag used by more than
+40 accounts (`#love`, `#houston`) counts for nothing; a single use ("what does #tapin mean")
+counts for nothing either. `python -m dome.synth.public_comments --data data/synth --key
+data/answer_key/answer_key.json` plants the code words and the decoys. On synth, Track 2: Ring A
+plus its 3 recruiters form one ring, the friend group (heavy users of common tags) and the
+one-off users stay unlinked, and content-only recall rises to 1.00.
+
 ### v2: messages and payments (Arlequin Track 1)
 
 Two more synthetic files, `messages.json` and `transactions.json`, sit next to the accounts
@@ -95,6 +106,41 @@ stay unlinked.
 
 Network-only with public data alone drops to recall 0.38: the messages and payments are what
 make the connectivity layer strong, and the content layer is what keeps it honest.
+
+### Topological ring scorer (Arlequin)
+
+`dome/agents/topo.py` turns the Linker's evidence into a combinatorial complex: accounts are
+points, every sticky note shared by 2+ accounts is one cell holding all of them (a phone, a
+wallet, a DM thread, a heartbeat pair), and every echo event is a higher-order cell joining the
+accounts of an ad, a message, a payment and a ride. A UniGCN hypergraph network (TopoModelX)
+passes messages account → cell → account and outputs P(in a ring) per account. Each ring gets
+`topo_score` (mean over members) as a second opinion next to the rule-based `confidence`; the
+rules still make every link and write every reason.
+
+```bash
+pip install -r requirements-topo.txt            # optional; without it topo_score is null
+python -m dome.agents.topo --train              # ~10 s on CPU, saves dome/models/topo_unigcn.pt
+python -m dome.eval --data synth --three-way    # adds the four-way table
+```
+
+Trained only on `mini` Rings A and B (plus 70% of its other accounts). Honest results:
+
+| Test (never seen in training) | Precision | Recall | AUC |
+|---|---|---|---|
+| mini Ring C + 30% held-out accounts | 1.00 | 0.33 (2 of 6 above 0.5) | 1.00 |
+| synth, whole dataset (account level) | 1.00 | 1.00 | 0.90 |
+
+On synth the rule layers find 0.80 (content), 0.80 (network) and 0.93 (both) of ring accounts
+at the account level; the topological model also catches the third recruiter. On mini Ring C,
+whose evidence looks different from A and B (no shared phone or script), every Ring C account
+still ranks above every non-ring account (AUC 1.00), but only 2 of 6 clear 0.5: with this little
+training data the model learns the shape of the rings it saw. `DOME_TOPO=0` turns it off.
+
+**Track 2 (public data only):** `--no-private` uses a second model,
+`dome/models/topo_unigcn_public.pt`, trained without messages or payments
+(`python -m dome.agents.topo --train --no-private`). On synth it still finds every ring account
+(precision 1.00, recall 1.00, AUC 0.90); on mini Ring C every account still ranks above every
+non-ring account (AUC 1.00) but none clears 0.5.
 
 ## Connect to LangChain
 

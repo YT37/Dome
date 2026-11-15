@@ -11,7 +11,8 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 # v1 kinds plus the v2 sticky notes and pattern kinds. `text` is the "same script" note and
 # `time` the posting-time / creation-burst tie-breaker (names kept so v1 files still validate).
 KeyKind = Literal["contact", "photo", "device", "text", "interaction", "place", "time",
-                  "money", "dm", "room", "style", "route", "merchant", "heartbeat", "echo"]
+                  "money", "dm", "room", "style", "route", "merchant", "heartbeat", "echo",
+                  "keyword"]
 RoleName = Literal["collector", "handler", "worker", "recruiter", "hub"]
 Layers = Literal["content", "network", "both"]
 Tier = Literal["High", "Medium", "Low"]
@@ -156,6 +157,9 @@ class Ring(_Model):
     events: list[Event] = []
     location_hints: list[LocationHint] = []
     kind_counts: dict[str, int] = {}
+    # topological model (UniGCN on the combinatorial complex): mean P(in a ring) over members.
+    # A second opinion next to `confidence`; null when the optional model is not installed.
+    topo_score: Optional[float] = Field(default=None, ge=0.0, le=1.0)
 
 
 class RingsFile(_Model):
