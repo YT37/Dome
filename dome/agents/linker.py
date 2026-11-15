@@ -37,10 +37,10 @@ from ..case import Case
 from ..data_tools import _stub
 
 # identity-bearing content keys (v2 adds shared wallet, same room, writing style)
-CONTENT = ("contact", "photo", "text", "device", "money", "room", "style")
+CONTENT = ("contact", "photo", "text", "device", "money", "room", "style", "keyword")
 # connectivity layer (v2 adds direct messages, heartbeat, echo, same route)
 CONNECT = ("interaction", "time", "dm", "heartbeat", "echo", "route")
-KIND_ORDER = ("money", "contact", "dm", "room", "photo", "device", "text", "style", "route",
+KIND_ORDER = ("money", "contact", "dm", "room", "photo", "device", "text", "keyword", "style", "route",
               "echo", "interaction", "heartbeat", "merchant", "place", "time")
 PRIVATE_KINDS = ("money", "dm", "merchant")   # only exist because of messages + payments
 
@@ -84,9 +84,24 @@ def load_dataset(name_or_path: str) -> dict:
                     for it in raw.get("interactions") or []]
     from .patterns import load_private
     messages, transactions = load_private(d)   # v2, synthetic; empty lists when absent
+    comments = []                              # PUBLIC comments on posts (Track 2 safe)
+    if (d / "comments.json").exists():
+        comments = json.loads((d / "comments.json").read_text(encoding="utf-8"))
     return {"accounts": {a.get("account_id") or a["handle"]: a for a in raw["accounts"]},
-            "posts": posts, "interactions": interactions,
+            "posts": posts, "interactions": interactions, "comments": comments,
             "messages": messages, "transactions": transactions}
+
+
+_EMOJI = re.compile("[\U0001F300-\U0001FAFF\u2600-\u27BF]")
+
+
+def keywords(text: str) -> list[str]:
+    """Hashtags, emoji and known code words in a caption or comment (lower-case)."""
+    low = text.lower()
+    out = ["#" + h for h in re.findall(r"#(\w{2,})", low)]
+    out += _EMOJI.findall(text)
+    out += [w for w in re.findall(r"[a-z]+", low) if w in config.CODE_WORDS and "#" + w not in out]
+    return out
 
 
 def _photo(x: Any, renders: Optional[dict] = None) -> dict:
@@ -362,6 +377,21 @@ def link_accounts(ds: dict, layers: str = "both", private: bool = True,
                 index[("place", "place:lm_" + re.sub(r"\W+", "_", lm.lower()))].add(a)
             if p.get("area_code"):
                 index[("place", f"place:ac_{p['area_code']}")].add(a)
+    # ---- shared keyword (public): the same hashtag / emoji / code word used repeatedly
+    kw_uses: dict = defaultdict(Counter)
+    for p in posts:
+        if p["account"] in accounts:
+            kw_uses[p["account"]].update(keywords(p.get("text", "")))
+    for c in ds.get("comments") or []:
+        if c.get("account") in accounts:
+            kw_uses[c["account"]].update(keywords(c.get("text", "")))
+    users_any = Counter(w for uses in kw_uses.values() for w in uses)   # document frequency
+    for a, uses in kw_uses.items():
+        for w, n in uses.items():
+            # a tag half the platform uses (#love, #houston) identifies nobody
+            if n >= config.KEYWORD_MIN_USES and users_any[w] <= config.KEYWORD_MAX_USERS:
+                index[("keyword", "keyword:" + w)].add(a)
+
     for a, acct in accounts.items():
         if acct.get("created"):
             index[("time", "time:created_" + str(acct["created"])[:10])].add(a)
@@ -397,6 +427,7 @@ def link_accounts(ds: dict, layers: str = "both", private: bool = True,
                "money": f"same wallet {key.split(':', 1)[1]} receives their money",
                "merchant": f"pay the same business ({key.split(':', 1)[1]})",
                "photo": "same photo reposted", "text": "same ad script",
+               "keyword": f"both keep using {key.split(':', 1)[1]} in captions/comments",
                "place": f"same stated area ({key.split(':', 1)[1]})",
                "time": f"accounts created the same day ({key[-10:]})"}[kind]
         if n > config.RARE_KEY_SIZE:

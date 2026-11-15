@@ -45,7 +45,7 @@ MODEL_PATH_PUBLIC = config.ROOT / "dome" / "models" / "topo_unigcn_public.pt"  #
 
 def model_path(private: bool = True) -> Path:
     return MODEL_PATH if private else MODEL_PATH_PUBLIC
-CELL_KINDS = ("money", "contact", "dm", "room", "photo", "device", "text", "style", "route",
+CELL_KINDS = ("money", "contact", "dm", "room", "photo", "device", "text", "keyword", "style", "route",
               "echo", "interaction", "heartbeat", "merchant", "place", "time", "echo_event")
 HIDDEN, LAYERS, EPOCHS, LR, SEED = 32, 2, 300, 0.01, 0
 
@@ -76,7 +76,10 @@ def features(ds: dict, cells: list) -> tuple[list[str], list[list[float]], list[
     paid = Counter(t["from"] for t in ds.get("transactions") or [])
     X = []
     for i, a in enumerate(nodes):
-        row = [math.log1p(count[i][k]) for k in CELL_KINDS]
+        # per-kind counts, with "keyword" folded into "text" (both are wording): otherwise a
+        # model trained on rings that use code words learns that only code-word rings exist
+        row = [math.log1p(count[i][k] + (count[i]["keyword"] if k == "text" else 0))
+               if k != "keyword" else 0.0 for k in CELL_KINDS]
         row += [math.log1p(posts[a]), math.log1p(sent[a]), math.log1p(paid[a]),
                 # kind-agnostic shape: how many different kinds of cell, and how many cells
                 float(len(count[i])), math.log1p(sum(count[i].values()))]
