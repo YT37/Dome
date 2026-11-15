@@ -271,6 +271,64 @@ def _build_complex(name: str, key) -> None:
         _cache[key] = {"status": "error", "error": f"{type(exc).__name__}: {exc}"[:300]}
 
 
+def _j(d: Path, name: str):
+    p = d / name
+    try:
+        return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+@app.get("/flow")
+def flow():
+    """The six agents as a data flow for the Homepage: input -> what it did -> output file, with the key
+    number. Every number is read from the case files at request time; nothing is computed or hard-coded."""
+    d = case_dir(request.args.get("case", ""))
+    spot, rings, zones = _j(d, "spotter.json"), _j(d, "rings.json"), _j(d, "zones.json")
+    cands, rm, matches, brief = _j(d, "candidates.json"), _j(d, "room_match.json"), _j(d, "matches.json"), _j(d, "brief.json")
+    accounts = None
+    try:
+        from ..agents.linker import load_dataset   # noqa: PLC0415
+        accounts = len(load_ds("synth")["accounts"])
+    except Exception:
+        pass
+    queue = (spot or {}).get("queue") if isinstance(spot, dict) else spot
+    ring = ((rings or {}).get("rings") or [None])[0]
+    money = (ring or {}).get("money") or {}
+    zs = (zones or {}).get("zones") or []
+    cz = (cands or {}).get("zones") or []
+    best = None
+    for z in (matches or {}).get("zones", []):
+        for m in z.get("matches", []):
+            if best is None or (m.get("P") or 0) > (best.get("P") or 0):
+                best = m
+    lead = ((brief or {}).get("leads") or [None])[0]
+    P = (rm or {}).get("P") or {}
+    stages = [
+        {"step": "spotter", "agent": "Spotter", "work": "spotter",
+         "input": f"{accounts} accounts" if accounts else "accounts", "did": (spot or {}).get("flag_rule") if isinstance(spot, dict) else "scores public signals",
+         "output": "spotter.json", "key": f"{len(queue)} flagged" if queue is not None else None},
+        {"step": "linker", "agent": "Linker + money", "work": "linker",
+         "input": f"{len(queue)} flagged accounts" if queue else "flagged accounts", "did": "two kinds of shared key make a link; money second pass",
+         "output": "rings.json", "key": (f"{len((rings or {}).get('rings', []))} ring · {len(ring['members'])} accounts · R {ring['confidence']}"
+                                        + (f" · {len(money.get('wallet_clusters', []))} wallet clusters" if money else "")) if ring else None},
+        {"step": "zoner", "agent": "Zoner", "work": "zoner", "input": "place clues in the ads", "did": "area, never an address",
+         "output": "zones.json", "key": f"dome {sum(z.get('area_km2') or 0 for z in zs):g} km²" if zs else None},
+        {"step": "lister", "agent": "Lister", "work": "lister", "input": "CoStar buildings in the dome", "did": "fit to the photo cues",
+         "output": "candidates.json", "key": (f"{sum(len(z.get('candidates', [])) for z in cz)} buildings "
+                                             f"({sum(1 for z in cz for c in z.get('candidates', []) if c.get('has_scan'))} scanned)") if cz else None},
+        {"step": "locator", "agent": "Locator", "work": "locator", "input": "ring photos + Matterport scans", "did": "room match, pin fix, window check",
+         "output": "matches.json", "key": (f"{len((rm or {}).get('coarse') or P)} scans → {len((rm or {}).get('shortlist') or [])} → "
+                                          f"{re.sub(r' *[(]synthetic case[)]', '', (lead or {}).get('display_name') or '') or (best or {}).get('property_id')}, "
+                                          f"P {(best or {}).get('P')}") if best else None},
+        {"step": "briefer", "agent": "Briefer", "work": "briefer", "input": "all four files", "did": "tier rules, then the score",
+         "output": "brief.json", "key": f"{lead['tier']} {lead['score']}" if lead else None},
+    ]
+    for st in stages:
+        st["done"] = (d / st["output"]).exists()
+    return jsonify({"case": d.name, "stages": stages, "globe": globe.enabled(), "steps": globe.steps_enabled()})
+
+
 @app.get("/steps")
 def steps_view():
     """"Show the work" for one agent (DOME_STEPS=1): {agent, title, steps: [{id, title, kind, data, caption,

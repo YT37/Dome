@@ -362,3 +362,43 @@ details.verify[open] summary::after { content: " \25B4"; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* rework: tabs, settings, flow row, drawer (shared look with the Globe) */
+[hidden] { display: none !important; }
+.apptabs { display: inline-flex; gap: 2px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09); border-radius: 9px; padding: 3px; margin-bottom: 8px; }
+.apptabs a { color: #9aa0ad; text-decoration: none; padding: 5px 12px; border-radius: 7px; font-size: .9em; font-weight: 500; }
+.apptabs a.on, .apptabs a:hover { color: #fff; background: rgba(130, 143, 255, .2); }
+.settings { position: relative; } .settings summary { list-style: none; cursor: pointer; } .settings summary::-webkit-details-marker { display: none; }
+.settings-pop { position: absolute; right: 0; top: calc(100% + 6px); z-index: 30; background: #0b0c11; border: 1px solid rgba(255,255,255,.09); border-radius: 10px; padding: 10px 12px; display: grid; gap: 8px; min-width: 210px; }
+.grid4 > .panel:nth-child(1), .grid4 > .panel:nth-child(2) { display: none; }
+.grid4 { grid-template-columns: 1fr 1fr !important; grid-template-rows: auto !important; }
+.flowrow { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 22px; margin: 0 0 14px; }
+.flowstage { position: relative; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.09); border-radius: 14px; padding: 14px 14px 12px; cursor: pointer; text-align: left; color: inherit; font: inherit; transition: border-color .3s, background .3s; }
+.flowstage:hover { border-color: #828fff; }
+.flowstage .ag { font-weight: 600; font-size: 1.02em; display: flex; gap: 8px; align-items: center; }
+.flowstage .ag i { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 600 .72em "Geist Mono"; font-style: normal; border: 1px solid rgba(255,255,255,.15); }
+.flowstage .io { color: #9aa0ad; font-size: .8em; margin-top: 8px; line-height: 1.45; }
+.flowstage .io code { font-family: "Geist Mono", monospace; color: #c9cdd6; }
+.flowstage .key { font: 600 1.05em "Geist Mono", monospace; margin-top: 10px; color: #fff; line-height: 1.35; }
+.flowstage .more { color: #828fff; font-size: .74em; margin-top: 8px; }
+.flowstage.done { border-color: rgba(76,195,138,.45); background: rgba(76,195,138,.06); }
+.flowstage.done .ag i { background: #4cc38a; color: #08110c; border-color: transparent; }
+.flowstage.active { border-color: #828fff; background: rgba(130,143,255,.1); }
+.flowstage:not(:last-child)::after { content: "→"; position: absolute; right: -19px; top: 42%; color: rgba(255,255,255,.2); font-size: 18px; transition: color .3s; }
+.flowstage.done:not(:last-child)::after { color: #4cc38a; }
+body.present .flowstage .key { font-size: 1.25em; }
+.drawer { position: fixed; z-index: 60; right: 0; top: 0; bottom: 0; width: min(760px, 100vw); background: #0b0c11; border-left: 1px solid rgba(255,255,255,.09); display: flex; flex-direction: column; box-shadow: -30px 0 80px rgba(0,0,0,.5); }
+.drawer > header { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,.09); flex-wrap: wrap; }
+.drawer h2 { margin: 2px 0 0; font-size: 1.15em; } .drawer .eyebrow { color: #828fff; font: 600 .72em "Geist Mono"; text-transform: uppercase; letter-spacing: .08em; }
+.drawer-tabs { display: flex; gap: 4px; flex-wrap: wrap; flex: 1; justify-content: flex-end; }
+.drawer-tabs button { background: transparent; color: #9aa0ad; border: 1px solid rgba(255,255,255,.09); border-radius: 7px; padding: 3px 8px; font: .78em "Geist Mono"; cursor: pointer; }
+.drawer-tabs button.on { color: #fff; background: rgba(130,143,255,.2); border-color: #828fff; }
+.drawer-body { flex: 1; overflow: auto; padding: 14px 18px; min-height: 0; } .drawer-body h3 { margin: 0 0 10px; }
+.step-view { min-height: 300px; } .step-view img { max-width: 100%; border-radius: 10px; display: block; margin-bottom: 8px; }
+.step-view table { width: 100%; border-collapse: collapse; font-size: .86em; } .step-view th, .step-view td { text-align: left; padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,.09); }
+.step-view th { color: #9aa0ad; font-weight: 500; position: sticky; top: 0; background: #0b0c11; } .step-view td { font-family: "Geist Mono", monospace; }
+.step-view tr.hi td { background: rgba(239,95,95,.14); color: #fff; } .step-view .bigtext { font-size: 1.4em; font-weight: 600; margin: 8px 0; }
+.step-view .note { color: #f2b45a; font: .8em "Geist Mono"; } .step-view .glist { columns: 2; font: .78em "Geist Mono"; color: #9aa0ad; }
+.step-cap { color: #c9cdd6; line-height: 1.5; } .step-src { color: #9aa0ad; font-size: .78em; } .step-src code { font-family: "Geist Mono"; color: #c9cdd6; }
+.drawer > footer { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-top: 1px solid rgba(255,255,255,.09); }
+@media (max-width: 1100px) { .flowrow { grid-template-columns: repeat(3, 1fr); } }
