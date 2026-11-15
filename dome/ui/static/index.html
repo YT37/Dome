@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#010102">
-<title>Dome · Case Console</title>
+<title>Dome · Homepage</title>
+<meta name="description" content="Dome: leads for human verification, built on synthetic data.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -18,8 +19,7 @@
 
 <div class="app">
   <div class="banner" role="note">
-    <b>Synthetic data</b><span class="sep">·</span>Leads for human verification only
-    <span class="sep">·</span><span class="chip public" id="publicChip" hidden><span class="dot"></span>Public data only</span>
+    Leads for human verification only<span class="chip public" id="publicChip" hidden></span>
   </div>
 
   <nav class="rail" aria-label="Views">
@@ -36,8 +36,8 @@
 
   <header class="command">
     <div class="title">
-      <h1 id="caseTitle">Case console</h1>
-      <p id="caseNote">Flagged synthetic accounts → one ring → a dome over its area → one building to verify.</p>
+      <h1 id="caseTitle">Homepage</h1>
+      <p id="caseNote">Flagged accounts → one ring → a dome over its area → one building to verify.</p>
     </div>
     <div class="controls">
       <div class="seg" role="group" aria-label="Preset" id="presetSeg"></div>
@@ -166,7 +166,6 @@
         <article class="doc">
           <h2 id="g-start">How to read Dome's results</h2>
           <p class="lede">Dome turns a set of already-flagged social accounts into a short, explained list of buildings where a group's photos were most likely taken. Every result is a <b>lead for a human to verify</b>, never a finding.</p>
-          <div class="callout"><b>All data here is synthetic.</b> Accounts, handles, ads and phone numbers (555 only) are made up. Photos are renders of 3D scans with grey silhouettes. This run uses <b>public data only</b>: ads, photos, reposts, replies and the places ads name.</div>
 
           <h3 id="g-pipeline"><span class="k">1</span>The five agents</h3>
           <p>A supervisor runs five agents in order. Each writes one JSON file into the case folder and a line into the log. The supervisor decides the next step from the data, and every number comes from deterministic code.</p>
@@ -225,7 +224,7 @@
             <li>Not evidence of anyone's presence. A lead is a place to check, nothing more.</li>
             <li>Not an address finder. Areas, not addresses; buildings appear by display name only.</li>
             <li>Not a contact tool. Nothing here messages, dispatches or publishes anything, and there is no chat.</li></ul></div>
-          <p class="muted" style="margin-top:18px">Leads for human verification. Place clues give areas, not addresses. Not evidence of anyone's presence. Generated from synthetic data.</p>
+          <p class="muted" style="margin-top:18px">Leads for human verification. Place clues give areas, not addresses. Not evidence of anyone's presence.</p>
         </article>
       </div>
     </section>
@@ -236,7 +235,6 @@
 
 <div class="intro" id="intro" hidden>
   <div class="intro-card" role="dialog" aria-modal="true" aria-labelledby="introTitle">
-    <span class="chip"><span class="dot"></span>Synthetic data · public data only</span>
     <h2 id="introTitle">A dome over the search area that shrinks to one building</h2>
     <p>Dome helps trust and safety teams, anti-trafficking NGOs and police units turn a set of flagged accounts into a short list of buildings to verify.</p>
     <ul>

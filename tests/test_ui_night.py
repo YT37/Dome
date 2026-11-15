@@ -28,6 +28,7 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setenv("DOME_GLOBE", "1")
     monkeypatch.setenv("DOME_STEPS", "1")
     monkeypatch.delenv("DOME_GRAPH", raising=False)
+    monkeypatch.delenv("DOME_ASK", raising=False)          # .env may set it; ask tests set it themselves
     monkeypatch.setattr(ui, "CASES", tmp_path / "case")
     (tmp_path / "case").mkdir()
     return ui.app.test_client()
@@ -61,8 +62,8 @@ def test_everything_new_is_off_without_the_flag(tmp_path, monkeypatch):
 
 def test_globe_page_and_flag(client):
     page = client.get("/globe").get_data(as_text=True)
-    assert ("Synthetic case.</b> Real buildings are used only as demo locations; no real activity is implied."
-            in page) and "Public data only" not in page
+    assert "synthetic" not in page.lower() and "demo location" not in page.lower()
+    assert "Illustrative case. No real activity at this location." in client.get("/static/globe.js").get_data(as_text=True)
     assert "Chart.js/4.4.1/chart.umd.min.js" in page
     assert "maplibre-gl@5.6.0" in page            # pinned CDN versions
     flags = client.get("/ui-flags").get_json()

@@ -1,5 +1,5 @@
 /* Dome globe flight (DOME_GLOBE=1). Read only: it shows files the agents wrote and the asset packs.
-   No addresses reach the page; phones and wallets arrive masked. Synthetic case. */
+   No addresses reach the page; phones and wallets arrive masked. */
 (() => {
   "use strict";
   const $ = (s) => document.querySelector(s);
@@ -91,9 +91,9 @@
     setVis("cands", false); setVis("zone-fill", false); setVis("zone-line", false);
     map.flyTo({ center: [-60, 28], zoom: 1.4, pitch: 0, bearing: 0, duration: 2500 });
     const r = F.ring || {};
-    card(`<div class="eyebrow">Synthetic case · ${esc(F.case)}</div>
+    card(`<div class="eyebrow">Case · ${esc(F.case)}</div>
       <h2>One ring, one building to verify</h2>
-      <p>The Linker joined flagged synthetic accounts into a ring only where content keys and connectivity agree.</p>
+      <p>The Linker joined flagged accounts into a ring only where content keys and connectivity agree.</p>
       <div class="stats"><div class="stat"><b>${r.members ?? "—"}</b><span>accounts in ring</span></div>
         <div class="stat"><b>${pct(r.confidence)}</b><span>ring confidence R</span></div>
         <div class="stat"><b>${(r.key_kinds || []).length}</b><span>key kinds shared</span></div></div>
@@ -147,7 +147,8 @@
       <div class="stats"><div class="stat"><b>${pct(b.P)}</b><span>room match P</span></div>
         <div class="stat"><b>${pct(b.W)}</b><span>window W</span></div>
         <div class="stat"><b>${(F.best_zone || {}).photos_used ?? "—"}</b><span>photos used</span></div></div>
-      <p class="fine">Lead for human verification. ${esc((L.caps || [])[0] || "")}</p>`);
+      <p class="fine">Lead for human verification. ${esc((L.caps || [])[0] || "")}</p>
+      <p class="fine">Illustrative case. No real activity at this location.</p>`);
   }
 
   function sOrtho() {
@@ -387,7 +388,7 @@
     const names = { 0: "Rank 0 · accounts and identifiers", 1: "Rank 1 · shared keys (pairs)", 2: "Rank 2 · groups", 3: "Rank 3 · the ring" };
     const ft = t.fresh_test;
     openSheet("Topology · combinatorial complex", `<div class="list">${sampleTag(t.sample)}${t.model ? `<p class="fine">Model: ${esc(t.model)}</p>` : ""}
-      ${ft ? `<div class="why"><b>Held-out result</b> (a ring from our own synthetic generator, ${esc(ft.dataset)}, scored once): found ${esc(ft.ring_found)}, precision ${esc(ft.precision)}, recall ${esc(ft.recall)}, AUC ${esc(ft.auc)}.</div>` : ""}
+      ${ft ? `<div class="why"><b>Held-out result</b> (a ring from our own generator, ${esc(ft.dataset)}, scored once): found ${esc(ft.ring_found)}, precision ${esc(ft.precision)}, recall ${esc(ft.recall)}, AUC ${esc(ft.auc)}.</div>` : ""}
       ${(t.disagreements || []).length ? `<p><b>Model vs rules</b> <span class="fine">${t.disagreements.length} disagreements; the rules decide the ring</span></p><div class="cells">${t.disagreements.map((d) => `<button data-cell data-label="${esc(d.id)}" data-reason="${esc(`${d.note || ""} (model ${d.model}, rules ${d.rules ? "link" : "no link"})`)}">${esc(d.id)} · ${esc(d.model)}</button>`).join("")}</div>` : ""}
       ${(t.unscored || []).length ? `<p class="fine">In the complex but not scored: ${esc(t.unscored.join(", "))}.</p>` : ""}
       ${FLAGS.steps ? `<button class="btn ghost" data-work="complex">Show the work · ${esc(FLAGS.steps.complex)}</button>` : ""}
@@ -412,7 +413,7 @@
       <b>Consolidation</b>${(m.flows || []).map((f) => `<div class="row"><div>${esc(nm(f.from))} → ${esc(nm(f.to))}<div class="sig">${f.btc != null ? `${esc(f.btc)} BTC in ${esc(f.txs)} txs` : esc(f.reason || f.kind || "")}</div></div></div>`).join("") || "<p class='fine'>None.</p>"}
       <b>Cash-out</b>${(m.cash_out || []).map((c) => `<div class="row"><div><b>${esc(nm(c.cluster_id || c.cluster))} → ${esc(c.masked_label || c.service || "")}</b><div class="sig">${c.times != null ? `${esc(c.times)} times` : esc(c.reason || "")}</div></div></div>`).join("") || "<p class='fine'>None.</p>"}
       ${FLAGS.steps ? `<button class="btn ghost" data-work="money">Show the work · ${esc(FLAGS.steps.money)}</button>` : ""}
-      <p class="fine">Public ledger data, synthetic case. Wallet strings are masked.</p></div>`);
+      <p class="fine">Wallet strings are masked.</p></div>`);
   }
 
   async function showAsk() {

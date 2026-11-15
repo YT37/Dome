@@ -29,14 +29,12 @@ FILES = {"rings.json", "zones.json", "candidates.json", "matches.json", "brief.j
 CASE_ID = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
 PHONE = re.compile(r"(?:\d[\s\-.()]{0,3}){6,10}\d")
 
-# Two presets.
+# One case: Ring A, run live as "real-a" or replayed from the recorded "demo-real-a".
 PRESETS = {
-    "ring_a": {"label": "Ring A · one High lead", "case": "demo-a", "data": "synth", "seed": None,
-               "note": "12 accounts, 90 ads. The dome shrinks to one building."},
-    "ring_c": {"label": "Ring C · the supervisor decides", "case": "demo-c", "data": "mini",
-               "seed": "acct_701",
-               "note": "City-wide clues and no window photos: two guard decisions fire."},
+    "ring_a": {"label": "Ring A", "case": "real-a", "replay": "demo-real-a", "data": "synth", "seed": "acct_103",
+               "note": "Flagged accounts → one ring → a dome over its area → one building to verify."},
 }
+HIDDEN_CASES = {"demo-a", "demo-c"}          # older stub replays; the UI never loads them
 
 app = Flask(__name__, static_folder=None)
 
@@ -184,6 +182,7 @@ def cases():
         if root.exists():
             for d in sorted(root.iterdir()):
                 if d.is_dir() and CASE_ID.match(d.name) and (d / "log.jsonl").exists() \
+                        and d.name not in HIDDEN_CASES \
                         and d.name not in {c["case"] for c in out}:
                     out.append({"case": d.name, "kind": kind,
                                 "complete": (d / "brief.json").exists()})
