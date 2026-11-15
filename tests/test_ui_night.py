@@ -366,7 +366,7 @@ def test_matterport_url_always_hides_title_and_details(params):
     url = globe.matterport_url({"model_id": "LqCMcmmVH3d", "ss": 9, "params": params})
     assert url.startswith("https://my.matterport.com/show/?m=LqCMcmmVH3d&ss=9&")
     q = url.split("?", 1)[1].split("&")
-    assert "title=0" in q and "mls=2" in q and "title=1" not in q and "<" not in url
+    assert "title=0" in q and "mls=2" in q and "play=1" in q and "title=1" not in q and "<" not in url
 
 
 def test_flight_carries_the_safe_embed_url(client):

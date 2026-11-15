@@ -108,11 +108,11 @@ def _load(d: Path, name: str):
         return None
 
 
-MATTERPORT_REQUIRED = {"title": "0", "mls": "2", "brand": "0", "help": "0", "hr": "0", "dh": "0", "search": "0", "qs": "1"}
+MATTERPORT_REQUIRED = {"title": "0", "mls": "2", "brand": "0", "help": "0", "hr": "0", "dh": "0", "search": "0", "qs": "1", "play": "1"}
 
 
 def matterport_url(embed: dict | None) -> str | None:
-    """The showcase URL, always with the title and details hidden (the splash shows the street address)."""
+    """The showcase URL, always with the title and details hidden (the splash shows the street address); play=1 skips the splash and opens straight into the scan."""
     if not embed or not re.match(r"^[A-Za-z0-9]{6,20}$", str(embed.get("model_id", ""))):
         return None
     params = {}
