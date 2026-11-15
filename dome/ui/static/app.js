@@ -1,4 +1,4 @@
-/* Dome case console. Reads what the agents wrote; never computes a tier or a score. */
+/* Dome homepage. Reads what the agents wrote; never computes a tier or a score. */
 "use strict";
 
 const $ = (s, el = document) => el.querySelector(s);
@@ -322,7 +322,7 @@ function paintColorMode() {
     n.style("background-color", mix("#2a2e36", mode === "topo" ? "#ef5f5f" : "#828fff", t));
   });
   leg.innerHTML = mode === "topo"
-    ? '<span><i style="background:#2a2e36"></i>P = 0</span><span><i style="background:#ef5f5f"></i>P = 1 · topological model, public data</span>'
+    ? '<span><i style="background:#2a2e36"></i>P = 0</span><span><i style="background:#ef5f5f"></i>P = 1 · topological model</span>'
     : `<span><i style="background:#2a2e36"></i>0 cells</span><span><i style="background:#828fff"></i>${max} shared-key cells</span>`;
 }
 function mix(a, b, t) {
@@ -738,7 +738,8 @@ async function choosePreset(key, load = true) {
   S.complex = null; $("#topoEmpty").hidden = false;
   $("#topoEmpty").innerHTML = "<div><b>Building the complex…</b>The Linker's public keys, grouped into cells.</div>";
   await loadGraph(); loadComplex();
-  if (load && S.mode === "idle") { if (!(await loadFinished(S.presets[key].case))) resetCase(S.presets[key].case); }
+  const pk = S.presets[key];
+  if (load && S.mode === "idle") { if (!(await loadFinished(pk.case)) && !(pk.replay && await loadFinished(pk.replay))) resetCase(pk.case); }
 }
 
 $("#focusBtn").addEventListener("click", () => {
