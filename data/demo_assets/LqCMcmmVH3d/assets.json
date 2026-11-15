@@ -173,7 +173,9 @@
  "matterport_embed": {
   "model_id": "LqCMcmmVH3d",
   "ss": 9,
-  "sr": 281.2
+  "sr": 281.2,
+  "params": "qs=1&title=0&brand=0&mls=2&help=0&hr=0&dh=0&search=0",
+  "note": "never show Matterport's title or details panel: they contain the address"
  },
  "geo_steps": {
   "rough_pin": {
@@ -2685,6 +2687,36 @@
   "floor_band_img": "data/demo_assets/LqCMcmmVH3d/oblique_0.jpg"
  },
  "fingerprint": {
-  "skipped": "no window ad photo for this scan"
+  "items": [
+   {
+    "item": "pane_count",
+    "ad": "2",
+    "facade": "4+",
+    "agree": false
+   },
+   {
+    "item": "mullions",
+    "ad": "none",
+    "facade": "grid",
+    "agree": false
+   },
+   {
+    "item": "shape",
+    "ad": "tall",
+    "facade": "tall",
+    "agree": true
+   },
+   {
+    "item": "spacing",
+    "ad": "ribbon",
+    "facade": "evenly_spaced",
+    "agree": false
+   }
+  ],
+  "agree": 1,
+  "of": 4,
+  "verdict": "for analyst review",
+  "photo": "img_0870",
+  "facade_img": "data/demo_assets/LqCMcmmVH3d/oblique_0.jpg"
  }
 }

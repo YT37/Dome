@@ -216,70 +216,9 @@
  ],
  "floor": null,
  "floor_source": null,
- "matched_sweep": {
-  "sweep_id": "5myfssq78uyd77x97qashfn1c",
-  "heading_deg": 271.7,
-  "faces": [
-   "data/demo_assets/FQZd6kTpht1/sweep_f0.jpg",
-   "data/demo_assets/FQZd6kTpht1/sweep_f1.jpg",
-   "data/demo_assets/FQZd6kTpht1/sweep_f2.jpg",
-   "data/demo_assets/FQZd6kTpht1/sweep_f3.jpg",
-   "data/demo_assets/FQZd6kTpht1/sweep_f4.jpg",
-   "data/demo_assets/FQZd6kTpht1/sweep_f5.jpg"
-  ],
-  "floorplan_img": "data/demo_assets/FQZd6kTpht1/floorplan.png",
-  "xy": [
-   -6.109,
-   2.308
-  ]
- },
- "matches": [
-  {
-   "photo": "img_3169",
-   "match_img": "data/demo_assets/FQZd6kTpht1/match_0.jpg",
-   "inliers": 871
-  },
-  {
-   "photo": "img_0623",
-   "match_img": "data/demo_assets/FQZd6kTpht1/match_1.jpg",
-   "inliers": 580
-  },
-  {
-   "photo": "img_1115",
-   "match_img": "data/demo_assets/FQZd6kTpht1/match_2.jpg",
-   "inliers": 388
-  },
-  {
-   "photo": "img_9839",
-   "match_img": "data/demo_assets/FQZd6kTpht1/match_3.jpg",
-   "inliers": 238
-  },
-  {
-   "photo": "img_0450",
-   "match_img": "data/demo_assets/FQZd6kTpht1/match_4.jpg",
-   "inliers": 226
-  },
-  {
-   "photo": "img_6758",
-   "match_img": "data/demo_assets/FQZd6kTpht1/match_5.jpg",
-   "inliers": 201
-  },
-  {
-   "photo": "img_4677",
-   "match_img": "data/demo_assets/FQZd6kTpht1/match_6.jpg",
-   "inliers": 167
-  },
-  {
-   "photo": "img_4059",
-   "match_img": "data/demo_assets/FQZd6kTpht1/match_7.jpg",
-   "inliers": 163
-  }
- ],
- "matterport_embed": {
-  "model_id": "FQZd6kTpht1",
-  "ss": 13,
-  "sr": 271.7
- },
+ "matched_sweep": null,
+ "matches": [],
+ "matterport_embed": null,
  "geo_steps": {
   "rough_pin": {
    "lat": 29.750225,

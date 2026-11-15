@@ -230,7 +230,12 @@ def _embed(scan_id: str, sweep: dict | None):
     except Exception:
         pass
     # sr = heading (degrees) of the matched view; the UI converts it to the viewer's rotation
-    return {"model_id": scan_id, "ss": ss, "sr": sweep.get("heading_deg")}
+    # Tested in a browser: loads (public model) and opens in the matched sweep. The default
+    # splash and title show the listing's street address, so the UI must use `params`
+    # (title, branding and details hidden, quick start) and never display the page title.
+    return {"model_id": scan_id, "ss": ss, "sr": sweep.get("heading_deg"),
+            "params": "qs=1&title=0&brand=0&mls=2&help=0&hr=0&dh=0&search=0",
+            "note": "never show Matterport's title or details panel: they contain the address"}
 
 
 # --- main --------------------------------------------------------------------------------
