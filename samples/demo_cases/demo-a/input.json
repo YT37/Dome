@@ -1,0 +1,9 @@
+{
+  "case_id": "demo-a",
+  "scenario": "ring_a",
+  "ring_id": null,
+  "dataset": "synth",
+  "seed_account": "acct_103",
+  "layers": "both",
+  "private_layers": false
+}

@@ -1,0 +1,126 @@
+{
+  "case_id": "demo-a",
+  "ring_id": "R-1",
+  "zones": [
+    {
+      "zone_id": "Z-1-1",
+      "attempt": 1,
+      "threshold": 0.4,
+      "best_P": 0.78,
+      "above_threshold": true,
+      "photos_used": 20,
+      "window_photos": 5,
+      "matches": [
+        {
+          "property_id": "CS-88412",
+          "scan_id": "mp_4471",
+          "P": 0.78,
+          "W": 0.67,
+          "window_checked": true,
+          "floor_range": [
+            3,
+            5
+          ],
+          "geo": {
+            "lat": 29.7612,
+            "lon": -95.3671,
+            "heading_deg": 212.0,
+            "pin_moved_m": 139.0,
+            "error_estimate_m": 12.0
+          },
+          "evidence": [
+            {
+              "photo": "img_311",
+              "view": "mp_4471/sweep_12/az_135",
+              "inliers": 212,
+              "match_img": "data/matches/img_311_mp_4471.jpg"
+            },
+            {
+              "photo": "img_314",
+              "view": "mp_4471/sweep_7/az_270",
+              "inliers": 164,
+              "match_img": "data/matches/img_314_mp_4471.jpg"
+            }
+          ],
+          "window_checks": {
+            "road_front": true,
+            "parking_front": true,
+            "building_across": false
+          },
+          "window_photo": "img_0870",
+          "window_skipped": null
+        },
+        {
+          "property_id": "CS-88107",
+          "scan_id": "mp_2210",
+          "P": 0.22,
+          "W": null,
+          "window_checked": false,
+          "floor_range": null,
+          "geo": null,
+          "evidence": [
+            {
+              "photo": "img_312",
+              "view": "mp_2210/sweep_3/az_90",
+              "inliers": 41,
+              "match_img": "data/matches/img_312_mp_2210.jpg"
+            }
+          ],
+          "window_checks": {},
+          "window_photo": null,
+          "window_skipped": null
+        },
+        {
+          "property_id": "CS-87990",
+          "scan_id": "mp_3302",
+          "P": 0.11,
+          "W": null,
+          "window_checked": false,
+          "floor_range": null,
+          "geo": null,
+          "evidence": [],
+          "window_checks": {},
+          "window_photo": null,
+          "window_skipped": null
+        }
+      ],
+      "room_groups": [
+        {
+          "group_id": "RG-1",
+          "photos": [
+            "img_0282",
+            "img_0870",
+            "img_1094",
+            "img_1517",
+            "img_2106",
+            "img_2583",
+            "img_2654",
+            "img_3218",
+            "img_4451",
+            "img_4460",
+            "img_4556",
+            "img_5204",
+            "img_6324",
+            "img_6539",
+            "img_7115",
+            "img_8176",
+            "img_8800",
+            "img_9315",
+            "img_9494",
+            "img_9498"
+          ],
+          "accounts": [
+            "acct_103",
+            "acct_131",
+            "acct_201"
+          ],
+          "scan_id": "mp_4471",
+          "details": [
+            "same room as scan mp_4471 (stub: synthetic render source)"
+          ],
+          "outside_ring": []
+        }
+      ]
+    }
+  ]
+}

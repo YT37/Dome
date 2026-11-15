@@ -104,6 +104,7 @@ def test_page_shows_names_never_addresses_or_phones(tmp_path):
     assert "3 accounts, R 0.91" in page and "acct_233" in page        # ring card + recruiter
     assert "Z-A1" in page and "Midtown" in page                         # zone card
     assert 'href="log.jsonl"' in page
+    assert "Public data only" in page                                 # Track 2 badge (no private layers)
     assert "Leads for human verification. Place clues give areas, not addresses." in page
 
 
