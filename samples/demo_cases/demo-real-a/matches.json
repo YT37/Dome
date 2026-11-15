@@ -15,8 +15,8 @@
      "property_id": "RL-213304177",
      "scan_id": "LqCMcmmVH3d",
      "P": 0.68,
-     "W": null,
-     "window_checked": false,
+     "W": 0.6,
+     "window_checked": true,
      "floor_range": [
       3,
       3
@@ -78,9 +78,15 @@
        "match_img": "data/matches/img_8800__LqCMcmmVH3d_qff535pp6geahis527yisnb6d_az_090.jpg"
       }
      ],
-     "window_checks": {},
-     "window_photo": null,
-     "window_skipped": "window_box: no GOOGLE_API_KEY and no cached answer"
+     "window_checks": {
+      "parking_front": false,
+      "building_across": true,
+      "trees": false,
+      "open_sky": true,
+      "height_above_street": true
+     },
+     "window_photo": "img_0870",
+     "window_skipped": null
     },
     {
      "property_id": "CS-8769010",
@@ -1266,7 +1272,7 @@
      "window_skipped": null
     },
     {
-     "property_id": "RL-232112148",
+     "property_id": "RL-232001401",
      "scan_id": "UQ5PqjJ3Zv4",
      "P": 0.0,
      "W": null,
@@ -1539,7 +1545,7 @@
      "window_skipped": null
     },
     {
-     "property_id": "RL-204222106",
+     "property_id": "RL-203453699",
      "scan_id": "nimJyxeUe5n",
      "P": 0.0,
      "W": null,

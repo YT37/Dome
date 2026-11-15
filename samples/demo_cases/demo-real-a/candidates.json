@@ -7,96 +7,23 @@
    "scanned_only": false,
    "total_in_zone": 129,
    "photo_cues": {
-    "setting": "unknown",
-    "window_floor_est": null,
-    "features": [],
-    "source": "none"
+    "setting": "apartment",
+    "window_floor_est": [
+     2,
+     3
+    ],
+    "features": [
+     "brick facade",
+     "courtyard",
+     "covered parking",
+     "high ceilings",
+     "large windows",
+     "balcony",
+     "hardwood floors"
+    ],
+    "source": "gemini"
    },
    "candidates": [
-    {
-     "property_id": "CS-10065813",
-     "address": "",
-     "lat": 29.7411194,
-     "lon": -95.3782251,
-     "type": "multifamily",
-     "floors": 30,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "4J64yAtVP1T",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-10079392",
-     "address": "",
-     "lat": 29.7437188,
-     "lon": -95.3748895,
-     "type": "multifamily",
-     "floors": 27,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "aQHaxiaSmhn",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-10122224",
-     "address": "",
-     "lat": 29.7460624,
-     "lon": -95.3679203,
-     "type": "multifamily",
-     "floors": 5,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "3AUwGvAab4p",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-1018657",
-     "address": "",
-     "lat": 29.74587,
-     "lon": -95.375417,
-     "type": "retail",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "4H2JSnQ3wSj",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-10819844",
-     "address": "",
-     "lat": 29.7614291,
-     "lon": -95.3634563,
-     "type": "office",
-     "floors": 47,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "5ih8y3c7LGE",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-10960074",
-     "address": "",
-     "lat": 29.736915,
-     "lon": -95.3856164,
-     "type": "multifamily",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "EDgQMmspn34",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
     {
      "property_id": "CS-11027423",
      "address": "",
@@ -104,627 +31,13 @@
      "lon": -95.3635642,
      "type": "multifamily",
      "floors": 46,
-     "fit": 0.15,
+     "fit": 0.94,
      "has_scan": true,
      "scan_id": "F2ZjqNCQnB5",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-11118122",
-     "address": "",
-     "lat": 29.7551226,
-     "lon": -95.3591031,
-     "type": "multifamily",
-     "floors": 43,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "5kp1WtCQG4e",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-11283467",
-     "address": "",
-     "lat": 29.7343621,
-     "lon": -95.3822238,
-     "type": "office",
-     "floors": 5,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "CHUheq99ibg",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-11309807",
-     "address": "",
-     "lat": 29.7605367,
-     "lon": -95.3537729,
-     "type": "multifamily",
-     "floors": 6,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "1ifTN4d1GBd",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-11415679",
-     "address": "",
-     "lat": 29.7452214,
-     "lon": -95.3837728,
-     "type": "multifamily",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "EutN3v28dj5",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-11984892",
-     "address": "",
-     "lat": 29.7662774,
-     "lon": -95.3515122,
-     "type": "multifamily",
-     "floors": 4,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "JfQ2f2bVRru",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-12385968",
-     "address": "",
-     "lat": 29.7439044,
-     "lon": -95.3710923,
-     "type": "multifamily",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "Cdp7TgvJ6Wv",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-12394202",
-     "address": "",
-     "lat": 29.727847,
-     "lon": -95.370589,
-     "type": "retail",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "gjMWcj8oz4B",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-12894497",
-     "address": "",
-     "lat": 29.7526367,
-     "lon": -95.3729464,
-     "type": "multifamily",
-     "floors": 20,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "6ThoBJdrVYf",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-13195242",
-     "address": "",
-     "lat": 29.7342002,
-     "lon": -95.3882278,
-     "type": "multifamily",
-     "floors": 6,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "9Cz2DcbHcvd",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-1356264",
-     "address": "",
-     "lat": 29.7514751,
-     "lon": -95.3677489,
-     "type": "multifamily",
-     "floors": 31,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "4pjp4KaT2DX",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-14404024",
-     "address": "",
-     "lat": 29.7457796,
-     "lon": -95.3895573,
-     "type": "multifamily",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "VNnkHhgoodG",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-1473413",
-     "address": "",
-     "lat": 29.7603258,
-     "lon": -95.3606864,
-     "type": "office",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "LpFT2yfZfnU",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-1540110",
-     "address": "",
-     "lat": 29.750443,
-     "lon": -95.3813562,
-     "type": "multifamily",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "jZhhGQzK7Dt",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-1589285",
-     "address": "",
-     "lat": 29.74821,
-     "lon": -95.375413,
-     "type": "multifamily",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "2z5YGUUqKZs",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-233899",
-     "address": "",
-     "lat": 29.7584604,
-     "lon": -95.3682126,
-     "type": "office",
-     "floors": 71,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "3K5rnFt1P6B",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-233905",
-     "address": "",
-     "lat": 29.7607687,
-     "lon": -95.366467,
-     "type": "office",
-     "floors": 56,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "gGm7vFc9YgS",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-233918",
-     "address": "",
-     "lat": 29.7558291,
-     "lon": -95.3616357,
-     "type": "office",
-     "floors": 51,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "JWtTP2g7mDj",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-233927",
-     "address": "",
-     "lat": 29.753624,
-     "lon": -95.369571,
-     "type": "office",
-     "floors": 46,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "AyQEoYpB3Hx",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-233928",
-     "address": "",
-     "lat": 29.7547798,
-     "lon": -95.3698082,
-     "type": "office",
-     "floors": 43,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "LJn59uoV759",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-233935",
-     "address": "",
-     "lat": 29.7578497,
-     "lon": -95.3705243,
-     "type": "office",
-     "floors": 34,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "P2N8mt8BdAE",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-233953",
-     "address": "",
-     "lat": 29.7588018,
-     "lon": -95.3650891,
-     "type": "office",
-     "floors": 27,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "Wtxv2Mp8uQE",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-233964",
-     "address": "",
-     "lat": 29.7627459,
-     "lon": -95.3646999,
-     "type": "office",
-     "floors": 26,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "HJjccDZmmYp",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-233968",
-     "address": "",
-     "lat": 29.7535228,
-     "lon": -95.365773,
-     "type": "office",
-     "floors": 24,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "RW7cKwVEpiJ",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-233985",
-     "address": "",
-     "lat": 29.7568529,
-     "lon": -95.3642499,
-     "type": "office",
-     "floors": 23,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "2UoFVxb6xh7",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-234004",
-     "address": "",
-     "lat": 29.7526332,
-     "lon": -95.3728675,
-     "type": "office",
-     "floors": 21,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "n1J5ASynouH",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-234036",
-     "address": "",
-     "lat": 29.7485811,
-     "lon": -95.3669641,
-     "type": "office",
-     "floors": 18,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "7uM5JKssTED",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-234856",
-     "address": "",
-     "lat": 29.748859,
-     "lon": -95.3729754,
-     "type": "office",
-     "floors": 15,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "2Bm3m5NDXV6",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-235123",
-     "address": "",
-     "lat": 29.768557,
-     "lon": -95.357148,
-     "type": "office",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "BX54kKDUE9E",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-365105",
-     "address": "",
-     "lat": 29.750905,
-     "lon": -95.372008,
-     "type": "office",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "WtWUAcMUa4x",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-4278693",
-     "address": "",
-     "lat": 29.7502254,
-     "lon": -95.3788897,
-     "type": "multifamily",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "FQZd6kTpht1",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-4348891",
-     "address": "",
-     "lat": 29.7393921,
-     "lon": -95.3829376,
-     "type": "multifamily",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "AA6XPSdTrYt",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-519027",
-     "address": "",
-     "lat": 29.761614,
-     "lon": -95.364271,
-     "type": "office",
-     "floors": 33,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "WAeBuPU2HLw",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-6121920",
-     "address": "",
-     "lat": 29.7399791,
-     "lon": -95.3840772,
-     "type": "multifamily",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "499ZvJxwuLr",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-6206900",
-     "address": "",
-     "lat": 29.744851,
-     "lon": -95.376187,
-     "type": "multifamily",
-     "floors": 4,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "4PS73iPAZLc",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-6233499",
-     "address": "",
-     "lat": 29.7519255,
-     "lon": -95.3771577,
-     "type": "multifamily",
-     "floors": 4,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "3dmwZeiCjK2",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-7097658",
-     "address": "",
-     "lat": 29.754711,
-     "lon": -95.3765512,
-     "type": "multifamily",
-     "floors": 4,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "A2azhM3TC5d",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-7768273",
-     "address": "",
-     "lat": 29.749973,
-     "lon": -95.375777,
-     "type": "multifamily",
-     "floors": 4,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "R9DqXrzmb8o",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-7768847",
-     "address": "",
-     "lat": 29.7430589,
-     "lon": -95.3799703,
-     "type": "multifamily",
-     "floors": 6,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "2wR7pG5V7cE",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-7770644",
-     "address": "",
-     "lat": 29.762322,
-     "lon": -95.374742,
-     "type": "multifamily",
-     "floors": 4,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "FhXLr39dZNf",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-7770673",
-     "address": "",
-     "lat": 29.7358832,
-     "lon": -95.3797395,
-     "type": "multifamily",
-     "floors": 7,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "HMMn8AxCJWz",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-8015001",
-     "address": "",
-     "lat": 29.7657814,
-     "lon": -95.3665161,
-     "type": "multifamily",
-     "floors": 7,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "GPmdRZ4cc8y",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-8030513",
-     "address": "",
-     "lat": 29.7391732,
-     "lon": -95.3834448,
-     "type": "multifamily",
-     "floors": 11,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "1TgjNvW2h2o",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-8050379",
-     "address": "",
-     "lat": 29.7486393,
-     "lon": -95.3798498,
-     "type": "multifamily",
-     "floors": 4,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "6q3Ku5E1GUN",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-8141295",
-     "address": "",
-     "lat": 29.760255,
-     "lon": -95.35251,
-     "type": "multifamily",
-     "floors": 5,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "RbRpMpNbs6D",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "46 floors fits a floor 2 to 3 view",
+      "439 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
      ]
     },
     {
@@ -734,39 +47,13 @@
      "lon": -95.3624985,
      "type": "multifamily",
      "floors": 16,
-     "fit": 0.15,
+     "fit": 0.94,
      "has_scan": true,
      "scan_id": "4qnJbU6GaWK",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-8279047",
-     "address": "",
-     "lat": 29.7343447,
-     "lon": -95.3723636,
-     "type": "multifamily",
-     "floors": 4,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "MtJegWMuAjT",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-8424110",
-     "address": "",
-     "lat": 29.744802,
-     "lon": -95.375214,
-     "type": "multifamily",
-     "floors": 8,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "8SzHBQGEzDT",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "16 floors fits a floor 2 to 3 view",
+      "356 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
      ]
     },
     {
@@ -776,249 +63,13 @@
      "lon": -95.3627626,
      "type": "multifamily",
      "floors": 18,
-     "fit": 0.15,
+     "fit": 0.94,
      "has_scan": true,
      "scan_id": "8aV1fUtaK7X",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-8768414",
-     "address": "",
-     "lat": 29.7588259,
-     "lon": -95.383572,
-     "type": "multifamily",
-     "floors": 4,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "8pDsp2j7ckz",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-8769010",
-     "address": "",
-     "lat": 29.734779,
-     "lon": -95.386043,
-     "type": "multifamily",
-     "floors": 5,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "11oGjc3fJwA",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-8987350",
-     "address": "",
-     "lat": 29.757648,
-     "lon": -95.357376,
-     "type": "multifamily",
-     "floors": 7,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "6S86f438NXx",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-9180689",
-     "address": "",
-     "lat": 29.743633,
-     "lon": -95.379938,
-     "type": "multifamily",
-     "floors": 5,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "5d9pvDHZMhC",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-9284087",
-     "address": "",
-     "lat": 29.7525926,
-     "lon": -95.3677068,
-     "type": "multifamily",
-     "floors": 5,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "Bh4eoztz6vw",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-9284106",
-     "address": "",
-     "lat": 29.7393846,
-     "lon": -95.3794962,
-     "type": "multifamily",
-     "floors": 1,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "8L3Ryy1WpbJ",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-9294670",
-     "address": "",
-     "lat": 29.7473134,
-     "lon": -95.3735079,
-     "type": "multifamily",
-     "floors": 6,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "2bZoiJu5war",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-9342164",
-     "address": "",
-     "lat": 29.7405784,
-     "lon": -95.3858259,
-     "type": "multifamily",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "7Ed5YsT4p8c",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-9347750",
-     "address": "",
-     "lat": 29.7441646,
-     "lon": -95.3778776,
-     "type": "multifamily",
-     "floors": 5,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "7jzi4PvwgL1",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-9349689",
-     "address": "",
-     "lat": 29.7580699,
-     "lon": -95.3582418,
-     "type": "multifamily",
-     "floors": 28,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "4R9Ri6BgCM1",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-9380874",
-     "address": "",
-     "lat": 29.749339,
-     "lon": -95.367766,
-     "type": "multifamily",
-     "floors": 8,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "FCYYeP8F89B",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-9386367",
-     "address": "",
-     "lat": 29.7535014,
-     "lon": -95.3824633,
-     "type": "multifamily",
-     "floors": 7,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "CkJy6f44j9g",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-9395438",
-     "address": "",
-     "lat": 29.7631079,
-     "lon": -95.3634127,
-     "type": "multifamily",
-     "floors": 40,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "4QzunX6Hxjz",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-9401379",
-     "address": "",
-     "lat": 29.7495665,
-     "lon": -95.3662765,
-     "type": "multifamily",
-     "floors": 5,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "3BsYqWzDj3v",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-9407456",
-     "address": "",
-     "lat": 29.7572888,
-     "lon": -95.3590454,
-     "type": "multifamily",
-     "floors": 8,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "NJVq1RL3ZAD",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-9430279",
-     "address": "",
-     "lat": 29.7643324,
-     "lon": -95.37359,
-     "type": "multifamily",
-     "floors": 7,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "2GFRj4R6Qp4",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "CS-9432147",
-     "address": "",
-     "lat": 29.7490678,
-     "lon": -95.3822581,
-     "type": "multifamily",
-     "floors": 13,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "1KtXn2oexdP",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "18 floors fits a floor 2 to 3 view",
+      "357 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
      ]
     },
     {
@@ -1028,11 +79,719 @@
      "lon": -95.3622374,
      "type": "multifamily",
      "floors": 32,
-     "fit": 0.15,
+     "fit": 0.94,
      "has_scan": true,
      "scan_id": "CrcMCXX83Ng",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "32 floors fits a floor 2 to 3 view",
+      "460 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-9395438",
+     "address": "",
+     "lat": 29.7631079,
+     "lon": -95.3634127,
+     "type": "multifamily",
+     "floors": 40,
+     "fit": 0.88,
+     "has_scan": true,
+     "scan_id": "4QzunX6Hxjz",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "40 floors fits a floor 2 to 3 view",
+      "426 m from Rideshare, Downtown, Houston (merchant hint, +0.07)"
+     ]
+    },
+    {
+     "property_id": "CS-10065813",
+     "address": "",
+     "lat": 29.7411194,
+     "lon": -95.3782251,
+     "type": "multifamily",
+     "floors": 30,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "4J64yAtVP1T",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "30 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-10079392",
+     "address": "",
+     "lat": 29.7437188,
+     "lon": -95.3748895,
+     "type": "multifamily",
+     "floors": 27,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "aQHaxiaSmhn",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "27 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-10122224",
+     "address": "",
+     "lat": 29.7460624,
+     "lon": -95.3679203,
+     "type": "multifamily",
+     "floors": 5,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "3AUwGvAab4p",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "5 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-10960074",
+     "address": "",
+     "lat": 29.736915,
+     "lon": -95.3856164,
+     "type": "multifamily",
+     "floors": 2,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "EDgQMmspn34",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-11118122",
+     "address": "",
+     "lat": 29.7551226,
+     "lon": -95.3591031,
+     "type": "multifamily",
+     "floors": 43,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "5kp1WtCQG4e",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "43 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-11309807",
+     "address": "",
+     "lat": 29.7605367,
+     "lon": -95.3537729,
+     "type": "multifamily",
+     "floors": 6,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "1ifTN4d1GBd",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "6 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-11415679",
+     "address": "",
+     "lat": 29.7452214,
+     "lon": -95.3837728,
+     "type": "multifamily",
+     "floors": 3,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "EutN3v28dj5",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-11984892",
+     "address": "",
+     "lat": 29.7662774,
+     "lon": -95.3515122,
+     "type": "multifamily",
+     "floors": 4,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "JfQ2f2bVRru",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "4 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-12385968",
+     "address": "",
+     "lat": 29.7439044,
+     "lon": -95.3710923,
+     "type": "multifamily",
+     "floors": 3,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "Cdp7TgvJ6Wv",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-12894497",
+     "address": "",
+     "lat": 29.7526367,
+     "lon": -95.3729464,
+     "type": "multifamily",
+     "floors": 20,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "6ThoBJdrVYf",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "20 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-13195242",
+     "address": "",
+     "lat": 29.7342002,
+     "lon": -95.3882278,
+     "type": "multifamily",
+     "floors": 6,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "9Cz2DcbHcvd",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "6 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-1356264",
+     "address": "",
+     "lat": 29.7514751,
+     "lon": -95.3677489,
+     "type": "multifamily",
+     "floors": 31,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "4pjp4KaT2DX",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "31 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-14404024",
+     "address": "",
+     "lat": 29.7457796,
+     "lon": -95.3895573,
+     "type": "multifamily",
+     "floors": 2,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "VNnkHhgoodG",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-1540110",
+     "address": "",
+     "lat": 29.750443,
+     "lon": -95.3813562,
+     "type": "multifamily",
+     "floors": 3,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "jZhhGQzK7Dt",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-1589285",
+     "address": "",
+     "lat": 29.74821,
+     "lon": -95.375413,
+     "type": "multifamily",
+     "floors": 3,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "2z5YGUUqKZs",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-4278693",
+     "address": "",
+     "lat": 29.7502254,
+     "lon": -95.3788897,
+     "type": "multifamily",
+     "floors": 3,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "FQZd6kTpht1",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-4348891",
+     "address": "",
+     "lat": 29.7393921,
+     "lon": -95.3829376,
+     "type": "multifamily",
+     "floors": 2,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "AA6XPSdTrYt",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-6121920",
+     "address": "",
+     "lat": 29.7399791,
+     "lon": -95.3840772,
+     "type": "multifamily",
+     "floors": 2,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "499ZvJxwuLr",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-6206900",
+     "address": "",
+     "lat": 29.744851,
+     "lon": -95.376187,
+     "type": "multifamily",
+     "floors": 4,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "4PS73iPAZLc",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "4 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-6233499",
+     "address": "",
+     "lat": 29.7519255,
+     "lon": -95.3771577,
+     "type": "multifamily",
+     "floors": 4,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "3dmwZeiCjK2",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "4 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-7097658",
+     "address": "",
+     "lat": 29.754711,
+     "lon": -95.3765512,
+     "type": "multifamily",
+     "floors": 4,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "A2azhM3TC5d",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "4 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-7768273",
+     "address": "",
+     "lat": 29.749973,
+     "lon": -95.375777,
+     "type": "multifamily",
+     "floors": 4,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "R9DqXrzmb8o",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "4 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-7768847",
+     "address": "",
+     "lat": 29.7430589,
+     "lon": -95.3799703,
+     "type": "multifamily",
+     "floors": 6,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "2wR7pG5V7cE",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "6 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-7770644",
+     "address": "",
+     "lat": 29.762322,
+     "lon": -95.374742,
+     "type": "multifamily",
+     "floors": 4,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "FhXLr39dZNf",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "4 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-7770673",
+     "address": "",
+     "lat": 29.7358832,
+     "lon": -95.3797395,
+     "type": "multifamily",
+     "floors": 7,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "HMMn8AxCJWz",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "7 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-8015001",
+     "address": "",
+     "lat": 29.7657814,
+     "lon": -95.3665161,
+     "type": "multifamily",
+     "floors": 7,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "GPmdRZ4cc8y",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "7 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-8030513",
+     "address": "",
+     "lat": 29.7391732,
+     "lon": -95.3834448,
+     "type": "multifamily",
+     "floors": 11,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "1TgjNvW2h2o",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "11 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-8050379",
+     "address": "",
+     "lat": 29.7486393,
+     "lon": -95.3798498,
+     "type": "multifamily",
+     "floors": 4,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "6q3Ku5E1GUN",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "4 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-8141295",
+     "address": "",
+     "lat": 29.760255,
+     "lon": -95.35251,
+     "type": "multifamily",
+     "floors": 5,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "RbRpMpNbs6D",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "5 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-8279047",
+     "address": "",
+     "lat": 29.7343447,
+     "lon": -95.3723636,
+     "type": "multifamily",
+     "floors": 4,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "MtJegWMuAjT",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "4 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-8424110",
+     "address": "",
+     "lat": 29.744802,
+     "lon": -95.375214,
+     "type": "multifamily",
+     "floors": 8,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "8SzHBQGEzDT",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "8 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-8768414",
+     "address": "",
+     "lat": 29.7588259,
+     "lon": -95.383572,
+     "type": "multifamily",
+     "floors": 4,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "8pDsp2j7ckz",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "4 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-8769010",
+     "address": "",
+     "lat": 29.734779,
+     "lon": -95.386043,
+     "type": "multifamily",
+     "floors": 5,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "11oGjc3fJwA",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "5 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-8987350",
+     "address": "",
+     "lat": 29.757648,
+     "lon": -95.357376,
+     "type": "multifamily",
+     "floors": 7,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "6S86f438NXx",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "7 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-9180689",
+     "address": "",
+     "lat": 29.743633,
+     "lon": -95.379938,
+     "type": "multifamily",
+     "floors": 5,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "5d9pvDHZMhC",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "5 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-9284087",
+     "address": "",
+     "lat": 29.7525926,
+     "lon": -95.3677068,
+     "type": "multifamily",
+     "floors": 5,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "Bh4eoztz6vw",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "5 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-9294670",
+     "address": "",
+     "lat": 29.7473134,
+     "lon": -95.3735079,
+     "type": "multifamily",
+     "floors": 6,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "2bZoiJu5war",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "6 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-9342164",
+     "address": "",
+     "lat": 29.7405784,
+     "lon": -95.3858259,
+     "type": "multifamily",
+     "floors": 2,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "7Ed5YsT4p8c",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-9347750",
+     "address": "",
+     "lat": 29.7441646,
+     "lon": -95.3778776,
+     "type": "multifamily",
+     "floors": 5,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "7jzi4PvwgL1",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "5 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-9349689",
+     "address": "",
+     "lat": 29.7580699,
+     "lon": -95.3582418,
+     "type": "multifamily",
+     "floors": 28,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "4R9Ri6BgCM1",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "28 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-9380874",
+     "address": "",
+     "lat": 29.749339,
+     "lon": -95.367766,
+     "type": "multifamily",
+     "floors": 8,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "FCYYeP8F89B",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "8 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-9386367",
+     "address": "",
+     "lat": 29.7535014,
+     "lon": -95.3824633,
+     "type": "multifamily",
+     "floors": 7,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "CkJy6f44j9g",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "7 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-9401379",
+     "address": "",
+     "lat": 29.7495665,
+     "lon": -95.3662765,
+     "type": "multifamily",
+     "floors": 5,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "3BsYqWzDj3v",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "5 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-9407456",
+     "address": "",
+     "lat": 29.7572888,
+     "lon": -95.3590454,
+     "type": "multifamily",
+     "floors": 8,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "NJVq1RL3ZAD",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "8 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-9430279",
+     "address": "",
+     "lat": 29.7643324,
+     "lon": -95.37359,
+     "type": "multifamily",
+     "floors": 7,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "2GFRj4R6Qp4",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "7 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-9432147",
+     "address": "",
+     "lat": 29.7490678,
+     "lon": -95.3822581,
+     "type": "multifamily",
+     "floors": 13,
+     "fit": 0.8,
+     "has_scan": true,
+     "scan_id": "1KtXn2oexdP",
+     "fit_reasons": [
+      "multifamily matches apartment photos",
+      "13 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1042,11 +801,12 @@
      "lon": -95.3757307,
      "type": "multifamily",
      "floors": 6,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "3P2XHbYnRvh",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "6 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1056,11 +816,12 @@
      "lon": -95.3633818,
      "type": "multifamily",
      "floors": 5,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "HNdNS4hvUq1",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "5 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1070,11 +831,12 @@
      "lon": -95.3871322,
      "type": "multifamily",
      "floors": 2,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "VX8Tq7PCSCf",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "2 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1084,11 +846,12 @@
      "lon": -95.384228,
      "type": "multifamily",
      "floors": 2,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "GCMFPUV6PUc",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "2 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1098,11 +861,12 @@
      "lon": -95.3502873,
      "type": "multifamily",
      "floors": 5,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "JKCcECQv1gb",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "5 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1112,11 +876,12 @@
      "lon": -95.3692441,
      "type": "multifamily",
      "floors": 24,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "3Vf865xbNYu",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "24 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1126,11 +891,12 @@
      "lon": -95.379112,
      "type": "multifamily",
      "floors": 2,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "YGh8Y5Xm1Yj",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "2 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1140,11 +906,12 @@
      "lon": -95.3805113,
      "type": "multifamily",
      "floors": 8,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "79bEpfFmGKV",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "8 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1154,11 +921,12 @@
      "lon": -95.3858207,
      "type": "multifamily",
      "floors": 2,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "2WMhwuqjJkb",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "2 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1168,11 +936,12 @@
      "lon": -95.37998,
      "type": "multifamily",
      "floors": 4,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "QZNPGuNgT5V",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "4 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1182,39 +951,12 @@
      "lon": -95.3853614,
      "type": "multifamily",
      "floors": 6,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "4saNUkk4DaN",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-197846842",
-     "address": "",
-     "lat": 29.735048,
-     "lon": -95.389099,
-     "type": "single_family",
-     "floors": 1,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "yAX94mCC15B",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-203453699",
-     "address": "",
-     "lat": 29.75599,
-     "lon": -95.37928,
-     "type": "multifamily",
-     "floors": 1,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "nimJyxeUe5n",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "6 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1224,53 +966,12 @@
      "lon": -95.37928,
      "type": "multifamily",
      "floors": 4,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "nimJyxeUe5n",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-206382291",
-     "address": "",
-     "lat": 29.767202,
-     "lon": -95.376846,
-     "type": "single_family",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "n23srRHjb3Q",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-212980915",
-     "address": "",
-     "lat": 29.741066,
-     "lon": -95.367828,
-     "type": "single_family",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "tUHgQY3khqq",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-213101679",
-     "address": "",
-     "lat": 29.754685,
-     "lon": -95.381232,
-     "type": "single_family",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "wwDDcMeuwPr",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "4 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1280,123 +981,12 @@
      "lon": -95.377337,
      "type": "multifamily",
      "floors": 3,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "LqCMcmmVH3d",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-214302016",
-     "address": "",
-     "lat": 29.73162,
-     "lon": -95.37709,
-     "type": "single_family",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "CWRBt8QdcHY",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-214753653",
-     "address": "",
-     "lat": 29.735364,
-     "lon": -95.376407,
-     "type": "single_family",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "SM9BjXgoT1h",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-215760746",
-     "address": "",
-     "lat": 29.730071,
-     "lon": -95.377409,
-     "type": "single_family",
-     "floors": 4,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "KPmWkre97sK",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-216328245",
-     "address": "",
-     "lat": 29.749758,
-     "lon": -95.385887,
-     "type": "single_family",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "zuCDXNWquNn",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-217855314",
-     "address": "",
-     "lat": 29.734051,
-     "lon": -95.37851,
-     "type": "single_family",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "YRWaqoykeXs",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-218617164",
-     "address": "",
-     "lat": 29.73534,
-     "lon": -95.37671,
-     "type": "single_family",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "oVbeheSAeq7",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-218975255",
-     "address": "",
-     "lat": 29.737661,
-     "lon": -95.366859,
-     "type": "single_family",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "LSC8b9yW8H6",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-220917195",
-     "address": "",
-     "lat": 29.737753,
-     "lon": -95.363658,
-     "type": "single_family",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "jP357VqAPy7",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "3 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1406,25 +996,12 @@
      "lon": -95.376133,
      "type": "multifamily",
      "floors": 4,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "fpAJP4tfBi3",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-221278977",
-     "address": "",
-     "lat": 29.735441,
-     "lon": -95.371628,
-     "type": "multifamily",
-     "floors": 1,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "u7RNps1jDH3",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "4 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1434,95 +1011,12 @@
      "lon": -95.377337,
      "type": "multifamily",
      "floors": 3,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "SyBiHMi5ScJ",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-222314285",
-     "address": "",
-     "lat": 29.738268,
-     "lon": -95.372936,
-     "type": "single_family",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "QTjMSYtWXtt",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-224517721",
-     "address": "",
-     "lat": 29.754775,
-     "lon": -95.381423,
-     "type": "single_family",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "JjwZkYjXJsw",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-224584207",
-     "address": "",
-     "lat": 29.745685,
-     "lon": -95.383986,
-     "type": "single_family",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "C4ARotXcnXg",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-230088022",
-     "address": "",
-     "lat": 29.749397,
-     "lon": -95.381567,
-     "type": "single_family",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "4US8feZ9sAE",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-231924334",
-     "address": "",
-     "lat": 29.735956,
-     "lon": -95.387405,
-     "type": "single_family",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "nzHdUmSTdPy",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-232001401",
-     "address": "",
-     "lat": 29.755274,
-     "lon": -95.3759,
-     "type": "single_family",
-     "floors": 4,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "UQ5PqjJ3Zv4",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "3 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1532,11 +1026,12 @@
      "lon": -95.3759,
      "type": "multifamily",
      "floors": 4,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "UQ5PqjJ3Zv4",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "4 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1546,25 +1041,12 @@
      "lon": -95.38578,
      "type": "multifamily",
      "floors": 2,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "ZZ4KGB6Rgcm",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-233003801",
-     "address": "",
-     "lat": 29.76784,
-     "lon": -95.37531,
-     "type": "single_family",
-     "floors": 4,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "5oaD53D9zeY",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "2 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1574,95 +1056,12 @@
      "lon": -95.387024,
      "type": "multifamily",
      "floors": 2,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "WZosGiQpVkX",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-234821208",
-     "address": "",
-     "lat": 29.72482,
-     "lon": -95.37786,
-     "type": "single_family",
-     "floors": 3,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "f712x1GKodS",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-235994875",
-     "address": "",
-     "lat": 29.755322,
-     "lon": -95.382057,
-     "type": "single_family",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "6pEQACZXBXK",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-236455290",
-     "address": "",
-     "lat": 29.757115,
-     "lon": -95.386039,
-     "type": "single_family",
-     "floors": 4,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "8yXzp4xRz2C",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-236850135",
-     "address": "",
-     "lat": 29.76647,
-     "lon": -95.37637,
-     "type": "single_family",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "Kk2iMxFfRZZ",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-237249631",
-     "address": "",
-     "lat": 29.725493,
-     "lon": -95.379975,
-     "type": "single_family",
-     "floors": 2,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "LxUykceqYWr",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
-     ]
-    },
-    {
-     "property_id": "RL-238113124",
-     "address": "",
-     "lat": 29.736465,
-     "lon": -95.386589,
-     "type": "single_family",
-     "floors": 1,
-     "fit": 0.15,
-     "has_scan": true,
-     "scan_id": "xWZEFUeZ3v9",
-     "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "2 floors fits a floor 2 to 3 view"
      ]
     },
     {
@@ -1672,39 +1071,70 @@
      "lon": -95.368036,
      "type": "multifamily",
      "floors": 2,
-     "fit": 0.15,
+     "fit": 0.8,
      "has_scan": true,
      "scan_id": "puFxU9VY5Xf",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "2 floors fits a floor 2 to 3 view"
      ]
     },
     {
-     "property_id": "RL-238672879",
+     "property_id": "RL-228533580",
      "address": "",
-     "lat": 29.745173,
-     "lon": -95.386307,
-     "type": "single_family",
-     "floors": 2,
-     "fit": 0.15,
+     "lat": 29.757746,
+     "lon": -95.36496,
+     "type": "multifamily",
+     "floors": null,
+     "fit": 0.64,
      "has_scan": true,
-     "scan_id": "Pm9exFNo3GN",
+     "scan_id": "aCskEAXA8QN",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "171 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
      ]
     },
     {
-     "property_id": "RL-238931196",
+     "property_id": "RL-236298672",
      "address": "",
-     "lat": 29.74307,
-     "lon": -95.3893,
-     "type": "single_family",
-     "floors": 2,
-     "fit": 0.15,
+     "lat": 29.757112,
+     "lon": -95.364426,
+     "type": "multifamily",
+     "floors": null,
+     "fit": 0.64,
      "has_scan": true,
-     "scan_id": "RifTE4hzHzh",
+     "scan_id": "169F7nENMza",
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "multifamily matches apartment photos",
+      "259 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-9284106",
+     "address": "",
+     "lat": 29.7393846,
+     "lon": -95.3794962,
+     "type": "multifamily",
+     "floors": 1,
+     "fit": 0.5,
+     "has_scan": true,
+     "scan_id": "8L3Ryy1WpbJ",
+     "fit_reasons": [
+      "multifamily matches apartment photos"
+     ]
+    },
+    {
+     "property_id": "RL-203453699",
+     "address": "",
+     "lat": 29.75599,
+     "lon": -95.37928,
+     "type": "multifamily",
+     "floors": 1,
+     "fit": 0.5,
+     "has_scan": true,
+     "scan_id": "nimJyxeUe5n",
+     "fit_reasons": [
+      "multifamily matches apartment photos"
      ]
     },
     {
@@ -1714,22 +1144,26 @@
      "lon": -95.360016,
      "type": "multifamily",
      "floors": null,
-     "fit": 0.0,
+     "fit": 0.5,
      "has_scan": true,
      "scan_id": "d5gwJczaCwc",
-     "fit_reasons": []
+     "fit_reasons": [
+      "multifamily matches apartment photos"
+     ]
     },
     {
-     "property_id": "RL-228533580",
+     "property_id": "RL-221278977",
      "address": "",
-     "lat": 29.757746,
-     "lon": -95.36496,
+     "lat": 29.735441,
+     "lon": -95.371628,
      "type": "multifamily",
-     "floors": null,
-     "fit": 0.0,
+     "floors": 1,
+     "fit": 0.5,
      "has_scan": true,
-     "scan_id": "aCskEAXA8QN",
-     "fit_reasons": []
+     "scan_id": "u7RNps1jDH3",
+     "fit_reasons": [
+      "multifamily matches apartment photos"
+     ]
     },
     {
      "property_id": "RL-230334846",
@@ -1738,22 +1172,12 @@
      "lon": -95.376133,
      "type": "multifamily",
      "floors": null,
-     "fit": 0.0,
+     "fit": 0.5,
      "has_scan": true,
      "scan_id": "PmUgz1kP1xu",
-     "fit_reasons": []
-    },
-    {
-     "property_id": "RL-236298672",
-     "address": "",
-     "lat": 29.757112,
-     "lon": -95.364426,
-     "type": "multifamily",
-     "floors": null,
-     "fit": 0.0,
-     "has_scan": true,
-     "scan_id": "169F7nENMza",
-     "fit_reasons": []
+     "fit_reasons": [
+      "multifamily matches apartment photos"
+     ]
     },
     {
      "property_id": "RL-236489416",
@@ -1762,9 +1186,690 @@
      "lon": -95.360382,
      "type": "multifamily",
      "floors": null,
-     "fit": 0.0,
+     "fit": 0.5,
      "has_scan": true,
      "scan_id": "xGgGF2moY1i",
+     "fit_reasons": [
+      "multifamily matches apartment photos"
+     ]
+    },
+    {
+     "property_id": "RL-237245125",
+     "address": "",
+     "lat": 29.753296,
+     "lon": -95.376133,
+     "type": "multifamily",
+     "floors": null,
+     "fit": 0.5,
+     "has_scan": true,
+     "scan_id": "yBnqSBNHtTb",
+     "fit_reasons": [
+      "multifamily matches apartment photos"
+     ]
+    },
+    {
+     "property_id": "CS-10819844",
+     "address": "",
+     "lat": 29.7614291,
+     "lon": -95.3634563,
+     "type": "office",
+     "floors": 47,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "5ih8y3c7LGE",
+     "fit_reasons": [
+      "47 floors fits a floor 2 to 3 view",
+      "365 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-233899",
+     "address": "",
+     "lat": 29.7584604,
+     "lon": -95.3682126,
+     "type": "office",
+     "floors": 71,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "3K5rnFt1P6B",
+     "fit_reasons": [
+      "71 floors fits a floor 2 to 3 view",
+      "221 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-233905",
+     "address": "",
+     "lat": 29.7607687,
+     "lon": -95.366467,
+     "type": "office",
+     "floors": 56,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "gGm7vFc9YgS",
+     "fit_reasons": [
+      "56 floors fits a floor 2 to 3 view",
+      "201 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-233935",
+     "address": "",
+     "lat": 29.7578497,
+     "lon": -95.3705243,
+     "type": "office",
+     "floors": 34,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "P2N8mt8BdAE",
+     "fit_reasons": [
+      "34 floors fits a floor 2 to 3 view",
+      "455 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-233953",
+     "address": "",
+     "lat": 29.7588018,
+     "lon": -95.3650891,
+     "type": "office",
+     "floors": 27,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "Wtxv2Mp8uQE",
+     "fit_reasons": [
+      "27 floors fits a floor 2 to 3 view",
+      "90 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-233964",
+     "address": "",
+     "lat": 29.7627459,
+     "lon": -95.3646999,
+     "type": "office",
+     "floors": 26,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "HJjccDZmmYp",
+     "fit_reasons": [
+      "26 floors fits a floor 2 to 3 view",
+      "435 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-233985",
+     "address": "",
+     "lat": 29.7568529,
+     "lon": -95.3642499,
+     "type": "office",
+     "floors": 23,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "2UoFVxb6xh7",
+     "fit_reasons": [
+      "23 floors fits a floor 2 to 3 view",
+      "292 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-519027",
+     "address": "",
+     "lat": 29.761614,
+     "lon": -95.364271,
+     "type": "office",
+     "floors": 33,
+     "fit": 0.43,
+     "has_scan": true,
+     "scan_id": "WAeBuPU2HLw",
+     "fit_reasons": [
+      "33 floors fits a floor 2 to 3 view",
+      "335 m from Lone Star Motel (synthetic), Downtown, Houston (merchant hint, +0.14)"
+     ]
+    },
+    {
+     "property_id": "CS-1473413",
+     "address": "",
+     "lat": 29.7603258,
+     "lon": -95.3606864,
+     "type": "office",
+     "floors": 2,
+     "fit": 0.38,
+     "has_scan": true,
+     "scan_id": "LpFT2yfZfnU",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view",
+      "443 m from Rideshare, Downtown, Houston (merchant hint, +0.07)"
+     ]
+    },
+    {
+     "property_id": "CS-1018657",
+     "address": "",
+     "lat": 29.74587,
+     "lon": -95.375417,
+     "type": "retail",
+     "floors": 2,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "4H2JSnQ3wSj",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-11283467",
+     "address": "",
+     "lat": 29.7343621,
+     "lon": -95.3822238,
+     "type": "office",
+     "floors": 5,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "CHUheq99ibg",
+     "fit_reasons": [
+      "5 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-12394202",
+     "address": "",
+     "lat": 29.727847,
+     "lon": -95.370589,
+     "type": "retail",
+     "floors": 2,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "gjMWcj8oz4B",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-233918",
+     "address": "",
+     "lat": 29.7558291,
+     "lon": -95.3616357,
+     "type": "office",
+     "floors": 51,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "JWtTP2g7mDj",
+     "fit_reasons": [
+      "51 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-233927",
+     "address": "",
+     "lat": 29.753624,
+     "lon": -95.369571,
+     "type": "office",
+     "floors": 46,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "AyQEoYpB3Hx",
+     "fit_reasons": [
+      "46 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-233928",
+     "address": "",
+     "lat": 29.7547798,
+     "lon": -95.3698082,
+     "type": "office",
+     "floors": 43,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "LJn59uoV759",
+     "fit_reasons": [
+      "43 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-233968",
+     "address": "",
+     "lat": 29.7535228,
+     "lon": -95.365773,
+     "type": "office",
+     "floors": 24,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "RW7cKwVEpiJ",
+     "fit_reasons": [
+      "24 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-234004",
+     "address": "",
+     "lat": 29.7526332,
+     "lon": -95.3728675,
+     "type": "office",
+     "floors": 21,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "n1J5ASynouH",
+     "fit_reasons": [
+      "21 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-234036",
+     "address": "",
+     "lat": 29.7485811,
+     "lon": -95.3669641,
+     "type": "office",
+     "floors": 18,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "7uM5JKssTED",
+     "fit_reasons": [
+      "18 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-234856",
+     "address": "",
+     "lat": 29.748859,
+     "lon": -95.3729754,
+     "type": "office",
+     "floors": 15,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "2Bm3m5NDXV6",
+     "fit_reasons": [
+      "15 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-235123",
+     "address": "",
+     "lat": 29.768557,
+     "lon": -95.357148,
+     "type": "office",
+     "floors": 3,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "BX54kKDUE9E",
+     "fit_reasons": [
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "CS-365105",
+     "address": "",
+     "lat": 29.750905,
+     "lon": -95.372008,
+     "type": "office",
+     "floors": 2,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "WtWUAcMUa4x",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-206382291",
+     "address": "",
+     "lat": 29.767202,
+     "lon": -95.376846,
+     "type": "single_family",
+     "floors": 2,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "n23srRHjb3Q",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-212980915",
+     "address": "",
+     "lat": 29.741066,
+     "lon": -95.367828,
+     "type": "single_family",
+     "floors": 3,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "tUHgQY3khqq",
+     "fit_reasons": [
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-213101679",
+     "address": "",
+     "lat": 29.754685,
+     "lon": -95.381232,
+     "type": "single_family",
+     "floors": 2,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "wwDDcMeuwPr",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-214302016",
+     "address": "",
+     "lat": 29.73162,
+     "lon": -95.37709,
+     "type": "single_family",
+     "floors": 3,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "CWRBt8QdcHY",
+     "fit_reasons": [
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-214753653",
+     "address": "",
+     "lat": 29.735364,
+     "lon": -95.376407,
+     "type": "single_family",
+     "floors": 3,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "SM9BjXgoT1h",
+     "fit_reasons": [
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-215760746",
+     "address": "",
+     "lat": 29.730071,
+     "lon": -95.377409,
+     "type": "single_family",
+     "floors": 4,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "KPmWkre97sK",
+     "fit_reasons": [
+      "4 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-216328245",
+     "address": "",
+     "lat": 29.749758,
+     "lon": -95.385887,
+     "type": "single_family",
+     "floors": 2,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "zuCDXNWquNn",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-217855314",
+     "address": "",
+     "lat": 29.734051,
+     "lon": -95.37851,
+     "type": "single_family",
+     "floors": 3,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "YRWaqoykeXs",
+     "fit_reasons": [
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-218617164",
+     "address": "",
+     "lat": 29.73534,
+     "lon": -95.37671,
+     "type": "single_family",
+     "floors": 2,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "oVbeheSAeq7",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-218975255",
+     "address": "",
+     "lat": 29.737661,
+     "lon": -95.366859,
+     "type": "single_family",
+     "floors": 3,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "LSC8b9yW8H6",
+     "fit_reasons": [
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-220917195",
+     "address": "",
+     "lat": 29.737753,
+     "lon": -95.363658,
+     "type": "single_family",
+     "floors": 3,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "jP357VqAPy7",
+     "fit_reasons": [
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-222314285",
+     "address": "",
+     "lat": 29.738268,
+     "lon": -95.372936,
+     "type": "single_family",
+     "floors": 3,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "QTjMSYtWXtt",
+     "fit_reasons": [
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-224517721",
+     "address": "",
+     "lat": 29.754775,
+     "lon": -95.381423,
+     "type": "single_family",
+     "floors": 3,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "JjwZkYjXJsw",
+     "fit_reasons": [
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-224584207",
+     "address": "",
+     "lat": 29.745685,
+     "lon": -95.383986,
+     "type": "single_family",
+     "floors": 3,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "C4ARotXcnXg",
+     "fit_reasons": [
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-230088022",
+     "address": "",
+     "lat": 29.749397,
+     "lon": -95.381567,
+     "type": "single_family",
+     "floors": 3,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "4US8feZ9sAE",
+     "fit_reasons": [
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-231924334",
+     "address": "",
+     "lat": 29.735956,
+     "lon": -95.387405,
+     "type": "single_family",
+     "floors": 2,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "nzHdUmSTdPy",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-232001401",
+     "address": "",
+     "lat": 29.755274,
+     "lon": -95.3759,
+     "type": "single_family",
+     "floors": 4,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "UQ5PqjJ3Zv4",
+     "fit_reasons": [
+      "4 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-233003801",
+     "address": "",
+     "lat": 29.76784,
+     "lon": -95.37531,
+     "type": "single_family",
+     "floors": 4,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "5oaD53D9zeY",
+     "fit_reasons": [
+      "4 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-234821208",
+     "address": "",
+     "lat": 29.72482,
+     "lon": -95.37786,
+     "type": "single_family",
+     "floors": 3,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "f712x1GKodS",
+     "fit_reasons": [
+      "3 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-235994875",
+     "address": "",
+     "lat": 29.755322,
+     "lon": -95.382057,
+     "type": "single_family",
+     "floors": 2,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "6pEQACZXBXK",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-236455290",
+     "address": "",
+     "lat": 29.757115,
+     "lon": -95.386039,
+     "type": "single_family",
+     "floors": 4,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "8yXzp4xRz2C",
+     "fit_reasons": [
+      "4 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-236850135",
+     "address": "",
+     "lat": 29.76647,
+     "lon": -95.37637,
+     "type": "single_family",
+     "floors": 2,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "Kk2iMxFfRZZ",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-237249631",
+     "address": "",
+     "lat": 29.725493,
+     "lon": -95.379975,
+     "type": "single_family",
+     "floors": 2,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "LxUykceqYWr",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-238672879",
+     "address": "",
+     "lat": 29.745173,
+     "lon": -95.386307,
+     "type": "single_family",
+     "floors": 2,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "Pm9exFNo3GN",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-238931196",
+     "address": "",
+     "lat": 29.74307,
+     "lon": -95.3893,
+     "type": "single_family",
+     "floors": 2,
+     "fit": 0.3,
+     "has_scan": true,
+     "scan_id": "RifTE4hzHzh",
+     "fit_reasons": [
+      "2 floors fits a floor 2 to 3 view"
+     ]
+    },
+    {
+     "property_id": "RL-197846842",
+     "address": "",
+     "lat": 29.735048,
+     "lon": -95.389099,
+     "type": "single_family",
+     "floors": 1,
+     "fit": 0.0,
+     "has_scan": true,
+     "scan_id": "yAX94mCC15B",
      "fit_reasons": []
     },
     {
@@ -1780,15 +1885,15 @@
      "fit_reasons": []
     },
     {
-     "property_id": "RL-237245125",
+     "property_id": "RL-238113124",
      "address": "",
-     "lat": 29.753296,
-     "lon": -95.376133,
-     "type": "multifamily",
-     "floors": null,
+     "lat": 29.736465,
+     "lon": -95.386589,
+     "type": "single_family",
+     "floors": 1,
      "fit": 0.0,
      "has_scan": true,
-     "scan_id": "yBnqSBNHtTb",
+     "scan_id": "xWZEFUeZ3v9",
      "fit_reasons": []
     },
     {
@@ -1798,11 +1903,11 @@
      "lon": -95.376361,
      "type": "office",
      "floors": 2,
-     "fit": 0.15,
+     "fit": 0.3,
      "has_scan": false,
      "scan_id": null,
      "fit_reasons": [
-      "no window height estimate; floor count not checked"
+      "2 floors fits a floor 2 to 3 view"
      ]
     }
    ]

@@ -31,6 +31,7 @@ def run(case: Case, zone_id: str) -> dict:
     paths = [p.path for p in ring.photos]
     windows = sorted((p for p in ring.photos if p.has_window), key=lambda p: p.photo_id)
     results = vision.room_match(paths, sorted(scanned)) if scanned else []
+    _keep_room_match_steps(case, results)
     cue_floors = block.photo_cues.window_floor_est
 
     matches = []
@@ -53,6 +54,7 @@ def run(case: Case, zone_id: str) -> dict:
                 if w.get("W") is not None:
                     m.update(W=round(w["W"], 2), window_checked=True, window_checks=w["checks"],
                              window_photo=photo.photo_id, window_skipped=None)
+                    _keep_window_steps(case, c, photo.photo_id, w)
                     w_floors = w.get("floor_range")
                     break
                 m["window_skipped"] = w.get("skipped") or "window check could not run"
@@ -72,6 +74,37 @@ def run(case: Case, zone_id: str) -> dict:
     blocks = [z.model_dump() for z in existing.zones if z.zone_id != zone_id] if existing else []
     return {"case_id": case.case_id, "ring_id": ring.ring_id,
             "zones": sorted(blocks + [out], key=lambda z: z["zone_id"])}
+
+
+def _keep_room_match_steps(case: Case, results: list[dict]) -> None:
+    """Copy the real room match's in-between data (coarse ranking, shortlist, inliers, room
+    groups) into the case folder for the "show the work" view. Real runs only: the summary
+    must cover exactly this call's scans, so a stale file from another run is never copied."""
+    import json
+    from ..data_tools.room_match import SUMMARY
+    if not results or not SUMMARY.exists():
+        return
+    try:
+        s = json.loads(SUMMARY.read_text())
+    except ValueError:
+        return
+    if set(s.get("P") or {}) == {r["scan_id"] for r in results}:
+        (case.dir / "room_match.json").write_text(json.dumps(s, indent=1))
+
+
+def _keep_window_steps(case: Case, cand, photo_id: str, w: dict) -> None:
+    """Per-item window check answers (ad side vs oblique side) into case/<id>/window_check.json
+    for the "show the work" view; matches.json keeps its fixed schema."""
+    import json
+    p = case.dir / "window_check.json"
+    try:
+        allw = json.loads(p.read_text()) if p.exists() else {}
+    except ValueError:
+        allw = {}
+    allw[cand.scan_id] = {"property_id": cand.property_id, "photo": photo_id, "W": w.get("W"),
+                          "items": w.get("items") or [], "crop_box": w.get("crop_box"),
+                          "oblique": w.get("oblique"), "reasons": w.get("reasons") or []}
+    p.write_text(json.dumps(allw, indent=1))
 
 
 def weak_photos(case: Case, ring) -> list[dict]:

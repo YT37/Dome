@@ -1,0 +1,59 @@
+{
+ "LqCMcmmVH3d": {
+  "property_id": "RL-213304177",
+  "photo": "img_0870",
+  "W": 0.6,
+  "items": [
+   {
+    "item": "road_front",
+    "ad": "unclear",
+    "oblique": "no",
+    "agree": null
+   },
+   {
+    "item": "parking_front",
+    "ad": "no",
+    "oblique": "yes",
+    "agree": false
+   },
+   {
+    "item": "building_across",
+    "ad": "yes",
+    "oblique": "yes",
+    "agree": true
+   },
+   {
+    "item": "trees",
+    "ad": "no",
+    "oblique": "yes",
+    "agree": false
+   },
+   {
+    "item": "open_sky",
+    "ad": "yes",
+    "oblique": "yes",
+    "agree": true
+   },
+   {
+    "item": "height_above_street",
+    "ad": "low",
+    "oblique": "3 floors",
+    "agree": true
+   }
+  ],
+  "crop_box": [
+   0,
+   0,
+   836,
+   616
+  ],
+  "oblique": "/home/yugt37/Desktop/Dome-repo/cache/vexcel_img/06829e6398b6b7c110129563.jpg",
+  "reasons": [
+   "parking front: window no, oblique yes",
+   "building across: window yes, oblique yes",
+   "trees: window no, oblique yes",
+   "open sky: window yes, oblique yes",
+   "height: window looks low (floor 2+), building has 3 floors"
+  ]
+ }
+}
