@@ -30,7 +30,7 @@ bp = Blueprint("globe", __name__)
 ROOT = Path(config.ROOT)
 NIGHT = Path(config.ROOT) / "samples" / "night"           # shared fallbacks; marked "sample" on the page
 STATIC = Path(__file__).resolve().parent / "static"
-ASSET_ROOTS = ("data/demo_assets", "data/matches")          # the only folders /asset serves
+ASSET_ROOTS = ("data/demo_assets", "data/matches", "data/photos")   # the only folders /asset serves (photos: our renders, grey silhouettes)
 ASSET_TYPES = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp"}
 
 STREET_RE = re.compile(r"\b\d{1,6}\s+(?:[NSEW]\.?\s+)?(?:[A-Z][A-Za-z0-9'.-]*\s+){1,4}"
@@ -164,7 +164,7 @@ def ui_flags():
 
 @bp.get("/asset/<path:rel>")
 def asset(rel):
-    """Images under data/demo_assets/ and data/matches/ only. Resolved, then checked: no traversal."""
+    """Images under data/demo_assets/, data/matches/ and data/photos/ only. Resolved, then checked: no traversal."""
     _asset_gate()
     if "\x00" in rel or "\\" in rel:
         abort(404)

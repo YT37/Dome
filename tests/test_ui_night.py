@@ -238,7 +238,7 @@ def test_asset_route_serves_only_the_two_folders(client, assets):
     "/asset//etc/passwd",
     "/asset/%2Fetc%2Fpasswd",
     "/asset/secret.jpg",
-    "/asset/data/photos/img.jpg",
+    "/asset/data/synth/img.jpg",                    # not a served folder
     "/asset/data/demo_assets/S1/assets.json",
     "/asset/data/demo_assets/S1/link.jpg",            # symlink out of the folder
     "/asset/data/demo_assets/S1/missing.jpg",

@@ -99,7 +99,7 @@ class Ctx:
 
 
 def asset(rel: str | None) -> str | None:
-    """A page URL for an image under the served asset folders (data/demo_assets, data/matches)."""
+    """A page URL for an image under the served asset folders (data/demo_assets, data/matches, data/photos)."""
     if not rel or rel.startswith("/") or ".." in rel:
         return None
     if not any(rel.startswith(r + "/") for r in globe.ASSET_ROOTS):

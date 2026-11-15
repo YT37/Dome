@@ -753,7 +753,7 @@ function setUrl(params) {
 async function refreshCases() {
   try {
     const cs = await getJSON("/cases"); const sel = $("#replaySel");
-    sel.innerHTML = '<option value="">Replay…</option>' + cs.filter((c) => c.complete).map((c) => `<option value="${esc(c.case)}">${esc(c.case)}${c.kind === "recorded" ? " (recorded)" : ""}</option>`).join("");
+    sel.innerHTML = '<option value="">Replay…</option>' + cs.filter((c) => c.complete && c.kind === "recorded").map((c) => `<option value="${esc(c.case)}">${esc(c.case === "demo-real-a" ? "Ring A (recorded run)" : c.case)}</option>`).join("");
   } catch {}
 }
 $("#replaySel").addEventListener("change", (e) => { const v = e.target.value; e.target.value = ""; if (v) { setUrl({ replay: v }); replay(v); } });

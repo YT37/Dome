@@ -250,8 +250,8 @@
       yaw, pitch: -4, hfov: 100, compass: false, showFullscreenCtrl: false,
     });
     $("#panoTag").innerHTML = `<b>Inside the matched unit</b><br><span class="fine">Matterport sweep ${esc((s.sweep_id || "").slice(0, 8))}… turned to the ad photo's heading (${esc(s.heading_deg)}°). Drag to look around.</span>
-      ${mpUrl ? `<div class="navrow"><button class="btn" data-imode="${useMp ? "cube" : "mp"}">${useMp ? "Cube-face viewer (offline)" : "Matterport 3D tour"}</button></div>` : ""}
-      <div class="navrow"><button class="btn" data-inav="-1">← Back to the map</button><button class="btn primary" data-inav="1">Lead brief →</button></div>`;
+      ${mpUrl ? `<div class="navrow"><button class="btn" data-imode="${useMp ? "cube" : "mp"}" title="${useMp ? "Our own 360° viewer on the scan's six cached cube images; works without internet" : "Matterport's live 3D tour"}">${useMp ? "360° view (cached)" : "Matterport 3D tour"}</button></div>` : ""}
+      <div class="navrow"><button class="btn" data-inav="-1">← Back to the map</button><a class="btn primary" href="/?work=briefer" title="The lead brief and how its score was built, on the Homepage">Lead brief →</a></div>`;
     const ms = ins().matches || [];
     $("#matchThumbs").innerHTML = ms.map((m, i) => `<button data-m="${i}" class="${i ? "" : "on"}">${esc(m.photo)} · ${esc(m.inliers)}</button>`).join("");
     if (ms[0]) $("#matchImg").src = ms[0].match_img;

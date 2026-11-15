@@ -28,6 +28,10 @@ def build(ctx) -> list:
     else:
         ev_img = {e["photo"]: e.get("match_img") for e in (best or {}).get("evidence", [])}
         photo_img = asset(ev_img.get(wc.get("photo")))
+        if not photo_img and wc.get("photo"):               # no match image (below the room-match threshold)
+            from .. import globe as _g
+            rel = f"data/photos/{wc['photo']}.jpg"
+            photo_img = asset(rel) if (_g.ROOT / rel).is_file() else None
         if photo_img:
             steps.append(step("photo", "The ad photo with a window", "image",
                               {"images": [{"src": photo_img, "label": wc.get("photo")}]},
