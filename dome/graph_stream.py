@@ -211,7 +211,8 @@ def _use_inproc() -> bool:
         return True
     try:
         import urllib.request
-        urllib.request.urlopen(_url().rstrip("/") + "/ok", timeout=1.5)
+        opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))   # local server
+        opener.open(_url().rstrip("/") + "/ok", timeout=1.5)
         return False
     except Exception:
         return True
