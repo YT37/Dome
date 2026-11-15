@@ -51,10 +51,10 @@ def case_dir(case_id: str) -> Path:
     """The live case folder, else the recorded backup. 404 on a bad id."""
     if not CASE_ID.match(case_id or ""):
         abort(404)
-    live = CASES / case_id
-    if live.exists() and ((live / "log.jsonl").exists() or (live / "brief.json").exists()):
-        return live                       # a real run; a folder holding only UI click records doesn't count
-    rec = RECORDED / case_id
+    live, rec = CASES / case_id, RECORDED / case_id
+    clicks_only = live.exists() and all(p.name == "ui_actions.jsonl" for p in live.iterdir())
+    if live.exists() and not (clicks_only and rec.exists()):
+        return live                       # a folder holding only UI click records never hides a recording
     if rec.exists():
         return rec
     abort(404)
