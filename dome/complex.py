@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import random
 import re
 from collections import Counter, defaultdict
@@ -469,8 +470,11 @@ def build(case: Case) -> dict:
     accounts = set(ds["accounts"]) if ds else {m for r in (rings.rings if rings else []) for m in r.members}
     core = set(ring.members) | {x.account for x in ring.recruiters} if ring else set()
     near = [c for c in cells if set(c["members"]) & core]
-    nodes0 = sorted(core | {m for c in near if c["kind"] in EXTRA_KINDS for m in c["members"]})
+    wallets = {w.cluster_id for w in (ring.money.wallet_clusters if ring and ring.money else [])}
+    nodes0 = sorted(core | wallets | {m for c in near if c["kind"] in EXTRA_KINDS for m in c["members"]})
     keep = set(nodes0)
+    # money/room cells between kept non-account nodes (wallet flows, room -> building)
+    near += [c for c in cells if c not in near and c["kind"] in EXTRA_KINDS and set(c["members"]) <= keep]
     ranks: dict = {"0": [{"id": n, "kind": node_type(n, accounts)} for n in nodes0], "1": [], "2": [], "3": []}
     seen = set()
     for c in near:
@@ -501,13 +505,40 @@ def build(case: Case) -> dict:
             tr, va, te = (set(sp[k]) for k in ("train", "val", "test"))
             out["score_split"] = {n: ("train" if n in tr else "val" if n in va else "test" if n in te
                                       else "not in training data") for n in out["scores"] if n in accounts}
+        thr = 0.5
+        out["score_model"] = {n: "complex-v1" for n in out["scores"]}
+        # accounts: the structural model (held-out ring 15/15) replaces v1 when it is trained;
+        # it was never trained on the synth dataset, so no account score is in-sample
+        sp_prob, sp_thr = struct_predict(ds, cells)
+        if sp_prob is not None:
+            prob = {**prob, **sp_prob}
+            thr = sp_thr
+            for n in list(out["scores"]):
+                if n in sp_prob:
+                    out["scores"][n] = round(sp_prob[n], 3)
+                    out["score_model"][n] = "structural"
+            out.pop("score_split", None)
+            # wallet/room/building nodes: neither model saw such nodes with labels in training,
+            # so their outputs are extrapolation; they are not reported as scores
+            for n in [n for n in out["scores"] if n not in accounts]:
+                out["scores"].pop(n)
+                out["score_model"].pop(n, None)
+            out["unscored"] = sorted(n for n in nodes0 if n not in accounts)
+            out["model"] = ("UniGCN (TopoModelX), structural model: accounts only (wallet, room and "
+                            "building nodes are in the complex but not scored)")
+            out["threshold"] = round(thr, 3)
+            if STRUCT_EVAL.exists():
+                out["eval_structural"] = json.loads(STRUCT_EVAL.read_text(encoding="utf-8"))
         rule_members = {m for r in rings.rings for m in r.members} if rings else set()
         dis = [{"id": a, "rules": a in rule_members, "model": round(p, 3),
                 "note": "model says ring, rules found no link" if a not in rule_members else
                         "rules link it, model doubts it"}
-               for a, p in prob.items() if a in accounts and ((p >= 0.5) != (a in rule_members))]
-        out["disagreements"] = sorted(dis, key=lambda d: -abs(d["model"] - 0.5))[:20]
-        out["trained_on"] = "account labels of the synth train split only; wallet/room scores are model outputs"
+               for a, p in prob.items() if a in accounts and ((p >= thr) != (a in rule_members))]
+        out["disagreements"] = sorted(dis, key=lambda d: -abs(d["model"] - thr))[:20]
+        out["trained_on"] = ("structural: rings from generator seeds 201-203 (val 204), never this case's "
+                             "dataset; account labels only"
+                             if sp_prob is not None else
+                             "account labels of the synth train split only; wallet/room scores are model outputs")
         if EVAL_PATH.exists():
             out["eval"] = json.loads(EVAL_PATH.read_text(encoding="utf-8"))
     out["sources"] = {"rooms": sorted({s["source"] for s in rooms.values()}),
@@ -525,9 +556,13 @@ def main(argv: Optional[list[str]] = None) -> int:
     ap.add_argument("--case", default=None, help="write case/<id>/complex.json")
     ap.add_argument("--train", action="store_true", help="train + evaluate, save the model")
     ap.add_argument("--eval", action="store_true", help="print the saved eval block")
+    ap.add_argument("--train-struct", action="store_true",
+                    help="structural model: train 3 rings, validate 1, test the held-out ring once")
     a = ap.parse_args(argv)
     if a.train:
         train()
+    if a.train_struct:
+        train_struct()
     if a.eval:
         print(json.dumps(json.loads(EVAL_PATH.read_text()), indent=2) if EVAL_PATH.exists() else "{}")
         print(eval_line())
@@ -536,6 +571,247 @@ def main(argv: Optional[list[str]] = None) -> int:
         print(f"complex.json: rank sizes { {k: len(v) for k, v in out['ranks'].items()} }, "
               f"{len(out['scores'])} scores, {len(out.get('disagreements', []))} disagreements; {out['model']}")
     return 0
+
+
+
+# ====================================================================== structural model (v2)
+# Avishek's plan after the held-out 0/15 (the first model ranked the held-out ring near the
+# BOTTOM: its raw counts did not transfer between generator runs):
+#   - only structural features, normalised WITHIN each dataset (percentile among its accounts):
+#     no ids, no phone/wallet keys, no per-node embeddings
+#   - several rings from new generator seeds (CLI only): train on 3, validate on 1
+#   - smaller UniGCN with dropout, early stopping on the validation ring, threshold picked
+#     on the validation ring
+#   - the held-out ring is scored ONCE at the end; nothing is tuned after that
+STRUCT_PATH = config.ROOT / "dome" / "models" / "complex_struct_unigcn.pt"
+STRUCT_EVAL = config.ROOT / "dome" / "models" / "complex_struct_eval.json"
+STRUCT_TRAIN = ("data/synth_s201", "data/synth_s202", "data/synth_s203")
+STRUCT_VAL = "data/synth_s204"
+STRUCT_TEST = (HELDOUT, "synth")          # held-out ring (seed 101); the original synth (seed 37)
+STRUCT_KINDS = ("contact", "photo", "text", "keyword", "money", "dm", "merchant", "interaction",
+                "time", "place", "heartbeat", "echo", "echo_event")
+S_HIDDEN, S_DROPOUT, S_LR, S_MAX_EPOCHS, S_EVAL_EVERY, S_PATIENCE = 16, 0.3, 0.01, 600, 5, 20
+
+
+def _pct(values: dict) -> dict:
+    """Percentile of each account's value among the dataset's accounts; 0 stays 0."""
+    vals = sorted(values.values())
+    n = max(1, len(vals))
+    import bisect
+    return {a: (bisect.bisect_left(vals, v) / n if v > 0 else 0.0) for a, v in values.items()}
+
+
+def struct_features(ds: dict, cells: list[dict]) -> tuple[list[str], list[list[float]], list[list[int]], list[str]]:
+    """Accounts only; every feature is a within-dataset percentile."""
+    from datetime import datetime
+    accts = sorted(ds["accounts"])
+    idx = {a: i for i, a in enumerate(accts)}
+    n_cells = {k: defaultdict(int) for k in STRUCT_KINDS}
+    partners = {k: defaultdict(set) for k in STRUCT_KINDS}
+    nbrs: dict = defaultdict(set)
+    members = []
+    for c in cells:
+        mem = sorted({m for m in c["members"] if m in idx})
+        if len(mem) < 2:
+            continue
+        members.append([idx[m] for m in mem])
+        k = c["kind"]
+        for m in mem:
+            nbrs[m] |= set(mem) - {m}
+            if k in n_cells:
+                n_cells[k][m] += 1
+                partners[k][m] |= set(mem) - {m}
+    flagged = {a for a, x in ds["accounts"].items() if x.get("flags")}
+
+    def t(s):
+        return datetime.fromisoformat(str(s).replace("Z", "+00:00"))
+    post_times: dict = defaultdict(list)
+    for p in ds["posts"]:
+        if p.get("time") and p["account"] in idx:
+            post_times[p["account"]].append(t(p["time"]))
+    burst, ptp = {}, {}
+    for a in accts:
+        ts = sorted(post_times[a])
+        best, j = 0, 0
+        for i in range(len(ts)):
+            while (ts[i] - ts[j]).total_seconds() > 3600:
+                j += 1
+            best = max(best, i - j + 1)
+        burst[a] = best
+        ptp[a] = 0
+    for tx in ds.get("transactions") or []:
+        a = tx.get("from")
+        if a in idx and tx.get("time"):
+            tt = t(tx["time"])
+            if any(0 <= (pt - tt).total_seconds() <= 900 for pt in post_times[a]):
+                ptp[a] += 1
+    raw: dict = {}
+    for k in STRUCT_KINDS:
+        raw[f"cells_{k}"] = {a: n_cells[k][a] for a in accts}
+        raw[f"links_{k}"] = {a: len(partners[k][a]) for a in accts}
+    raw["distinct_kinds"] = {a: sum(n_cells[k][a] > 0 for k in STRUCT_KINDS) for a in accts}
+    raw["neighbours"] = {a: len(nbrs[a]) for a in accts}
+    raw["flagged_share"] = {a: (len(nbrs[a] & flagged) / len(nbrs[a]) if nbrs[a] else 0.0) for a in accts}
+    raw["burst_posting"] = burst
+    raw["payment_then_post"] = ptp
+    raw["posts"] = {a: len(post_times[a]) for a in accts}
+    names = sorted(raw)
+    cols = {n: (_pct(raw[n]) if n != "flagged_share" else raw[n]) for n in names}
+    X = [[cols[n][a] for n in names] for a in accts]
+    covered = {i for ids in members for i in ids}
+    members += [[i] for i in range(len(accts)) if i not in covered]
+    return accts, X, members, names
+
+
+class _SNet:
+    """Small UniGCN + dropout + linear head on [hidden, own features]."""
+
+    def __init__(self, n_in: int):
+        import torch
+        from topomodelx.nn.hypergraph.unigcn import UniGCN
+        torch.manual_seed(SEED)
+        self.base = UniGCN(in_channels=n_in, hidden_channels=S_HIDDEN, n_layers=2, aggr_norm=True)
+        self.drop = torch.nn.Dropout(S_DROPOUT)
+        self.head = torch.nn.Linear(S_HIDDEN + n_in, 1)
+        self.params = list(self.base.parameters()) + list(self.head.parameters())
+
+    def train_mode(self, on: bool) -> None:
+        self.base.train(on)
+        self.drop.train(on)
+
+    def __call__(self, x, inc):
+        import torch
+        h, _ = self.base(self.drop(x), inc)
+        return torch.sigmoid(self.head(torch.cat([self.drop(torch.relu(h)), x], dim=-1))).squeeze(-1)
+
+    def state(self) -> dict:
+        return {"base": self.base.state_dict(), "head": self.head.state_dict()}
+
+    def load(self, st: dict) -> None:
+        self.base.load_state_dict(st["base"])
+        self.head.load_state_dict(st["head"])
+
+
+def _struct_graph(name: str) -> dict:
+    import torch
+    from .agents import topo
+    ds, cells, rf = _dataset_cells(name)
+    per, pos, ignore = topo._truth(name)
+    accts, X, members, names = struct_features(ds, cells)
+    x, inc = topo._tensors(X, members, len(accts))
+    keep = [i for i, a in enumerate(accts) if a not in ignore]
+    return {"name": name, "accts": accts, "x": x, "inc": inc, "names": names, "pos": pos,
+            "ring": set().union(*per.values()), "ignore": ignore,
+            "rules": {m for r in rf["rings"] for m in r["members"]},
+            "idx": torch.tensor(keep), "y": torch.tensor([float(a in pos) for a in accts])}
+
+
+def _bce(p, y, w_pos):
+    import torch
+    p = p.clamp(1e-6, 1 - 1e-6)
+    return -(w_pos * y * torch.log(p) + (1 - y) * torch.log(1 - p)).mean()
+
+
+def _score(net, g) -> dict:
+    import torch
+    net.train_mode(False)
+    with torch.no_grad():
+        return dict(zip(g["accts"], net(g["x"], g["inc"]).tolist()))
+
+
+def _report(prob: dict, g: dict, thr: float) -> dict:
+    from .agents import topo
+    uni = {a for a in g["accts"] if a not in g["ignore"]}
+    ranked = sorted(uni, key=lambda a: -prob[a])
+    k = len(g["pos"] & uni)
+    return {"dataset": g["name"], "threshold": round(thr, 3),
+            **topo._prf({a for a in uni if prob[a] >= thr}, g["pos"], uni),
+            "auc": topo._auc(prob, g["pos"], uni),
+            f"precision_at_{k}": round(sum(a in g["pos"] for a in ranked[:k]) / max(1, k), 3),
+            "ring_found": f"{sum(prob[a] >= thr for a in g['ring'] if a in prob)}/{len(g['ring'])}",
+            "rules": topo._prf(g["rules"], g["pos"], uni)}
+
+
+def struct_predict(ds: dict, cells: list[dict]):
+    """({account: P}, threshold) from the structural model, or (None, None)."""
+    if not STRUCT_PATH.exists():
+        return None, None
+    try:
+        import torch
+        from .agents import topo
+        st = torch.load(STRUCT_PATH, map_location="cpu", weights_only=False)
+        accts, X, members, names = struct_features(ds, cells)
+        if names != st["features"]:
+            return None, None
+        net = _SNet(st["n_in"])
+        net.load(st["state"])
+        x, inc = topo._tensors(X, members, len(accts))
+        return _score(net, {"accts": accts, "x": x, "inc": inc}), st["threshold"]
+    except Exception:
+        return None, None
+
+
+def train_struct(verbose: bool = True) -> dict:
+    import torch
+    graphs = [_struct_graph(n) for n in STRUCT_TRAIN]
+    val = _struct_graph(STRUCT_VAL)
+    n_in = graphs[0]["x"].shape[1]
+    net = _SNet(n_in)
+    opt = torch.optim.Adam(net.params, lr=S_LR, weight_decay=1e-3)
+    ys = torch.cat([g["y"][g["idx"]] for g in graphs])
+    w_pos = float((ys == 0).sum() / max(1, (ys == 1).sum()))
+    best, best_state, best_ep, bad = float("inf"), None, 0, 0
+    for ep in range(1, S_MAX_EPOCHS + 1):
+        net.train_mode(True)
+        opt.zero_grad()
+        loss = sum(_bce(net(g["x"], g["inc"])[g["idx"]], g["y"][g["idx"]], w_pos) for g in graphs) / len(graphs)
+        loss.backward()
+        opt.step()
+        if ep % S_EVAL_EVERY == 0:
+            net.train_mode(False)
+            with torch.no_grad():
+                vl = float(_bce(net(val["x"], val["inc"])[val["idx"]], val["y"][val["idx"]], w_pos))
+            if vl < best - 1e-4:
+                best, best_ep, bad = vl, ep, 0
+                best_state = {k: {n: t.clone() for n, t in v.items()} for k, v in net.state().items()}
+            else:
+                bad += 1
+                if bad >= S_PATIENCE:
+                    break
+    net.load(best_state)
+    # threshold: best F1 on the validation ring (never on the test sets)
+    pv = _score(net, val)
+    uni = [a for a in val["accts"] if a not in val["ignore"]]
+    best_thr, best_f1 = 0.5, -1.0
+    for thr in sorted({round(pv[a], 4) for a in uni}):
+        pred = {a for a in uni if pv[a] >= thr}
+        tp = len(pred & val["pos"])
+        f1 = 2 * tp / max(1, len(pred) + len(val["pos"] & set(uni)))
+        if f1 > best_f1:
+            best_thr, best_f1 = thr, f1
+    # margin: halfway between the chosen cut and the highest validation score below it
+    below = [pv[a] for a in uni if pv[a] < best_thr]
+    if below:
+        best_thr = (max(below) + best_thr) / 2
+    res = {"protocol": "train on seeds 201-203, validate on 204 (early stopping + threshold), "
+                       "test once on the held-out ring (seed 101) and the original synth (seed 37)",
+           "features": val["names"], "epochs_trained": best_ep, "val": _report(pv, val, best_thr),
+           "val_f1": round(best_f1, 3)}
+    torch.save({"state": net.state(), "features": val["names"], "threshold": best_thr,
+                "n_in": n_in, "trained_on": list(STRUCT_TRAIN), "val": STRUCT_VAL}, STRUCT_PATH)
+    # ---- the one and only test run
+    if os.getenv("DOME_STRUCT_SKIP_TEST") == "1":   # development runs: train/val only
+        if verbose:
+            print(json.dumps(res, indent=2))
+        return res
+    res["test"] = []
+    for n in STRUCT_TEST:
+        g = _struct_graph(n)
+        res["test"].append(_report(_score(net, g), g, best_thr))
+    STRUCT_EVAL.write_text(json.dumps(res, indent=2), encoding="utf-8")
+    if verbose:
+        print(json.dumps(res, indent=2))
+    return res
 
 
 if __name__ == "__main__":
