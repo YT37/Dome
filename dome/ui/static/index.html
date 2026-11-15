@@ -42,6 +42,7 @@
     <div class="controls">
       <div class="seg" role="group" aria-label="Preset" id="presetSeg"></div>
       <a class="btn" href="/globe" id="globeTab" hidden title="Open the Globe view">Globe</a>
+      <button class="btn" id="askBtn" type="button" hidden title="Ask a question; answers come only from this case's files, with citations">Ask</button>
       <button class="btn" id="presentBtn" type="button" title="Presenter mode: larger text">Presenter</button>
       <details class="settings"><summary class="btn" title="Settings">Settings</summary><div class="settings-pop">
       <label class="switch" title="Who plans the order of the agents. On: a rule-based planner (offline, reproducible). Off: the Gemini supervisor plans the steps. Every number comes from the same code either way."><input type="checkbox" id="scripted" checked> Planner: rules (off = Gemini)</label>
@@ -260,5 +261,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="/static/drawer.js"></script>
 <script src="/static/app.js"></script>
+<dialog id="askDlg" class="askdlg" aria-label="Ask about this case">
+  <div class="askhead"><b>Ask about this case</b><button class="btn" type="button" id="askClose">Close</button></div>
+  <form id="askForm" class="askrow"><input id="askQ" class="ctl" maxlength="500" placeholder="e.g. Why is Building A High?" autocomplete="off">
+    <button class="btn primary" type="submit">Ask</button></form>
+  <p class="fine">Answers come only from this case's files; every claim cites a file and field.</p>
+  <div id="askOut"></div><div id="askRec"></div><pre class="cite-view" id="citeView" hidden></pre>
+</dialog>
 </body>
 </html>

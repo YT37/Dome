@@ -807,6 +807,7 @@ window.addEventListener("resize", () => {
   try {   // DOME_GLOBE=1: the Globe tab
     UI_FLAGS = await getJSON("/ui-flags");
     $("#globeTab").hidden = !UI_FLAGS.globe;
+    $("#askBtn").hidden = !UI_FLAGS.ask;
   } catch (e) { /* flag endpoint optional */ }
   $("#presetSeg").innerHTML = Object.entries(S.presets).map(([k, p]) => `<button type="button" data-preset="${esc(k)}" aria-pressed="false" title="${esc(p.note)}">${esc(p.label)}</button>`).join("");
   $("#presetSeg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b && S.mode === "idle") choosePreset(b.dataset.preset); });
@@ -819,3 +820,47 @@ window.addEventListener("resize", () => {
   else if (q.get("work")) { await choosePreset(preset); if (window.DomeDrawer) DomeDrawer.open(S.caseId, q.get("work"), q.get("wstep")); }
   else { await choosePreset(preset); intro(); }
 })();
+
+
+// ---------------------------------------------------------------- Ask about this case (DOME_ASK)
+function askAnswerHtml(a) {
+  if (!a.answerable) return a.reason ? `<p>No answer: ${esc(a.reason)}.</p>` : `<p>That isn't in this case's files.</p>`;
+  return `<p class="askans">${esc(a.answer)}</p><div class="cells">${(a.citations || []).map((c) =>
+    `<button type="button" class="chip" data-cite-file="${esc(c.file)}" data-cite-path="${esc(c.path)}" title="Open this field">${esc(String(c.file).split("/").pop())} · ${esc(c.path)}</button>`).join("")}</div>`;
+}
+async function openAsk() {
+  const dlg = $("#askDlg"); $("#askOut").innerHTML = ""; $("#citeView").hidden = true; dlg.showModal(); $("#askQ").focus();
+  for (const cid of [S.caseId, "demo-real-a"]) {            // the recorded Q&A of this run, if one was recorded
+    if (!cid) continue;
+    try {
+      const rec = await getJSON(`/ask?case=${encodeURIComponent(cid)}`);
+      if (rec.recorded) { $("#askRec").innerHTML = `<div class="why"><span class="sample-tag">recorded</span>${rec.question ? `<p><b>Q:</b> ${esc(rec.question)}</p>` : ""}${askAnswerHtml(rec)}</div>`; return; }
+    } catch { /* no recorded answer */ }
+  }
+  $("#askRec").innerHTML = "";
+}
+document.addEventListener("click", async (e) => {
+  if (e.target.closest("#askBtn")) return openAsk();
+  if (e.target.closest("#askClose")) return $("#askDlg").close();
+  const c = e.target.closest("#askDlg [data-cite-file]");
+  if (c) {
+    const named = String(c.dataset.citeFile).split("/")[1];
+    for (const caseId of [named, S.caseId, "demo-real-a"].filter(Boolean)) {   // the cited case, else its recording
+      try {
+        const r = await getJSON(`/ask/cite?case=${encodeURIComponent(caseId)}&file=${encodeURIComponent(c.dataset.citeFile)}&path=${encodeURIComponent(c.dataset.citePath)}`);
+        const v = $("#citeView"); v.textContent = `${c.dataset.citeFile} · ${c.dataset.citePath}\n` + JSON.stringify(r.value ?? r, null, 1); v.hidden = false;
+        break;
+      } catch { /* try the next folder */ }
+    }
+  }
+});
+document.addEventListener("submit", async (e) => {
+  if (e.target.id !== "askForm") return;
+  e.preventDefault();
+  const q = $("#askQ").value.trim(); if (!q) return;
+  $("#askOut").innerHTML = `<p class="fine">Reading the case files…</p>`;
+  try {
+    const a = await getJSON("/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ case: S.caseId, question: q }) });
+    $("#askOut").innerHTML = `<div class="why"><p><b>Q:</b> ${esc(q)}</p>${askAnswerHtml(a)}</div>`;
+  } catch { $("#askOut").innerHTML = `<p>No answer: the request failed.</p>`; }
+});

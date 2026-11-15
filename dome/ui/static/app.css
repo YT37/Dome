@@ -406,3 +406,15 @@ body.present .flowstage .key { font-size: 1.25em; }
 #view-overview > .kpis { display: none; }   /* the flow row replaces the KPI row */
 
 body.present { font-size: 17px; } body.present .flowstage .io { font-size: .86em; } body.present .flowrow { gap: 26px; }
+
+/* Ask about this case */
+.askdlg { width: min(760px, 92vw); max-height: 82vh; overflow: auto; background: #131419; color: #e8e9ee; border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 18px 20px; }
+.askdlg::backdrop { background: rgba(0,0,0,.55); }
+.askhead { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.askrow { display: flex; gap: 8px; } .askrow input { flex: 1; }
+.askdlg .why { margin-top: 12px; padding: 12px 14px; border: 1px solid rgba(255,255,255,.08); border-radius: 10px; background: rgba(255,255,255,.02); }
+.askans { white-space: pre-wrap; line-height: 1.5; }
+.askdlg .cells { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.askdlg .chip { font: 12px/1.2 "Geist Mono", monospace; padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(130,143,255,.35); background: rgba(130,143,255,.12); color: #c9cdff; cursor: pointer; }
+.askdlg .sample-tag { display: inline-block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #f5b53f; margin-bottom: 4px; }
+.askdlg .cite-view { margin-top: 10px; padding: 10px; background: #0b0c10; border-radius: 8px; font-size: 12px; white-space: pre-wrap; max-height: 220px; overflow: auto; }
