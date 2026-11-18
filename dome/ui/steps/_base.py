@@ -20,6 +20,14 @@ ALLOWED = ("data/synth", "data/matches", "data/demo_assets")
 NOT_RECORDED = "in-between data not recorded"
 
 
+def live_index_dir() -> Path | None:
+    """The offline bundle's 6-scan room-match index, when one is configured."""
+    import os
+    b = os.environ.get("DOME_BUNDLE")
+    d = Path(b).expanduser() / "live_index" if b else None
+    return d if d and d.is_dir() and any(d.glob("*.npz")) else None
+
+
 class Ctx:
     """Read-only access to one case folder plus the allowed shared data folders."""
 
@@ -99,6 +107,8 @@ class Ctx:
 
 
 def asset(rel: str | None) -> str | None:
+    if rel and globe.imageless() and str(rel).startswith(globe.LICENSED_IMAGE_ROOTS):
+        return None                                   # imageless mode: the step falls back to text/charts
     """A page URL for an image under the served asset folders (data/demo_assets, data/matches, data/photos)."""
     if not rel or rel.startswith("/") or ".." in rel:
         return None
@@ -108,7 +118,7 @@ def asset(rel: str | None) -> str | None:
 
 
 def step(sid: str, title: str, kind: str, data: dict, caption: str, source: str | list) -> dict:
-    assert kind in {"image", "chart", "table", "graph", "map", "text"}
+    assert kind in {"image", "chart", "table", "graph", "map", "text", "live"}
     if isinstance(source, list):
         source = ", ".join(s for s in source if s)
     return {"id": sid, "title": title, "kind": kind, "data": data, "caption": caption, "source": source}

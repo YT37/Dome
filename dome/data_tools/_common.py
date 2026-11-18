@@ -23,6 +23,8 @@ def load_env() -> None:
     if _env_loaded:
         return
     _env_loaded = True
+    if os.environ.get("DOME_OFFLINE") == "1":      # the offline demo never reads keys
+        return
     try:
         from dotenv import load_dotenv
     except ImportError:
@@ -79,6 +81,9 @@ def cached_json(namespace: str, key_parts: Any, fetch: Callable[[], Any]) -> Any
     p = cache_path(namespace, cache_key(key_parts), "json")
     if p.exists():
         return json.loads(p.read_text())
+    if os.environ.get("DOME_OFFLINE") == "1":
+        from ..offline import miss
+        raise miss(f"{namespace} {key_parts!r}"[:300])
     data = fetch()
     tmp = p.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(data))
@@ -86,11 +91,45 @@ def cached_json(namespace: str, key_parts: Any, fetch: Callable[[], Any]) -> Any
     return data
 
 
+def stable_path(path: str) -> str:
+    """A cache-key form of a file path: relative to the cache folder when the file is inside it, so
+    keys survive the cache moving (the offline bundle). Anything else stays as given."""
+    p = Path(path)
+    for root in (cache_dir(), REPO_ROOT / "cache"):
+        try:
+            return p.relative_to(root).as_posix()
+        except ValueError:
+            continue
+    return str(path)
+
+
+def cached_json_stable(namespace: str, key_parts: list, path: str, fetch: Callable[[], Any]) -> Any:
+    """cached_json keyed by stable_path(path) (key_parts holds the literal "<path>" placeholder).
+    Falls back to entries keyed by the absolute path (made before keys were path-independent) and
+    re-saves them under the stable key."""
+    stable = [stable_path(path) if k == "<path>" else k for k in key_parts]
+    p = cache_path(namespace, cache_key(stable), "json")
+    if p.exists():
+        return json.loads(p.read_text())
+    for legacy_root in {str(REPO_ROOT / "cache"), str(cache_dir())}:
+        legacy = [str(Path(legacy_root) / stable_path(path)) if k == "<path>" else k for k in key_parts]
+        lp = cache_path(namespace, cache_key(legacy), "json")
+        if lp.exists():
+            data = json.loads(lp.read_text())
+            if os.environ.get("DOME_OFFLINE") != "1":
+                p.write_text(json.dumps(data))
+            return data
+    return cached_json(namespace, stable, fetch)
+
+
 def cached_file(namespace: str, key_parts: Any, ext: str, fetch: Callable[[], bytes]) -> Path:
     """Return path of a cached binary file, calling fetch() -> bytes on a miss."""
     p = cache_path(namespace, cache_key(key_parts), ext)
     if p.exists() and p.stat().st_size > 0:
         return p
+    if os.environ.get("DOME_OFFLINE") == "1":
+        from ..offline import miss
+        raise miss(f"{namespace} {key_parts!r}"[:300])
     data = fetch()
     tmp = p.with_suffix(p.suffix + ".tmp")
     tmp.write_bytes(data)
@@ -103,6 +142,13 @@ RETRY_STATUS = {429, 500, 502, 503, 504}
 
 
 def request_with_backoff(method: str, url: str, session=None, **kwargs):
+    if os.environ.get("DOME_OFFLINE") == "1":
+        from ..offline import miss
+        raise miss(f"{method} {url.split('?')[0]}")
+    return _request_with_backoff(method, url, session, **kwargs)
+
+
+def _request_with_backoff(method: str, url: str, session=None, **kwargs):
     """requests call that retries 429/5xx with 1,2,4,8,16 s (+ jitter) backoff."""
     import requests
 

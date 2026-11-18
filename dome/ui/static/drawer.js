@@ -53,6 +53,22 @@
     q("count").textContent = `${i + 1} / ${W.steps.length}`; q("prev").disabled = i === 0; q("next").disabled = i === W.steps.length - 1;
     if (st.kind === "text") {
       v.innerHTML = `<div class="bigtext">${esc(d.text || "")}</div>${(d.bullets || []).length ? `<ul>${d.bullets.map((b) => `<li>${esc(b)}</li>`).join("")}</ul>` : ""}${d.note ? `<p class="note">${esc(d.note)}</p>` : ""}`;
+    } else if (st.kind === "live") {
+      v.innerHTML = `<div class="livebox"><button class="btn primary" type="button" data-live>Re-run the room match live</button>
+        <span class="muted">${esc(d.label || "")} · about a minute on CPU</span><div class="liveout"></div></div>`;
+      v.querySelector("[data-live]").addEventListener("click", async (e) => {
+        const btn = e.currentTarget, out = v.querySelector(".liveout");
+        btn.disabled = true; out.innerHTML = `<p class="muted">Computing: DINOv2 retrieval, then DISK + LightGlue + RANSAC on 6 scans…</p>`;
+        try {
+          const r = await (await fetch(d.endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ case: d.case }) })).json();
+          if (r.error) throw new Error(r.error);
+          out.innerHTML = `<p><b>${esc(r.label)}</b> in ${esc(r.seconds)} s · ${esc(r.photos)} ad photos in ${esc(r.groups)} room groups · a photo matches a scan at ≥ ${esc(r.min_inliers)} points</p>
+            <table class="t"><tr><th>Scan</th><th>P</th><th>Room groups</th><th>Best match (points)</th></tr>
+            ${r.scans.map((s, k) => `<tr${k === 0 ? ' class="win"' : ""}><td>${esc(s.scan_id)}</td><td>${esc(s.P)}</td><td>${esc(s.groups_matched)} / ${esc(r.groups)}</td><td>${esc(s.max_inliers)}</td></tr>`).join("")}</table>
+            <p class="muted">The recorded run searched ${esc(r.recorded_scans)} scans with more views and keypoints and found P ${esc(r.recorded_P)}; this live check uses a smaller index, so its P is lower.</p>`;
+        } catch (err) { out.innerHTML = `<p>Could not run: ${esc(err.message || err)}</p>`; }
+        btn.disabled = false;
+      });
     } else if (st.kind === "image") {
       v.innerHTML = (d.images || []).slice(0, 8).map((im) => `<figure style="margin:0 0 10px"><img src="${esc(im.src)}" alt="${esc(im.label || st.title)}" loading="lazy"><figcaption class="muted">${esc(im.label || "")}</figcaption></figure>`).join("")
         + ((d.list || []).length ? `<div class="glist">${d.list.map((x) => `<div>${esc(x)}</div>`).join("")}</div>` : "");
@@ -84,7 +100,12 @@
     } else if (st.kind === "map" && window.L) {
       v.innerHTML = `<div class="dmap" style="height:420px;border-radius:10px"></div>`;
       W.map = L.map(v.querySelector(".dmap"), { zoomControl: true, attributionControl: true });
-      L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", { maxZoom: 19, attribution: "Imagery © Esri" }).addTo(W.map);
+      if ((window.DOME_ENV || {}).offline) {           // offline demo: no tiles; vectors and the bundled ortho only
+        v.querySelector(".dmap").style.background = "#07101c";
+        W.map.attributionControl.addAttribution("Natural Earth (public domain)");
+      } else {
+        L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", { maxZoom: 19, attribution: "Imagery © Esri" }).addTo(W.map);
+      }
       if (d.image && d.image.src && d.image.bounds) { const [w, s, e, n] = d.image.bounds; L.imageOverlay(d.image.src, [[s, w], [n, e]]).addTo(W.map); }
       const layer = L.geoJSON(d.features, {
         style: (f) => ({ color: f.properties.chosen ? "#ef5f5f" : "#aab3ff", weight: 2, fillOpacity: .2, dashArray: f.geometry.type === "LineString" ? "4 4" : null }),

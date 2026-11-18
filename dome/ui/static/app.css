@@ -424,3 +424,15 @@ body.present { font-size: 17px; } body.present .flowstage .io { font-size: .86em
 .askdlg .cells { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .askdlg .chip { font: 12px/1.2 "Geist Mono", monospace; padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(130,143,255,.35); background: rgba(130,143,255,.12); color: #c9cdff; cursor: pointer; }
 .askdlg .cite-view { margin: 0; padding: 10px; background: #0b0c10; border-radius: 8px; font-size: 12px; white-space: pre-wrap; max-height: 160px; overflow: auto; }
+
+/* offline demo badge (env.js) */
+.offline-badge { position: fixed; left: 50%; bottom: 10px; transform: translateX(-50%); z-index: 9999; padding: 5px 12px;
+  border-radius: 999px; background: rgba(245,181,63,.14); border: 1px solid rgba(245,181,63,.45); color: #f5c76a;
+  font: 500 12px/1.2 "Geist", system-ui, sans-serif; pointer-events: none; }
+
+.approve-bar { display: flex; gap: 12px; align-items: center; margin: 10px 0 0; padding: 10px 14px; border-radius: 10px;
+  background: rgba(130,143,255,.1); border: 1px solid rgba(130,143,255,.35); font-size: 13px; }
+
+.livebox { display: grid; gap: 10px; } .livebox .t { width: 100%; border-collapse: collapse; font-size: 13px; }
+.livebox .t td, .livebox .t th { padding: 5px 8px; border-bottom: 1px solid rgba(255,255,255,.08); text-align: left; }
+.livebox .t tr.win td { color: #9be3a9; font-weight: 600; }

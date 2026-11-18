@@ -473,8 +473,15 @@ function go(m, method, ...args) {
 function makeMap(id) {
   const map = L.map(id, { zoomControl: true, attributionControl: true, preferCanvas: true }).setView([29.758, -95.37], 11);
   // Esri's dark grey canvas, base layer only: no street names, no labels (areas, not addresses)
-  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
-    attribution: "Tiles &copy; Esri", maxZoom: 14 }).addTo(map);
+  if ((window.DOME_ENV || {}).offline) {             // offline demo: Natural Earth land, no tiles
+    document.getElementById(id).style.background = "#07101c";
+    fetch("/static/vendor/naturalearth/ne_110m_land.geojson").then((r) => r.json()).then((g) => L.geoJSON(g, { interactive: false,
+      style: { color: "#3a4660", weight: 0.8, fillColor: "#1a2230", fillOpacity: 1 } }).addTo(map).bringToBack()).catch(() => {});
+    map.attributionControl.addAttribution("Natural Earth (public domain)");
+  } else {
+    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+      attribution: "Tiles &copy; Esri", maxZoom: 14 }).addTo(map);
+  }
   map.setMaxZoom(14);   // closer than this the base map starts naming features
   const m = { map, zones: L.layerGroup().addTo(map), cands: L.layerGroup().addTo(map), pins: L.layerGroup().addTo(map), dots: {} };
   MAPS.push(m); return m;
@@ -686,7 +693,7 @@ function resetCase(caseId) {
 function busy(on, label) {
   $("#runBtn").disabled = on; $("#replaySel").disabled = on;
   $$("#presetSeg button").forEach((b) => { b.disabled = on; });
-  $("#runBtn span").textContent = on ? (label || "Running…") : (UI_FLAGS.public ? "Replay the run" : "Run Case");
+  $("#runBtn span").textContent = on ? (label || "Running…") : ((UI_FLAGS.public || UI_FLAGS.offline) ? "Replay the run" : "Run Case");
 }
 async function runCase() {
   const scripted = $("#scripted").checked;
@@ -728,11 +735,28 @@ async function replay(caseId) {
   let all;
   try { all = await getJSON(`/case/${encodeURIComponent(caseId)}/log?since=0`); } catch { finish("not found"); return; }
   const rows = all.rows; let i = 0;
+  const pauseForApproval = (UI_FLAGS.offline || UI_FLAGS.public);
   const tick = () => {
     if (i >= rows.length) { finish("replayed"); return; }
+    const row = rows[i];
+    if (pauseForApproval && row.decision === "report_approved") {   // the supervisor's interrupt: wait for a person
+      askApproval(caseId, () => { handleRow(rows[i++]); S.timer = setTimeout(tick, 400); });
+      return;
+    }
     handleRow(rows[i++]); S.timer = setTimeout(tick, 400);
   };
   tick();
+}
+function askApproval(caseId, resume) {
+  const bar = document.createElement("div");
+  bar.className = "approve-bar";
+  bar.innerHTML = `<span>The supervisor holds the report for a person to approve (a LangGraph interrupt in a live run).</span>
+    <button class="btn primary" type="button">Approve for report</button>`;
+  $("#caseNote").after(bar);
+  bar.querySelector("button").addEventListener("click", async () => {
+    try { await fetch("/approve", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ case: caseId }) }); } catch {}
+    bar.remove(); resume();
+  }, { once: true });
 }
 async function loadFinished(caseId) {
   // show the last finished run instantly (no animation) so the page is never empty
@@ -757,7 +781,7 @@ async function refreshCases() {
   } catch {}
 }
 $("#replaySel").addEventListener("change", (e) => { const v = e.target.value; e.target.value = ""; if (v) { setUrl({ replay: v }); replay(v); } });
-$("#runBtn").addEventListener("click", () => (UI_FLAGS.public ? replay("demo-real-a") : runCase()));
+$("#runBtn").addEventListener("click", () => (UI_FLAGS.offline ? replay("real-a") : UI_FLAGS.public ? replay("demo-real-a") : runCase()));
 
 async function choosePreset(key, load = true) {
   S.preset = key; setUrl({ preset: key });
@@ -810,6 +834,7 @@ window.addEventListener("resize", () => {
     $("#globeTab").hidden = !UI_FLAGS.globe;
     $("#askBtn").hidden = !UI_FLAGS.ask;
     if (UI_FLAGS.public) { $("#runBtn span").textContent = "Replay the run"; $("#runBtn").title = "Pipeline runs happen on the team's machine; this replays the recorded run"; }
+    if (UI_FLAGS.offline) { $("#runBtn span").textContent = "Replay the run"; $("#runBtn").title = `Replays the real run recorded on ${UI_FLAGS.recorded_on}, with the approval pause`; }
   } catch (e) { /* flag endpoint optional */ }
   $("#presetSeg").innerHTML = Object.entries(S.presets).map(([k, p]) => `<button type="button" data-preset="${esc(k)}" aria-pressed="false" title="${esc(p.note)}">${esc(p.label)}</button>`).join("");
   $("#presetSeg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b && S.mode === "idle") choosePreset(b.dataset.preset); });
@@ -849,7 +874,8 @@ function askRender() {
     : `<div class="msg a"><div class="bubble">${m.pending ? `<p class="fine">Reading the case files…</p>`
         : m.answerable ? askFormat(m.text) : `<p>${esc(m.text)}</p>`}
         ${(m.citations || []).length ? `<div class="cells">${m.citations.map((c) => `<button type="button" class="chip" data-cite-file="${esc(c.file)}" data-cite-path="${esc(c.path)}" title="Show this field">${esc(String(c.file).split("/").pop())} · ${esc(c.path)}</button>`).join("")}</div>` : ""}
-        ${m.saved ? `<div class="fine savednote">Asked during the case run; answer saved with the case.</div>` : ""}</div></div>`).join("")
+        ${m.saved ? `<div class="fine savednote">Asked during the case run; answer saved with the case.</div>` : ""}
+        ${m.note ? `<div class="fine savednote">${esc(m.note)}</div>` : ""}</div></div>`).join("")
     || `<p class="fine">No questions yet.</p>`;
   el.scrollTop = el.scrollHeight;
 }
@@ -897,7 +923,7 @@ document.addEventListener("submit", async (e) => {
   let a;
   try { a = await getJSON("/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ case: S.caseId, question: q }) }); }
   catch { a = { answerable: false, reason: "the request failed" }; }
-  Object.assign(pending, { pending: false, answerable: !!a.answerable, citations: a.citations || [],
+  Object.assign(pending, { pending: false, answerable: !!a.answerable, citations: a.citations || [], note: a.note || "",
     text: a.answerable ? a.answer : (a.reason ? `No answer: ${a.reason}.` : "That isn't in this case's files.") });
   askSave(); askRender();
 });

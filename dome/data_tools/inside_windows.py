@@ -85,10 +85,10 @@ def window_probability(img: np.ndarray, box: dict) -> float:
 
 def _window_p_cached(path: str, img: np.ndarray, box: dict) -> float:
     import os
-    from ._common import cached_json
+    from ._common import cached_json_stable
     st = os.stat(path)
-    key = ["clip_window", CLIP_MODEL, path, st.st_size, int(st.st_mtime), box["x"], box["y"], box["w"], box["h"]]
-    return cached_json("windows", key, lambda: round(window_probability(img, box), 4))
+    key = ["clip_window", CLIP_MODEL, "<path>", st.st_size, int(st.st_mtime), box["x"], box["y"], box["w"], box["h"]]
+    return cached_json_stable("windows", key, path, lambda: round(window_probability(img, box), 4))
 
 
 def _angle(px: float, width: float) -> float:

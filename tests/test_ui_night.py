@@ -56,7 +56,7 @@ def test_everything_new_is_off_without_the_flag(tmp_path, monkeypatch):
                  "/asset/data/demo_assets/LqCMcmmVH3d/ortho.jpg", "/steps?case=demo-real-a&agent=locator"):
         assert c.get(path).status_code == 404, path
     assert c.post("/approve", json={"case": "demo-real-a"}).status_code == 404
-    assert c.get("/ui-flags").get_json() == {"globe": False}
+    assert c.get("/ui-flags").get_json() == {"globe": False, "offline": False, "imageless": False, "recorded_on": None}
     assert c.get("/").status_code == 200          # the classic console is still the default
 
 
@@ -64,8 +64,9 @@ def test_globe_page_and_flag(client):
     page = client.get("/globe").get_data(as_text=True)
     assert "synthetic" not in page.lower() and "demo location" not in page.lower()
     assert "Illustrative case. No real activity at this location." in client.get("/static/globe.js").get_data(as_text=True)
-    assert "Chart.js/4.4.1/chart.umd.min.js" in page
-    assert "maplibre-gl@5.6.0" in page            # pinned CDN versions
+    assert "/static/vendor/chartjs/chart.umd.min.js" in page
+    assert "/static/vendor/maplibre-gl/maplibre-gl.js" in page    # vendored, pinned (see vendor/README.md)
+    assert "cdn.jsdelivr.net" not in page and "cdnjs" not in page and "fonts.googleapis" not in page
     flags = client.get("/ui-flags").get_json()
     assert flags["globe"] is True and "locator" in flags["steps"]
 
@@ -392,7 +393,7 @@ def test_steps_shape_sources_and_no_addresses(client, tmp_path, agent, case):
     assert j["agent"] == agent and j["steps"]
     for s in j["steps"]:
         assert {"id", "title", "kind", "data", "caption", "source"} <= set(s)
-        assert s["kind"] in {"image", "chart", "table", "graph", "map", "text"}
+        assert s["kind"] in {"image", "chart", "table", "graph", "map", "text", "live"}
         assert s["source"], s["id"]
         assert "answer_key" not in s["source"]
     assert "address" not in set(walk_keys(j))

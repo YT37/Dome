@@ -21,7 +21,8 @@ def _load_dotenv() -> None:
                 os.environ.setdefault(k.strip(), v)
 
 
-_load_dotenv()
+if os.environ.get("DOME_OFFLINE") != "1":       # the offline demo never reads keys
+    _load_dotenv()
 
 # LangSmith tracing needs a key; without one, every trace upload fails with 401 noise.
 if os.environ.get("LANGSMITH_TRACING", "").lower() == "true" and not os.environ.get("LANGSMITH_API_KEY"):

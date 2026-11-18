@@ -198,6 +198,8 @@ def is_quota_error(exc: BaseException) -> bool:
 def log_call(task: str, cached: bool, ok: bool = True, note: str = "") -> None:
     """One line per Gemini request or cache hit in cache/gemini/calls.jsonl (no prompts, no
     images, no keys), so a rerun can prove it made zero live calls."""
+    if os.environ.get("DOME_OFFLINE") == "1":            # the offline bundle is read-only
+        return
     try:
         d = cache_dir()
         d.mkdir(parents=True, exist_ok=True)
@@ -271,6 +273,8 @@ def ask_json(task: str, prompt: str, images: list[tuple[bytes, str]],
             return answer
         except (ValidationError, KeyError, json.JSONDecodeError):
             log.warning("ignoring unreadable cache file %s", path)
+    if os.environ.get("DOME_OFFLINE") == "1":
+        raise GeminiUnavailable(f"{task}: not recorded in the offline demo")
     if not _key():
         raise GeminiUnavailable(f"{task}: no GOOGLE_API_KEY and no cached answer")
     last: Exception | None = None

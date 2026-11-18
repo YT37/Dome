@@ -281,13 +281,19 @@ def unit_floors_for_scan(scan_id: str) -> dict:
     if p and p["property_id"].startswith("RL-"):
         # a residential listing is one home: its address carries the unit ("..., Unit 307")
         import re
-        m = re.search(r"\b(?:unit|apt|#)\s*([A-Za-z]?\d+[A-Za-z]?)\b", p.get("address") or "", re.I)
-        if m:
-            f = _floor_from_unit(m.group(1), None, p.get("floors"))
-            out.update(level="listing", units=[[m.group(1), None]], floors=[f] if f else [])
+        # the offline bundle keeps the parsed unit in its own column and no address
+        unit = p.get("unit")
+        if not unit:
+            m = re.search(r"\b(?:unit|apt|#)\s*([A-Za-z]?\d+[A-Za-z]?)\b", p.get("address") or "", re.I)
+            unit = m.group(1) if m else None
+        if unit:
+            f = _floor_from_unit(unit, None, p.get("floors"))
+            out.update(level="listing", units=[[unit, None]], floors=[f] if f else [])
         return out
     if not p or not p["property_id"].startswith("CS-"):
         return out
+    if os.environ.get("DOME_OFFLINE") == "1" and not (kit_dir() / "data").exists():
+        return out                                    # the offline bundle has no raw CoStar kit
     pid = int(p["property_id"][3:])
 
     def fetch():

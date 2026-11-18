@@ -5,7 +5,7 @@ Reads case/<id>/room_match.json (else data/matches/summary.json; old files only 
 """
 from __future__ import annotations
 
-from ._base import asset, chart, fmt, not_recorded, step, table
+from ._base import asset, chart, fmt, live_index_dir, not_recorded, step, table
 
 
 def _normalise(rm: dict) -> dict:
@@ -138,4 +138,11 @@ def build(ctx) -> list:
                           f"{top}: P {fmt(P.get(top))}. Other scans at or above the {thr} threshold: "
                           f"{len([k for k in P if k != top and (P[k] or 0) >= thr])} of {len(P) - 1}.",
                           [rm_src, ctx.src("matches.json")]))
+    if live_index_dir() is not None:
+        steps.append(step("live", "Re-run the room match live", "live",
+                          {"endpoint": "/live/room_match", "case": ctx.case, "label": "computed live on 6 bundled scans"},
+                          "Recomputes the match now on this computer: DINOv2 retrieval, then DISK + LightGlue + RANSAC, "
+                          "on building A, decoy D and 4 other scans of the real run's shortlist (fewer views and keypoints "
+                          "than the full 125-scan search, so P differs from the recorded value).",
+                          "offline bundle: live_index/ (6 scans) and the ring's ad photos"))
     return steps

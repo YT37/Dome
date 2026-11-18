@@ -1,0 +1,1 @@
+Natural Earth vector data, 1:110m land, v5.1.2. Public domain: https://www.naturalearthdata.com/about/terms-of-use/

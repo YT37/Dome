@@ -188,10 +188,11 @@ def detect_windows_best(image_path: str) -> tuple[list[dict], str]:
     import json
     import os
 
-    from ._common import cached_json
-    method = "owlvit" if owl_available() else "heuristic"
+    from ._common import cached_json_stable
+    # offline demo: replay the detector the real run used (OWL-ViT); nothing is recomputed
+    method = "owlvit" if (os.environ.get("DOME_OFFLINE") == "1" or owl_available()) else "heuristic"
     st = os.stat(image_path)
-    key = ["windows", method, image_path, st.st_size, int(st.st_mtime)]
+    key = ["windows", method, "<path>", st.st_size, int(st.st_mtime)]
     fn = detect_windows_owl if method == "owlvit" else detect_windows
-    boxes = cached_json("windows", key, lambda: fn(image_path))
+    boxes = cached_json_stable("windows", key, image_path, lambda: fn(image_path))
     return json.loads(json.dumps(boxes)), method

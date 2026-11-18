@@ -22,6 +22,7 @@ Nothing is sent to Matterport: geocoordinates_patch is output only.
 from __future__ import annotations
 
 import json
+import os
 import math
 from dataclasses import dataclass, field
 
@@ -650,7 +651,8 @@ def fix_scan_location(scan_id: str, rough_lat: float, rough_lon: float,
              "floor_source": floor_source, "costar_unit_floors": cs["floors"],
              "walls": (best.window_info or {}).get("walls"), "window_error": (best.window_info or {}).get("error")}
     notes_path = cache_dir() / "geo" / f"{scan_id}_notes.json"
-    notes_path.write_text(json.dumps(notes, indent=1, default=str))
+    if os.environ.get("DOME_OFFLINE") != "1":          # the offline bundle is read-only
+        notes_path.write_text(json.dumps(notes, indent=1, default=str))
     evidence.append(str(notes_path))
 
     wbest = (best.window_info or {}).get("best")
@@ -679,5 +681,6 @@ def fix_scan_location(scan_id: str, rough_lat: float, rough_lon: float,
     # Contract keys only until Avishek adds the rest to schemas.py; everything else is
     # kept in the notes file (also listed in evidence).
     notes["result"] = full
-    notes_path.write_text(json.dumps(notes, indent=1, default=str))
+    if os.environ.get("DOME_OFFLINE") != "1":          # the offline bundle is read-only
+        notes_path.write_text(json.dumps(notes, indent=1, default=str))
     return {k: full[k] for k in CONTRACT_KEYS}

@@ -113,6 +113,8 @@ MATTERPORT_REQUIRED = {"title": "0", "mls": "2", "brand": "0", "help": "0", "hr"
 
 def matterport_url(embed: dict | None) -> str | None:
     """The showcase URL, always with the title and details hidden (the splash shows the street address); play=1 skips the splash and opens straight into the scan."""
+    if os.getenv("DOME_OFFLINE") == "1":               # offline demo: the 360 view on bundled faces instead
+        return None
     if not embed or not re.match(r"^[A-Za-z0-9]{6,20}$", str(embed.get("model_id", ""))):
         return None
     params = {}
@@ -128,8 +130,30 @@ def matterport_url(embed: dict | None) -> str | None:
     return head + "&" + "&".join(f"{k}={v}" for k, v in params.items())
 
 
+LICENSED_IMAGE_ROOTS = ("data/demo_assets", "data/matches", "data/photos")
+
+
+def imageless() -> bool:
+    """DOME_OFFLINE=1 DOME_IMAGELESS=1: no CoStar, Matterport or Vexcel imagery (or images rendered from it)."""
+    return os.getenv("DOME_OFFLINE") == "1" and os.getenv("DOME_IMAGELESS") == "1"
+
+
 def asset_url(rel: str | None) -> str | None:
+    if imageless() and rel and str(rel).startswith(LICENSED_IMAGE_ROOTS):
+        return None
     return f"/asset/{rel}" if rel else None
+
+
+def plan_outline(scan_id: str | None) -> dict | None:
+    """Imageless inside view: the unit's floor-plan outline (geometry) from the offline bundle."""
+    b = os.getenv("DOME_BUNDLE")
+    if not (b and scan_id and re.match(r"^[A-Za-z0-9]{6,20}$", scan_id)):
+        return None
+    p = Path(b).expanduser() / "derived" / f"plan_outline_{scan_id}.json"
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
 
 
 def load_pack(scan_id: str | None) -> dict | None:
@@ -148,9 +172,56 @@ def globe_page():
     return send_from_directory(STATIC, "globe.html")
 
 
+def env_flags() -> dict:
+    off = os.getenv("DOME_OFFLINE") == "1"
+    return {"offline": off, "imageless": off and os.getenv("DOME_IMAGELESS") == "1",
+            "recorded_on": "Nov 15, 2026" if off else None}
+
+
+_live_lock = __import__("threading").Lock()
+
+
+@bp.post("/live/room_match")
+def live_room_match():
+    """Run the room match live on the offline bundle's 6-scan index with the ring's ad photos.
+    Nothing is read from the recorded results; the response says how long it took."""
+    from .steps._base import live_index_dir
+    idx = live_index_dir()
+    if idx is None:
+        abort(404)
+    d = _case_dir(str((request.get_json(silent=True) or {}).get("case", "")))
+    rings = _load(d, "rings.json") or {}
+    ring = (rings.get("rings") or [{}])[0]
+    photos = [str(ROOT / p["path"]) for p in ring.get("photos", []) if (ROOT / p.get("path", "")).is_file()]
+    if not photos:
+        return jsonify({"error": "no ad photos on this computer"}), 404
+    if not _live_lock.acquire(blocking=False):
+        return jsonify({"error": "a live run is already going"}), 409
+    try:
+        from ..data_tools import room_match as rm
+        out = rm.live_check(photos, str(idx))
+    finally:
+        _live_lock.release()
+    for sc in out["scans"]:
+        sc.pop("inliers", None)
+    return jsonify({**out, "label": "computed live on 6 bundled scans", "recorded_P": 0.68, "recorded_scans": 125})
+
+
+@bp.get("/env.js")
+def env_js():
+    """Loaded first by every page: how this server runs (online, offline demo, imageless)."""
+    body = ("window.DOME_ENV = " + json.dumps(env_flags()) + ";\n"
+            "if (window.DOME_ENV.offline) document.addEventListener('DOMContentLoaded', () => {"
+            " const b = document.createElement('div'); b.className = 'offline-badge';"
+            " b.textContent = 'Offline demo: recorded from the real run on ' + window.DOME_ENV.recorded_on"
+            " + (window.DOME_ENV.imageless ? ' (imageless)' : '');"
+            " document.body.appendChild(b); });\n")
+    return Response(body, mimetype="text/javascript")
+
+
 @bp.get("/ui-flags")
 def ui_flags():
-    out = {"globe": enabled()}
+    out = {"globe": enabled(), **env_flags()}
     if steps_enabled():
         from .steps import AGENTS
         out["steps"] = AGENTS
@@ -172,6 +243,8 @@ def asset(rel):
         abort(404)
     target = (ROOT / rel).resolve()
     ok = any(target.is_relative_to((ROOT / r).resolve()) for r in ASSET_ROOTS)
+    if imageless() and rel.startswith(LICENSED_IMAGE_ROOTS):
+        ok = False                                   # imageless mode: licensed imagery is never served
     if not ok or target.suffix.lower() not in ASSET_TYPES or not target.is_file():
         abort(404)
     return send_file(target, mimetype=ASSET_TYPES[target.suffix.lower()], max_age=3600)
@@ -227,6 +300,9 @@ def flight():
             "matches": [{"photo": m.get("photo"), "match_img": asset_url(m.get("match_img")),
                          "inliers": m.get("inliers")} for m in pack.get("matches") or []],
         }
+        if imageless():
+            inside["imageless"] = True
+            inside["plan_outline"] = plan_outline(best.get("scan_id") if best else None)
     ring = (rings.get("rings") or [None])[0] or {}
     rm = _load(d, "room_match.json") or {}
     thr = (best_zone or {}).get("threshold", 0.4)
@@ -735,7 +811,8 @@ def ask():
         return jsonify({"answer": NOT_IN_CASE, "citations": [], "answerable": False,
                         **({"reason": reason} if reason else {})})
     cites = [{"file": str(c.get("file", "")), "path": str(c.get("path", ""))} for c in out.get("citations") or []]
-    return jsonify(scrub({"answer": out.get("answer", ""), "citations": cites, "answerable": True}))
+    return jsonify(scrub({"answer": out.get("answer", ""), "citations": cites, "answerable": True,
+                          **({"recorded": True, "note": out["note"]} if out.get("recorded") else {})}))
 
 
 def resolve_path(data, path: str):

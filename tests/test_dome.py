@@ -176,7 +176,8 @@ def _planner_model(case):
     return PlannerFake(), offered
 
 
-def test_deep_agent_runs_and_is_locked_down(tmp_path):
+def test_deep_agent_runs_and_is_locked_down(tmp_path, monkeypatch):
+    monkeypatch.setenv("DOME_SUBAGENTS", "0")       # the single-supervisor setup (sub-agents: test below)
     case = Case.open("llm", scenario="ring_a", root=tmp_path, reset=True)
     model, offered = _planner_model(case)
     run_llm(case, model)
@@ -271,6 +272,7 @@ def test_forbidden_tools_not_even_registered(tmp_path, monkeypatch, model):
     """Not hidden, absent: the executor has no shell, write, edit or delete tool to dispatch to."""
     monkeypatch.setenv("GOOGLE_API_KEY", "dummy")
     monkeypatch.setenv("ANTHROPIC_API_KEY", "dummy")
+    monkeypatch.setenv("DOME_SUBAGENTS", "0")
     case = Case.open("locked", scenario="ring_a", root=tmp_path, reset=True)
     names = _registered_tools(build_agent(case, model))
     assert "run_linker" in names and "write_brief_text" in names
@@ -278,3 +280,21 @@ def test_forbidden_tools_not_even_registered(tmp_path, monkeypatch, model):
     assert names - {"case_status", "run_linker", "run_zoner", "run_lister", "run_locator",
                     "run_briefer", "write_brief_text", "log_decision"} == {"ls", "read_file",
                                                                          "glob", "grep"}
+
+
+@pytest.mark.parametrize("model", ["google_genai:gemini-3.5-flash", "anthropic:claude-sonnet-5-5"])
+def test_subagents_registered_and_locked_down(tmp_path, monkeypatch, model):
+    """Default setup: the supervisor plans and delegates through `task`; the pipeline tools live only in
+    the three specialist sub-agents; no shell, write, edit or delete tool anywhere."""
+    from dome.supervisor import SUBAGENTS
+    monkeypatch.setenv("GOOGLE_API_KEY", "dummy")
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "dummy")
+    monkeypatch.delenv("DOME_SUBAGENTS", raising=False)
+    case = Case.open("sub", scenario="ring_a", root=tmp_path, reset=True)
+    names = _registered_tools(build_agent(case, model))
+    assert names == {"case_status", "log_decision", "task", "ls", "read_file", "glob", "grep"}, names
+    assert not names & (EXCLUDED_BUILTINS - {"task"})
+    tools = {sa["name"]: set(sa["tools"]) for sa in SUBAGENTS}
+    assert tools == {"ring-analyst": {"case_status", "run_linker", "log_decision"},
+                     "place-analyst": {"case_status", "run_zoner", "run_lister", "run_locator", "log_decision"},
+                     "brief-writer": {"case_status", "run_briefer", "write_brief_text", "log_decision"}}

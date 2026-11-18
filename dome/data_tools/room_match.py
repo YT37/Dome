@@ -477,3 +477,52 @@ def photo_groups(photo_paths: list[str]) -> list[dict]:
         out.append({"group_id": f"RG-{len(out) + 1}", "photos": [names[i] for i in g], "scan_id": None,
                     "details": [f"DINOv2 cosine >= {GROUP_COS}; best SIFT/RANSAC link {max(links)} inliers"]})
     return out
+
+
+# --- live check on the offline bundle --------------------------------------------------------
+
+LIVE_TOP_K = 2          # views per scan re-ranked live (the full run used TOP_K = 24 on full indexes)
+
+
+def live_check(photo_paths: list[str], index_dir: str, top_k: int = LIVE_TOP_K) -> dict:
+    """Recompute the room match for real, on CPU, on the small index the offline bundle carries
+    (6 scans: building A, decoy D and 4 other scans of the real run's shortlist; DISK keypoints
+    subsampled per view). DINOv2 retrieval, DISK + LightGlue + RANSAC, room groups and P are computed
+    now, nothing is read from the run's results. The numbers differ from the full run (fewer scans,
+    fewer views and keypoints); the UI labels them "computed live on 6 bundled scans"."""
+    import time
+    t0 = time.time()
+    idx_dir = Path(index_dir)
+    names, photos, feats = [], [], []
+    for p in sorted(set(photo_paths)):
+        img = _load_photo(p)
+        if img is None:
+            continue
+        m = silhouette_mask(img)
+        names.append(Path(p).stem)
+        photos.append(_fill(img, m))
+        feats.append(_features(img, m))
+    emb = embed(photos)
+    groups = _groups(emb)
+    t_feat = time.time() - t0
+    out = {"photos": len(names), "groups": len(groups), "top_k": top_k, "min_inliers": MIN_INLIERS, "scans": []}
+    for f in sorted(idx_dir.glob("*.npz")):
+        z = np.load(f)
+        sims = emb @ z["emb"].T
+        best = {}
+        for i, n in enumerate(names):
+            top = 0
+            for j in np.argsort(-sims[i], kind="stable")[:top_k]:
+                c = int(z["count"][j])
+                k, _ = verify(feats[i][0], feats[i][1], feats[i][2], z["pts"][j][:c], z["des"][j][:c], z["hw"][j])
+                top = max(top, k)
+            best[n] = top
+        matched = [g for g in groups if max(best[names[i]] for i in g) >= MIN_INLIERS]
+        out["scans"].append({"scan_id": f.stem, "P": round(len(matched) / len(groups), 3) if groups else 0.0,
+                             "groups_matched": len(matched), "max_inliers": max(best.values(), default=0),
+                             "photos_matched": sum(1 for v in best.values() if v >= MIN_INLIERS),
+                             "inliers": best})
+    out["scans"].sort(key=lambda s: (-s["P"], -s["max_inliers"], s["scan_id"]))
+    out["seconds"] = round(time.time() - t0, 1)
+    out["seconds_features"] = round(t_feat, 1)
+    return out

@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import math
 
 from ._common import cache_key, cache_path, cached_json, request_with_backoff, require_env, use_stubs
@@ -235,6 +236,8 @@ def oblique_view(lat: float, lon: float, heading_deg: float) -> str:
     if path is None:
         raise VexcelError(f"oriented/extract 404 for {used} at ({lat}, {lon})")
     sidecar = path.rsplit(".", 1)[0] + ".json"
+    if os.environ.get("DOME_OFFLINE") == "1" and os.path.exists(sidecar):
+        return path                                      # the offline bundle is read-only; keep the recorded sidecar
     with open(sidecar, "w") as f:
         json.dump({"lat": lat, "lon": lon, "heading_deg": heading_deg, "wanted": want,
                    "used": used, "available": available, "area_wkt": area}, f)

@@ -76,6 +76,22 @@ def _model():
     return init_chat_model(os.getenv("DOME_MODEL", config.MODEL))
 
 
+def _recorded_answer(case_id: str, question: str, root: Optional[Path]) -> Optional[dict]:
+    """Offline demo: the question asked during the real run (case/<id>/ask.json), answered with what
+    the model said then, labelled as recorded. Any other question gets no answer offline."""
+    norm = lambda q: re.sub(r"[^a-z0-9 ]", "", (q or "").lower()).split()   # noqa: E731
+    p = Path(root or config.CASE_ROOT) / case_id / "ask.json"
+    try:
+        rec = json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    if norm(rec.get("question")) != norm(question):
+        return None
+    return {"answer": rec.get("answer", ""), "citations": rec.get("citations", []),
+            "answerable": bool(rec.get("answerable")), "recorded": True,
+            "note": "Recorded answer from the real run on Nov 15, 2026 (offline demo)"}
+
+
 def _cached_invoke(user: str) -> str:
     """The model's raw reply, cached under cache/gemini/ask_<hash>.json keyed by model +
     system prompt + case files + question (free-tier quota: same question, no new call)."""
@@ -91,6 +107,8 @@ def _cached_invoke(user: str) -> str:
             return text
         except (KeyError, ValueError):
             pass
+    if os.getenv("DOME_OFFLINE") == "1":
+        raise RuntimeError("not recorded in the offline demo")
     try:
         msg = _model().invoke([("system", SYSTEM), ("user", user)])
     except Exception as exc:
@@ -122,6 +140,10 @@ def answer(case_id: str, question: str, root: Optional[Path] = None, model=None)
     refusal = {"answer": NOT_IN_CASE, "citations": [], "answerable": False}
     if not files or not (question or "").strip():
         return refusal
+    if os.getenv("DOME_OFFLINE") == "1":
+        rec = _recorded_answer(case_id, question, root)
+        if rec is not None:
+            return rec
     blob = "\n\n".join(f"=== {name} ===\n{json.dumps(data)[:MAX_CHARS_PER_FILE]}" for name, data in files.items())
     user = f"Case files:\n{blob}\n\nQuestion: {question.strip()}"
     if model is not None:                       # injected model (tests): no disk cache
@@ -132,6 +154,8 @@ def answer(case_id: str, question: str, root: Optional[Path] = None, model=None)
             text = _cached_invoke(user)
         except Exception as exc:                # no cached answer and the call failed
             from .data_tools.gemini_vision import is_quota_error
+            if os.getenv("DOME_OFFLINE") == "1":
+                return {**refusal, "reason": "This question wasn't recorded in the offline demo"}
             note = "Gemini quota reached and no cached answer for this question" if is_quota_error(exc) \
                 else f"model call failed ({type(exc).__name__})"
             return {**refusal, "reason": note}

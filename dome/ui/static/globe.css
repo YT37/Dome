@@ -176,3 +176,16 @@ body.present .drawer { width: min(1000px, 100vw); }
 .apptabs a.on, .apptabs a:hover { color: #fff; background: rgba(130, 143, 255, .2); }
 .casename { color: var(--muted); font: .82em "Geist Mono", monospace; margin-left: 8px; }
 .ticker { display: none !important; }
+
+/* offline demo badge (env.js) */
+.offline-badge { position: fixed; left: 50%; bottom: 10px; transform: translateX(-50%); z-index: 9999; padding: 5px 12px;
+  border-radius: 999px; background: rgba(245,181,63,.14); border: 1px solid rgba(245,181,63,.45); color: #f5c76a;
+  font: 500 12px/1.2 "Geist", system-ui, sans-serif; pointer-events: none; }
+
+.livebox { display: grid; gap: 10px; } .livebox .t { width: 100%; border-collapse: collapse; font-size: 13px; }
+.livebox .t td, .livebox .t th { padding: 5px 8px; border-bottom: 1px solid rgba(255,255,255,.08); text-align: left; }
+.livebox .t tr.win td { color: #9be3a9; font-weight: 600; }
+
+.imageless-inside { padding: 24px; color: #dfe2ea; } .imageless-inside svg { max-height: 60vh; background: #0b0d14; border-radius: 10px; }
+.ibars { display: grid; gap: 4px; font-size: 12px; } .ibar { display: grid; grid-template-columns: 90px 1fr 40px; gap: 8px; align-items: center; }
+.ibar i { display: block; height: 8px; border-radius: 4px; background: #828fff; }

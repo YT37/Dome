@@ -21,14 +21,21 @@
     style: {
       version: 8,
       projection: { type: "globe" },
-      sources: {
+      sources: (window.DOME_ENV || {}).offline ? {
+        land: { type: "geojson", data: "/static/vendor/naturalearth/ne_110m_land.geojson",
+          attribution: "Natural Earth (public domain) · Vexcel imagery and CoStar data under hackathon licence" },
+      } : {
         esri: {
           type: "raster", tileSize: 256, maxzoom: 19,
           tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"],
           attribution: "Imagery © Esri, Maxar, Earthstar Geographics · Vexcel imagery and CoStar data under hackathon licence",
         },
       },
-      layers: [
+      layers: (window.DOME_ENV || {}).offline ? [
+        { id: "bg", type: "background", paint: { "background-color": "#07101c" } },
+        { id: "land", type: "fill", source: "land", paint: { "fill-color": "#1a2230" } },
+        { id: "coast", type: "line", source: "land", paint: { "line-color": "#3a4660", "line-width": 0.8 } },
+      ] : [
         { id: "bg", type: "background", paint: { "background-color": "#010102" } },
         { id: "esri", type: "raster", source: "esri" },
       ],
@@ -189,10 +196,11 @@
     const o = obs.find((x) => x.floor_band) || obs[0];
     const p = fixed(); if (p) map.easeTo({ center: [p.lon, p.lat], zoom: 18.2, pitch: 60, bearing: 70, duration: 2500 });
     card(`<div class="eyebrow">Vexcel · oblique</div><h2>The side of the building</h2>
-      ${o ? `<div class="oblique-box"><img src="${esc(o.img)}" alt="Vexcel oblique view of the building">
+      ${o && !o.img ? `<p>Oblique image withheld in imageless mode.</p>${o.floor_band ? `<p class="band-chip">Floor ${esc(ins().floor ?? "")} band · ${o.floor_band[0]}–${o.floor_band[1]} m above ground</p>` : ""}` : ""}
+      ${o && o.img ? `<div class="oblique-box"><img src="${esc(o.img)}" alt="Vexcel oblique view of the building">
         ${o.floor_band ? `<span class="band-chip">Floor ${esc(ins().floor ?? "")} band · ${o.floor_band[0]}–${o.floor_band[1]} m</span>` : ""}</div>
         <p class="fine">${esc(o.direction || "")}${o.capture_date ? " · captured " + new Date(o.capture_date).toISOString().slice(0, 10) : ""}.
-        The floor band is the height range of the matched floor above ground.</p>` : "<p>No oblique in this asset pack.</p>"}`);
+        The floor band is the height range of the matched floor above ground.</p>` : o ? "" : "<p>No oblique in this asset pack.</p>"}`);
   }
 
   function sCostar() {
@@ -232,7 +240,34 @@
   }
 
   // --------------------------------------------------------------- inside
+  function insideImageless() {
+    const o = ins().plan_outline, s = ins().sweep || {}, ms = ins().matches || [];
+    const floors = o ? Object.values(o.floors || {}) : [];
+    let svg = "<p>No floor-plan outline in this bundle.</p>";
+    if (floors.length) {
+      const pts = floors.flat(), xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+      const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+      const W = 520, H = 360, k = Math.min((W - 40) / (x1 - x0 || 1), (H - 40) / (y1 - y0 || 1));
+      const X = (x) => 20 + (x - x0) * k, Y = (y) => H - 20 - (y - y0) * k;
+      const poly = floors.map((f) => `<polygon points="${f.map((p) => `${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(" ")}" fill="rgba(130,143,255,.08)" stroke="#aab3ff" stroke-width="1.5"/>`).join("");
+      const dots = (o.sweeps || []).map((w) => `<circle cx="${X(w.x).toFixed(1)}" cy="${Y(w.y).toFixed(1)}" r="${w.sweep_id === s.sweep_id ? 7 : 2.5}" fill="${w.sweep_id === s.sweep_id ? "#ef5f5f" : "#5d6680"}"/>`).join("");
+      svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Floor-plan outline">${poly}${dots}</svg>`;
+    }
+    const max = Math.max(1, ...ms.map((m) => m.inliers || 0));
+    const bars = ms.map((m) => `<div class="ibar"><span>${esc(m.photo)}</span><i style="width:${(100 * (m.inliers || 0) / max).toFixed(0)}%"></i><b>${esc(m.inliers)}</b></div>`).join("");
+    $("#inside").hidden = false; $("#mp").hidden = true;
+    $("#pano").innerHTML = `<div class="imageless-inside"><h3>Inside the matched unit (schematic)</h3>${svg}
+      <p class="fine">Floor-plan outline as lines; the red dot is the matched sweep. Imagery is withheld in this mode.</p></div>`;
+    $("#panoTag").innerHTML = `<div class="navrow"><button class="btn" data-inav="-1">← Back to the map</button><a class="btn primary" href="/?work=briefer">Lead brief →</a></div>`;
+    $("#matchThumbs").innerHTML = ""; $("#matchImg").removeAttribute("src"); $("#planImg").removeAttribute("src");
+    $("#matchImg").hidden = true; $("#planImg").hidden = true;
+    $("#planCap").innerHTML = `<div class="ibars"><b>Matched points per ad photo (threshold 50)</b>${bars}</div>`;
+    card(`<div class="eyebrow">Locator · room match</div><h2>Inside: the room matches</h2>
+      <p>${ms.length} ad photos matched this scan; the bars show how many points matched for each. Images are withheld in imageless mode.</p>`);
+  }
   function sInside() {
+    if (ins().imageless) return insideImageless();
+    $("#matchImg").hidden = false; $("#planImg").hidden = false;
     const s = ins().sweep;
     if (!s || !s.faces || s.faces.length !== 6) return card("<h2>No 360 view in this pack</h2><p>Showing the match image instead.</p>");
     $("#inside").hidden = false;
@@ -306,7 +341,7 @@
     map.addLayer({ id: "zone-fill", type: "fill", source: "zones", layout: { visibility: "none" }, paint: { "fill-color": "#828fff", "fill-opacity": 0.16 } });
     map.addLayer({ id: "zone-line", type: "line", source: "zones", layout: { visibility: "none" }, paint: { "line-color": "#aab3ff", "line-width": 2.5 } });
     const o = ins().ortho;
-    if (o && o.bounds) {
+    if (o && o.bounds && o.img) {               // no image in imageless mode: footprints stay as vectors
       const [w, s, e, n] = o.bounds;
       map.addSource("ortho", { type: "image", url: o.img, coordinates: [[w, n], [e, n], [e, s], [w, s]] });
       map.addLayer({ id: "ortho", type: "raster", source: "ortho", layout: { visibility: "none" }, paint: { "raster-fade-duration": 400 } });
@@ -555,6 +590,22 @@
     const v = $("#stepView"), d = st.data || {};
     if (st.kind === "text") {
       v.innerHTML = `<div class="bigtext">${esc(d.text || "")}</div>${(d.bullets || []).length ? `<ul>${d.bullets.map((b) => `<li>${esc(b)}</li>`).join("")}</ul>` : ""}${d.note ? `<p class="note">${esc(d.note)}</p>` : ""}`;
+    } else if (st.kind === "live") {
+      v.innerHTML = `<div class="livebox"><button class="btn primary" type="button" data-live>Re-run the room match live</button>
+        <span class="muted">${esc(d.label || "")} · about a minute on CPU</span><div class="liveout"></div></div>`;
+      v.querySelector("[data-live]").addEventListener("click", async (e) => {
+        const btn = e.currentTarget, out = v.querySelector(".liveout");
+        btn.disabled = true; out.innerHTML = `<p class="muted">Computing: DINOv2 retrieval, then DISK + LightGlue + RANSAC on 6 scans…</p>`;
+        try {
+          const r = await (await fetch(d.endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ case: d.case }) })).json();
+          if (r.error) throw new Error(r.error);
+          out.innerHTML = `<p><b>${esc(r.label)}</b> in ${esc(r.seconds)} s · ${esc(r.photos)} ad photos in ${esc(r.groups)} room groups · a photo matches a scan at ≥ ${esc(r.min_inliers)} points</p>
+            <table class="t"><tr><th>Scan</th><th>P</th><th>Room groups</th><th>Best match (points)</th></tr>
+            ${r.scans.map((s, k) => `<tr${k === 0 ? ' class="win"' : ""}><td>${esc(s.scan_id)}</td><td>${esc(s.P)}</td><td>${esc(s.groups_matched)} / ${esc(r.groups)}</td><td>${esc(s.max_inliers)}</td></tr>`).join("")}</table>
+            <p class="muted">The recorded run searched ${esc(r.recorded_scans)} scans with more views and keypoints and found P ${esc(r.recorded_P)}; this live check uses a smaller index, so its P is lower.</p>`;
+        } catch (err) { out.innerHTML = `<p>Could not run: ${esc(err.message || err)}</p>`; }
+        btn.disabled = false;
+      });
     } else if (st.kind === "image") {
       v.innerHTML = (d.images || []).slice(0, 8).map((im) => `<figure style="margin:0 0 10px"><img src="${esc(im.src)}" alt="${esc(im.label || st.title)}" loading="lazy"><figcaption class="fine">${esc(im.label || "")}</figcaption></figure>`).join("")
         + ((d.list || []).length ? `<div class="glist">${d.list.map((x) => `<div>${esc(x)}</div>`).join("")}</div>` : "");
@@ -596,9 +647,13 @@
       const walk = (c) => (typeof c[0] === "number" ? b.extend(c) : c.forEach(walk));
       fc.features.forEach((f) => f.geometry && walk(f.geometry.coordinates));
       W.map = new maplibregl.Map({ container: "smap", attributionControl: { compact: true },
-        style: { version: 8, sources: { esri: { type: "raster", tileSize: 256, maxzoom: 19, attribution: "Imagery © Esri",
-          tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"] } },
-          layers: [{ id: "esri", type: "raster", source: "esri" }] },
+        style: (window.DOME_ENV || {}).offline
+          ? { version: 8, sources: { land: { type: "geojson", data: "/static/vendor/naturalearth/ne_110m_land.geojson", attribution: "Natural Earth (public domain)" } },
+              layers: [{ id: "bg", type: "background", paint: { "background-color": "#07101c" } },
+                       { id: "land", type: "fill", source: "land", paint: { "fill-color": "#1a2230" } }] }
+          : { version: 8, sources: { esri: { type: "raster", tileSize: 256, maxzoom: 19, attribution: "Imagery © Esri",
+              tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"] } },
+              layers: [{ id: "esri", type: "raster", source: "esri" }] },
         bounds: b.isEmpty() ? undefined : b, fitBoundsOptions: { padding: 50, maxZoom: d.zoom || 18 } });
       W.map.on("load", () => {
         if (d.image && d.image.src && d.image.bounds) { const [w, s2, e2, n] = d.image.bounds;

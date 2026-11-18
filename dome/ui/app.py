@@ -93,8 +93,9 @@ def presets():
 
 # ---------------------------------------------------------------------- run
 def public_mode() -> bool:
-    """DOME_PUBLIC=1 (the hosted site): no pipeline runs from the web; the page replays the recorded run."""
-    return os.getenv("DOME_PUBLIC") == "1"
+    """DOME_PUBLIC=1 (the hosted site) or DOME_OFFLINE=1 (the offline demo): no pipeline runs from the
+    web; the page replays the recorded run."""
+    return os.getenv("DOME_PUBLIC") == "1" or os.getenv("DOME_OFFLINE") == "1"
 
 
 @app.post("/run")
