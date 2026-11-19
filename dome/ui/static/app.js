@@ -895,6 +895,8 @@ async function askSeed() {
 }
 async function openAsk() {
   if (ASK.key !== askKey()) { ASK.key = askKey(); ASK.thread = askLoad() || []; if (!ASK.thread.length) await askSeed(); }
+  if (UI_FLAGS.public) $("#askDlg .askhead .fine").textContent =
+    "Live questions are off now that the hackathon is over; the saved answer below shows how Ask works.";
   $("#citeView").hidden = true; askRender(); $("#askDlg").showModal(); $("#askQ").focus();
 }
 document.addEventListener("click", async (e) => {

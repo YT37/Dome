@@ -24,6 +24,7 @@ from typing import Any, Optional
 from . import config
 
 NOT_IN_CASE = "That isn't in this case's files."
+LIVE_OFF = "live questions are off now that the hackathon is over"
 CASE_ID = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
 MAX_CHARS_PER_FILE = 15000
 PATH_TOKEN = re.compile(r"([A-Za-z_][\w-]*)|\[(\d+)\]")
@@ -154,6 +155,8 @@ def answer(case_id: str, question: str, root: Optional[Path] = None, model=None)
             text = _cached_invoke(user)
         except Exception as exc:                # no cached answer and the call failed
             from .data_tools.gemini_vision import is_quota_error
+            if os.getenv("DOME_PUBLIC") == "1":     # hosted site after the hackathon: no model key
+                return {**refusal, "reason": LIVE_OFF}
             if os.getenv("DOME_OFFLINE") == "1":
                 return {**refusal, "reason": "This question wasn't recorded in the offline demo"}
             note = "Gemini quota reached and no cached answer for this question" if is_quota_error(exc) \

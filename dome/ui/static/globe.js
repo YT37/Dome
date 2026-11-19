@@ -479,7 +479,7 @@
     openSheet("Ask about this case", `<div class="list">
       <form id="askForm" class="askrow"><input id="askQ" class="ctl" maxlength="500" placeholder="e.g. Why is Building A High?" autocomplete="off">
         <button class="btn primary" type="submit">Ask</button></form>
-      <p class="fine">Answers come only from this case's files; every claim cites a file and field. Nothing leaves the case.</p>
+      <p class="fine">${FLAGS.public ? "Live questions are off now that the hackathon is over; the recorded answer below shows how Ask works. " : ""}Answers come only from this case's files; every claim cites a file and field. Nothing leaves the case.</p>
       <div id="askOut"></div><div id="askRec"></div><pre class="cite-view" id="citeView" hidden></pre></div>`);
     const rec = await (await fetch(`/ask?case=${encodeURIComponent(CASE)}`)).json();
     if (rec.recorded) $("#askRec").innerHTML = `<div class="why"><span class="sample-tag">recorded</span>${rec.question ? `<p><b>Q:</b> ${esc(rec.question)}</p>` : ""}${renderAnswer(rec)}</div>`;

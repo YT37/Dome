@@ -737,6 +737,7 @@ def events():
 
 # ---------------------------------------------------------------------- ask about this case (DOME_ASK=1)
 NOT_IN_CASE = "That isn't in this case's files."
+LIVE_OFF = "live questions are off now that the hackathon is over"
 _PATH_TOKEN = re.compile(r"([A-Za-z_][\w-]*)|\[(\d+)\]")
 
 
@@ -805,7 +806,8 @@ def ask():
         out = ask_mod.answer(d.name, q, root=d.parent)
     except Exception as exc:          # no model key, bad output, anything: say so plainly
         return jsonify({"answer": NOT_IN_CASE, "citations": [], "answerable": False,
-                        "error": f"{type(exc).__name__}"[:80]})
+                        "error": f"{type(exc).__name__}"[:80],
+                        **({"reason": LIVE_OFF} if os.getenv("DOME_PUBLIC") == "1" else {})})
     if not isinstance(out, dict) or not out.get("answerable"):
         reason = str((out or {}).get("reason") or "")[:120] if isinstance(out, dict) else ""
         return jsonify({"answer": NOT_IN_CASE, "citations": [], "answerable": False,
