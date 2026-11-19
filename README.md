@@ -18,6 +18,23 @@ room, where they were most likely taken. **Every output is a lead for human veri
 and three recruiters. Dome links them, draws the area, lists the buildings inside, matches the
 photos to one building's scan, and explains a **High** lead.
 
+## See it
+
+<table>
+<tr>
+<td width="50%"><img src="docs/images/homepage.jpg" alt="Homepage: the six agents as a data flow with the real numbers"><br>
+<sub><b>How it works.</b> Six agents, each with its input, what it did, its output file and the real number: 15 flagged → 1 ring (R 0.95) → 14 km² dome → 129 buildings → 125 scans → 6 → Building A (P 0.68) → High 59.</sub></td>
+<td width="50%"><img src="docs/images/show_the_work.jpg" alt="Show the work: all 125 scans ranked by DINOv2 similarity"><br>
+<sub><b>Show the work.</b> Every agent's in-between results, read from real files. Here: all 125 scanned buildings ranked by image similarity; Building A comes first, and the top 6 go on to point matching.</sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/images/building_card.jpg" alt="Globe: the matched building's CoStar card"><br>
+<sub><b>The building.</b> The Globe's CoStar story: condo, 3 floors, built 2007; floor 3 from CoStar unit 307; High 59 with room match P 0.68 and window check W 0.60.</sub></td>
+<td width="50%"><img src="docs/images/window_check.jpg" alt="Window check: the ad's window view against the aerial view, item by item"><br>
+<sub><b>Window check.</b> Gemini answers a fixed checklist for the ad's window view and the aerial view of that facade; code compares them item by item (W 0.60).</sub></td>
+</tr>
+</table>
+
 ## Results
 
 One real end-to-end run on the synthetic case (Ring A and decoy D at real Houston buildings),
