@@ -1,6 +1,6 @@
 """Freeze a private offline demo bundle from the real run (run once, while the cache still holds it).
 
-    python scripts/freeze_demo.py --case real-a --out ~/DomeDemoBundle
+    python scripts/freeze_demo.py --case real-a            # -> ../private/DomeDemoBundle (or --out PATH)
 
 What it does
 1. Re-runs the real case (scripted, real data tools) under `strace` and records every file the run
@@ -328,7 +328,9 @@ def verify(bundle: Path) -> int:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--case", default="real-a")
-    ap.add_argument("--out", default=str(Path.home() / "DomeDemoBundle"))
+    default_out = ROOT.parent / "private" / "DomeDemoBundle" if (ROOT.parent / "private").is_dir() \
+        else Path.home() / "DomeDemoBundle"
+    ap.add_argument("--out", default=str(default_out))
     ap.add_argument("--trace-link", default="https://smith.langchain.com/public/ccdd3df0-49d8-4328-8a80-38f9b21f29d8/"
                                             "r/01a1df42-57b6-70a8-844c-21601db2bdde")
     ap.add_argument("--verify-only", action="store_true")

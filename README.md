@@ -138,6 +138,7 @@ After the hackathon the data accesses (Matterport, Vexcel, CoStar kit, Gemini, L
 real results, every "Show the work" step, and a "Re-run the room match live" button that recomputes
 the match on 6 bundled scans. `--imageless` tells the same story without licensed imagery. The bundle
 holds licensed data, so it is not in this repository; see [docs/OFFLINE_DEMO.md](docs/OFFLINE_DEMO.md).
+With access back, `scripts/check_access.py` and `scripts/run_online.sh` run the live version again.
 
 ## Linker on its own
 

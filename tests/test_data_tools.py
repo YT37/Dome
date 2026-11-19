@@ -1,6 +1,6 @@
 """data_tools: stub dispatch (always runs) and real data (skips without kit / keys).
 
-Real tests read from the shared cache (cache/ -> ~/Desktop/Dome/cache), so they make
+Real tests read from the shared cache (cache/ -> ../private/cache), so they make
 no API calls once it is warm.
 """
 import json

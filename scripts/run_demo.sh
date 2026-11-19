@@ -5,12 +5,14 @@
 #   scripts/run_demo.sh --imageless     # same story without CoStar/Matterport/Vexcel imagery
 #   scripts/run_demo.sh --port 5010
 #
-# Needs the private bundle made by scripts/freeze_demo.py (default ~/DomeDemoBundle, or DOME_BUNDLE).
-# Python: PY=/path/to/python, else ~/Desktop/Dome/.venv/bin/python if present, else python3.
+# Needs the private bundle made by scripts/freeze_demo.py: DOME_BUNDLE, else ../private/DomeDemoBundle next to
+# the repo, else ~/DomeDemoBundle. Python: PY=/path/to/python, else ../.venv next to the repo, else python3.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-BUNDLE="${DOME_BUNDLE:-$HOME/DomeDemoBundle}"
+if [ -n "${DOME_BUNDLE:-}" ]; then BUNDLE="$DOME_BUNDLE"
+elif [ -d "$ROOT/../private/DomeDemoBundle" ]; then BUNDLE="$(cd "$ROOT/../private/DomeDemoBundle" && pwd)"
+else BUNDLE="$HOME/DomeDemoBundle"; fi
 PORT=5001
 IMAGELESS=0
 while [ $# -gt 0 ]; do
@@ -23,7 +25,8 @@ while [ $# -gt 0 ]; do
 done
 
 if [ -z "${PY:-}" ]; then
-  if [ -x "$HOME/Desktop/Dome/.venv/bin/python" ]; then PY="$HOME/Desktop/Dome/.venv/bin/python"; else PY="$(command -v python3)"; fi
+  WS="$(cd "$ROOT/.." && pwd)"
+  if [ -x "$WS/.venv/bin/python" ]; then PY="$WS/.venv/bin/python"; else PY="$(command -v python3)"; fi
 fi
 
 if [ ! -f "$BUNDLE/MANIFEST.json" ]; then

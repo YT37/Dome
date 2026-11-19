@@ -1,7 +1,7 @@
 """The offline demo (DOME_OFFLINE=1) reproduces the real run from the private bundle, with no network.
 
 Skips cleanly when DOME_BUNDLE is not set, so the public repository's tests stay green. Run with:
-    DOME_BUNDLE=~/DomeDemoBundle pytest -q tests/test_offline_demo.py
+    pytest -q tests/test_offline_demo.py      # bundle at ../private/DomeDemoBundle, or set DOME_BUNDLE
 Everything runs in a subprocess, because offline mode is set up when the `dome` package is first
 imported (keys and `.env` ignored, socket guard installed).
 """
@@ -17,7 +17,8 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-BUNDLE = os.environ.get("DOME_BUNDLE")
+_DEFAULT = ROOT.parent / "private" / "DomeDemoBundle"          # the local layout; absent in a public clone
+BUNDLE = os.environ.get("DOME_BUNDLE") or (str(_DEFAULT) if (_DEFAULT / "MANIFEST.json").exists() else None)
 pytestmark = pytest.mark.skipif(not BUNDLE or not (Path(BUNDLE).expanduser() / "MANIFEST.json").exists(),
                                 reason="no offline bundle (set DOME_BUNDLE)")
 

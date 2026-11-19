@@ -14,13 +14,14 @@ scripts/run_demo.sh --port 5010
 ```
 
 It checks the bundle's manifest (sha256 of every file), links the bundle's photos and images into the
-repository's git-ignored folders, starts the UI and opens `/?replay=real-a`. Set `DOME_BUNDLE` if the
-bundle is not at `~/DomeDemoBundle`, and `PY` to choose the Python.
+repository's git-ignored folders, starts the UI and opens `/?replay=real-a`. The bundle is found at
+`DOME_BUNDLE`, else `../private/DomeDemoBundle` next to the repository, else `~/DomeDemoBundle`; `PY`
+chooses the Python (default `../.venv`).
 
 Tests (skip cleanly without a bundle, so the public repository stays green):
 
 ```bash
-DOME_BUNDLE=~/DomeDemoBundle pytest -q tests/test_offline_demo.py
+pytest -q tests/test_offline_demo.py      # finds ../private/DomeDemoBundle, or set DOME_BUNDLE
 ```
 
 ## What is recorded and what is live
@@ -59,7 +60,7 @@ Spotter) is unchanged.
 
 ## The bundle, and why it is not in the repository
 
-Built once by `scripts/freeze_demo.py`, outside the repository (default `~/DomeDemoBundle`, about
+Built once by `scripts/freeze_demo.py`, outside the repository (default `../private/DomeDemoBundle`, about
 0.9 GB). It re-runs the real case under `strace` and copies exactly the files that run reads, then:
 
 | Folder | What | Source |
@@ -83,13 +84,31 @@ commit it, never upload it anywhere public. Keep it only if CoStar agrees; if no
 `data/`, `live_index/` and the image files under `cache/`, and use `--imageless` (confirm with CoStar
 whether footprint geometry and floor-plan outlines may stay; if not, delete `derived/` as well).
 
+## Online mode (when access returns)
+
+Online mode is the real pipeline on live data tools: it is simply Dome without `DOME_OFFLINE`, with
+the keys in `.env` (`repo/.env` links to `private/.env`). The code is the same in both modes; offline
+mode only swaps the data sources for the frozen bundle.
+
+```bash
+python scripts/check_access.py      # OK / FAIL per service (CoStar kit, Matterport, Vexcel, Gemini, LangSmith)
+scripts/run_online.sh               # check access, then the UI on the live data tools
+scripts/run_online.sh --run         # also run the real case first and score it
+```
+
+Everything from the online version is kept: the full 8.8 GB cache of every API response and image
+(`private/cache`), the CoStar kit (`private/costar_kit`), and two git tags, `online-final` (the last
+commit before the offline work, the version that ran at the hackathon) and `offline-demo`. Because the
+real run is fully cached, `scripts/run_online.sh --run` reproduces it even with only some keys back;
+any request that is not cached needs its service.
+
 ## Rebuild the bundle (if access returns)
 
 With the data keys in `.env` and the real case run once (`case/real-a`):
 
 ```bash
-python scripts/freeze_demo.py --case real-a --out ~/DomeDemoBundle
-python scripts/freeze_demo.py --verify-only --out ~/DomeDemoBundle
+python scripts/freeze_demo.py --case real-a
+python scripts/freeze_demo.py --verify-only
 ```
 
 Then revoke the Matterport token and the Vexcel key again.
