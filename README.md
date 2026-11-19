@@ -28,12 +28,22 @@ photos to one building's scan, and explains a **High** lead.
 <sub><b>Show the work.</b> Every agent's in-between results, read from real files. Here: all 125 scanned buildings ranked by image similarity; Building A comes first, and the top 6 go on to point matching.</sub></td>
 </tr>
 <tr>
+<td width="50%"><img src="docs/images/room_match.jpg" alt="An ad photo matched to the building's own scan with 581 matched points"><br>
+<sub><b>Find the room.</b> An ad photo (grey silhouette, rendered from a held-out sweep) against a view of Building A's own scan: 581 points matched by DISK + LightGlue and RANSAC. Wrong buildings never pass 25; the threshold is 50.</sub></td>
+<td width="50%"><img src="docs/images/floor_band.jpg" alt="Vexcel aerial view of the building with the floor-3 band on its facade"><br>
+<sub><b>Find the floor.</b> The Vexcel oblique of the matched facade, with the floor-3 band (from CoStar unit 307) drawn through the fitted camera model.</sub></td>
+</tr>
+<tr>
 <td width="50%"><img src="docs/images/building_card.jpg" alt="Globe: the matched building's CoStar card"><br>
 <sub><b>The building.</b> The Globe's CoStar story: condo, 3 floors, built 2007; floor 3 from CoStar unit 307; High 59 with room match P 0.68 and window check W 0.60.</sub></td>
 <td width="50%"><img src="docs/images/window_check.jpg" alt="Window check: the ad's window view against the aerial view, item by item"><br>
 <sub><b>Window check.</b> Gemini answers a fixed checklist for the ad's window view and the aerial view of that facade; code compares them item by item (W 0.60).</sub></td>
 </tr>
 </table>
+
+<sub>Imagery: Matterport scans and Vexcel aerial imagery via the CoStar hackathon kit; globe base map © Esri, Maxar,
+Earthstar Geographics. All accounts and posts are synthetic; the ad photos are rendered from the building's scan with grey
+silhouettes in place of people, and the building is used only as a location.</sub>
 
 ## Results
 
