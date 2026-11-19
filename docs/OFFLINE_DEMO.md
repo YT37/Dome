@@ -56,7 +56,7 @@ imported):
 rendered from it: the image routes return 404, the Globe keeps the footprints as vectors, the inside
 view becomes the floor-plan outline drawn as lines with the matched sweep marked, and match images
 become charts of matched points. Everything synthetic (accounts, posts, money, link chart, topology,
-Spotter) is unchanged.
+Spotter) is unchanged. The real visuals are in the public demo video: https://youtu.be/n3xntLqfbcA
 
 ## The bundle, and why it is not in the repository
 

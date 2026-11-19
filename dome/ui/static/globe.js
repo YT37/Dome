@@ -257,7 +257,8 @@
     const bars = ms.map((m) => `<div class="ibar"><span>${esc(m.photo)}</span><i style="width:${(100 * (m.inliers || 0) / max).toFixed(0)}%"></i><b>${esc(m.inliers)}</b></div>`).join("");
     $("#inside").hidden = false; $("#mp").hidden = true;
     $("#pano").innerHTML = `<div class="imageless-inside"><h3>Inside the matched unit (schematic)</h3>${svg}
-      <p class="fine">Floor-plan outline as lines; the red dot is the matched sweep. Imagery is withheld in this mode.</p></div>`;
+      <p class="fine">Floor-plan outline as lines; the red dot is the matched sweep. Imagery is withheld in this mode.
+      The real visuals are in the <a href="https://youtu.be/n3xntLqfbcA" target="_blank" rel="noopener">demo video</a>.</p></div>`;
     $("#panoTag").innerHTML = `<div class="navrow"><button class="btn" data-inav="-1">← Back to the map</button><a class="btn primary" href="/?work=briefer">Lead brief →</a></div>`;
     $("#matchThumbs").innerHTML = ""; $("#matchImg").removeAttribute("src"); $("#planImg").removeAttribute("src");
     $("#matchImg").hidden = true; $("#planImg").hidden = true;

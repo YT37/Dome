@@ -7,6 +7,9 @@
 **Live:** **[dome.surf](https://dome.surf)** (backup: [dome37.web.app](https://dome37.web.app)). It replays the recorded
 real case; the Ask box answers live from the case files.
 
+<p align="center"><a href="https://youtu.be/n3xntLqfbcA"><img src="https://img.youtube.com/vi/n3xntLqfbcA/hqdefault.jpg" width="480" alt="Watch the Dome demo video on YouTube"></a><br>
+<b><a href="https://youtu.be/n3xntLqfbcA">▶ Watch the demo video</a></b></p>
+
 Dome is an investigation tool for trust and safety teams, anti-trafficking NGOs and police
 trafficking units. Six agents under one LangChain **deepagents** supervisor pick out suspicious
 social accounts, find the ring behind them, and narrow its photos down to the building, and the
